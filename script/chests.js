@@ -204,7 +204,7 @@ var dungeons = [
             },
             'Seras Bottle': {
                 isAvailable: function () {
-                    return (items.Rod >= 1 || SkipIntro);
+                    return (items.Rod >= 1);
                 },
             },
             'Slingshot': {
@@ -214,7 +214,7 @@ var dungeons = [
             },
             'Ordon Shield': {
                 isAvailable: function () {
-                    return (canDoDamage() || SkipIntro);
+                    return (items.Crystal);
                 },
             },
             'Ordon Sword': {
@@ -1858,7 +1858,12 @@ var dungeons = [
             },
             'Heart Piece Chest': {
                 isAvailable: function () {
-                    return canSmash() && canAccessKakGorge() && canBurnWebs();
+                    return canSmash() && canAccessKakGorge() && canBurnWebs() && items.Lantern;
+                },
+            },
+             'Poe': {
+                isAvailable: function () {
+                    return canSmash() && canAccessKakGorge() && canBurnWebs() && items.Crystal;
                 },
             },
         },
@@ -1889,9 +1894,20 @@ var dungeons = [
                     return canAccessDesert() && canDoDamage();
                 },
             },
+            'Small Key': {
+                isAvailable: function () {
+                    return canAccessDesert() && canDoDamage();
+                },
+            },
             'Outside Arbiter Grounds Lantern Chest': {
                 isAvailable: function () {
                     return items.Lantern && canAccessDesert() && canDoDamage();
+                },
+            },
+            'Bublin Camp Poe': {
+                isAvailable: function () {
+                    return canAccessDesert() && setMDHFlag() && items.Crystal && canDoDamage();
+
                 },
             },
         },
@@ -1960,6 +1976,21 @@ var overworldChests = [
         y: "71.8%",
         isAvailable: function () {
             if (canBurnWebs() || SkipIntro) {
+                return "available";
+            }
+            return "unavailable";
+        },
+        checkType: "chest"
+    },
+      {
+        name: "Oil Bottle",
+
+        x: "55.7%",
+        y: "71.8%",
+        isAvailable: function () {
+
+            if (canBurnWebs() || SkipIntro) {
+
                 return "available";
             }
             return "unavailable";
@@ -2049,7 +2080,7 @@ var overworldChests = [
         x: "45.08%",
         y: "68.88%",
         isAvailable: function () {
-            if (canAccessTot() && items.Dominion > 1)
+            if (canAccessTot() && items.Dominion > 0)
                 return "available";
             return "unavailable";
         },
@@ -2071,6 +2102,17 @@ var overworldChests = [
         y: "10.56%",
         isAvailable: function () {
             if (canAccessZoraDomain() && items.Crystal) {
+                return "available";
+            }
+            return "unavailable";
+        },
+    },
+    {
+        name: "Ashei's Sketch",
+        x: "51.00%",
+        y: "11.06%",
+        isAvailable: function () {
+            if (canAccessZoraDomain()) {
                 return "available";
             }
             return "unavailable";
@@ -2126,6 +2168,17 @@ var overworldChests = [
         y: "55.26%",
         isAvailable: function () {
             if (canAccessLakeHylia() && items.Crystal && (items.Boss3 || EarlyCits)) {
+                return "available";
+            }
+            return "unavailable";
+        },
+    },
+     {
+        name: "Auru's Memo",
+        x: "35.95%",
+        y: "55.26%",
+        isAvailable: function () {
+            if (canAccessLakeHylia()) {
                 return "available";
             }
             return "unavailable";
@@ -2411,7 +2464,7 @@ var overworldChests = [
         x: "21.66%",
         y: "50.64%",
         isAvailable: function () {
-            if (canAccessDesert() && items.Crystal && canSmash()) {
+            if (canAccessDesert() && items.Crystal && canSmash() && items.Lantern) {
                 return "available";
             }
             return "unavailable";
@@ -2421,6 +2474,17 @@ var overworldChests = [
         name: "North Small Chest Behind Gate",
         x: "17%",
         y: "49.28%",
+        isAvailable: function () {
+            if (canAccessDesert()) {
+                return "available";
+            }
+            return "unavailable";
+        },
+    },
+        {
+        name: "Northwest Small Chest Behind Gate",
+        x: "12.8%",
+        y: "50.0%",
         isAvailable: function () {
             if (canAccessDesert()) {
                 return "available";
@@ -2560,6 +2624,7 @@ var overworldChests = [
             return "unavailable";
         },
     },
+
     {
         name: "Grotto - Freezard Chest",
         x: "42.5%",
@@ -2763,7 +2828,7 @@ var overworldChests = [
         x: "65.8%",
         y: "9.5%",
         isAvailable: function () {
-            if (canAccessZoraDomain()) {
+            if (canAccessZoraDomain() && items.Rod) {
                 return "available";
             }
             return "unavailable";
@@ -2846,17 +2911,75 @@ var overworldChests = [
             return "unavailable";
         },
     },
-]
+    {
+        name: "Hidden Village - Hide and Seek",
+        x: "72%",
+        y: "23.8%",
+        isAvailable: function () {
+            if (items.Charm >= 4 && canAccessHiddenVillage()) {
+                return "available";
+            }
+            return "unavailable";
+        },
+    },
+    {
+        name: "Hot Springwater Goron",
+        x: "60.25%",
+        y: "40.4%",
+        isAvailable: function () {
+            if (canAccessKakVillage() && canAccessEldinField()) {
+                return "available";
+            }
+            return "unavailable";
+        },
+    },
+    {
+        name: "Snowboard Racing",
+        x: "36.25%",
+        y: "11.68%",
+        isAvailable: function () {
+            if (items.Boss5 && canAccessSnowpeakSummit()) {
 
-//Gifts from NPCs
-var npcChecks = 
-[
-    
-]
+                return "available";
+            }
+            return "unavailable";
+        },
+    },
+    {
+        name: "Iza Bomb Bag",
+        x: "65.8%",
+        y: "12%",
+        isAvailable: function () {
+            if (canAccessZoraDomain() && (items.Sword || items.MSword || items.Crystal) && items.Bow) {
+                return "available";
+            }
+            return "unavailable";
 
-//Overworld Poes
-var overworldPoes = 
-[
+        },
+    },
+    {
+        name: "Giant Bomb Bag",
+        x: "66.8%",
+        y: "12%",
+        isAvailable: function () {
+            if (canAccessZoraDomain() && (items.Sword || items.MSword || items.Crystal) && items.Bow) {
+                return "available";
+            }
+            return "unavailable";
+        },
+    },
+    {
+        name: "Plumm Fruit Game Heart Piece",
+        x: "65.8%",
+        y: "14.5%",
+        isAvailable: function () {
+            if (canAccessLakeHylia() && items.Crystal) {
+                return "available";
+            }
+            return "unavailable";
+        },
+    },
+//poes
     {
         //12
         name: "Jovani Poe",
@@ -3404,273 +3527,9 @@ var overworldPoes =
                 return "available";
             return "poeunavailable";
         },
-    }
-]
-
-//Shops
-var randomizedShops = 
-[
-    // Ordon
-    {
-        name: "Milk - 10 Rupees",
-        x: "55.5%",
-        y: "85.76%",
-        isAvailable: function () {
-            if ((canDoDamage() || SkipIntro) || (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
     },
-    {
-        name: "Bee Larva - 10 Rupees",
-        x: "56.5%",
-        y: "85.76%",
-        isAvailable: function () {
-            if ((canDoDamage() || SkipIntro) || (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Lantern Oil - 20 Rupees",
-        x: "55.5%",
-        y: "86.76%",
-        isAvailable: function () {
-            if ((canDoDamage() || SkipIntro) && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Malo Mark - Kak
-    {
-        name: "Red Potion - 30 Rupees",
-        x: "80.25%",
-        y: "54.28%",
-        isAvailable: function () {
-            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Wooden Shield - 50 Rupees",
-        x: "81.25%",
-        y: "54.28%",
-        isAvailable: function () {
-            if (canAccessKakVillage())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Hylian Shield - 200 Rupees",
-        x: "80.25%",
-        y: "55.28%",
-        isAvailable: function () {
-            if (canAccessKakVillage())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Hawkeye - 100 Rupees",
-        x: "81.25%",
-        y: "55.28%",
-        isAvailable: function () {
-            if (items.Boss2 || MinesPatch)
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Death Mountain
-    {
-        name: "Lantern Oil - 20 Rupees",
-        x: "85.33%",
-        y: "37.60%",
-        isAvailable: function () {
-            if (canAccessDeathMountain() && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Wooden Shield - 50 Rupees",
-        x: "86.33%",
-        y: "37.60%",
-        isAvailable: function () {
-            if (canAccessDeathMountain())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Milk - 20 Rupees",
-        x: "85.33%",
-        y: "38.60%",
-        isAvailable: function () {
-            if (canAccessDeathMountain() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Goron at Kak Night
-    {
-        name: "Lantern Oil - 20 Rupees",
-        x: "80.25%",
-        y: "51.68%",
-        isAvailable: function () {
-            if (canAccessKakVillage() && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Red Potion - 30 Rupees",
-        x: "81.25%",
-        y: "51.68%",
-        isAvailable: function () {
-            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Blue Potion - 100 Rupees",
-        x: "80.25%",
-        y: "52.68%",
-        isAvailable: function () {
-            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Malo Mart -Castle Town
-    {
-        name: "Blue Potion - 50 Rupees",
-        x: "55.33%",
-        y: "40.88%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Red Potion - 15 Rupees",
-        x: "56.33%",
-        y: "40.88%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Magic Armor - 598 Rupees",
-        x: "55.33%",
-        y: "41.88%",
-        isAvailable: function () {
-            if (canAccessCastleTown())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    // Goron Castle Town Shop
-    {
-        name: "Hylian Shield - 210 Rupees",
-        x: "51.66%",
-        y: "40.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Red Potion - 40 Rupees",
-        x: "52.66%",
-        y: "40.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Lantern Oil - 30 Rupees",
-        x: "51.66%",
-        y: "41.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Arrows - 40 Rupees",
-        x: "52.66%",
-        y: "41.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && items.Bow)
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Goron Hot Springwater
-    {
-        name: "Hot Springwater - 20 Rupees",
-        x: "54.33%",
-        y: "42.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //CiTS Shop
-    {
-        name: "Red Potion - 30 Rupees",
-        x: "38.42%",
-        y: "50.00%",
-        isAvailable: function () {
-            if (canAccessCiTS() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Blue Potion - 100 Rupees",
-        x: "37.42%",
-        y: "51.00%",
-        isAvailable: function () {
-            if (canAccessCiTS() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Lantern Oil - 20 Rupees",
-        x: "38.42%",
-        y: "51.00%",
-        isAvailable: function () {
-            if (canAccessCiTS() && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    }
-]
-
-//Golden Bugs
-var goldenBugs =
-[
-    {
+	// bugs
+	{
         //1
         name: "Male Beetle",
         x: "53.58%",
@@ -3935,6 +3794,266 @@ var goldenBugs =
         },
     }
 ]
+/*
+//Shops
+var randomizedShops = 
+[
+    // Ordon
+    {
+        name: "Milk - 10 Rupees",
+        x: "55.5%",
+        y: "85.76%",
+        isAvailable: function () {
+            if ((canDoDamage() || SkipIntro) || (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Bee Larva - 10 Rupees",
+        x: "56.5%",
+        y: "85.76%",
+        isAvailable: function () {
+            if ((canDoDamage() || SkipIntro) || (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Lantern Oil - 20 Rupees",
+        x: "55.5%",
+        y: "86.76%",
+        isAvailable: function () {
+            if ((canDoDamage() || SkipIntro) && (items.Lantern || (items.Bottle || NoBottleReq)))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+
+    //Malo Mark - Kak
+    {
+        name: "Red Potion - 30 Rupees",
+        x: "80.25%",
+        y: "54.28%",
+        isAvailable: function () {
+            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Wooden Shield - 50 Rupees",
+        x: "81.25%",
+        y: "54.28%",
+        isAvailable: function () {
+            if (canAccessKakVillage())
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Hylian Shield - 200 Rupees",
+        x: "80.25%",
+        y: "55.28%",
+        isAvailable: function () {
+            if (canAccessKakVillage())
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Hawkeye - 100 Rupees",
+        x: "81.25%",
+        y: "55.28%",
+        isAvailable: function () {
+            if (items.Boss2 || MinesPatch)
+                return "available";
+            return "bugunavailable";
+        },
+    },
+
+    //Death Mountain
+    {
+        name: "Lantern Oil - 20 Rupees",
+        x: "85.33%",
+        y: "37.60%",
+        isAvailable: function () {
+            if (canAccessDeathMountain() && (items.Lantern || (items.Bottle || NoBottleReq)))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Wooden Shield - 50 Rupees",
+        x: "86.33%",
+        y: "37.60%",
+        isAvailable: function () {
+            if (canAccessDeathMountain())
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Milk - 20 Rupees",
+        x: "85.33%",
+        y: "38.60%",
+        isAvailable: function () {
+            if (canAccessDeathMountain() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+
+    //Goron at Kak Night
+    {
+        name: "Lantern Oil - 20 Rupees",
+        x: "80.25%",
+        y: "51.68%",
+        isAvailable: function () {
+            if (canAccessKakVillage() && (items.Lantern || (items.Bottle || NoBottleReq)))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Red Potion - 30 Rupees",
+        x: "81.25%",
+        y: "51.68%",
+        isAvailable: function () {
+            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Blue Potion - 100 Rupees",
+        x: "80.25%",
+        y: "52.68%",
+        isAvailable: function () {
+            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+
+    //Malo Mart -Castle Town
+    {
+        name: "Blue Potion - 50 Rupees",
+        x: "55.33%",
+        y: "40.88%",
+        isAvailable: function () {
+            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Red Potion - 15 Rupees",
+        x: "56.33%",
+        y: "40.88%",
+        isAvailable: function () {
+            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Magic Armor - 598 Rupees",
+        x: "55.33%",
+        y: "41.88%",
+        isAvailable: function () {
+            if (canAccessCastleTown())
+                return "available";
+            return "bugunavailable";
+        },
+    },
+
+    // Goron Castle Town Shop
+    {
+        name: "Hylian Shield - 210 Rupees",
+        x: "51.66%",
+        y: "40.48%",
+        isAvailable: function () {
+            if (canAccessCastleTown())
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Red Potion - 40 Rupees",
+        x: "52.66%",
+        y: "40.48%",
+        isAvailable: function () {
+            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Lantern Oil - 30 Rupees",
+        x: "51.66%",
+        y: "41.48%",
+        isAvailable: function () {
+            if (canAccessCastleTown() && (items.Lantern || (items.Bottle || NoBottleReq)))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Arrows - 40 Rupees",
+        x: "52.66%",
+        y: "41.48%",
+        isAvailable: function () {
+            if (canAccessCastleTown() && items.Bow)
+                return "available";
+            return "bugunavailable";
+        },
+    },
+
+    //Goron Hot Springwater
+    {
+        name: "Hot Springwater - 20 Rupees",
+        x: "54.33%",
+        y: "42.48%",
+        isAvailable: function () {
+            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+
+    //CiTS Shop
+    {
+        name: "Red Potion - 30 Rupees",
+        x: "38.42%",
+        y: "50.00%",
+        isAvailable: function () {
+            if (canAccessCiTS() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Blue Potion - 100 Rupees",
+        x: "37.42%",
+        y: "51.00%",
+        isAvailable: function () {
+            if (canAccessCiTS() && (items.Bottle || NoBottleReq))
+                return "available";
+            return "bugunavailable";
+        },
+    },
+    {
+        name: "Lantern Oil - 20 Rupees",
+        x: "38.42%",
+        y: "51.00%",
+        isAvailable: function () {
+            if (canAccessCiTS() && (items.Lantern || (items.Bottle || NoBottleReq)))
+                return "available";
+            return "bugunavailable";
+        },
+    }
+]
 
 var miniGames =
 [
@@ -4005,3 +4124,4 @@ var miniGames =
         },
     },
 ]
+*/

@@ -38,6 +38,7 @@
             });
         }
 
+
         //Set up global variables for chest logic and for backend functions
         var dungeonChest = 0;
         var dungeonChestOld = 0;
@@ -83,6 +84,14 @@
                 <div align='center'><span id='submaparea' style="font-size:20px">Hyrule</span></div>
                 <hr style="margin-top: 4px; margin-bottom: 4px">
                 <ul onselectstart="return false" id='submaplist' style="margin-top: 4px; margin-bottom: 4px; overflow-y: auto; height: 232px;"></ul>
+				 </ul>
+                      <!-- Map toggles -->
+                      <fieldset>
+                      <input type='radio' name='checktracker' value="map" id="maptracker" checked='true' onclick="setMapTracker()">Standard<br>
+                      <input type='radio' name='checktracker' value="poe" id="poetracker" onclick="setPoeTracker()">Poes<br>
+                      <input type='radio' name='checktracker' value="bug" id="bugtracker" onclick="setBugTracker()">Bugs<br>
+                      </fieldset>
+
             </div>
             <div id='checkCounter' style="background-color: black; position:relative; margin-left: 70%; margin-top: 935px; margin-botton: 0px;">4</div>
         </div>
@@ -122,6 +131,12 @@
                 <input type='radio' name='mapposition' value='Side' checked='true' onclick="setOrder(false)">Side
                 <input type='radio' name='mapposition' value='Below' onclick="setOrder(true)">Below<br>
             </fieldset>
+                <footer style='bottom:0; width:100%; text-align: left; position: relative; color:grey'>
+        <center>
+            <div id='credits' style="background-color:black; width:75%; text-align: center;">
+                Twilight Princess Tracker v1.9 by Lunar Soap, Updated by Feli Heli<br />
+                With help and inspiration from <a href="https://github.com/TreZc0">TreZc0</a> and <a href="https://github.com/TestRunnerSRL">TestRunner</a>
+                 </div>
         </div>
 
         <div id="CheckOptions" class="w3-container city" style="display:none">
@@ -131,10 +146,6 @@
                 <input type='radio' name='glitchedLogic' value='Normal' checked='true' onclick="setGlitchedLogicOff()">Standard Logic
                 <input type='radio' name='glitchedLogic' value='Glitched' onclick="setGlitchedLogicOn()">Glitched Logic<br>
                 <br>
-                <input type='radio' name='checktracker' value="map" id="maptracker" checked='true' onclick="setMapTracker()">Map Tracker
-                <input type='radio' name='checktracker' value="poe" id="poetracker" onclick="setPoeTracker()">Poe Tracker<br>
-                <input type='radio' name='checktracker' value="bug" id="bugtracker" onclick="setBugTracker()">Bug Tracker<br>
-                <input type='radio' name='checktracker' value="shop" id="shoptracker" onclick="setShopTracker()">Shop Tracker<br>
             </fieldset>
         </div>
 
@@ -187,11 +198,11 @@
     </script>
     <br />
     <br />
-    <footer style='bottom:0; width:100%; text-align: center; position: relative; color:grey'>
+    <footer style='bottom:0; width:100%; text-align: left; position: relative; color:grey'>
         <center>
             <div id='credits' style="background-color:black; width:25%; text-align: center;">
-                Twilight Princess Randomizer Tracker v1.8 by Lunar Soap<br />
-                With help and inspiration from <a href="https://github.com/TreZc0">TreZc0</a> and <a href="https://github.com/TestRunnerSRL">TestRunner</a>
+               
+                
             </div>
         </center>
     </footer>

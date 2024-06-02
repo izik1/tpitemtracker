@@ -71,7 +71,7 @@ function getCookie() {
 var cookieDefault = {
     map: 1,
     iZoom: 100,
-    mZoom: 100,
+    mZoom: 90,
     mPos: 0,
     prize: 1,
     rewards: defaultrewards,
@@ -524,20 +524,37 @@ function setGlitchedLogicOn() {
 }
 
 // Options for when a person clicks on the different check options
-function setMapTracker() {
-    if (document.getElementById('maptracker').checked) {
-        for (var i = 0; i < 104; i++) {
-            document.getElementById("" + i).style.zIndex = "auto";
+function noExtraOnLoad() {
+        for (var i = 0; i < 95; i++) {
+            document.getElementById("" + i).style.visibility = "visible";
         }
-        for (var j = 0; j < 17; j++) {
-            document.getElementById("dungeon" + j).style.zIndex = "auto";
+        for (var i = 95; i < 211; i++) {
+            document.getElementById("" + i).style.visibility = "hidden";
+        }
+		for (var j = 0; j < 17; j++) {
+        document.getElementById("dungeon" + j).style.visibility = "visible";
         }
         for (var j = 17; j < 21; j++) {
-            document.getElementById("dungeon" + j).style.zIndex = "-1";
+        document.getElementById("dungeon" + j).style.visibility = "hidden";
+    }
+}
+
+function setMapTracker() {
+    if (document.getElementById('maptracker').checked) {
+        
+		for (var i = 0; i < 95; i++) {
+            document.getElementById("" + i).style.visibility = "visible";
         }
-        for (var i = 104; i < 201; i++) {
-            document.getElementById("" + i).style.zIndex = "-1";
+        for (var i = 95; i < 211; i++) {
+            document.getElementById("" + i).style.visibility = "hidden";
+        }		
+		for (var j = 0; j < 17; j++) {
+            document.getElementById("dungeon" + j).style.visibility = "visible";
         }
+        for (var j = 17; j < 21; j++) {
+            document.getElementById("dungeon" + j).style.visibility = "hidden";
+        }
+		
     }
     else {
         return;
@@ -546,21 +563,23 @@ function setMapTracker() {
 
 function setPoeTracker() {
     if (document.getElementById('poetracker').checked) {
-        for (var i = 0; i < 104; i++) {
-            document.getElementById(i).style.zIndex = "-1";
+        
+		for (var i = 0; i < 95; i++) {
+            document.getElementById("" + i).style.visibility = "hidden";
         }
-        for (var j = 0; j < 17; j++) {
-            document.getElementById("dungeon" + j).style.zIndex = "-1";
+        for (var i = 95; i < 144; i++) {
+            document.getElementById("" + i).style.visibility = "visible";
+        }
+        for (var i = 144; i < 211; i++) {
+            document.getElementById("" + i).style.visibility = "hidden";
+        }
+		for (var j = 0; j < 17; j++) {
+            document.getElementById("dungeon" + j).style.visibility = "hidden";
         }
         for (var j = 17; j < 21; j++) {
-            document.getElementById("dungeon" + j).style.zIndex = "auto";
+            document.getElementById("dungeon" + j).style.visibility = "hidden";
         }
-        for (var i = 104; i < 153; i++) {
-            document.getElementById("" + i).style.zIndex = "auto";
-        }
-        for (var i = 153; i < 201; i++) {
-            document.getElementById("" + i).style.zIndex = "-1";
-        }
+		
     }
     else {
         return;
@@ -569,17 +588,19 @@ function setPoeTracker() {
 
 function setBugTracker() {
     if (document.getElementById('bugtracker').checked) {
-        for (var i = 0; i < 153; i++) {
-            document.getElementById(i).style.zIndex = "-1";
+        
+		for (var i = 0; i < 144; i++) {
+            document.getElementById(i).style.visibility = "hidden";
         }
-        for (var j = 0; j < 21; j++) {
-            document.getElementById("dungeon" + j).style.zIndex = "-1";
+        for (var i = 144; i < 187; i++) {
+            document.getElementById("" + i).style.visibility = "visible";
         }
-        for (var i = 153; i < 177; i++) {
-            document.getElementById("" + i).style.zIndex = "auto";
+		
+		for (var j = 0; j < 22; j++) {
+            document.getElementById("dungeon" + j).style.visibility = "hidden";
         }
-        for (var j = 177; j < 201; j++) {
-            document.getElementById("" + j).style.zIndex = "-1";
+        for (var j = 187; j < 211; j++) {
+            document.getElementById("" + j).style.visibility = "hidden";
         }
     }
     else {
@@ -590,16 +611,16 @@ function setBugTracker() {
 function setShopTracker() {
     if (document.getElementById('shoptracker').checked) {
         for (var i = 0; i < 153; i++) {
-            document.getElementById(i).style.zIndex = "-1";
+            document.getElementById(i).style.visibility = "hidden";
         }
         for (var j = 0; j < 21; j++) {
-            document.getElementById("dungeon" + j).style.zIndex = "-1";
+            document.getElementById("dungeon" + j).style.visibility = "hidden";
         }
         for (var i = 153; i < 177; i++) {
-            document.getElementById("" + i).style.zIndex = "-1";
+            document.getElementById("" + i).style.visibility = "hidden";
         }
         for (var j = 177; j < 201; j++) {
-            document.getElementById("" + j).style.zIndex = "auto";
+            document.getElementById("" + j).style.visibility = "visible";
         }
     }
     else {
@@ -1359,6 +1380,7 @@ function init() {
     document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
     loadCookie();
     saveCookie();
+	noExtraOnLoad();
 }
 
 function preloader() {
