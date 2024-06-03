@@ -2806,7 +2806,7 @@ var overworldChests = [
         x: "62.85%",
         y: "52.40%",
         isAvailable: function () {
-            if (canAccessKakGorge() && items.Boomerang) {
+            if (canAccessKakGorge() && (items.Boomerang || items.Clawshot)) {
                 return "available";
             }
             return "unavailable";
