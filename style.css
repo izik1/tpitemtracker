@@ -4,6 +4,7 @@ body {
     background-image: url("images/Backgrounds/none.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    background-color: black;
 }
 
 .flexcontainer {
@@ -70,6 +71,15 @@ body {
     width: 128;
     height: 128;
     background-size: 200% 200%;
+}
+
+.mapspan {
+    border: 1px solid black;
+}
+
+.mapspan:hover,
+.mapspan.active {
+    border-color: yellow;
 }
 
 input {
@@ -189,6 +199,10 @@ label {
     margin-top: 690px;
 }
 
+#submaplist>li:hover {
+    background-color: #282828;
+}
+
 
 .mapvdiv {
     background-image: url("images/mapv.png");
@@ -245,7 +259,6 @@ label {
 .opened {
     background-color: rgb(127, 127, 127);
 }
-
 
 .DCunavailable {
     color: rgb(255, 0, 0);

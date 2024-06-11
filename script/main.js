@@ -30,7 +30,6 @@ var mouseLastOverR;
 var mouseLastOverC;
 var mouseLastOverCor;
 var opened = 0;
-var Dopened = 0;
 
 var itemGrid = [];
 var itemLayout = [];
@@ -39,31 +38,21 @@ var editmode = false;
 var selected = {};
 
 var dungeonSelect = 0;
-var totalChecks = 501;
+const totalChecks = checkDataGlitchless.length;
 
 // if we change an option, we want to update our cookies
 function setCookie(obj) {
-    var d = new Date();
-    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    var val = JSON.stringify(obj);
-    document.cookie = "key=" + val + ";" + expires + ";path=/";
+    localStorage.setItem("data", JSON.stringify(obj));
 }
 
 //upon loading the website we want to get our cookie values that were stored if any
 function getCookie() {
-    var name = "key=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return JSON.parse(c.substring(name.length, c.length));
-        }
+    let item = localStorage.getItem("data")
+    if (item === null) {
+        return {}
     }
-    return {};
+
+    return JSON.parse(item);
 }
 
 
@@ -77,19 +66,14 @@ var cookieDefault = {
     rewards: defaultrewards,
     items: defaultItemGrid,
     obtainedItems: items,
-    overworldChests: serializeChests(),
-    dungeonChests: serializeDungeonChests(),
 }
 
-//assigns the cookie values to their respective parameters
-var cookielock = false;
-function loadCookie() {
-    if (cookielock) {
-        return;
-    }
+// fixme: remove this
+var hackNoSaveWhileLoading = false
 
-    cookielock = true;
-
+// loads everything.
+function loadStorage() {
+    hackNoSaveWhileLoading = true
     cookieobj = getCookie();
 
     Object.keys(cookieDefault).forEach(function (key) {
@@ -99,39 +83,36 @@ function loadCookie() {
     });
 
     rewards = JSON.parse(JSON.stringify(cookieobj.rewards));
-    initGridRow(JSON.parse(JSON.stringify(cookieobj.items)));
+    initGridRow(JSON.parse(localStorage.getItem('itemLayout')) ?? defaultItemGrid);
     items = JSON.parse(JSON.stringify(cookieobj.obtainedItems));
-    deserializeChests(JSON.parse(JSON.stringify(cookieobj.overworldChests)));
-    deserializeDungeonChests(JSON.parse(JSON.stringify(cookieobj.dungeonChests)));
+
+    deserializeChecks(JSON.parse(localStorage.getItem('openedChecks')));
 
     updateGridItemAll();
 
-    document.getElementsByName('showmap')[0].checked = !!cookieobj.map;
-    document.getElementsByName('showmap')[0].onchange();
+    setZoom('itemdiv', cookieobj.iZoom, false);
+    setZoom('mapdiv', cookieobj.mZoom, false);
     document.getElementsByName('itemdivsize')[0].value = cookieobj.iZoom;
-    document.getElementsByName('itemdivsize')[0].onchange();
     document.getElementsByName('mapdivsize')[0].value = cookieobj.mZoom;
-    document.getElementsByName('mapdivsize')[0].onchange();
 
-    document.getElementsByName('mapposition')[cookieobj.mPos].click();
+    setOrder(cookieobj.mPos);
 
-    document.getElementsByName('showprizes')[0].checked = false;
-    document.getElementsByName('showprizes')[0].onchange();
+    document.getElementsByName('mapposition')[cookieobj.mPos].checked = true;
 
-    cookielock = false;
+
+    document.getElementsByName('showprizes')[0].checked = cookieobj.prize;
+    showPrizes(cookieobj.prize, false)
+    hackNoSaveWhileLoading = false
 }
 
-//applies the stored cookies to the web cookies
-function saveCookie() {
-    if (cookielock) {
-        return;
+// do a full save of everything.
+function saveStorage() {
+    if (hackNoSaveWhileLoading) {
+        return
     }
-
-    cookielock = true;
 
     cookieobj = {};
 
-    cookieobj.map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
     cookieobj.iZoom = document.getElementsByName('itemdivsize')[0].value;
     cookieobj.mZoom = document.getElementsByName('mapdivsize')[0].value;
 
@@ -140,115 +121,55 @@ function saveCookie() {
     cookieobj.prize = document.getElementsByName('showprizes')[0].checked ? 1 : 0;
 
     cookieobj.rewards = JSON.parse(JSON.stringify(rewards));
-    cookieobj.items = JSON.parse(JSON.stringify(itemLayout));
+    localStorage.setItem('itemLayout', JSON.stringify(itemLayout));
     cookieobj.obtainedItems = JSON.parse(JSON.stringify(items));
-    cookieobj.overworldChests = JSON.parse(JSON.stringify(serializeChests()));
-    cookieobj.dungeonChests = JSON.parse(JSON.stringify(serializeDungeonChests()));
-
     setCookie(cookieobj);
-
-    cookielock = false;
+    saveChecks()
 }
 
-//Set up the functions to open and close chests on the map
-function serializeChests() {
-    return overworldChests.map(chest => chest.isOpened || false);
+function saveChecks() {
+    localStorage.setItem('openedChecks', JSON.stringify(serializeChecks()));
 }
 
-function serializeDungeonChests() {
-    return dungeons.map(dungeon => Object.values(dungeon.chestlist).map(chest => chest.isOpened || false));
+function serializeChecks() {
+    return [...openedChecks];
 }
 
-function deserializeChests(serializedChests) {
-    for (var i = 0; i < overworldChests.length; i++) {
-        overworldChests[i].isOpened = serializedChests[i];
-        refreshChest(i);
-    }
-}
-
-function deserializeDungeonChests(serializedDungeons) {
-    for (var i = 0; i < dungeons.length; i++) {
-        var dungeon = dungeons[i];
-        var serializedDungeon = serializedDungeons[i];
-        var chestNames = Object.keys(dungeon.chestlist);
-        for (var j = 0; j < chestNames.length; j++) {
-            dungeon.chestlist[chestNames[j]].isOpened = serializedDungeon[j];
-        }
-    }
+function deserializeChecks(serializedChecks) {
+    openedChecks = new Set(serializedChecks)
 }
 
 // Event of clicking a chest on the map
-function toggleChest(x) {
-    overworldChests[x].isOpened = !overworldChests[x].isOpened;
-    refreshChest(x);
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-    saveCookie();
+function toggleChest(sender, c) {
+    if (!openedChecks.delete(c)) {
+        openedChecks.add(c);
+    }
+
+
+    sender.className = 'mapspan chest ' + checkStatus(c);
+
+    updateItemCounter();
+    saveChecks()
 }
 
-function refreshChest(x) {
-    var stateClass = overworldChests[x].isOpened ? 'opened' : overworldChests[x].isAvailable();
-    document.getElementById(x).className = 'mapspan chest ' + stateClass;
-}
-
-// Highlights a chest location
-function highlight(x) {
-    document.getElementById(x).style.backgroundImage = 'url(images/highlighted.png)';
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-}
-
-function unhighlight(x) {
-    document.getElementById(x).style.backgroundImage = 'url(images/poi.png)';
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-}
-
-// Highlights a chest location (but for dungeons)
-function highlightDungeon(x) {
-    document.getElementById('dungeon' + x).style.backgroundImage = 'url(images/highlighted.png)';
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-}
-
-function unhighlightDungeon(x) {
-    if (dungeonSelect != x)
-        document.getElementById('dungeon' + x).style.backgroundImage = 'url(images/poi.png)';
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-}
 
 // Event of clicking a dungeon box on the map
 function clickDungeon(d) {
-    document.getElementById('dungeon' + dungeonSelect).style.backgroundImage = 'url(images/poi.png)';
-    dungeonSelect = d;
-    document.getElementById('dungeon' + dungeonSelect).style.backgroundImage = 'url(images/highlighted.png)';
+    document.getElementById('dungeon' + dungeonSelect).classList.remove('active');
+    document.getElementById('dungeon' + dungeonSelect).classList.add('active');
 
-    document.getElementById('submaparea').innerHTML = dungeons[dungeonSelect].name;
-    document.getElementById('submaparea').className = 'DC' + dungeons[dungeonSelect].isBeatable();
+    document.getElementById('submaparea').innerHTML = groups[dungeonSelect].name;
+    document.getElementById('submaparea').className = 'DC' + groupStatus(groups[dungeonSelect]);
     var DClist = document.getElementById('submaplist');
     DClist.innerHTML = '';
 
-    for (var key in dungeons[dungeonSelect].chestlist) {
+    for (const check of groups[dungeonSelect].checks) {
         var s = document.createElement('li');
-        s.innerHTML = key;
+        s.innerHTML = check;
 
-        if (dungeons[dungeonSelect].chestlist[key].isOpened) {
-            s.className = "DCopened";
-        } else if (dungeons[dungeonSelect].chestlist[key].isAvailable()) {
-            s.className = "DCavailable";
-        } else {
-            s.className = "DCunavailable";
-        }
+        s.className = 'DC' + checkStatus(check);
 
-        s.onclick = new Function('toggleDungeonChest(this,' + dungeonSelect + ',"' + key + '")');
-        s.onmouseover = new Function('highlightDungeonChest(this)');
-        s.onmouseout = new Function('unhighlightDungeonChest(this)');
+        s.onclick = new Function(`toggleDungeonChest(this,"${check}")`);
         s.style.cursor = "pointer";
 
         DClist.appendChild(s);
@@ -256,56 +177,37 @@ function clickDungeon(d) {
     }
 }
 
-function toggleDungeonChest(sender, d, c) {
-    dungeons[d].chestlist[c].isOpened = !dungeons[d].chestlist[c].isOpened;
-    if (dungeons[d].chestlist[c].isOpened) {
-        sender.className = 'DCopened';
-        Dopened++;
-    }
-    else if (dungeons[d].chestlist[c].isAvailable()) {
-        sender.className = 'DCavailable';
-        Dopened--;
-    }
-    else {
-        sender.className = 'DCunavailable';
-        Dopened--;
+function toggleDungeonChest(sender, c) {
+    if (!openedChecks.delete(c)) {
+        openedChecks.add(c);
     }
 
+    sender.className = 'DC' + checkStatus(c);
 
     updateMap();
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-    saveCookie();
+    updateItemCounter();
+    saveChecks()
 }
 
-function highlightDungeonChest(x) {
-    x.style.backgroundColor = '#282828';
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-}
-
-function unhighlightDungeonChest(x) {
-    x.style.backgroundColor = '';
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-}
-
-function setOrder(H) {
+function setOrder(H, save = true) {
     if (H) {
         document.getElementById('layoutdiv').classList.remove('flexcontainer');
     } else {
         document.getElementById('layoutdiv').classList.add('flexcontainer');
     }
-    saveCookie();
+
+    if (save) {
+        saveStorage();
+    }
 }
 
-function showPrizes(sender) {
-    showprizes = sender.checked;
+function showPrizes(checked, save = true) {
+    showprizes = checked;
     updateGridItemAll();
-    saveCookie();
+
+    if (save) {
+        saveStorage();
+    }
 }
 
 //Set the values for the skips if their boxes are checked
@@ -322,15 +224,8 @@ function setFaronEscape(sender) {
 }
 
 function setTwilightSkip(sender) {
-    twilightskip = sender.checked;
-    if (!twilightskip) {
-        TwilightSkip = false;
-        updateMap();
-    }
-    else {
-        TwilightSkip = true;
-        updateMap();
-    }
+    TwilightSkip = sender.checked;
+    updateMap();
 }
 
 function setRemoveBoxes(sender) {
@@ -508,37 +403,24 @@ function setGlitchedLogicOn() {
 }
 
 // Options for when a person clicks on the different check options
-function noExtraOnLoad() {
-    for (var i = 0; i < 95; i++) {
-        document.getElementById("" + i).style.visibility = "visible";
-    }
-    for (var i = 95; i < 211; i++) {
-        document.getElementById("" + i).style.visibility = "hidden";
-    }
-    for (var j = 0; j < 17; j++) {
-        document.getElementById("dungeon" + j).style.visibility = "visible";
-    }
-    for (var j = 17; j < 21; j++) {
-        document.getElementById("dungeon" + j).style.visibility = "hidden";
-    }
-}
-
-function setMapTracker() {
-    if (document.getElementById('maptracker').checked) {
-
-        for (var i = 0; i < 95; i++) {
-            document.getElementById("" + i).style.visibility = "visible";
-        }
-        for (var i = 95; i < 211; i++) {
-            document.getElementById("" + i).style.visibility = "hidden";
-        }
-        for (var j = 0; j < 17; j++) {
-            document.getElementById("dungeon" + j).style.visibility = "visible";
-        }
-        for (var j = 17; j < 21; j++) {
-            document.getElementById("dungeon" + j).style.visibility = "hidden";
+function setMapTracker(force) {
+    if (force === true || document.getElementById('maptracker').checked) {
+        for (element of document.getElementsByClassName("mapspan chest")) {
+            element.style.visibility = "hidden";
         }
 
+        for (const [i, check] of overworld.entries()) {
+            const checkData = checkDataGlitchless[checkIdsGlitchless[check.name]]
+            const kind = Object.hasOwn(checkData, "kind") ? checkData.kind : null;
+            if (kind === null || kind === "standard") {
+                document.getElementById(`overworld${i}`).style.visibility = "visible";
+            }
+        }
+
+        for (element of document.getElementsByClassName("mapspan dungeon")) {
+            // there are no variations of dungeons currently, so they're all visible.
+            // element.style.visibility = "hidden";
+        }
     }
     else {
         return;
@@ -614,15 +496,18 @@ function setShopTracker() {
 
 
 //Set map zoom
-function setZoom(target, sender) {
-    document.getElementById(target).style.zoom = sender.value / 100;
-    document.getElementById(target).style.zoom = sender.value / 100;
+function setZoom(target, value, save = true) {
+    document.getElementById(target).style.zoom = value / 100;
+    document.getElementById(target).style.zoom = value / 100;
 
-    document.getElementById(target).style.MozTransform = 'scale(' + (sender.value / 100) + ')';
+    document.getElementById(target).style.MozTransform = 'scale(' + (value / 100) + ')';
     document.getElementById(target).style.MozTransformOrigin = '0 0';
 
-    document.getElementById(target + 'size').innerHTML = (sender.value) + '%';
-    saveCookie();
+    document.getElementById(target + 'size').innerHTML = (value) + '%';
+
+    if (save === true) {
+        saveStorage();
+    }
 }
 
 //Set map distance from item tracker
@@ -631,7 +516,7 @@ function setDistance(target, sender) {
     document.getElementById(target).style.width = (sender.value / 40 * 20) + "%";
 
     document.getElementById(target + 'size').innerHTML = (sender.value) + '%';
-    saveCookie();
+    saveStorage();
 }
 
 //set unused item opacity
@@ -642,7 +527,7 @@ function setOpacity(target, sender) {
     }
 
     document.getElementById(target + 'size').innerHTML = (sender.value) + '%';
-    saveCookie();
+    saveStorage();
 }
 
 
@@ -679,7 +564,7 @@ function showSettings(sender) {
         document.getElementById('itemconfig').style.display = 'none';
         document.getElementById('rowButtons').style.display = 'none';
         sender.innerHTML = '🔧';
-        saveCookie();
+        saveStorage();
     } else {
         var x = document.getElementById('settings');
         if (!x.style.display || x.style.display == 'none') {
@@ -747,22 +632,20 @@ function ResetLayout() {
     document.getElementById('trackerOpacityID').value = 100;
     document.getElementById('trackersize').innerHTML = "100%";
     document.body.style.backgroundImage = "url('images/Backgrounds/none.png')";
-    saveCookie();
+    saveStorage();
 }
 
 
 function ResetTracker() {
-    overworldChests.forEach(chest => delete chest.isOpened);
-    dungeons.forEach(dungeon => Object.values(dungeon.chestlist).forEach(chest => delete chest.isOpened));
+    openedChecks.clear()
     items = Object.assign({}, baseItems);
-    totalChecks = 501;
     document.getElementById('maptracker').checked = true;
     setMapTracker();
 
     updateGridItemAll();
     updateMap();
     document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + totalChecks + " Remaining";
-    saveCookie();
+    saveStorage();
 }
 
 // creates an extra row when in edit mode
@@ -797,7 +680,7 @@ function addItemRow() {
     itemGrid[r]['removebutton'].onclick = new Function("removeItem(" + r + ")");
     itemGrid[r]['row'].appendChild(itemGrid[r]['removebutton']);
 
-    saveCookie();
+    saveStorage();
 }
 
 // removes an item row when in edit mode
@@ -809,7 +692,7 @@ function removeItemRow() {
     itemGrid.splice(r, 1);
     itemLayout.splice(r, 1);
 
-    saveCookie();
+    saveStorage();
 }
 
 //adds an item to the item tracker 
@@ -856,7 +739,7 @@ function addItem(r) {
     tdtr2.appendChild(itemGrid[r][i][3]);
 
     updateGridItem(r, i);
-    saveCookie();
+    saveStorage();
 }
 function removeItem(r) {
     var i = itemLayout[r].length - 1
@@ -868,7 +751,7 @@ function removeItem(r) {
     itemGrid[r]['row'].removeChild(itemGrid[r][i]['item'])
     itemGrid[r].splice(i, 1);
     itemLayout[r].splice(i, 1);
-    saveCookie();
+    saveStorage();
 }
 
 //sets the images, etc of an item 
@@ -891,7 +774,7 @@ function updateGridItem(row, index) {
             itemGrid[row][index]['item'].style.backgroundImage = itemImageURLHeader + item + '.png)';
         }
         else {
-            itemGrid[row][index]['item'].style.backgroundImage = itemImageURLHeader + item + itemsMax[item] + '.png)';
+            itemGrid[row][index]['item'].style.backgroundImage = itemCountImageHeader + itemsMax[item] + 'max.png),' + itemImageURLHeader + item + '.png)';
         }
         itemGrid[row][index]['item'].style.border = '1px solid white';
         itemGrid[row][index]['item'].className = 'griditem true'
@@ -1063,11 +946,8 @@ function gridItemClick(row, col, corner) {
     }
     updateMap();
     updateGridItem(row, col);
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-    saveCookie();
-
+    updateItemCounter();
+    saveStorage();
 }
 
 
@@ -1107,62 +987,43 @@ function gridItemRClick(row, col, corner) {
         updateMap();
         updateGridItem(row, col);
     }
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-    saveCookie();
-
+    updateItemCounter();
+    saveStorage();
 }
 
 function updateMap() {
-    for (k = 0; k < overworldChests.length; k++) {
-        if (!overworldChests[k].isOpened)
-            document.getElementById(k).className = 'mapspan chest ' + overworldChests[k].isAvailable();
-    }
-    for (k = 0; k < dungeons.length; k++) {
-        document.getElementById('dungeon' + k).className = 'mapspan dungeon ' + dungeons[k].canGetChest();
+    for (const [i, check] of overworld.entries()) {
+        // nothing has changed if it's already open.
+        if (!openedChecks.has(check.name)) {
+            document.getElementById(`overworld${i}`).className = 'mapspan chest ' + checkStatus(check.name);
 
-        var DCcount = 0;
-        for (var key in dungeons[k].chestlist) {
-            if (dungeons[k].chestlist.hasOwnProperty(key)) {
-                if (!dungeons[k].chestlist[key].isOpened && dungeons[k].chestlist[key].isAvailable()) {
-                    DCcount++;
-                }
-            }
         }
-        var child = document.getElementById('dungeon' + k).firstChild;
+    }
+
+    for (const [i, group] of groups.entries()) {
+        document.getElementById('dungeon' + i).className = 'mapspan dungeon ' + groupStatus(group);
+
+        const availableChecks = group.checks.reduce((total, it) => total + (checkStatus(it) === "available"), 0)
+
+        var child = document.getElementById('dungeon' + i).firstChild;
         while (child) {
             if (child.className == 'chestCount') {
-                if (DCcount == 0) {
+                if (availableChecks === 0) {
                     child.innerHTML = '';
                 } else {
-                    child.innerHTML = DCcount;
-                    if (DCcount > 0) {
-                        dungeonChest = dungeonChest + DCcount;
-                    }
+                    child.innerHTML = availableChecks;
                 }
                 break;
             }
             child = child.nextSibling;
         }
     }
-    if (dungeonChestOld < dungeonChest) {
-        dungeonChest = dungeonChest - dungeonChestOld;
-    }
 
-    dungeonChestOld = dungeonChest;
-
-    document.getElementById('submaparea').className = 'DC' + dungeons[dungeonSelect].isBeatable();
+    document.getElementById('submaparea').className = 'DC' + groupStatus(groups[dungeonSelect]);
     var itemlist = document.getElementById('submaplist').children;
     for (var item in itemlist) {
         if (itemlist.hasOwnProperty(item)) {
-            if (dungeons[dungeonSelect].chestlist[itemlist[item].innerHTML].isOpened) {
-                itemlist[item].className = 'DCopened';
-            } else if (dungeons[dungeonSelect].chestlist[itemlist[item].innerHTML].isAvailable()) {
-                itemlist[item].className = 'DCavailable';
-            } else {
-                itemlist[item].className = 'DCunavailable';
-            }
+            itemlist[item].className = 'DC' + checkStatus(groups[dungeonSelect].checks[item]);
         }
     }
 }
@@ -1198,71 +1059,42 @@ function itemConfigClick(sender) {
 function populateMapdiv() {
     var mapdiv = document.getElementById('mapdiv');
 
-    // Initialize all chests on the map
-    for (k = 0; k < overworldChests.length; k++) {
-        var s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/poi.png)';
+    for (const [i, check] of overworld.entries()) {
+        let s = document.createElement('span');
         s.style.color = 'black';
-        s.id = k;
-        s.onclick = new Function('toggleChest(' + k + ')');
-        s.onmouseover = new Function('highlight(' + k + ')');
-        s.onmouseout = new Function('unhighlight(' + k + ')');
-        s.style.left = overworldChests[k].x;
-        s.style.top = overworldChests[k].y;
-        if (overworldChests[k].isOpened) {
-            s.className = 'mapspan chest opened';
-        } else {
-            s.className = 'mapspan chest ' + overworldChests[k].isAvailable();
-
-        }
+        s.id = `overworld${i}`;
+        s.onclick = new Function('toggleChest(this,"' + check.name + '")');
+        s.style.left = check.x;
+        s.style.top = check.y;
+        s.className = 'mapspan chest ' + checkStatus(check.name);
 
         var ss = document.createElement('span');
         ss.className = 'tooltip';
-        ss.innerHTML = overworldChests[k].name;
+        ss.innerHTML = check.name;
         s.appendChild(ss);
 
         mapdiv.appendChild(s);
     }
 
-    // Dungeon bosses & chests
-    for (k = 0; k < dungeons.length; k++) {
-        s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/poi.png)';
-        s.id = 'dungeon' + k;
+    for (const [i, group] of groups.entries()) {
+        let s = document.createElement('span');
+        s.id = `dungeon${i}`;
+        s.onclick = new Function('clickDungeon(' + i + ')');
 
-        s.onclick = new Function('clickDungeon(' + k + ')');
-        s.onmouseover = new Function('highlightDungeon(' + k + ')');
-        s.onmouseout = new Function('unhighlightDungeon(' + k + ')');
-        s.style.left = dungeons[k].x;
-        s.style.top = dungeons[k].y;
-        s.className = 'mapspan dungeon ' + dungeons[k].canGetChest();
+        s.style.left = group.x;
+        s.style.top = group.y;
+        s.className = 'mapspan dungeon ' + groupStatus(group);
 
-        var DCcount = 0;
-        for (var key in dungeons[k].chestlist) {
-            if (dungeons[k].chestlist.hasOwnProperty(key)) {
-                if (!dungeons[k].chestlist[key].isOpened && dungeons[k].chestlist[key].isAvailable()) {
-                    DCcount++;
-                    dungeonChest++;
-                }
-            }
-        }
+        const availableChecks = group.checks.reduce((total, it) => total + (checkStatus(it) === "available"), 0)
 
         var ss = document.createElement('span');
         ss.className = 'chestCount';
-        if (DCcount == 0) {
+        if (availableChecks === 0) {
             ss.innerHTML = '';
         } else {
-            ss.innerHTML = DCcount;
-            dungeonChest = dungeonChest + DCcount;
-        }
-        if (dungeonChestOld < dungeonChest) {
-            dungeonChest = dungeonChest - dungeonChestOld;
+            ss.innerHTML = availableChecks;
         }
 
-        dungeonChestOld = dungeonChest;
-        c = document.getElementsByClassName("mapspan chest available").length;
-        opened = document.getElementsByClassName("mapspan chest opened").length;
-        document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
         ss.style.color = 'black'
         s.style.textAlign = 'center';
         ss.display = 'inline-block';
@@ -1271,37 +1103,21 @@ function populateMapdiv() {
 
         var ss = document.createElement('span');
         ss.className = 'tooltipgray';
-        ss.innerHTML = dungeons[k].name;
+        ss.innerHTML = group.name;
         s.appendChild(ss);
 
         mapdiv.appendChild(s);
-
     }
 
-    document.getElementById('submaparea').innerHTML = dungeons[dungeonSelect].name;
-    document.getElementById('submaparea').className = 'DC' + dungeons[dungeonSelect].isBeatable();
-    document.getElementById('dungeon' + dungeonSelect).style.backgroundImage = 'url(images/highlighted.png)';
-    for (var key in dungeons[dungeonSelect].chestlist) {
-        var s = document.createElement('li');
-        s.innerHTML = key
+    updateItemCounter();
+}
 
-        if (dungeons[dungeonSelect].chestlist[key].isOpened) {
-            s.className = 'DCopened';
-        }
-        else if (dungeons[dungeonSelect].chestlist[key].isAvailable()) {
-            s.className = 'DCavailable';
-        }
-        else {
-            s.className = 'DCunavailable';
-        }
+function updateItemCounter() {
+    const total = checkDataGlitchless.length;
+    const opened = openedChecks.size;
+    const available = checkDataGlitchless.reduce((total, it) => total + (checkStatus(it.name) === "available"), 0)
 
-        s.onclick = new Function('toggleDungeonChest(this,' + dungeonSelect + ',"' + key + '")');
-        s.onmouseover = new Function('highlightDungeonChest(this)');
-        s.onmouseout = new Function('unhighlightDungeonChest(this)');
-        s.style.cursor = 'pointer';
-
-        document.getElementById('submaplist').appendChild(s);
-    }
+    document.getElementById('checkCounter').innerHTML = `Checks: ${available} Available, ${(total - opened)} Remaining, ${total} Total`;
 }
 
 function populateItemconfig() {
@@ -1310,6 +1126,9 @@ function populateItemconfig() {
     var i = 0;
 
     var row;
+
+    const itemImageURLHeader = 'url(images/Items/';
+    const itemCountImageHeader = 'url(images/ItemCounts/';
 
     for (var key in items) {
         if (i % 10 == 0) {
@@ -1324,9 +1143,9 @@ function populateItemconfig() {
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
         if ((typeof items[key]) == 'boolean') {
-            rowitem.style.backgroundImage = 'url(images/Items' + key + '.png)';
+            rowitem.style.backgroundImage = itemImageURLHeader + key + '.png)';
         } else {
-            rowitem.style.backgroundImage = 'url(images/Items' + key + itemsMax[key] + '.png)';
+            rowitem.style.backgroundImage = itemCountImageHeader + itemsMax[key] + 'max.png),' + itemImageURLHeader + key + '.png)';
         }
         row.appendChild(rowitem);
     }
@@ -1334,15 +1153,11 @@ function populateItemconfig() {
 
 //runs on site load
 function init() {
+    loadStorage();
     populateMapdiv();
     populateItemconfig();
-    updateMap();
-    c = document.getElementsByClassName("mapspan chest available").length;
-    opened = document.getElementsByClassName("mapspan chest opened").length;
-    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
-    loadCookie();
-    saveCookie();
-    noExtraOnLoad();
+    saveStorage();
+    setMapTracker(true);
 }
 
 function preloader() {

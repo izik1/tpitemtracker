@@ -63,8 +63,60 @@ var defaultItemGrid = [
     ]
 ]
 
+/**
+ * @typedef {Object} Items
+ * @property {number} Bow,
+* @property {boolean} Chainball,
+* @property {boolean} Slingshot,
+* @property {boolean} Boomerang,
+* @property {number} Bombs,
+* @property {boolean} WBombs,
+* @property {number} Rod,
+* @property {boolean} Lantern,
+* @property {boolean} Hawkeye,
+* @property {boolean} Spinner,
+* @property {boolean} Memo,
+* @property {boolean} Sketch,
+* @property {number} Skybook,
+* @property {number} Dominion,
+* @property {boolean} Renardos_Letter,
+* @property {boolean} Invoice,
+* @property {boolean} Wooden_Statue,
+* @property {boolean} Ilias_Charm,
+* @property {boolean} Horse_Call,
+* @property {number} Bugs,
+* @property {number} Bottle,
+* @property {number} Wallet,
+* @property {number} Sword,
+* @property {number} MSword,
+* @property {number} Skills,
+* @property {number} Shield,
+* @property {number} Soul,
+* @property {number} Vessel,
+* @property {boolean} YouthScent,
+* @property {boolean} IliaScent,
+* @property {boolean} PoeScent,
+* @property {boolean} ReekfishScent,
+* @property {boolean} MedicineScent,
+* @property {number} Shadow,
+* @property {number} Shard,
+* @property {boolean} Crystal,
+* @property {boolean} ZoraArmor,
+* @property {boolean} MagicArmor,
+* @property {boolean} IronBoots,
+* @property {boolean} Boss1,
+* @property {boolean} Boss2,
+* @property {boolean} Boss3,
+* @property {boolean} Boss4,
+* @property {boolean} Boss5,
+* @property {boolean} Boss6,
+* @property {boolean} Boss7,
+* @property {boolean} Boss8,
+* @property {boolean} blank,
+ */
+
 // set default parameters for the items
-var baseItems = {
+let baseItems = {
     Bow: 0,
     Clawshot: 0,
     Chainball: false,
@@ -181,4 +233,5 @@ const progressiveItems =
 
 
 //assign the default values of the items to the GUI
+/** @type {Items} */
 var items = Object.assign(baseItems);

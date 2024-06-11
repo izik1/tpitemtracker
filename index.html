@@ -1,4 +1,5 @@
-﻿<html>
+<!-- <!DOCTYPE html> -->
+<html>
 
 <head>
     <title>Twilight Princess Item Tracker</title>
@@ -11,6 +12,7 @@
 
 <body>
     <script src="script/items.js"></script>
+    <script src="script/logic.js"></script>
     <script src="script/chests.js"></script>
     <script type="text/javascript">
         if (document.addEventListener) { // IE >= 9; other browsers
@@ -126,7 +128,7 @@
                 <button type="button" onclick="ResetTracker()">Reset Tracker</button>
                 <br>
                 Size<input type="range" name='itemdivsize' id='itemrange' value='100' max='200' min='1'
-                    onchange="setZoom('itemdiv', this)">
+                    onchange="setZoom('itemdiv', this.value)">
                 <span id='itemdivsize'>100%</span><br>
                 <input type="checkbox" name="showprizes" onchange="showPrizes(this)">Show Dungeon Items (BETA)<br>
                 <input type="checkbox" name="removeboxes" onchange="setRemoveBoxes(this)">Remove Box From Behind
@@ -136,7 +138,7 @@
                 <legend>Map Tracker</legend>
                 <input type="checkbox" name="showmap" checked='true' onchange="showTracker('mapdiv', this)">Enabled<br>
                 Size<input type="range" name='mapdivsize' id='maprange' value='100' max='200' min='1'
-                    onchange="setZoom('mapdiv', this)">
+                    onchange="setZoom('mapdiv', this.value)">
                 <span id='mapdivsize'>100%</span><br>
                 Position:
                 <input type='radio' name='mapposition' value='Side' checked='true' onclick="setOrder(false)">Side
