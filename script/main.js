@@ -92,7 +92,7 @@ function loadCookie() {
 
     cookieobj = getCookie();
 
-    Object.keys(cookieDefault).forEach(function(key) {
+    Object.keys(cookieDefault).forEach(function (key) {
         if (cookieobj[key] === undefined) {
             cookieobj[key] = cookieDefault[key];
         }
@@ -218,7 +218,7 @@ function highlightDungeon(x) {
 function unhighlightDungeon(x) {
     if (dungeonSelect != x)
         document.getElementById('dungeon' + x).style.backgroundImage = 'url(images/poi.png)';
-        c = document.getElementsByClassName("mapspan chest available").length;
+    c = document.getElementsByClassName("mapspan chest available").length;
     opened = document.getElementsByClassName("mapspan chest opened").length;
     document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
 }
@@ -240,7 +240,7 @@ function clickDungeon(d) {
 
         if (dungeons[dungeonSelect].chestlist[key].isOpened) {
             s.className = "DCopened";
-        } else if ( dungeons[dungeonSelect].chestlist[key].isAvailable()) {
+        } else if (dungeons[dungeonSelect].chestlist[key].isAvailable()) {
             s.className = "DCavailable";
         } else {
             s.className = "DCunavailable";
@@ -252,7 +252,7 @@ function clickDungeon(d) {
         s.style.cursor = "pointer";
 
         DClist.appendChild(s);
-        
+
     }
 }
 
@@ -271,7 +271,7 @@ function toggleDungeonChest(sender, d, c) {
         Dopened--;
     }
 
-    
+
     updateMap();
     c = document.getElementsByClassName("mapspan chest available").length;
     opened = document.getElementsByClassName("mapspan chest opened").length;
@@ -311,13 +311,11 @@ function showPrizes(sender) {
 //Set the values for the skips if their boxes are checked
 function setFaronEscape(sender) {
     faronescape = sender.checked;
-    if (!faronescape)
-    {
+    if (!faronescape) {
         FaronEscape = false;
         updateMap();
     }
-    else 
-    {
+    else {
         FaronEscape = true;
         updateMap();
     }
@@ -325,13 +323,11 @@ function setFaronEscape(sender) {
 
 function setTwilightSkip(sender) {
     twilightskip = sender.checked;
-    if (!twilightskip)
-    {
+    if (!twilightskip) {
         TwilightSkip = false;
         updateMap();
     }
-    else 
-    {
+    else {
         TwilightSkip = true;
         updateMap();
     }
@@ -339,13 +335,11 @@ function setTwilightSkip(sender) {
 
 function setRemoveBoxes(sender) {
     removeboxes = sender.checked;
-    if (!removeboxes)
-    {
+    if (!removeboxes) {
         RemoveBoxes = false;
         updateGridItemAll();
     }
-    else 
-    {
+    else {
         RemoveBoxes = true;
         updateGridItemAll();
     }
@@ -353,13 +347,11 @@ function setRemoveBoxes(sender) {
 
 function setSkipMdh(sender) {
     skipmdh = sender.checked;
-    if (!skipmdh)
-    {
+    if (!skipmdh) {
         SkipMDH = false;
         updateMap();
     }
-    else 
-    {
+    else {
         SkipMDH = true;
         updateMap();
     }
@@ -367,13 +359,11 @@ function setSkipMdh(sender) {
 
 function setSkipIntro(sender) {
     skipintro = sender.checked;
-    if (!skipintro)
-    {
+    if (!skipintro) {
         SkipIntro = false;
         updateMap();
     }
-    else 
-    {
+    else {
         SkipIntro = true;
         updateMap();
     }
@@ -381,13 +371,11 @@ function setSkipIntro(sender) {
 
 function setEarlyDesert(sender) {
     earlydesert = sender.checked;
-    if (!earlydesert)
-    {
+    if (!earlydesert) {
         EarlyDesert = false;
         updateMap();
     }
-    else 
-    {
+    else {
         EarlyDesert = true;
         updateMap();
     }
@@ -395,13 +383,11 @@ function setEarlyDesert(sender) {
 
 function setEarlyCits(sender) {
     earlycits = sender.checked;
-    if (!earlycits)
-    {
+    if (!earlycits) {
         EarlyCits = false;
         updateMap();
     }
-    else 
-    {
+    else {
         EarlyCits = true;
         updateMap();
     }
@@ -409,13 +395,11 @@ function setEarlyCits(sender) {
 
 function setOpenGates(sender) {
     opengates = sender.checked;
-    if (!opengates)
-    {
+    if (!opengates) {
         OpenGates = false;
         updateMap();
     }
-    else 
-    {
+    else {
         OpenGates = true;
         updateMap();
     }
@@ -525,36 +509,36 @@ function setGlitchedLogicOn() {
 
 // Options for when a person clicks on the different check options
 function noExtraOnLoad() {
-        for (var i = 0; i < 95; i++) {
-            document.getElementById("" + i).style.visibility = "visible";
-        }
-        for (var i = 95; i < 211; i++) {
-            document.getElementById("" + i).style.visibility = "hidden";
-        }
-		for (var j = 0; j < 17; j++) {
+    for (var i = 0; i < 95; i++) {
+        document.getElementById("" + i).style.visibility = "visible";
+    }
+    for (var i = 95; i < 211; i++) {
+        document.getElementById("" + i).style.visibility = "hidden";
+    }
+    for (var j = 0; j < 17; j++) {
         document.getElementById("dungeon" + j).style.visibility = "visible";
-        }
-        for (var j = 17; j < 21; j++) {
+    }
+    for (var j = 17; j < 21; j++) {
         document.getElementById("dungeon" + j).style.visibility = "hidden";
     }
 }
 
 function setMapTracker() {
     if (document.getElementById('maptracker').checked) {
-        
-		for (var i = 0; i < 95; i++) {
+
+        for (var i = 0; i < 95; i++) {
             document.getElementById("" + i).style.visibility = "visible";
         }
         for (var i = 95; i < 211; i++) {
             document.getElementById("" + i).style.visibility = "hidden";
-        }		
-		for (var j = 0; j < 17; j++) {
+        }
+        for (var j = 0; j < 17; j++) {
             document.getElementById("dungeon" + j).style.visibility = "visible";
         }
         for (var j = 17; j < 21; j++) {
             document.getElementById("dungeon" + j).style.visibility = "hidden";
         }
-		
+
     }
     else {
         return;
@@ -563,8 +547,8 @@ function setMapTracker() {
 
 function setPoeTracker() {
     if (document.getElementById('poetracker').checked) {
-        
-		for (var i = 0; i < 95; i++) {
+
+        for (var i = 0; i < 95; i++) {
             document.getElementById("" + i).style.visibility = "hidden";
         }
         for (var i = 95; i < 144; i++) {
@@ -573,13 +557,13 @@ function setPoeTracker() {
         for (var i = 144; i < 211; i++) {
             document.getElementById("" + i).style.visibility = "hidden";
         }
-		for (var j = 0; j < 17; j++) {
+        for (var j = 0; j < 17; j++) {
             document.getElementById("dungeon" + j).style.visibility = "hidden";
         }
         for (var j = 17; j < 21; j++) {
             document.getElementById("dungeon" + j).style.visibility = "hidden";
         }
-		
+
     }
     else {
         return;
@@ -588,15 +572,15 @@ function setPoeTracker() {
 
 function setBugTracker() {
     if (document.getElementById('bugtracker').checked) {
-        
-		for (var i = 0; i < 144; i++) {
+
+        for (var i = 0; i < 144; i++) {
             document.getElementById(i).style.visibility = "hidden";
         }
         for (var i = 144; i < 187; i++) {
             document.getElementById("" + i).style.visibility = "visible";
         }
-		
-		for (var j = 0; j < 22; j++) {
+
+        for (var j = 0; j < 22; j++) {
             document.getElementById("dungeon" + j).style.visibility = "hidden";
         }
         for (var j = 187; j < 211; j++) {
@@ -643,7 +627,7 @@ function setZoom(target, sender) {
 
 //Set map distance from item tracker
 function setDistance(target, sender) {
-    document.getElementById(target).style.width = (sender.value / 40 * 20)+ "%";
+    document.getElementById(target).style.width = (sender.value / 40 * 20) + "%";
     document.getElementById(target).style.width = (sender.value / 40 * 20) + "%";
 
     document.getElementById(target + 'size').innerHTML = (sender.value) + '%';
@@ -724,7 +708,7 @@ function EditMode() {
 
     editmode = true;
     updateGridItemAll();
-    showTracker('mapdiv', {checked: false});
+    showTracker('mapdiv', { checked: false });
     document.getElementById('settings').style.display = 'none';
     document.getElementById('itemconfig').style.display = '';
     document.getElementById('rowButtons').style.display = 'flex';
@@ -733,37 +717,35 @@ function EditMode() {
 }
 
 //sets all of the item and map options to their defaults
-function ResetLayout()
-{
-	initGridRow(defaultItemGrid);
-	updateGridItemAll();
-	
-	document.getElementById('itemdiv').style.zoom = 100 / 100;
-	document.getElementById('itemdiv').style.zoom = 100 / 100;
-	document.getElementById('itemdiv').style.MozTransform = 'scale(' + (100 / 100) + ')';
-	document.getElementById('itemdiv').style.MozTransformOrigin = '0 0';
-	document.getElementById('itemdivsize').innerHTML='100%';
-	document.getElementById('itemrange').value=100;
-	
-	document.getElementById('mapdiv').style.zoom = 100 / 100;
-	document.getElementById('mapdiv').style.zoom = 100 / 100;
-	document.getElementById('mapdiv').style.MozTransform = 'scale(' + (100 / 100) + ')';
-	document.getElementById('mapdiv').style.MozTransformOrigin = '0 0';
-    document.getElementById('mapdivsize').innerHTML='100%';
+function ResetLayout() {
+    initGridRow(defaultItemGrid);
+    updateGridItemAll();
+
+    document.getElementById('itemdiv').style.zoom = 100 / 100;
+    document.getElementById('itemdiv').style.zoom = 100 / 100;
+    document.getElementById('itemdiv').style.MozTransform = 'scale(' + (100 / 100) + ')';
+    document.getElementById('itemdiv').style.MozTransformOrigin = '0 0';
+    document.getElementById('itemdivsize').innerHTML = '100%';
+    document.getElementById('itemrange').value = 100;
+
+    document.getElementById('mapdiv').style.zoom = 100 / 100;
+    document.getElementById('mapdiv').style.zoom = 100 / 100;
+    document.getElementById('mapdiv').style.MozTransform = 'scale(' + (100 / 100) + ')';
+    document.getElementById('mapdiv').style.MozTransformOrigin = '0 0';
+    document.getElementById('mapdivsize').innerHTML = '100%';
     document.getElementById('maprange').value = 100;
 
     document.getElementById('blankspace').style.width = "1%";
     document.getElementById('blankspace').style.width = "1%";
     document.getElementById('trackerDistanceID').value = 1;
-    document.getElementById('blankspacesize').innerHTML = "1%";    
+    document.getElementById('blankspacesize').innerHTML = "1%";
 
     x = document.getElementsByClassName("tracker");
-    for (var i = 0; i < x.length; i++)
-    {
+    for (var i = 0; i < x.length; i++) {
         x[i].style.backgroundColor = "rgba(0,0,0,1)";
     }
     document.getElementById('trackerOpacityID').value = 100;
-    document.getElementById('trackersize').innerHTML = "100%"; 
+    document.getElementById('trackersize').innerHTML = "100%";
     document.body.style.backgroundImage = "url('images/Backgrounds/none.png')";
     saveCookie();
 }
@@ -844,34 +826,34 @@ function addItem(r) {
     var tdt = document.createElement('table');
     tdt.className = 'lonk';
     itemGrid[r][i]['item'].appendChild(tdt);
-        var tdtr1 = document.createElement('tr');
-        tdt.appendChild(tdtr1);
-            itemGrid[r][i][0] = document.createElement('th');
-            itemGrid[r][i][0].className = 'corner';
-            itemGrid[r][i][0].onmouseover = new Function("setMOver(" + r + "," + i + ",0)")
-            itemGrid[r][i][0].onmouseout = new Function("setMOff()")
-            itemGrid[r][i][0].onclick = new Function("gridItemClick(" + r + "," + i + ",0)");
-            tdtr1.appendChild(itemGrid[r][i][0]);
-            itemGrid[r][i][1] = document.createElement('th');
-            itemGrid[r][i][1].className = 'corner';
-            itemGrid[r][i][1].onmouseover = new Function("setMOver(" + r + "," + i + ",1)")
-            itemGrid[r][i][1].onmouseout = new Function("setMOff()")
-            itemGrid[r][i][1].onclick = new Function("gridItemClick(" + r + "," + i + ",1)");
-            tdtr1.appendChild(itemGrid[r][i][1]);
-        var tdtr2 = document.createElement('tr');
-            tdt.appendChild(tdtr2);
-            itemGrid[r][i][2] = document.createElement('th');
-            itemGrid[r][i][2].className = 'corner';
-            itemGrid[r][i][2].onmouseover = new Function("setMOver(" + r + "," + i + ",2)")
-            itemGrid[r][i][2].onmouseout = new Function("setMOff()")
-            itemGrid[r][i][2].onclick = new Function("gridItemClick(" + r + "," + i + ",2)");
-            tdtr2.appendChild(itemGrid[r][i][2]);
-            itemGrid[r][i][3] = document.createElement('th');
-            itemGrid[r][i][3].className = 'corner';
-            itemGrid[r][i][3].onmouseover = new Function("setMOver(" + r + "," + i + ",3)")
-            itemGrid[r][i][3].onmouseout = new Function("setMOff()")
-            itemGrid[r][i][3].onclick = new Function("gridItemClick(" + r + "," + i + ",3)");
-            tdtr2.appendChild(itemGrid[r][i][3]);
+    var tdtr1 = document.createElement('tr');
+    tdt.appendChild(tdtr1);
+    itemGrid[r][i][0] = document.createElement('th');
+    itemGrid[r][i][0].className = 'corner';
+    itemGrid[r][i][0].onmouseover = new Function("setMOver(" + r + "," + i + ",0)")
+    itemGrid[r][i][0].onmouseout = new Function("setMOff()")
+    itemGrid[r][i][0].onclick = new Function("gridItemClick(" + r + "," + i + ",0)");
+    tdtr1.appendChild(itemGrid[r][i][0]);
+    itemGrid[r][i][1] = document.createElement('th');
+    itemGrid[r][i][1].className = 'corner';
+    itemGrid[r][i][1].onmouseover = new Function("setMOver(" + r + "," + i + ",1)")
+    itemGrid[r][i][1].onmouseout = new Function("setMOff()")
+    itemGrid[r][i][1].onclick = new Function("gridItemClick(" + r + "," + i + ",1)");
+    tdtr1.appendChild(itemGrid[r][i][1]);
+    var tdtr2 = document.createElement('tr');
+    tdt.appendChild(tdtr2);
+    itemGrid[r][i][2] = document.createElement('th');
+    itemGrid[r][i][2].className = 'corner';
+    itemGrid[r][i][2].onmouseover = new Function("setMOver(" + r + "," + i + ",2)")
+    itemGrid[r][i][2].onmouseout = new Function("setMOff()")
+    itemGrid[r][i][2].onclick = new Function("gridItemClick(" + r + "," + i + ",2)");
+    tdtr2.appendChild(itemGrid[r][i][2]);
+    itemGrid[r][i][3] = document.createElement('th');
+    itemGrid[r][i][3].className = 'corner';
+    itemGrid[r][i][3].onmouseover = new Function("setMOver(" + r + "," + i + ",3)")
+    itemGrid[r][i][3].onmouseout = new Function("setMOff()")
+    itemGrid[r][i][3].onclick = new Function("gridItemClick(" + r + "," + i + ",3)");
+    tdtr2.appendChild(itemGrid[r][i][3]);
 
     updateGridItem(r, i);
     saveCookie();
@@ -890,30 +872,25 @@ function removeItem(r) {
 }
 
 //sets the images, etc of an item 
-function updateGridItem(row, index) 
-{
+function updateGridItem(row, index) {
     var item = itemLayout[row][index];
-    var itemImageURLHeader = 'url(images/Items/'; 
+    var itemImageURLHeader = 'url(images/Items/';
     var itemCountImageHeader = 'url(images/ItemCounts/';
-    
+
     //if Talo's Map is enabled, set the URL header appropriately
-    if (TaloMap)
-    {
+    if (TaloMap) {
         itemImageURLHeader = 'url(images/taloItems/';
         itemCountImageHeader = 'url(images/taloItems/ItemCounts/';
     }
 
-    if (editmode) 
-    {
+    if (editmode) {
         if (!item || item == 'blank') {
             itemGrid[row][index]['item'].style.backgroundImage = 'url(images/blank.png)';
         }
-        else if ((typeof items[item]) == 'boolean')
-        {
+        else if ((typeof items[item]) == 'boolean') {
             itemGrid[row][index]['item'].style.backgroundImage = itemImageURLHeader + item + '.png)';
         }
-        else
-        {
+        else {
             itemGrid[row][index]['item'].style.backgroundImage = itemImageURLHeader + item + itemsMax[item] + '.png)';
         }
         itemGrid[row][index]['item'].style.border = '1px solid white';
@@ -924,57 +901,44 @@ function updateGridItem(row, index)
 
     itemGrid[row][index]['item'].style.border = '0px';
 
-    if (!item || item == 'blank') 
-    {
+    if (!item || item == 'blank') {
         itemGrid[row][index]['item'].style.backgroundImage = '';
         return;
     }
 
-    if (RemoveBoxes)
-    {
-        if ((typeof items[item]) == 'boolean') 
-        {
+    if (RemoveBoxes) {
+        if ((typeof items[item]) == 'boolean') {
             itemGrid[row][index]['item'].style.backgroundImage = itemImageURLHeader + item + '.png)';
         }
-        else if (progressiveItems.includes(item))
-        {
+        else if (progressiveItems.includes(item)) {
             itemGrid[row][index]['item'].style.backgroundImage = itemImageURLHeader + item + items[item] + '.png';
-        } 
-        else 
-        {
-            if (items[item] == itemsMax[item])
-            {
+        }
+        else {
+            if (items[item] == itemsMax[item]) {
                 itemGrid[row][index]['item'].style.backgroundImage = itemCountImageHeader + items[item] + 'max.png),' + itemImageURLHeader + item + '.png)';
             }
-            else
-            {
+            else {
                 itemGrid[row][index]['item'].style.backgroundImage = itemCountImageHeader + items[item] + '.png),' + itemImageURLHeader + item + '.png)';
             }
         }
     }
-    else
-    {
-        if ((typeof items[item]) == 'boolean') 
-        {
+    else {
+        if ((typeof items[item]) == 'boolean') {
             itemGrid[row][index]['item'].style.backgroundImage = itemImageURLHeader + item + '.png), url(images/ItemBox.png)';
         }
-        else if (progressiveItems.includes(item))
-        {
+        else if (progressiveItems.includes(item)) {
             itemGrid[row][index]['item'].style.backgroundImage = itemImageURLHeader + item + items[item] + '.png), url(images/ItemBox.png)';
-        } 
-        else 
-        {
-            if (items[item] == itemsMax[item])
-            {
+        }
+        else {
+            if (items[item] == itemsMax[item]) {
                 itemGrid[row][index]['item'].style.backgroundImage = itemCountImageHeader + items[item] + 'max.png),' + itemImageURLHeader + item + '.png), url(images/ItemBox.png)';
             }
-            else
-            {
+            else {
                 itemGrid[row][index]['item'].style.backgroundImage = itemCountImageHeader + items[item] + '.png),' + itemImageURLHeader + item + '.png), url(images/ItemBox.png)';
             }
         }
     }
-    
+
 
     itemGrid[row][index]['item'].className = 'griditem ' + !!items[item];
 
@@ -1033,7 +997,7 @@ function initGridRow(itemsets) {
     }
 }
 
-function setMOver(row, col,corner) {
+function setMOver(row, col, corner) {
     //keep track of what item you moused over.
     mouseLastOverCor = corner;
     mouseLastOverR = row;
@@ -1071,7 +1035,7 @@ function gridItemClick(row, col, corner) {
             selected = {};
         } else {
             itemGrid[row][col]['item'].style.border = '3px solid yellow';
-            selected = {row: row, col: col};
+            selected = { row: row, col: col };
         }
     } else {
         var item = itemLayout[row][col];
@@ -1079,7 +1043,7 @@ function gridItemClick(row, col, corner) {
         if (rewards[item] !== undefined && showprizes) {
             if (corner == 3) {
                 rewards[item]++;
-                if (rewards[item] >=  9) {
+                if (rewards[item] >= 9) {
                     rewards[item] = 0;
                 }
             }
@@ -1096,20 +1060,20 @@ function gridItemClick(row, col, corner) {
             }
         }
 
-        }
+    }
     updateMap();
-    updateGridItem(row,col);
-   c = document.getElementsByClassName("mapspan chest available").length;
-   opened = document.getElementsByClassName("mapspan chest opened").length;
-   document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
+    updateGridItem(row, col);
+    c = document.getElementsByClassName("mapspan chest available").length;
+    opened = document.getElementsByClassName("mapspan chest opened").length;
+    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
     saveCookie();
 
-    }
+}
 
 
 function gridItemRClick(row, col, corner) {
     if (editmode) {
- //Do Nothing
+        //Do Nothing
     } else {
         var item = itemLayout[row][col];
 
@@ -1129,12 +1093,10 @@ function gridItemRClick(row, col, corner) {
                 items[item] = !items[item];
             }
         }
-        else if ((typeof items[item]) == 'boolean') 
-        {
+        else if ((typeof items[item]) == 'boolean') {
             items[item] = !items[item];
-        } 
-        else 
-        {
+        }
+        else {
             if (items[item] == itemsMin[item]) {
                 items[item] = itemsMax[item]
             } else {
@@ -1146,8 +1108,8 @@ function gridItemRClick(row, col, corner) {
         updateGridItem(row, col);
     }
     c = document.getElementsByClassName("mapspan chest available").length;
-   opened = document.getElementsByClassName("mapspan chest opened").length;
-   document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
+    opened = document.getElementsByClassName("mapspan chest opened").length;
+    document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
     saveCookie();
 
 }
@@ -1196,7 +1158,7 @@ function updateMap() {
         if (itemlist.hasOwnProperty(item)) {
             if (dungeons[dungeonSelect].chestlist[itemlist[item].innerHTML].isOpened) {
                 itemlist[item].className = 'DCopened';
-            } else if ( dungeons[dungeonSelect].chestlist[itemlist[item].innerHTML].isAvailable()) {
+            } else if (dungeons[dungeonSelect].chestlist[itemlist[item].innerHTML].isAvailable()) {
                 itemlist[item].className = 'DCavailable';
             } else {
                 itemlist[item].className = 'DCunavailable';
@@ -1205,13 +1167,13 @@ function updateMap() {
     }
 }
 
-function itemConfigClick (sender) {
+function itemConfigClick(sender) {
     var item = sender.id;
 
     if (selected.item) {
         document.getElementById(selected.item).style.border = '0px';
         sender.style.border = '3px solid yellow';
-        selected = {item: item};
+        selected = { item: item };
     } else if (selected.row !== undefined) {
         itemGrid[selected.row][selected.col]['item'].style.border = '1px solid white';
         var old = itemLayout[selected.row][selected.col];
@@ -1229,7 +1191,7 @@ function itemConfigClick (sender) {
         selected = {};
     } else {
         sender.style.border = '3px solid yellow';
-        selected = {item: item}
+        selected = { item: item }
     }
 }
 
@@ -1263,7 +1225,7 @@ function populateMapdiv() {
     }
 
     // Dungeon bosses & chests
-    for (k=0; k<dungeons.length; k++) {
+    for (k = 0; k < dungeons.length; k++) {
         s = document.createElement('span');
         s.style.backgroundImage = 'url(images/poi.png)';
         s.id = 'dungeon' + k;
@@ -1313,7 +1275,7 @@ function populateMapdiv() {
         s.appendChild(ss);
 
         mapdiv.appendChild(s);
-        
+
     }
 
     document.getElementById('submaparea').innerHTML = dungeons[dungeonSelect].name;
@@ -1326,7 +1288,7 @@ function populateMapdiv() {
         if (dungeons[dungeonSelect].chestlist[key].isOpened) {
             s.className = 'DCopened';
         }
-        else if ( dungeons[dungeonSelect].chestlist[key].isAvailable()) {
+        else if (dungeons[dungeonSelect].chestlist[key].isAvailable()) {
             s.className = 'DCavailable';
         }
         else {
@@ -1380,7 +1342,7 @@ function init() {
     document.getElementById('checkCounter').innerHTML = "Checks: " + (dungeonChest + c) + " available, " + (totalChecks - opened - Dopened) + " Remaining";
     loadCookie();
     saveCookie();
-	noExtraOnLoad();
+    noExtraOnLoad();
 }
 
 function preloader() {
@@ -1417,7 +1379,7 @@ function addLoadEvent(func) {
     if (typeof window.onload != 'function') {
         window.onload = func;
     } else {
-        window.onload = function() {
+        window.onload = function () {
             if (oldonload) {
                 oldonload();
             }

@@ -1861,7 +1861,7 @@ var dungeons = [
                     return canSmash() && canAccessKakGorge() && canBurnWebs() && items.Lantern;
                 },
             },
-             'Poe': {
+            'Poe': {
                 isAvailable: function () {
                     return canSmash() && canAccessKakGorge() && canBurnWebs() && items.Crystal;
                 },
@@ -1982,7 +1982,7 @@ var overworldChests = [
         },
         checkType: "chest"
     },
-      {
+    {
         name: "Oil Bottle",
 
         x: "55.7%",
@@ -2173,7 +2173,7 @@ var overworldChests = [
             return "unavailable";
         },
     },
-     {
+    {
         name: "Auru's Memo",
         x: "35.95%",
         y: "55.26%",
@@ -2481,7 +2481,7 @@ var overworldChests = [
             return "unavailable";
         },
     },
-        {
+    {
         name: "Northwest Small Chest Behind Gate",
         x: "12.8%",
         y: "50.0%",
@@ -2979,7 +2979,7 @@ var overworldChests = [
             return "unavailable";
         },
     },
-//poes
+    //poes
     {
         //12
         name: "Jovani Poe",
@@ -3528,8 +3528,8 @@ var overworldChests = [
             return "poeunavailable";
         },
     },
-	// bugs
-	{
+    // bugs
+    {
         //1
         name: "Male Beetle",
         x: "53.58%",

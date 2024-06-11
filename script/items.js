@@ -54,7 +54,7 @@ var defaultItemGrid = [
         "Boss4",
         "Boss5"
     ],
-    [ 
+    [
         "Boss6",
         "Boss7",
         "Boss8",
@@ -105,7 +105,7 @@ var baseItems = {
     ZoraArmor: false,
     MagicArmor: false,
     IronBoots: false,
-   
+
     Boss1: false,
     Boss2: false,
     Boss3: false,
@@ -114,7 +114,7 @@ var baseItems = {
     Boss6: false,
     Boss7: false,
     Boss8: false,
-    
+
 
     blank: false,
 };
@@ -168,16 +168,16 @@ var itemsMax = {
 };
 
 const progressiveItems =
-[
-    "Bow",
-    "Clawshot",
-    "Wallet",
-    "Rod",
-    "Sword",
-    "Shield",
-    "Dominion",
-    "Vessel"
-];
+    [
+        "Bow",
+        "Clawshot",
+        "Wallet",
+        "Rod",
+        "Sword",
+        "Shield",
+        "Dominion",
+        "Vessel"
+    ];
 
 
 //assign the default values of the items to the GUI

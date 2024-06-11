@@ -1,12 +1,14 @@
 ﻿<html>
+
 <head>
     <title>Twilight Princess Item Tracker</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <script src="script/items.js"></script>
     <script src="script/chests.js"></script>
@@ -83,17 +85,23 @@
             <div id='submapdiv' class='submapdiv'>
                 <div align='center'><span id='submaparea' style="font-size:20px">Hyrule</span></div>
                 <hr style="margin-top: 4px; margin-bottom: 4px">
-                <ul onselectstart="return false" id='submaplist' style="margin-top: 4px; margin-bottom: 4px; overflow-y: auto; height: 232px;"></ul>
-				 </ul>
-                      <!-- Map toggles -->
-                      <fieldset>
-                      <input type='radio' name='checktracker' value="map" id="maptracker" checked='true' onclick="setMapTracker()">Standard<br>
-                      <input type='radio' name='checktracker' value="poe" id="poetracker" onclick="setPoeTracker()">Poes<br>
-                      <input type='radio' name='checktracker' value="bug" id="bugtracker" onclick="setBugTracker()">Bugs<br>
-                      </fieldset>
+                <ul onselectstart="return false" id='submaplist'
+                    style="margin-top: 4px; margin-bottom: 4px; overflow-y: auto; height: 232px;"></ul>
+                </ul>
+                <!-- Map toggles -->
+                <fieldset>
+                    <input type='radio' name='checktracker' value="map" id="maptracker" checked='true'
+                        onclick="setMapTracker()">Standard<br>
+                    <input type='radio' name='checktracker' value="poe" id="poetracker"
+                        onclick="setPoeTracker()">Poes<br>
+                    <input type='radio' name='checktracker' value="bug" id="bugtracker"
+                        onclick="setBugTracker()">Bugs<br>
+                </fieldset>
 
             </div>
-            <div id='checkCounter' style="background-color: black; position:relative; margin-left: 70%; margin-top: 935px; margin-botton: 0px;">4</div>
+            <div id='checkCounter'
+                style="background-color: black; position:relative; margin-left: 70%; margin-top: 935px; margin-botton: 0px;">
+                4</div>
         </div>
     </div>
 
@@ -117,34 +125,40 @@
                 <button type="button" onclick="ResetLayout()">Reset Layout</button>
                 <button type="button" onclick="ResetTracker()">Reset Tracker</button>
                 <br>
-                Size<input type="range" name='itemdivsize' id='itemrange' value='100' max='200' min='1' onchange="setZoom('itemdiv', this)">
+                Size<input type="range" name='itemdivsize' id='itemrange' value='100' max='200' min='1'
+                    onchange="setZoom('itemdiv', this)">
                 <span id='itemdivsize'>100%</span><br>
                 <input type="checkbox" name="showprizes" onchange="showPrizes(this)">Show Dungeon Items (BETA)<br>
-                <input type="checkbox" name="removeboxes" onchange="setRemoveBoxes(this)">Remove Box From Behind Items<br>
+                <input type="checkbox" name="removeboxes" onchange="setRemoveBoxes(this)">Remove Box From Behind
+                Items<br>
             </fieldset>
             <fieldset>
                 <legend>Map Tracker</legend>
                 <input type="checkbox" name="showmap" checked='true' onchange="showTracker('mapdiv', this)">Enabled<br>
-                Size<input type="range" name='mapdivsize' id='maprange' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)">
+                Size<input type="range" name='mapdivsize' id='maprange' value='100' max='200' min='1'
+                    onchange="setZoom('mapdiv', this)">
                 <span id='mapdivsize'>100%</span><br>
                 Position:
                 <input type='radio' name='mapposition' value='Side' checked='true' onclick="setOrder(false)">Side
                 <input type='radio' name='mapposition' value='Below' onclick="setOrder(true)">Below<br>
             </fieldset>
-                <footer style='bottom:0; width:100%; text-align: left; position: relative; color:grey'>
-        <center>
-            <div id='credits' style="background-color:black; width:75%; text-align: center;">
-                Twilight Princess Tracker v1.9 by Lunar Soap, Updated by Feli Heli<br />
-                With help and inspiration from <a href="https://github.com/TreZc0">TreZc0</a> and <a href="https://github.com/TestRunnerSRL">TestRunner</a>
-                 </div>
+            <footer style='bottom:0; width:100%; text-align: left; position: relative; color:grey'>
+                <center>
+                    <div id='credits' style="background-color:black; width:75%; text-align: center;">
+                        Twilight Princess Tracker v1.9 by Lunar Soap, Updated by Feli Heli<br />
+                        With help and inspiration from <a href="https://github.com/TreZc0">TreZc0</a> and <a
+                            href="https://github.com/TestRunnerSRL">TestRunner</a>
+                    </div>
         </div>
 
         <div id="CheckOptions" class="w3-container city" style="display:none">
             <p>Allows you to sort by different types of checks.</p>
             <fieldset>
                 <legend>Logic Options</legend>
-                <input type='radio' name='glitchedLogic' value='Normal' checked='true' onclick="setGlitchedLogicOff()">Standard Logic
-                <input type='radio' name='glitchedLogic' value='Glitched' onclick="setGlitchedLogicOn()">Glitched Logic<br>
+                <input type='radio' name='glitchedLogic' value='Normal' checked='true'
+                    onclick="setGlitchedLogicOff()">Standard Logic
+                <input type='radio' name='glitchedLogic' value='Glitched' onclick="setGlitchedLogicOn()">Glitched
+                Logic<br>
                 <br>
             </fieldset>
         </div>
@@ -153,9 +167,11 @@
             <p>Allows you to modify how the tracker looks.</p>
             <fieldset>
                 <legend>Cosmetic Changes</legend>
-                Map Distance<input type="range" name='trackerDistance' id='trackerDistanceID' value='1' max='100' min='0' onchange="setDistance('blankspace', this)">
+                Map Distance<input type="range" name='trackerDistance' id='trackerDistanceID' value='1' max='100'
+                    min='0' onchange="setDistance('blankspace', this)">
                 <span id='blankspacesize'>1%</span><br>
-                Tracker Opacity<input type="range" name='trackerOpacity' id='trackerOpacityID' value='100' max='100' min='0' onchange="setOpacity('tracker', this)">
+                Tracker Opacity<input type="range" name='trackerOpacity' id='trackerOpacityID' value='100' max='100'
+                    min='0' onchange="setOpacity('tracker', this)">
                 <span id='trackersize'>100%</span><br>
 
 
@@ -183,8 +199,10 @@
                 <input type="checkbox" name="earlycits" onchange="setEarlyCits(this)">Early CiTS<br>
                 <input type="checkbox" name="opengates" onchange="setOpenGates(this)">Open Field Gates<br>
                 <input type="checkbox" name="minespatch" onchange="setMinesPatch(this)">Goron Mines Patch<br>
-                <input type="checkbox" name="nobottlereq" onchange="setNoBottleReq(this)">No Shop Bottle Requirement?<br>
-                <input type="checkbox" name="earlyHyruleCastle" onchange="setEarlyHyruleCastle(this)">Early Hyrule Castle<br>
+                <input type="checkbox" name="nobottlereq" onchange="setNoBottleReq(this)">No Shop Bottle
+                Requirement?<br>
+                <input type="checkbox" name="earlyHyruleCastle" onchange="setEarlyHyruleCastle(this)">Early Hyrule
+                Castle<br>
                 <input type="checkbox" name="escortskip" onchange="setEscortSkip(this)">Escort Skip<br>
                 <input type="checkbox" name="earlytot" onchange="setEarlyToT(this)">Early ToT<br>
                 <input type="checkbox" name="earlypot" onchange="setEarlyPoT(this)">Early PoT<br>
@@ -201,10 +219,11 @@
     <footer style='bottom:0; width:100%; text-align: left; position: relative; color:grey'>
         <center>
             <div id='credits' style="background-color:black; width:25%; text-align: center;">
-               
-                
+
+
             </div>
         </center>
     </footer>
 </body>
+
 </html>
