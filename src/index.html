@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Twilight Princess Item Tracker</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <template id="settings-menu">
+        <div>
+            <slot name="description"> MISSING DESCRIPTION </slot>
+            <slot>
+                MISSING czSETTINGS LISTS
+            </slot>
+        </div>
+    </template>
+
+    <template id="settings-list">
+        <style>
+            ul.settings-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+
+        <fieldset>
+            <slot name="legend"> MISSING LEGEND </slot>
+            <ul class="settings-list">
+                <slot>
+                    <li>
+                        <label>
+                            <input type="checkbox" disabled />
+                            MISSING SETTINGS SLOT
+                        </label>
+                    </li>
+                </slot>
+            </ul>
+        </fieldset>
+    </template>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //creates the menu and sets it up
+        function openCity(cityName) {
+            var i;
+            var x = document.getElementsByClassName("city");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(cityName).style.display = "block";
+        }
+    </script>
+    <script type="module" src="main.ts"></script>
+
+    <!--Creates the layout of the item tracker, blank space between the two trackers, and the map tracker-->
+    <div id='layoutdiv'>
+        <div id='itemdiv' class='itemdiv'>
+        </div>
+        <div id='blankspace' role="separator" aria-orientation="vertical" class='blankspace'>
+        </div>
+        <div id='mapdiv' class='mapdiv'>
+            <div id='submapdiv' class='submapdiv'>
+                <div align='center'><span id='submaparea' style="font-size:20px">Hyrule</span></div>
+                <hr style="margin-top: 4px; margin-bottom: 4px">
+                <ul onselectstart="return false" id='submaplist'
+                    style="margin-top: 4px; margin-bottom: 4px; overflow-y: auto; height: 232px;"></ul>
+                </ul>
+                <!-- Map toggles -->
+                <fieldset role="radiogroup" aria-labelledby="map-toggles-legend">
+                    <legend id="map-toggles-legend">Active Map</legend>
+                    <div>
+                        <input type='radio' name='checktracker' value="standard" id="maptracker" checked='true' />
+                        <label for="maptracker">Standard</label>
+                    </div>
+                    <div>
+                        <input type='radio' name='checktracker' value="poe" id="poetracker" />
+                        <label for="poetracker">Poes</label>
+                    </div>
+                    <div>
+                        <input type='radio' name='checktracker' value="bug" id="bugtracker" />
+                        <label for="bugtracker">Bugs</label>
+                    </div>
+                </fieldset>
+            </div>
+            <div id='checkCounter' style="margin-left: 70%; margin-top: 935px; margin-bottom: 0px;" role="status">
+            </div>
+            <div id="mapoverlay"></div>
+        </div>
+    </div>
+
+
+    <!-- Setting panel-->
+    <button id='settingsbutton' aria-haspopup="menu" aria-controls="menu" type='button'
+        onclick='showSettings(this)'>🔧</button>
+    <fieldset id='settings' class='settings' role="menu">
+        <legend>Settings</legend>
+        <div>
+            <button role="menuitem" onclick="openCity('TrackerOptions')">Tracker Options</button>
+            <button role="menuitem" onclick="openCity('CheckOptions')">Check Options</button>
+            <button role="menuitem" onclick="openCity('CosmeticChanges')">CosmeticChanges</button>
+            <button role="menuitem" onclick="openCity('SkipOptions')">Skip Options</button>
+        </div>
+
+        <div id="TrackerOptions" class="city">
+            <p>Allow you to Modify how the tracker functions.</p>
+            <fieldset>
+                <legend>Item Tracker</legend>
+                <button type="button" onclick="EditMode()">Edit Mode</button>
+                <button type="button" onclick="ResetLayout()">Reset Layout</button>
+                <button type="button" onclick="ResetTracker()">Reset Tracker</button>
+                <br>
+                Size<input type="range" name='itemdivsize' id='itemrange' value='100' max='200' min='1'
+                    onchange="setZoom('itemdiv', this.value)">
+                <span id='itemdivsize'>100%</span><br>
+                <input type="checkbox" name="showprizes" onchange="showPrizes(this)">Show Dungeon Items (BETA)<br>
+                <input type="checkbox" name="removeboxes" onchange="setRemoveBoxes(this)">Remove Box From Behind
+                Items<br>
+            </fieldset>
+            <fieldset>
+                <legend>Map Tracker</legend>
+                <input type="checkbox" name="showmap" checked='true' onchange="showTracker('mapdiv', this)">Enabled<br>
+                Size<input type="range" name='mapdivsize' id='maprange' value='100' max='200' min='1'
+                    onchange="setZoom('mapdiv', this.value)">
+                <span id='mapdivsize'>100%</span><br>
+                Position:
+                <input type='radio' name='mapposition' value='Side' checked='true' onclick="setOrder(false)">Side
+                <input type='radio' name='mapposition' value='Below' onclick="setOrder(true)">Below<br>
+            </fieldset>
+            <footer style='bottom:0; width:100%; text-align: left; position: relative; color:grey'>
+                <center>
+                    <div id='credits' style="background-color:black; width:75%; text-align: center;">
+                        Twilight Princess Tracker v1.9 by Lunar Soap, Updated by Feli Heli<br />
+                        With help and inspiration from <a href="https://github.com/TreZc0">TreZc0</a> and <a
+                            href="https://github.com/TestRunnerSRL">TestRunner</a>
+                    </div>
+        </div>
+
+        <settings-menu id="CheckOptions" class="city" style="display: none;">
+            <p slot="description">Options for how checks are tracked.</p>
+            <settings-list>
+                <legend slot="legend">Logic Options</legend>
+
+                <li>
+                    <label for="logic-select">Logic Rules</label>
+                    <select name="logic-select" id="logic-select">
+                        <option value="glitchless">Glitchless</option>
+                        <option value="glitched">Glitched</option>
+                    </select>
+                </li>
+            </settings-list>
+        </settings-menu>
+
+
+        <settings-menu id="CosmeticChanges" class="city" style="display:none">
+            <p slot="description">Allows you to modify how the tracker looks.</p>
+            <settings-list>
+                <legend slot="legend">Cosmetic Changes</legend>
+                <li>
+                    <label for="trackerDistanceID">Map Distance</label>
+                    <input type="range" name='trackerDistance' id='trackerDistanceID' value='1' max='100' min='0'
+                        onchange="setDistance('blankspace', this)">
+                    <span id='blankspacesize'>1%</span>
+                </li>
+                <li>
+                    <label for="trackerOpacityID">Tracker Opacity</label>
+                    <input type="range" name='trackerOpacity' id='trackerOpacityID' value='100' max='100' min='0'
+                        onchange="setOpacity('tracker', this)">
+                    <span id='trackersize'>100%</span>
+                </li>
+                <li>
+                    <label for="background-select">Background Image</label>
+                    <select id='background-select'>
+                        <option value="none" selected>None</option>
+                        <option value="castle">Castle</option>
+                        <option value="meadow">Meadow</option>
+                        <option value="bridge">Bridge</option>
+                    </select>
+                    <button onclick="setBackground()">Set</button>
+                </li>
+            </settings-list>
+        </settings-menu>
+
+
+        <div id="SkipOptions" class="city" style="display:none">
+            <p>Select the Skips you have enabled to make the logic more accurate</p>
+            <fieldset>
+                <legend>Skip Options</legend>
+                <input type="checkbox" data-skip="prologue" id="skip-prologue" name="skip-prologue" />
+                <label for="skip-prologue">Skip Prologue</label>
+
+                <input type="checkbox" data-skip="faronTwilight" id="faron-twilight-skip" name="faron-twilight-skip" />
+                <label for="faron-twilight-skip">Faron Twilight Skip</label>
+
+                <input type="checkbox" data-skip="eldinTwilight" id="eldin-twilight-skip"
+                    name="eldin-twilight-skip" />Eldin
+                Twilight Skip<br>
+
+                <input type="checkbox" data-skip="lanayruTwilight" id="lanayru-twilight-skip"
+                    name="lanayru-twilight-skip" />Lanayru Twilight
+                Skip<br>
+                <input type="checkbox" data-skip="mdh" name="skipmdh">Skip MDH<br>
+                <input type="checkbox" name="faronescape" onchange="setFaronEscape(this)">Faron Escape<br>
+                <input type="checkbox" name="earlydesert" onchange="setEarlyDesert(this)">Early Desert<br>
+                <input type="checkbox" name="earlycits" onchange="setEarlyCits(this)">Early CiTS<br>
+                <input type="checkbox" name="opengates" onchange="setOpenGates(this)">Open Field Gates<br>
+                <input type="checkbox" name="minespatch" onchange="setMinesPatch(this)">Goron Mines
+                Patch<br>
+                <input type="checkbox" name="nobottlereq" onchange="setNoBottleReq(this)">No Shop Bottle
+                Requirement?<br>
+                <input type="checkbox" name="earlyHyruleCastle" onchange="setEarlyHyruleCastle(this)">Early Hyrule
+                Castle<br>
+                <input type="checkbox" name="escortskip" onchange="setEscortSkip(this)">Escort Skip<br>
+                <input type="checkbox" name="earlytot" onchange="setEarlyToT(this)">Early ToT<br>
+                <input type="checkbox" name="earlypot" onchange="setEarlyPoT(this)">Early PoT<br>
+            </fieldset>
+        </div>
+
+    </fieldset>
+    <table id='itemconfig' class='itemconfig' style='display:none'></table>
+    <br />
+    <br />
+    <footer style='bottom:0; width:100%; text-align: left; position: relative; color:grey'>
+        <center>
+            <div id='credits' style="background-color:black; width:25%; text-align: center;">
+
+
+            </div>
+        </center>
+    </footer>
+</body>
+
+</html>
