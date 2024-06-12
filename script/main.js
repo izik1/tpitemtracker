@@ -145,8 +145,9 @@ function toggleChest(sender, c) {
         openedChecks.add(c);
     }
 
+    sender.ariaPressed = openedChecks.has(c);
 
-    sender.className = 'mapspan chest ' + checkStatus(c);
+    sender.dataset.status = checkStatus(c);
 
     updateItemCounter();
     saveChecks()
@@ -154,7 +155,11 @@ function toggleChest(sender, c) {
 
 
 // Event of clicking a dungeon box on the map
-function clickDungeon(d) {
+/** @param {MouseEvent} ev  */
+function clickDungeon(ev) {
+    document.querySelector('.dungeon.active')?.classList.remove('active');
+
+    ev.currentTarget.classList.add('active');
     document.getElementById('dungeon' + dungeonSelect).classList.remove('active');
     document.getElementById('dungeon' + dungeonSelect).classList.add('active');
 
@@ -377,7 +382,7 @@ function setTaloMap(sender) {
     talomap = sender.checked;
     if (!talomap) {
         TaloMap = false;
-        document.getElementById("mapdiv").style.backgroundImage = "url('images/map.png')";
+        document.getElementById("mapdiv").style.removeProperty("background-image");
         document.body.style.backgroundImage = "url('images/Backgrounds/none.png')";
         updateMap();
         updateGridItemAll();
@@ -402,98 +407,34 @@ function setGlitchedLogicOn() {
     updateMap();
 }
 
+function setTracker() {
+    /** @type {CheckKind} */
+    let visible = document.querySelector("input[name='checktracker']:checked").value;
+
+    const collection = document.getElementById('mapoverlay').getElementsByClassName("chest")
+
+    for (element of collection) {
+        if (element.classList.contains(visible)) {
+            element.style.display = '';
+        } else {
+            element.style.display = "none";
+        }
+    }
+}
+
 // Options for when a person clicks on the different check options
 function setMapTracker(force) {
-    if (force === true || document.getElementById('maptracker').checked) {
-        for (element of document.getElementsByClassName("mapspan chest")) {
-            element.style.visibility = "hidden";
-        }
-
-        for (const [i, check] of overworld.entries()) {
-            const checkData = checkDataGlitchless[checkIdsGlitchless[check.name]]
-            const kind = Object.hasOwn(checkData, "kind") ? checkData.kind : null;
-            if (kind === null || kind === "standard") {
-                document.getElementById(`overworld${i}`).style.visibility = "visible";
-            }
-        }
-
-        for (element of document.getElementsByClassName("mapspan dungeon")) {
-            // there are no variations of dungeons currently, so they're all visible.
-            // element.style.visibility = "hidden";
-        }
-    }
-    else {
-        return;
-    }
+    setTracker()
 }
 
 function setPoeTracker() {
-    if (document.getElementById('poetracker').checked) {
-
-        for (var i = 0; i < 95; i++) {
-            document.getElementById("" + i).style.visibility = "hidden";
-        }
-        for (var i = 95; i < 144; i++) {
-            document.getElementById("" + i).style.visibility = "visible";
-        }
-        for (var i = 144; i < 211; i++) {
-            document.getElementById("" + i).style.visibility = "hidden";
-        }
-        for (var j = 0; j < 17; j++) {
-            document.getElementById("dungeon" + j).style.visibility = "hidden";
-        }
-        for (var j = 17; j < 21; j++) {
-            document.getElementById("dungeon" + j).style.visibility = "hidden";
-        }
-
-    }
-    else {
-        return;
-    }
+    setTracker()
 }
 
 function setBugTracker() {
-    if (document.getElementById('bugtracker').checked) {
+    setTracker()
 
-        for (var i = 0; i < 144; i++) {
-            document.getElementById(i).style.visibility = "hidden";
-        }
-        for (var i = 144; i < 187; i++) {
-            document.getElementById("" + i).style.visibility = "visible";
-        }
-
-        for (var j = 0; j < 22; j++) {
-            document.getElementById("dungeon" + j).style.visibility = "hidden";
-        }
-        for (var j = 187; j < 211; j++) {
-            document.getElementById("" + j).style.visibility = "hidden";
-        }
-    }
-    else {
-        return;
-    }
 }
-
-function setShopTracker() {
-    if (document.getElementById('shoptracker').checked) {
-        for (var i = 0; i < 153; i++) {
-            document.getElementById(i).style.visibility = "hidden";
-        }
-        for (var j = 0; j < 21; j++) {
-            document.getElementById("dungeon" + j).style.visibility = "hidden";
-        }
-        for (var i = 153; i < 177; i++) {
-            document.getElementById("" + i).style.visibility = "hidden";
-        }
-        for (var j = 177; j < 201; j++) {
-            document.getElementById("" + j).style.visibility = "visible";
-        }
-    }
-    else {
-        return;
-    }
-}
-
 
 //Set map zoom
 function setZoom(target, value, save = true) {
@@ -995,17 +936,18 @@ function updateMap() {
     for (const [i, check] of overworld.entries()) {
         // nothing has changed if it's already open.
         if (!openedChecks.has(check.name)) {
-            document.getElementById(`overworld${i}`).className = 'mapspan chest ' + checkStatus(check.name);
-
+            document.getElementById(`overworld${i}`).dataset.status = checkStatus(check.name);
         }
     }
 
     for (const [i, group] of groups.entries()) {
-        document.getElementById('dungeon' + i).className = 'mapspan dungeon ' + groupStatus(group);
+        let elem = document.getElementById('dungeon' + i);
+
+        elem.dataset.status = groupStatus(group);
 
         const availableChecks = group.checks.reduce((total, it) => total + (checkStatus(it) === "available"), 0)
 
-        var child = document.getElementById('dungeon' + i).firstChild;
+        var child = elem.firstChild;
         while (child) {
             if (child.className == 'chestCount') {
                 if (availableChecks === 0) {
@@ -1057,56 +999,70 @@ function itemConfigClick(sender) {
 }
 
 function populateMapdiv() {
-    var mapdiv = document.getElementById('mapdiv');
+    var mapdiv = document.getElementById('mapoverlay');
 
     for (const [i, check] of overworld.entries()) {
-        let s = document.createElement('span');
-        s.style.color = 'black';
+        let s = document.createElement('button');
         s.id = `overworld${i}`;
-        s.onclick = new Function('toggleChest(this,"' + check.name + '")');
+        s.onclick = _ev => toggleChest(s, check.name)
         s.style.left = check.x;
         s.style.top = check.y;
-        s.className = 'mapspan chest ' + checkStatus(check.name);
 
-        var ss = document.createElement('span');
-        ss.className = 'tooltip';
-        ss.innerHTML = check.name;
-        s.appendChild(ss);
+        s.ariaPressed = openedChecks.has(check.name);
+
+        /** @type {Check} */
+        const checkData = checkDataGlitchless[checkIdsGlitchless[check.name]]
+
+        const checkKind = (checkData?.kind ?? "standard");
+
+        s.dataset.status = checkStatus(check.name)
+
+        s.classList.add('chest', checkKind)
+
+        var itemCount = document.createElement('span');
+        itemCount.role = 'tooltip';
+        itemCount.id = `ow-tt${i}`;
+        itemCount.textContent = check.name;
+
+        s.setAttribute('aria-labelledby', itemCount.id)
+
+        s.appendChild(itemCount);
 
         mapdiv.appendChild(s);
     }
 
     for (const [i, group] of groups.entries()) {
-        let s = document.createElement('span');
-        s.id = `dungeon${i}`;
-        s.onclick = new Function('clickDungeon(' + i + ')');
-
-        s.style.left = group.x;
-        s.style.top = group.y;
-        s.className = 'mapspan dungeon ' + groupStatus(group);
+        let groupElem = document.createElement('button');
+        groupElem.id = `dungeon${i}`;
+        groupElem.onclick = (ev) => clickDungeon(ev);
+        groupElem.style.left = group.x;
+        groupElem.style.top = group.y;
+        groupElem.className = 'dungeon'
+        groupElem.dataset.status = groupStatus(group);
 
         const availableChecks = group.checks.reduce((total, it) => total + (checkStatus(it) === "available"), 0)
 
-        var ss = document.createElement('span');
-        ss.className = 'chestCount';
+        var itemCount = document.createElement('span');
+        itemCount.className = 'chestCount';
         if (availableChecks === 0) {
-            ss.innerHTML = '';
+            itemCount.innerHTML = '';
         } else {
-            ss.innerHTML = availableChecks;
+            itemCount.innerHTML = availableChecks;
         }
 
-        ss.style.color = 'black'
-        s.style.textAlign = 'center';
-        ss.display = 'inline-block';
-        ss.style.lineHeight = '15px';
-        s.appendChild(ss);
+        groupElem.appendChild(itemCount);
 
-        var ss = document.createElement('span');
-        ss.className = 'tooltipgray';
-        ss.innerHTML = group.name;
-        s.appendChild(ss);
+        var tooltip = document.createElement('span');
+        tooltip.role = 'tooltip';
+        tooltip.id = `dun-tt${i}`;
+        tooltip.className = 'gray';
+        tooltip.textContent = group.name;
 
-        mapdiv.appendChild(s);
+        groupElem.setAttribute('aria-labelledby', tooltip.id)
+
+        groupElem.appendChild(tooltip);
+
+        mapdiv.appendChild(groupElem);
     }
 
     updateItemCounter();

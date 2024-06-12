@@ -73,13 +73,23 @@ body {
     background-size: 200% 200%;
 }
 
-.mapspan {
+#mapoverlay>button {
     border: 1px solid black;
 }
 
-.mapspan:hover,
-.mapspan.active {
+#mapoverlay>button:hover,
+#mapoverlay>button.active {
     border-color: yellow;
+}
+
+#mapoverlay>.dungeon {
+    text-align: center;
+}
+
+.chestCount {
+    color: black;
+    line-height: 15px;
+    display: inline-block;
 }
 
 input {
@@ -100,7 +110,6 @@ label {
     /* for IE7*/
     zoom: 1;
     /* for IE7*/
-    float: left;
     padding-top: 5px;
     text-align: right;
     width: 140px;
@@ -175,7 +184,7 @@ label {
 }
 
 .mapdiv {
-    background-image: url("images/map.png");
+    background-image: url("images/map2x.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
 
@@ -205,7 +214,7 @@ label {
 
 
 .mapvdiv {
-    background-image: url("images/mapv.png");
+    background-image: url("images/map2x.png");
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -236,27 +245,31 @@ label {
     cursor: pointer;
 }
 
-.unavailable {
+#mapoverlay>button.chest {
+    color: black;
+}
+
+[data-status="unavailable"] {
     background-color: rgb(255, 0, 0);
 }
 
-.available {
+[data-status="available"] {
     background-color: rgb(0, 255, 0);
 }
 
-.poeunavailable {
+.poe[data-status="unavailable"] {
     background-color: rgb(188, 0, 161);
 }
 
-.bugunavailable {
+.bug[data-status="unavailable"] {
     background-color: rgb(255, 255, 0);
 }
 
-.possible {
+[data-status="possible"] {
     background-color: rgb(210, 190, 30);
 }
 
-.opened {
+[data-status="opened"] {
     background-color: rgb(127, 127, 127);
 }
 
@@ -301,31 +314,12 @@ label {
 }
 
 
-.mapspan .tooltipgray {
-    visibility: hidden;
-    width: 120px;
+[role="tooltip"].gray {
     background-color: gray;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 120%;
-    left: 50%;
-    margin-left: -60px;
 }
 
-.mapspan .tooltipgray:hover {
+button>[role="tooltip"] {
     display: none;
-}
-
-.mapspan:hover .tooltipgray {
-    visibility: visible;
-}
-
-.mapspan .tooltip {
-    visibility: hidden;
     width: 120px;
     background-color: black;
     color: #fff;
@@ -339,7 +333,7 @@ label {
     margin-left: -60px;
 }
 
-.mapspan .tooltip::after {
+button>[role="tooltip"]::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -350,12 +344,9 @@ label {
     border-color: black transparent transparent transparent;
 }
 
-.mapspan .tooltip:hover {
-    display: none;
-}
-
-.mapspan:hover .tooltip {
-    visibility: visible;
+button:hover>[role="tooltip"],
+button:focus>[role="tooltip"] {
+    display: block;
 }
 
 .blankspace {
@@ -373,6 +364,7 @@ label {
 .checkCounter {
     background-color: black;
     margin-left: 200px;
+    position: relative;
 }
 
 fieldset,

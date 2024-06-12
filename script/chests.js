@@ -81,7 +81,6 @@ const groups = [
             checks.ordona.province.uliCradleDelivery,
             checks.ordona.province.woodenSwordChest,
             checks.ordona.province.wrestlingWithBo
-            // "Ordon Spring Golden Wolf"
         ],
     }
 ];
