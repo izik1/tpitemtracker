@@ -1,7 +1,7 @@
 "use strict";
 
 import { checkDataGlitchless, checkIdsGlitchless } from "./logic";
-import { defaultItemGrid, itemsMax, itemsMin, baseItems, progressiveItems } from "./items";
+import { defaultItemGrid, itemsMax, itemsMin, baseItems, progressiveItems, ItemId } from "./items";
 import store from "./store"
 import { overworld, groups, checkStatus, groupStatus } from "./chests"
 
@@ -48,8 +48,7 @@ var dungeonImg = [
 //set our default variables
 let showprizes = true;
 
-let itemGrid: HTMLElement[][][] = [];
-let itemLayout: string[][] = [];
+let itemLayout: ItemId[][] = [];
 
 let editmode = false;
 let selected: {} | { item: string } | { row: number, col: number } = {};
@@ -58,7 +57,7 @@ var dungeonSelect = 0;
 const totalChecks = checkDataGlitchless.length;
 
 // if we change an option, we want to update our cookies
-function setCookie(obj: { iZoom: any; mZoom: any; mPos: number; prize: number; rewards: { Boss1: number; Boss2: number; Boss3: number; Boss4: number; Boss5: number; Boss6: number; Boss7: number; Boss8: number; }; obtainedItems: { Bow: number; Clawshot: number; Chainball: boolean; Slingshot: boolean; Boomerang: boolean; Bombs: number; WBombs: boolean; Rod: number; Lantern: boolean; Hawkeye: boolean; Spinner: boolean; Memo: boolean; Sketch: boolean; Skybook: number; Dominion: number; Renardos_Letter: boolean; Invoice: boolean; Wooden_Statue: boolean; Ilias_Charm: boolean; Horse_Call: boolean; Bugs: number; Bottle: number; Wallet: number; Sword: number; Skills: number; Shield: number; Soul: number; Vessel: number; YouthScent: boolean; IliaScent: boolean; PoeScent: boolean; ReekfishScent: boolean; MedicineScent: boolean; Shadow: number; Shard: number; Crystal: boolean; ZoraArmor: boolean; MagicArmor: boolean; IronBoots: boolean; Boss1: boolean; Boss2: boolean; Boss3: boolean; Boss4: boolean; Boss5: boolean; Boss6: boolean; Boss7: boolean; Boss8: boolean; blank: boolean; }; }) {
+function setCookie(obj) {
     localStorage.setItem("data", JSON.stringify(obj));
 }
 
@@ -100,15 +99,17 @@ function loadStorage() {
     });
 
     rewards = cookieobj.rewards;
-    initGridRow(JSON.parse(localStorage.getItem('itemLayout')) ?? defaultItemGrid);
     store.items = cookieobj.obtainedItems;
 
     // I literally can't think of a less dumb way to do this right now.
     store.settings = JSON.parse(localStorage.getItem('settings') ?? "null") ?? store.settings
 
+    itemLayout = JSON.parse(localStorage.getItem('itemLayout')) ?? defaultItemGrid
+
+    initGridRow(itemLayout);
     deserializeChecks(JSON.parse(localStorage.getItem('openedChecks')));
 
-    updateGridItemAll();
+    // updateGridItemAll();
 
     setZoom('itemdiv', cookieobj.iZoom, false);
     setZoom('mapdiv', cookieobj.mZoom, false);
@@ -236,159 +237,10 @@ export function setSkipOption(option: string, sender: { checked: boolean }) {
     updateMap()
 }
 
-//Set the values for the skips if their boxes are checked
-function setFaronEscape(sender: { checked: any; }) {
-    faronescape = sender.checked;
-    if (!faronescape) {
-        FaronEscape = false;
-        updateMap();
-    }
-    else {
-        FaronEscape = true;
-        updateMap();
-    }
-}
-
-function setTwilightSkip(sender: { checked: any; }) {
-    TwilightSkip = sender.checked;
-    updateMap();
-}
-
-function setRemoveBoxes(sender: { checked: any; }) {
-    settings.itemBoxes = sender.checked;
-    updateGridItemAll();
-}
-
-function setSkipMdh(sender: { checked: any; }) {
-    skipmdh = sender.checked;
-    if (!skipmdh) {
-        SkipMDH = false;
-        updateMap();
-    }
-    else {
-        SkipMDH = true;
-        updateMap();
-    }
-}
-
-function setSkipPrologue(sender: { checked: any; }) {
-    store.settings.randomizer.skipPrologue = sender.checked;
-    updateMap();
-}
-
-function setEarlyDesert(sender: { checked: any; }) {
-    earlydesert = sender.checked;
-    if (!earlydesert) {
-        EarlyDesert = false;
-        updateMap();
-    }
-    else {
-        EarlyDesert = true;
-        updateMap();
-    }
-}
-
-function setEarlyCits(sender: { checked: any; }) {
-    earlycits = sender.checked;
-    if (!earlycits) {
-        EarlyCits = false;
-        updateMap();
-    }
-    else {
-        EarlyCits = true;
-        updateMap();
-    }
-}
-
-function setOpenGates(sender: { checked: any; }) {
-    opengates = sender.checked;
-    if (!opengates) {
-        OpenGates = false;
-        updateMap();
-    }
-    else {
-        OpenGates = true;
-        updateMap();
-    }
-}
-
-function setMinesPatch(sender: { checked: any; }) {
-    minespatch = sender.checked;
-    if (!minespatch) {
-        MinesPatch = false;
-        updateMap();
-    }
-    else {
-        MinesPatch = true;
-        updateMap();
-    }
-}
-
-function setNoBottleReq(sender: { checked: any; }) {
-    nobottlereq = sender.checked;
-    if (!nobottlereq) {
-        NoBottleReq = false;
-        updateMap();
-    }
-    else {
-        NoBottleReq = true;
-        updateMap();
-    }
-}
-
-function setEarlyHyruleCastle(sender: { checked: any; }) {
-    earlyhyrulecastle = sender.checked;
-    if (!earlyhyrulecastle) {
-        EarlyHyruleCastle = false;
-        updateMap();
-    }
-    else {
-        EarlyHyruleCastle = true;
-        updateMap();
-    }
-}
-
-function setEscortSkip(sender: { checked: any; }) {
-    escortskip = sender.checked;
-    if (!escortskip) {
-        EscortSkip = false;
-        updateMap();
-    }
-    else {
-        EscortSkip = true;
-        updateMap();
-    }
-}
-
-function setEarlyToT(sender: { checked: any; }) {
-    earlytot = sender.checked;
-    if (!earlytot) {
-        EarlyToT = false;
-        updateMap();
-    }
-    else {
-        EarlyToT = true;
-        updateMap();
-    }
-}
-
-function setEarlyPoT(sender: { checked: any; }) {
-    earlypot = sender.checked;
-    if (!earlypot) {
-        EarlyPoT = false;
-        updateMap();
-    }
-    else {
-        EarlyPoT = true;
-        updateMap();
-    }
-}
-
 export function setLogic(sender: { value: string; }) {
     store.settings.randomizer.logic == sender.value;
     updateMap();
 }
-
 
 export function setTracker() {
     /** @type {CheckKind} */
@@ -460,14 +312,10 @@ function setBackground() {
 //backend for the settings button
 export function showSettings(sender: EventTarget | null) {
     if (editmode) {
-        var r: any, c: any;
-        var startdraw = false;
-
         editmode = false;
         updateGridItemAll();
-        showTracker('mapdiv', <HTMLInputElement>document.getElementsByName('showmap')[0]);
+        showTracker(<HTMLInputElement>document.getElementsByName('showmap')[0]);
         document.getElementById('itemconfig').style.display = 'none';
-        document.getElementById('rowButtons').style.display = 'none';
         sender.innerHTML = '🔧';
         saveStorage();
     } else {
@@ -501,7 +349,6 @@ function EditMode() {
     showTracker({ checked: false });
     document.getElementById('settings').style.display = 'none';
     document.getElementById('itemconfig').style.display = '';
-    document.getElementById('rowButtons').style.display = 'flex';
 
     document.getElementById('settingsbutton').innerHTML = 'Exit Edit Mode';
 }
@@ -540,6 +387,18 @@ function ResetLayout() {
     saveStorage();
 }
 
+
+export function editMode() {
+    editmode = true;
+
+
+    updateGridItemAll();
+    showTracker({ checked: false });
+    document.getElementById('settings').style.display = 'none';
+    document.getElementById('itemconfig').style.display = '';
+
+    document.getElementById('settingsbutton').innerHTML = 'Exit Edit Mode';
+}
 
 function ResetTracker() {
     store.openedChecks.clear()
@@ -604,7 +463,7 @@ function removeItemRow() {
 function addItem(r: number) {
     var i = itemLayout[r].length
 
-    itemGrid[r][i] = [];
+    itemGrid[r].push([]);
     itemLayout[r][i] = 'blank';
 
     itemGrid[r][i]['item'] = document.createElement('td');
@@ -654,84 +513,40 @@ function removeItem(r: number) {
 function updateGridItem(row: number, col: number) {
     var item = itemLayout[row][col];
 
-    const makeStyle = (images: string[]) => images.map(elem => `url(${elem})`).join(',');
+    let elem = document.getElementById('itemdiv')?.children[row]?.children[col + 1] ?? null;
+
+    if (elem === null) {
+        console.warn(`attempted to set non-existed grid item (${row},${col})`);
+        return;
+    }
+
+    elem.replaceWith(makeGridItem(row, col, item));
 
     if (editmode) {
-        if (!item || item == 'blank') {
-            itemGrid[row][col]['item'].style.backgroundImage = '';
-        }
-        else if ((typeof store.items[item]) == 'boolean') {
-            itemGrid[row][col]['item'].style.backgroundImage = makeStyle([Items[item]]);
-        }
-        else {
-            itemGrid[row][col]['item'].style.backgroundImage = makeStyle([ItemCounts[`${itemsMax[item]} max`], Items[item]]);
-        }
-        itemGrid[row][col]['item'].style.border = '1px solid white';
-        itemGrid[row][col]['item'].className = 'griditem true'
+        elem.style.border = '1px solid white';
 
         return;
-    }
-
-    itemGrid[row][col]['item'].style.border = '0px';
-
-    if (!item || item == 'blank') {
-        itemGrid[row][col]['item'].style.backgroundImage = '';
-        return;
-    }
-
-    let imageStack: string[] = []
-
-
-    if ((typeof store.items[item]) === 'boolean') {
-        imageStack.push(Items[item])
-    }
-    else if (progressiveItems.includes(item)) {
-        imageStack.push(Items[`${item}${store.items[item]}`]);
-    }
-    else {
-        if (store.items[item] == itemsMax[item]) {
-            imageStack.push(ItemCounts[`${store.items[item]}max`]);
-        }
-        else {
-            imageStack.push(ItemCounts[`${store.items[item]}`]);
-        }
-
-        imageStack.push(Items[item])
-    }
-
-    if (store.settings.itemBoxes) {
-        imageStack.push(itemBoxImage);
-    }
-
-
-    itemGrid[row][col]['item'].style.backgroundImage = makeStyle(imageStack);
-
-    itemGrid[row][col]['item'].className = 'griditem ' + !!store.items[item];
-
-    if (rewards[item] !== undefined) {
-        if (showprizes && rewards[item] !== 0) {
-            itemGrid[row][col][3].style.backgroundImage = makeStyle([BossRewards[dungeonImg[rewards[item]]]]);
-        } else {
-            itemGrid[row][col][3].style.backgroundImage = '';
-        }
     }
 }
 
 
 function updateGridItemAll() {
     var r: number, c: number;
+
+    if (editmode) {
+        for (const elem of document.getElementsByClassName('edit-mode')) {
+            elem.style.display = '';
+        }
+    } else {
+        for (const elem of document.getElementsByClassName('edit-mode')) {
+            elem.style.display = 'none';
+        }
+
+    }
+
     for (r = 0; r < itemLayout.length; r++) {
         for (c = 0; c < itemLayout[r].length; c++) {
             updateGridItem(r, c);
-        }
-
-        if (editmode) {
-            itemGrid[r]['addbutton'].style.display = ''
-            itemGrid[r]['removebutton'].style.display = ''
-        }
-        else {
-            itemGrid[r]['addbutton'].style.display = 'none'
-            itemGrid[r]['removebutton'].style.display = 'none'
         }
     }
 }
@@ -750,21 +565,140 @@ function setGridItem(item: string, row: number, col: number) {
 }
 
 
-function initGridRow(itemsets: string[][]) {
-    console.log("building item grid", itemsets);
-    while (itemLayout.length > 0) {
-        removeItemRow();
+function makeGridItem(row: number, col: number, item: ItemId) {
+    let elem = document.createElement('div');
+    elem.className = 'trackerItem';
+    elem.onclick = (_ev) => gridItemClick(row, col, false);
+    elem.oncontextmenu = (ev) => {
+        gridItemRClick(row, col, false)
+        ev.preventDefault();
+    };
+
+    let cornerItem = makeGridItemCorner(item);
+
+    if (typeof (cornerItem) !== 'undefined') {
+        cornerItem.onclick = (_ev) => gridItemClick(row, col, true);
+        cornerItem.oncontextmenu = (_ev) => gridItemRClick(row, col, true);
+        elem.appendChild(cornerItem);
     }
 
-    var r: number, c: number;
-    for (r = 0; r < itemsets.length; r++) {
-        for (c = 0; c < itemsets[r].length; c++) {
-            setGridItem(itemsets[r][c], r, c);
+
+    elem.style.backgroundImage = makeItemImages(item);
+    elem.classList.add((!!store.items[item]).toString())
+
+    return elem;
+}
+
+function makeGridItemCorner(item: ItemId): HTMLElement | undefined {
+    // todo:
+    // if (item in rewards) { }
+
+    let value = store.items[item];
+
+    if (typeof (value) === "number" && !progressiveItems.includes(item)) {
+        const displayedValue = editmode ? itemsMax[item] : value;
+
+        let elem = document.createElement('div');
+        elem.className = 'trackerTextIcon';
+        let textSpan = document.createElement('span');
+        textSpan.textContent = displayedValue > 0 ? displayedValue.toString() : '';
+        if (displayedValue === itemsMax[item]) {
+            elem.style.color = "#00ff00";
         }
+
+        elem.appendChild(textSpan);
+
+        return elem;
     }
 }
 
-export function gridItemClick(row: number, col: number, corner: number) {
+function makeItemImages(item: ItemId): string {
+    const makeStyle = (images: string[]) => images.map(elem => `url(${elem})`).join(',');
+
+    if (item === 'blank') {
+        return '';
+    }
+
+    // itemGrid[row][col]['item'].style.border = '0px';
+
+    let imageStack: string[] = []
+
+
+    if ((typeof store.items[item]) === 'boolean') {
+        imageStack.push(Items[item])
+    }
+    else if (progressiveItems.includes(item)) {
+        imageStack.push(Items[`${item}${store.items[item]}`]);
+    }
+    else {
+        imageStack.push(Items[item])
+    }
+
+    if (store.settings.itemBoxes) {
+        imageStack.push(itemBoxImage);
+    }
+
+
+    return makeStyle(imageStack);
+
+    // itemGrid[row][col]['item'].className = 'griditem ' + !!store.items[item];
+}
+
+function initGridRow(itemsets: ItemId[][]) {
+    console.log("building item grid", itemsets);
+
+    let grid = document.getElementById('itemdiv')!;
+
+    for (const [i, row] of itemsets.entries()) {
+        let rowElem = document.createElement('div');
+        rowElem.style.display = "flex";
+        rowElem.style.justifyContent = "center";
+        rowElem.style.gap = "0.2em";
+
+
+        let addButton = document.createElement('button');
+
+        addButton.className = 'edit-mode add';
+        addButton.textContent = '+';
+        addButton.style.display = 'none';
+        addButton.onclick = () => addItem(i);
+
+
+
+        let removeButton = document.createElement('button');
+        removeButton.className = 'edit-mode remove';
+        removeButton.textContent = '-';
+        removeButton.style.display = 'none';
+        removeButton.onclick = () => removeItem(i);
+
+        let buttonBox = document.createElement('div');
+        buttonBox.style.alignSelf = 'center';
+        buttonBox.appendChild(addButton);
+        buttonBox.appendChild(removeButton);
+
+        rowElem.appendChild(buttonBox);
+
+        for (const [j, col] of row.entries()) {
+            let colItem = makeGridItem(i, j, col);
+            rowElem.appendChild(colItem);
+        }
+
+        grid.appendChild(rowElem);
+    }
+
+    // while (itemLayout.length > 0) {
+    //     removeItemRow();
+    // }
+
+    // var r: number, c: number;
+    // for (r = 0; r < itemsets.length; r++) {
+    //     for (c = 0; c < itemsets[r].length; c++) {
+    //         setGridItem(itemsets[r][c], r, c);
+    //     }
+    // }
+}
+
+export function gridItemClick(row: number, col: number, corner: number | boolean) {
     if (editmode) {
         if ("item" in selected) {
             document.getElementById(selected.item)!.style.border = '1px solid white';
@@ -796,7 +730,7 @@ export function gridItemClick(row: number, col: number, corner: number) {
         var item = itemLayout[row][col];
 
         if (rewards[item] !== undefined && showprizes) {
-            if (corner == 3) {
+            if (corner === 3 || corner === true) {
                 rewards[item]++;
                 if (rewards[item] >= 9) {
                     rewards[item] = 0;
@@ -806,7 +740,7 @@ export function gridItemClick(row: number, col: number, corner: number) {
                 store.items[item] = !store.items[item];
             }
         }
-        else if ((typeof store.items[item]) == 'boolean') {
+        else if ((typeof store.items[item]) === 'boolean') {
             store.items[item] = !store.items[item];
         } else {
             store.items[item]++;
@@ -823,14 +757,14 @@ export function gridItemClick(row: number, col: number, corner: number) {
 }
 
 
-function gridItemRClick(row: string | number, col: number, corner: number) {
+function gridItemRClick(row: number, col: number, corner: number | boolean) {
     if (editmode) {
         //Do Nothing
     } else {
         var item = itemLayout[row][col];
 
         if (rewards[item] !== undefined && showprizes) {
-            if (corner == 3) {
+            if (corner === 3 || corner === true) {
                 //this is where the code for the dungeon list happenes
                 //corner 3 is bottom right
                 if (rewards[item] <= 0) {
@@ -1016,7 +950,7 @@ function populateItemconfig() {
 
     let row: HTMLTableRowElement;
 
-    for (var key in store.items) {
+    for (var key of <ItemId[]>Object.keys(store.items)) {
         if (key === 'blank') {
             continue;
         }

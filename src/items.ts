@@ -1,5 +1,5 @@
 //set up how we want the item grid to be displayed by default
-export var defaultItemGrid = [
+export var defaultItemGrid: ItemId[][] = [
     [
         "Rod",
         "Slingshot",
@@ -41,6 +41,7 @@ export var defaultItemGrid = [
         "MagicArmor"
     ],
     [
+        "WBombs",
         "YouthScent",
         "IliaScent",
         "PoeScent",
@@ -48,6 +49,7 @@ export var defaultItemGrid = [
         "MedicineScent"
     ],
     [
+        "Vessel",
         "Boss1",
         "Boss2",
         "Boss3",
@@ -114,6 +116,8 @@ export var defaultItemGrid = [
 * @property {boolean} blank,
  */
 
+export type ItemId = keyof typeof baseItems;
+
 // set default parameters for the items
 export const baseItems = {
     Bow: 0,
@@ -166,7 +170,7 @@ export const baseItems = {
     Boss8: false,
 
 
-    blank: false,
+    blank: null,
 };
 
 //for our progressive items, we want to set their minimum value
@@ -215,13 +219,16 @@ export const itemsMax = {
     Vessel: 3
 };
 
-export const progressiveItems =
+export const progressiveItems: ItemId[] =
     [
         "Bow",
         "Clawshot",
         "Wallet",
         "Rod",
         "Sword",
+        // idk whether or not to put them as progressive as the images allow or leave them number based.
+        // "Shard",
+        // "Shadow",
         "Shield",
         "Dominion",
         "Vessel"

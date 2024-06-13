@@ -450,11 +450,11 @@ function canClearForest() {
 // todo: put this in the right spot
 function canCompletePrologue() {
     // fixme: check for north faron gate key (or keysy)
-    return (store.items.Sword >= 1 && store.items.Slingshot) || store.settings.randomizer.skipPrologue;
+    return (store.items.Sword >= 1 && store.items.Slingshot) || store.settings.randomizer.skip.prologue;
 }
 
 function canCompleteMDH() {
-    return canCompleteLakebedTemple() || store.settings.randomizer.skipMDH;
+    return canCompleteLakebedTemple() || store.settings.randomizer.skip.mdh;
 }
 
 function canCompleteEldinTwilight() {
@@ -705,7 +705,7 @@ const zoneDataGlitchless = [
             },
             {
                 name: zones.faron.woods.south,
-                accessable: () => (store.items.Sword > 0 && store.items.Slingshot) || store.settings.randomizer.skipPrologue
+                accessable: () => (store.items.Sword > 0 && store.items.Slingshot) || store.settings.randomizer.skip.prologue
             }
         ],
         checks: Object.values(checks.ordona.province),
@@ -751,11 +751,11 @@ const zoneDataGlitchless = [
         neighbors: [
             {
                 name: zones.faron.woods.south,
-                accessable: () => canBurnWebs() || store.items.Crystal || store.settings.randomizer.skipPrologue
+                accessable: () => canBurnWebs() || store.items.Crystal || store.settings.randomizer.skip.prologue
             },
             {
                 name: zones.faron.woods.mist,
-                accessable: () => canBurnWebs() || store.items.Crystal || store.settings.randomizer.skipPrologue
+                accessable: () => canBurnWebs() || store.items.Crystal || store.settings.randomizer.skip.prologue
             }
         ],
         checks: [
@@ -863,7 +863,7 @@ export const checkDataGlitchless = [
         accessable: () => {
             // this is a surprisingly complicated question, so let's split it up.
             // you need to be able to be a wolf to do the check, in vanilla you're always wolf when you reach this point. 
-            const canBeWolf = store.items.Crystal || (!store.settings.randomizer.skipFaronTwilight && canCompletePrologue());
+            const canBeWolf = store.items.Crystal || (!store.settings.randomizer.skip.faronTwilight && canCompletePrologue());
             // fixme: support bonksDoDamage and damage amplification settings:
             // if OHKO you need two bottles and lanterns to be able guaranteed put fairies in them,
             // as well as access to lakebed temple (or CoO, or the end of forest temple, but logic only considers the first one).
@@ -890,7 +890,7 @@ export const checkDataGlitchless = [
     },
     {
         name: checks.ordona.province.sword,
-        accessable: () => canCompletePrologue() || store.settings.randomizer.skipFaronTwilight
+        accessable: () => canCompletePrologue() || store.settings.randomizer.skip.faronTwilight
     },
     {
         name: checks.ordona.province.seraShopSlingshot,

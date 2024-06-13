@@ -1,16 +1,19 @@
-import { init, setTracker, setLogic, setSkipOption, showSettings } from "./render.ts";
+import { init, setTracker, setLogic, setSkipOption, showSettings, editMode } from "./render.ts";
 
 if (module.hot) {
     module.hot.accept();
 }
 
-window.onload = () => {
+
+if (document.readyState === "loading") {
+    // Loading hasn't finished yet
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    // `DOMContentLoaded` has already fired
     init()
+}
 
-    for (const elem of document.getElementsByName("checktracker")) {
-        elem.onclick = setTracker
-    }
-
+window.onload = () => {
     customElements.define('settings-list',
         class extends HTMLElement {
             constructor() {
@@ -39,9 +42,14 @@ window.onload = () => {
         }
     )
 
+    for (const elem of document.getElementsByName("checktracker")) {
+        elem.onclick = setTracker
+    }
 
 
     document.getElementById('settingsbutton')!.onclick = (ev) => showSettings(ev.currentTarget);
+    document.getElementById('edit-mode')!.onclick = (_ev) => editMode()
+
     for (const elem of document.querySelectorAll<HTMLElement>('[data-skip]')) {
         console.log("registering skip option: ", elem.dataset.skip);
         (elem as HTMLElement).onclick = (ev) => setSkipOption(elem.dataset.skip!, ev.currentTarget! as HTMLInputElement)
@@ -50,7 +58,6 @@ window.onload = () => {
     {
         const select = (document.getElementById('background-select')! as HTMLSelectElement);
         select.onchange = (ev) => setLogic(ev.currentTarget! as HTMLSelectElement);
-
     }
 
     {

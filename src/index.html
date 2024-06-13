@@ -11,7 +11,7 @@
         <div>
             <slot name="description"> MISSING DESCRIPTION </slot>
             <slot>
-                MISSING czSETTINGS LISTS
+                MISSING SETTINGS LISTS
             </slot>
         </div>
     </template>
@@ -108,7 +108,7 @@
             <p>Allow you to Modify how the tracker functions.</p>
             <fieldset>
                 <legend>Item Tracker</legend>
-                <button type="button" onclick="EditMode()">Edit Mode</button>
+                <button id='edit-mode' type="button">Edit Mode</button>
                 <button type="button" onclick="ResetLayout()">Reset Layout</button>
                 <button type="button" onclick="ResetTracker()">Reset Tracker</button>
                 <br>
@@ -183,40 +183,68 @@
             </settings-list>
         </settings-menu>
 
+        <settings-menu id="SkipOptions" class="city" style="display:none">
+            <p slot="description">Select the Skips you have enabled to make the logic more accurate</p>
+            <settings-list>
+                <legend slot="legend">Skip Options</legend>
+                <li>
+                    <input type="checkbox" data-skip="prologue" id="skip-prologue" name="skip-prologue" />
+                    <label for="skip-prologue">Skip Prologue</label>
+                </li>
+                <li>
+                    <input type="checkbox" data-skip="faronTwilight" id="faron-twilight-skip"
+                        name="faron-twilight-skip" />
+                    <label for="faron-twilight-skip">Faron Twilight Skip</label>
+                </li>
+                <li>
+                    <input type="checkbox" data-skip="eldinTwilight" id="eldin-twilight-skip"
+                        name="eldin-twilight-skip" />Eldin
+                    Twilight Skip
+                </li>
+                <li>
+                    <input type="checkbox" data-skip="lanayruTwilight" id="lanayru-twilight-skip"
+                        name="lanayru-twilight-skip" />Lanayru Twilight
+                    Skip<br>
+                </li>
+                <li>
+                    <input type="checkbox" data-skip="mdh" name="skipmdh">Skip MDH<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="faronescape" onchange="setFaronEscape(this)">Faron Escape<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="earlydesert" onchange="setEarlyDesert(this)">Early Desert<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="earlycits" onchange="setEarlyCits(this)">Early CiTS<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="opengates" onchange="setOpenGates(this)">Open Field Gates<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="minespatch" onchange="setMinesPatch(this)">Goron Mines Patch<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="nobottlereq" onchange="setNoBottleReq(this)">No Shop Bottle
+                    Requirement?<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="earlyHyruleCastle" onchange="setEarlyHyruleCastle(this)">Early Hyrule
+                    Castle<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="escortskip" onchange="setEscortSkip(this)">Escort Skip<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="earlytot" onchange="setEarlyToT(this)">Early ToT<br>
+                </li>
+                <li>
+                    <input type="checkbox" name="earlypot" onchange="setEarlyPoT(this)">Early PoT<br>
+                </li>
 
-        <div id="SkipOptions" class="city" style="display:none">
-            <p>Select the Skips you have enabled to make the logic more accurate</p>
-            <fieldset>
-                <legend>Skip Options</legend>
-                <input type="checkbox" data-skip="prologue" id="skip-prologue" name="skip-prologue" />
-                <label for="skip-prologue">Skip Prologue</label>
 
-                <input type="checkbox" data-skip="faronTwilight" id="faron-twilight-skip" name="faron-twilight-skip" />
-                <label for="faron-twilight-skip">Faron Twilight Skip</label>
-
-                <input type="checkbox" data-skip="eldinTwilight" id="eldin-twilight-skip"
-                    name="eldin-twilight-skip" />Eldin
-                Twilight Skip<br>
-
-                <input type="checkbox" data-skip="lanayruTwilight" id="lanayru-twilight-skip"
-                    name="lanayru-twilight-skip" />Lanayru Twilight
-                Skip<br>
-                <input type="checkbox" data-skip="mdh" name="skipmdh">Skip MDH<br>
-                <input type="checkbox" name="faronescape" onchange="setFaronEscape(this)">Faron Escape<br>
-                <input type="checkbox" name="earlydesert" onchange="setEarlyDesert(this)">Early Desert<br>
-                <input type="checkbox" name="earlycits" onchange="setEarlyCits(this)">Early CiTS<br>
-                <input type="checkbox" name="opengates" onchange="setOpenGates(this)">Open Field Gates<br>
-                <input type="checkbox" name="minespatch" onchange="setMinesPatch(this)">Goron Mines
-                Patch<br>
-                <input type="checkbox" name="nobottlereq" onchange="setNoBottleReq(this)">No Shop Bottle
-                Requirement?<br>
-                <input type="checkbox" name="earlyHyruleCastle" onchange="setEarlyHyruleCastle(this)">Early Hyrule
-                Castle<br>
-                <input type="checkbox" name="escortskip" onchange="setEscortSkip(this)">Escort Skip<br>
-                <input type="checkbox" name="earlytot" onchange="setEarlyToT(this)">Early ToT<br>
-                <input type="checkbox" name="earlypot" onchange="setEarlyPoT(this)">Early PoT<br>
-            </fieldset>
-        </div>
+            </settings-list>
+        </settings-menu>
 
     </fieldset>
     <table id='itemconfig' class='itemconfig' style='display:none'></table>
