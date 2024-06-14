@@ -1,15 +1,15 @@
-import { checks, checkCompletable } from "./logic";
+import { type CheckName } from "./logic/check-name";
+import { zonesGlitchless } from "./logic/index";
 import store from "./store";
 
+export type CheckStatus = "opened" | "available" | "unavailable" | "possible";
 
-export type CheckStatus = "opened" | "available" | "unavailable" | "possible"
-
-export function checkStatus(check: string): CheckStatus {
+export function checkStatus(check: CheckName): CheckStatus {
     if (store.openedChecks.has(check)) {
         return "opened";
     }
 
-    if (checkCompletable("glitchless", check)) {
+    if (store.logic.checkCompletable(check)) {
         return "available";
     }
 
@@ -24,7 +24,7 @@ export function groupStatus(group: Group): CheckStatus | "possible" {
         if (!store.openedChecks.has(check)) {
             unopened += 1;
 
-            if (checkCompletable("glitchless", check)) {
+            if (store.logic.checkCompletable(check)) {
                 completable += 1;
             }
         }
@@ -48,149 +48,134 @@ export function groupStatus(group: Group): CheckStatus | "possible" {
 }
 
 interface Group {
-    name: string
-    x: any
-    y: any,
-    checks: string[]
+    readonly name: string;
+    readonly x: any;
+    readonly y: any,
+    readonly checks: CheckName[];
 }
 
+// note: for some reason I cannot fathom, *all* `x`,`y`s are offset by an amount from the percentage.
+// this is caused by there (formerly) being a negative margin.
+// until I get around re-calculating all the percentages, this is what we're living with.
 export const groups: Group[] = [
     {
         name: "Ordon Village",
-        x: "55.5%",
-        y: "85.84%",
+        x: "calc(55.5% - 12px)",
+        y: "calc(85.84% - 12px)",
         checks: [
-            checks.ordona.province.catRescue,
-            checks.ordona.province.linksBasementChest,
-            checks.ordona.province.seraShopSlingshot,
-            checks.ordona.province.shield,
-            checks.ordona.province.sword,
-            checks.ordona.province.uliCradleDelivery,
-            checks.ordona.province.woodenSwordChest,
-            checks.ordona.province.wrestlingWithBo
+            "Ordon Cat Rescue",
+            "Links Basement Chest",
+            "Sera Shop Slingshot",
+            "Ordon Shield",
+            "Ordon Sword",
+            "Uli Cradle Delivery",
+            "Wooden Sword Chest",
+            "Wrestling With Bo",
         ],
+    },
+    {
+        name: "Forest Temple",
+        x: "calc(47.58% - 12px)",
+        y: "calc(66.2% - 12px)",
+        checks: [
+            ...zonesGlitchless["Forest Temple Entrance"].checks,
+            ...zonesGlitchless["Forest Temple Lobby"].checks,
+            ...zonesGlitchless["Forest Temple East Wing"].checks,
+            ...zonesGlitchless["Forest Temple West Wing"].checks,
+            ...zonesGlitchless["Ook"].checks,
+            ...zonesGlitchless["Forest Temple North Wing"].checks,
+            ...zonesGlitchless["Forest Temple Boss Room"].checks,
+        ]
     }
 ];
 
-export const overworld = [
+interface OverworldCheck {
+    readonly name: CheckName,
+    readonly x: any,
+    readonly y: any,
+}
+
+// important note: These are tabbed *in order*.
+export const overworld: OverworldCheck[] = [
     {
-        name: checks.ordona.province.herdingGoatsReward,
-        x: "56.33%",
-        y: "90.16%",
+        name: "Herding Goats Reward",
+        x: "calc(56.33% - 8px)",
+        y: "calc(90.16% - 8px)",
     },
     {
-        name: checks.ordona.province.springGoldenWolf,
-        x: "54.5%",
-        y: "81.24%",
+        name: "Ordon Spring Golden Wolf",
+        x: "calc(54.5% - 8px)",
+        y: "calc(81.24% - 8px)",
     },
     {
-        name: checks.ordona.ranchGrottoLanternChest,
-        x: "54.33%",
-        y: "90.16%",
+        name: "Ordon Ranch Grotto Lantern Chest",
+        x: "calc(54.33% - 8px)",
+        y: "calc(90.16% - 8px)",
     },
     {
-        name: checks.faron.south.coroBottle,
-        x: "55.7%",
-        y: "71.8%",
+        name: "Coro Bottle",
+        x: "calc(55.7% - 8px)",
+        y: "calc(71.8% - 8px)",
     },
     {
-        name: checks.faron.owlStatueSkyCharacter,
-        x: "55.01%",
-        y: "69.6%",
+        name: "Faron Woods Owl Statue Sky Character",
+        x: "calc(55.01% - 8px)",
+        y: "calc(69.6% - 8px)",
     },
     {
-        name: checks.faron.south.caveChest,
-        x: "53.7%",
-        y: "71.8%",
+        name: "South Faron Cave Chest",
+        x: "calc(53.7% - 8px)",
+        y: "calc(71.8% - 8px)",
     },
     {
-        name: checks.faron.mist.caveOpenChest,
-        x: "54.33%",
-        y: "68.08%",
+        name: "Faron Mist Cave Open Chest",
+        x: "calc(54.33% - 8px)",
+        y: "calc(68.08% - 8px)",
     },
     {
-        name: checks.faron.mist.caveLanternChest,
-        x: "53.33%",
-        y: "68.08%",
+        name: "Faron Mist Cave Lantern Chest",
+        x: "calc(53.33% - 8px)",
+        y: "calc(68.08% - 8px)",
     },
     {
-        name: checks.faron.mist.poe,
-        x: "51.41%",
-        y: "69.76%",
+        name: "Faron Mist Poe",
+        x: "calc(51.41% - 8px)",
+        y: "calc(69.76% - 8px)",
     },
     {
-        name: checks.faron.mist.stumpChest,
-        x: "51.01%",
-        y: "70.2%",
+        name: "Faron Mist Stump Chest",
+        x: "calc(51.01% - 8px)",
+        y: "calc(70.2% - 8px)",
     },
     {
-        name: checks.faron.mist.northChest,
-        x: "52.10%",
-        y: "70.2%",
+        name: "Faron Mist North Chest",
+        x: "calc(52.10% - 8px)",
+        y: "calc(70.2% - 8px)",
 
     },
     {
-        name: checks.faron.mist.southChest,
-        x: "51.91%",
-        y: "69.2%",
+        name: "Faron Mist South Chest",
+        x: "calc(51.91% - 8px)",
+        y: "calc(69.2% - 8px)",
     },
     {
-        name: checks.faron.mist.owlStatueChest,
-        x: "54.01%",
-        y: "69.6%",
+        name: "Faron Woods Owl Statue Chest",
+        x: "calc(54.01% - 8px)",
+        y: "calc(69.6% - 8px)",
     },
     {
-        name: checks.faron.north.dekuBabaChest,
-        x: "48.66%",
-        y: "69.6%",
+        name: "North Faron Woods Deku Baba Chest",
+        x: "calc(48.66% - 8px)",
+        y: "calc(69.6% - 8px)",
     },
     {
-        name: checks.faron.north.goldenWolf,
-        x: "48.16%",
-        y: "68.6%",
+        name: "Faron Woods Golden Wolf",
+        x: "calc(48.16% - 8px)",
+        y: "calc(68.6% - 8px)",
     }
 ];
 
 // define grouped chests
-// var dungeons = [
-//     {
-//         name: "Forest Temple",
-//         x: "47.58%",
-//         y: "66.2%",
-//         chestlist: {
-//             'Entrance Vine Chest': { isAvailable: function () { return canAccessForest() && hasRangedItem(); }, },
-//             'Central Chest Behind Stairs': { isAvailable: function () { return canAccessForest() && items.Boomerang && canDoDamage(); }, },
-//             'Dungeon Map Chest': { isAvailable: function () { return items.Lantern && canAccessForest() && canDoDamage(); }, },
-//             'Ooccoo': { isAvailable: function () { return canAccessForest() && canDoDamage(); }, },
-//             'Windless Bridge Chest': { isAvailable: function () { return canBurnWebs() && canAccessForest() && canDoDamage(); }, },
-//             'Second Monkey Under Bridge Chest': { isAvailable: function () { return canBurnWebs() && canDoDamage() && canAccessForest(); }, },
-//             'Totem Pole Chest': { isAvailable: function () { return canBurnWebs() && canDoDamage() && canAccessForest(); }, },
-//             'West Tile Worm Small Chest': { isAvailable: function () { return canBurnWebs() && canDoDamage() && canAccessForest(); }, },
-//             'Deku Like Piece of Heart': { isAvailable: function () { return canBurnWebs() && canDoDamage() && canAccessForest(); }, },
-//             'Big Baba Small Key': { isAvailable: function () { return canBurnWebs() && canDoDamage() && canAccessForest(); }, },
-//             'Boomerang': { isAvailable: function () { return (canBurnWebs() || items.Clawshot >= 1) && canDoDamage() && canAccessForest(); }, },
-//             'West Tile Worm Heart Piece': { isAvailable: function () { return canBurnWebs() && canDoDamage() && items.Boomerang && canAccessForest(); }, },
-//             'Compass Chest': { isAvailable: function () { return canDoDamage() && hasRangedItem() && canAccessForest(); }, },
-//             'Big Key Chest': { isAvailable: function () { return canBurnWebs() && canDoDamage() && items.Boomerang && canAccessForest(); }, },
-//             'Water Cave Near Big Key': { isAvailable: function () { return canBurnWebs() && canDoDamage() && canAccessForest(); }, },
-//             'North Deku Like Chest': { isAvailable: function () { return canBurnWebs() && canDoDamage() && items.Boomerang && canAccessForest(); }, },
-//             'East Tile Worm Chest': { isAvailable: function () { return canBurnWebs() && canDoDamage() && items.Boomerang && canAccessForest(); }, },
-//             'Diababa': { isAvailable: function () { return canBurnWebs() && canDoDamage() && hasRangedItem() && items.Boomerang && canAccessForest(); }, },
-//         },
-//         isBeatable: function () {
-//             if (canAccessForest()) {
-//                 if (this.canGetChest() == 'available') {
-//                     return 'available';
-//                 }
-//                 return 'possible';
-//             } else {
-//                 return "unavailable";
-//             }
-//         },
-//         canGetChest: function () {
-//             return generalCanGetChest(this.chestlist);
-//         },
-//     },
 //     {
 //         name: "Goron Mines",
 //         x: "85.91%",
@@ -1840,18 +1825,6 @@ export const overworld = [
 
 // //Overworld Chests
 // var overworldChests = [
-//     {
-//         name: "Grotto - Rat and Chu-Chu Chest",
-//         x: "54.33%",
-//         y: "90.16%",
-//         isAvailable: function () {
-//             if (items.Crystal && items.Lantern) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//         checkType: "chest"
-//     },
 //     {
 //         name: "Alcove Heart Piece Chest",
 //         x: "85.83%",

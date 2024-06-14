@@ -1,5 +1,5 @@
-type LogicValue = "glitchless" | "glitched"
-type FaronWoodsLogic = "open" | "closed"
+export type LogicValue = "glitchless" | "glitched";
+type FaronWoodsLogic = "open" | "closed";
 
 export let settings = {
     taloMap: false,
@@ -14,5 +14,6 @@ export let settings = {
             mdh: false,
         },
         faronWoodsLogic: "open" as FaronWoodsLogic,
+        openMap: false,
     }
-}
+};

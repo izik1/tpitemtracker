@@ -206,16 +206,6 @@ export const itemsMax: typeof itemsMin = {
 // "Shadow",
 export type ProgressiveItemId = "Bow" | "Clawshot" | "Wallet" | "Rod" | "Sword" | "Shield" | "Dominion" | "Vessel";
 
-type foo = "Foo";
-
-function isNumber(value: any) {
-    return typeof(value) === "number"
-}
-
-function isFoo(maybeFoo: string) {
-    return new Set(["foo"]).has(maybeFoo);
-}
-
 export function isProgressiveItemId(itemId: ItemId) {
     return ["Bow", "Clawshot", "Wallet", "Rod", "Sword", "Shield", "Dominion", "Vessel"].includes(itemId);
 }

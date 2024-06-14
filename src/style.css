@@ -91,6 +91,7 @@ body {
     color: black;
     line-height: 15px;
     display: inline-block;
+    font-size: 12px;
 }
 
 input {
@@ -156,9 +157,8 @@ label {
     background-size: 100% 100%;
 
     position: absolute;
-    margin-left: -12px;
-    margin-top: -12px;
     cursor: pointer;
+    padding: 0;
 }
 
 .dungeonPoes {
@@ -166,8 +166,6 @@ label {
     height: 18px;
     background-size: 100% 100%;
     position: absolute;
-    margin-left: -12px;
-    margin-top: -12px;
     cursor: pointer;
 }
 
@@ -247,18 +245,6 @@ div.trackerTextIcon {
     background-size: 100% 100%;
 
     position: absolute;
-    margin-left: -8px;
-    margin-top: -8px;
-    cursor: pointer;
-}
-
-.poe {
-    width: 9px;
-    height: 9px;
-    background-size: 100% 100%;
-    position: absolute;
-    margin-left: -8px;
-    margin-top: -8px;
     cursor: pointer;
 }
 

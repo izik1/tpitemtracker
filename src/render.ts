@@ -1,6 +1,6 @@
 "use strict";
 
-import { checkDataGlitchless, checkIdsGlitchless } from "./logic";
+import { checkDataGlitchless, checkIdsGlitchless, Logic } from "./logic/index";
 import { defaultItemGrid, itemsMax, itemsMin, baseItems, ItemId, isProgressiveItemId, isNumericItemId } from "./items";
 import store from "./store";
 import { overworld, groups, checkStatus, groupStatus, CheckStatus } from "./chests";
@@ -19,6 +19,7 @@ import ItemCounts from 'url:~/static/images/ItemCounts/*.webp';
 
 // @ts-expect-error
 import Items from 'url:~/static/images/Items/*.webp';
+import { LogicValue } from "./settings";
 
 //set the boss reward values for later testing
 var defaultrewards = {
@@ -57,9 +58,6 @@ let itemLayout: ItemId[][] = [];
 
 let editmode = false;
 let selected: {} | { item: string; } | { row: number, col: number; } = {};
-
-var dungeonSelect = 0;
-const totalChecks = checkDataGlitchless.length;
 
 // if we change an option, we want to update our cookies
 function setCookie(obj: object) {
@@ -133,6 +131,11 @@ function loadStorage() {
     hackNoSaveWhileLoading = false;
 }
 
+// wow, mouthful, it's a hack.
+function groupElemIdToIdx(elem: Element): number {
+    return Number.parseInt(elem.id.split('dungeon')[1] ?? "-1");
+}
+
 // do a full save of everything.
 function saveStorage() {
     if (hackNoSaveWhileLoading) {
@@ -200,25 +203,32 @@ export function toggleChest(sender: HTMLButtonElement, c: string) {
 export function clickDungeon(ev: MouseEvent) {
     document.querySelector('.dungeon.active')?.classList.remove('active');
 
-    (ev.currentTarget! as HTMLElement).classList.add('active');
+    let elem = (ev.currentTarget! as HTMLElement);
 
-    document.getElementById('submaparea')!.innerHTML = groups[dungeonSelect].name;
+    elem.classList.add('active');
+
+    const dungeonSelect = groupElemIdToIdx(elem);
+
+    document.getElementById('submaparea')!.textContent = groups[dungeonSelect].name;
     document.getElementById('submaparea')!.className = 'DC' + groupStatus(groups[dungeonSelect]);
     var submaplist = document.getElementById('submaplist')!;
-    submaplist.innerHTML = '';
+    submaplist.replaceChildren();
+
+    let frag = document.createDocumentFragment();
 
     for (const check of groups[dungeonSelect].checks) {
         var s = document.createElement('li');
-        s.innerHTML = check;
+        s.textContent = check;
 
         s.className = 'DC' + checkStatus(check);
 
         s.onclick = (ev) => toggleDungeonChest(ev.currentTarget!, check);
         s.style.cursor = "pointer";
 
-        submaplist.appendChild(s);
-
+        frag.appendChild(s);
     }
+
+    submaplist.append(frag);
 }
 
 export function toggleDungeonChest(sender: EventTarget, c: string) {
@@ -255,7 +265,6 @@ export function showPrizes(checked: boolean, save = true) {
 }
 
 export function setSkipOption(option: string, sender: { checked: boolean; }) {
-    type IsTrue = string extends keyof (typeof store)["settings"]["randomizer"]["skip"] ? true : false;
     let skip = store.settings.randomizer.skip;
     if (!(option in skip)) {
         console.error("Invalid skip option", option);
@@ -267,8 +276,19 @@ export function setSkipOption(option: string, sender: { checked: boolean; }) {
     updateMap();
 }
 
-export function setLogic(sender: { value: string; }) {
-    store.settings.randomizer.logic == sender.value;
+export function setLogic(sender: { value: LogicValue; }) {
+    if (store.settings.randomizer.logic === sender.value) {
+        return;
+    }
+
+    try {
+        store.logic = new Logic(sender.value);
+        store.settings.randomizer.logic = sender.value;
+    } catch (e) {
+        window.alert(`Logic setting: ${sender.value} is unsupported currently: ${e}`);
+        return;
+    }
+
     updateMap();
 }
 
@@ -400,7 +420,7 @@ function ResetTracker() {
 
     updateGridItemAll();
     updateMap();
-    document.getElementById('checkCounter')!.innerHTML = "Checks: " + (dungeonChest + c) + " available, " + totalChecks + " Remaining";
+    updateCheckCounter("full");
     saveStorage();
 }
 
@@ -689,6 +709,7 @@ function gridItemRClick(row: number, col: number, corner: boolean) {
 }
 
 function updateMap() {
+    store.logic.zonesDirty = true;
     for (const [i, check] of overworld.entries()) {
         // nothing has changed if it's already open.
         if (!store.openedChecks.has(check.name)) {
@@ -715,8 +736,15 @@ function updateMap() {
         }
     }
 
-    document.getElementById('submaparea').className = 'DC' + groupStatus(groups[dungeonSelect]);
-    var itemlist = document.getElementById('submaplist').children;
+    let activeDungeon = document.querySelector('.dungeon.active');
+    if (activeDungeon === null) {
+        return;
+    }
+
+    const dungeonSelect = groupElemIdToIdx(activeDungeon);
+
+    document.getElementById('submaparea')!.className = 'DC' + groupStatus(groups[dungeonSelect]);
+    var itemlist = document.getElementById('submaplist')!.children;
     for (var item in itemlist) {
         if (itemlist.hasOwnProperty(item)) {
             itemlist[item].className = 'DC' + checkStatus(groups[dungeonSelect].checks[item]);
@@ -796,6 +824,7 @@ function populateMapdiv() {
 
         const availableChecks = group.checks.reduce((total, it) => total + +(checkStatus(it) === "available"), 0);
 
+        // fixme: when the item count reaches 2 digits we 
         var itemCount = document.createElement('span');
         itemCount.className = 'chestCount';
         if (availableChecks === 0) {
