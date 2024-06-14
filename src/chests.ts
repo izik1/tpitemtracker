@@ -1,16 +1,10 @@
 import { checks, checkCompletable } from "./logic";
 import store from "./store";
 
-/**
- * @typedef {"opened"|"available"|"unavailable"|"possible"} CheckStatus
- */
 
-/**
- * 
- * @param {string} check 
- * @returns {CheckStatus}
- */
-export function checkStatus(check) {
+export type CheckStatus = "opened" | "available" | "unavailable" | "possible"
+
+export function checkStatus(check: string): CheckStatus {
     if (store.openedChecks.has(check)) {
         return "opened";
     }
@@ -22,12 +16,8 @@ export function checkStatus(check) {
     return "unavailable";
 }
 
-/**
- * 
- * @param {Group} group 
- * @returns {CheckStatus}
- */
-export function groupStatus(group) {
+
+export function groupStatus(group: Group): CheckStatus | "possible" {
     let unopened = 0;
     let completable = 0;
     for (const check of group.checks) {
@@ -56,18 +46,15 @@ export function groupStatus(group) {
     // partially completable.
     return "possible";
 }
-/**
- * @typedef {Object} Group
- * @property {string} name
- * @property {*} x
- * @property {*} y
- * @property {string[]} checks
- */
 
-/**
- * @type {Group[]}
- */
-export const groups = [
+interface Group {
+    name: string
+    x: any
+    y: any,
+    checks: string[]
+}
+
+export const groups: Group[] = [
     {
         name: "Ordon Village",
         x: "55.5%",

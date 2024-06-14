@@ -63,7 +63,7 @@ export var defaultItemGrid: ItemId[][] = [
         "Shadow",
         "Shard"
     ]
-]
+];
 
 /**
  * @typedef {Object} Items
@@ -116,45 +116,52 @@ export var defaultItemGrid: ItemId[][] = [
 * @property {boolean} blank,
  */
 
+
 export type ItemId = keyof typeof baseItems;
+// fixme: Replace with something that actually checks if its numeric
+export type NumericItemId = keyof typeof itemsMin;
+
+//for our progressive items, we want to set their minimum value
+export const itemsMin = {
+    Bow: 0,
+    Bombs: 0,
+    Clawshot: 0,
+    Rod: 0,
+    Bugs: 0,
+    Bottle: 0,
+    Sword: 0,
+    Skills: 0,
+    Shield: 0,
+    Soul: 0,
+    Wallet: 1,
+    Shadow: 0,
+    Shard: 0,
+    Dominion: 0,
+    Skybook: 0,
+    Vessel: 0
+};
 
 // set default parameters for the items
 export const baseItems = {
-    Bow: 0,
-    Clawshot: 0,
     Chainball: false,
     Slingshot: false,
     Boomerang: false,
-    Bombs: 0,
     WBombs: false,
-    Rod: 0,
     Lantern: false,
     Hawkeye: false,
     Spinner: false,
     Memo: false,
     Sketch: false,
-    Skybook: 0,
-    Dominion: 0,
     Renardos_Letter: false,
     Invoice: false,
     Wooden_Statue: false,
     Ilias_Charm: false,
     Horse_Call: false,
-    Bugs: 0,
-    Bottle: 0,
-    Wallet: 1,
-    Sword: 0,
-    Skills: 0,
-    Shield: 0,
-    Soul: 0,
-    Vessel: 0,
     YouthScent: false,
     IliaScent: false,
     PoeScent: false,
     ReekfishScent: false,
     MedicineScent: false,
-    Shadow: 0,
-    Shard: 0,
     Crystal: false,
     ZoraArmor: false,
     MagicArmor: false,
@@ -169,35 +176,13 @@ export const baseItems = {
     Boss7: false,
     Boss8: false,
 
-
     blank: null,
+    ...itemsMin,
 };
 
-//for our progressive items, we want to set their minimum value
-export const itemsMin = {
-    Bow: 0,
-    Bombs: 0,
-    Clawshot: 0,
-    Rod: 0,
-    Bugs: 0,
-    Bottle: 0,
-    Sword: 0,
-    Skills: 0,
-    Shield: 0,
-    Soul: 0,
-    Scent: 0,
-    Charm: 0,
-    Entry: 0,
-    Wallet: 1,
-    Shadow: 0,
-    Shard: 0,
-    Dominion: 0,
-    Skybook: 0,
-    Vessel: 0
-};
 
 //set how many of each item there is a maximum for
-export const itemsMax = {
+export const itemsMax: typeof itemsMin = {
     Bow: 3,
     Bombs: 4,
     Clawshot: 2,
@@ -208,9 +193,6 @@ export const itemsMax = {
     Skills: 7,
     Shield: 2,
     Soul: 60,
-    Scent: 5,
-    Charm: 4,
-    Entry: 4,
     Wallet: 3,
     Shadow: 4,
     Shard: 4,
@@ -219,18 +201,26 @@ export const itemsMax = {
     Vessel: 3
 };
 
-export const progressiveItems: ItemId[] =
-    [
-        "Bow",
-        "Clawshot",
-        "Wallet",
-        "Rod",
-        "Sword",
-        // idk whether or not to put them as progressive as the images allow or leave them number based.
-        // "Shard",
-        // "Shadow",
-        "Shield",
-        "Dominion",
-        "Vessel"
-    ];
+// idk whether or not to put them as progressive as the images allow or leave them number based.
+// "Shard",
+// "Shadow",
+export type ProgressiveItemId = "Bow" | "Clawshot" | "Wallet" | "Rod" | "Sword" | "Shield" | "Dominion" | "Vessel";
+
+type foo = "Foo";
+
+function isNumber(value: any) {
+    return typeof(value) === "number"
+}
+
+function isFoo(maybeFoo: string) {
+    return new Set(["foo"]).has(maybeFoo);
+}
+
+export function isProgressiveItemId(itemId: ItemId) {
+    return ["Bow", "Clawshot", "Wallet", "Rod", "Sword", "Shield", "Dominion", "Vessel"].includes(itemId);
+}
+
+export function isNumericItemId(itemId: ItemId): itemId is NumericItemId {
+    return itemId in itemsMin;
+}
 

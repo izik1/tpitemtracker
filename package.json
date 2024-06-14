@@ -14,6 +14,7 @@
     "@parcel/config-default": "^2.12.0",
     "@parcel/reporter-bundle-analyzer": "^2.12.0",
     "@parcel/resolver-glob": "^2.12.0",
-    "parcel": "^2.12.0"
+    "parcel": "^2.12.0",
+    "typescript": "5.5.1-rc"
   }
 }

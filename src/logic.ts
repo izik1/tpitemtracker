@@ -911,7 +911,7 @@ export const checkDataGlitchless = [
     },
     {
         name: checks.ordona.ranchGrottoLanternChest,
-        accessable: () => items.Lantern
+        accessable: () => store.items.Lantern
     },
     {
         name: checks.faron.south.coroBottle,
@@ -1013,16 +1013,21 @@ function zoneReachable(goal, searchZones, start = zones.ordona.ordonProvince) {
     let stack = [];
     stack.push(start);
 
-    /** @type {Set<string>} */
-    let discovered = new Set();
+    let discovered: Set<string> = new Set();
 
     while (stack.length > 0) {
         const item = stack.pop();
         // we want to check now instead of when iterating the neighbors because the first item could be the goal,
         // and if so I'd rataher not duplicate the check.
-        if (item == goal) {
+
+        if (typeof (item) === 'undefined') {
+            break;
+        }
+
+        if (item === goal) {
             return true;
         }
+
 
         if (discovered.has(item)) {
             continue;

@@ -109,7 +109,7 @@
             <fieldset>
                 <legend>Item Tracker</legend>
                 <button id='edit-mode' type="button">Edit Mode</button>
-                <button type="button" onclick="ResetLayout()">Reset Layout</button>
+                <button id='reset-layout' type="button">Reset Layout</button>
                 <button type="button" onclick="ResetTracker()">Reset Tracker</button>
                 <br>
                 Size<input type="range" name='itemdivsize' id='itemrange' value='100' max='200' min='1'
@@ -163,12 +163,6 @@
                     <input type="range" name='trackerDistance' id='trackerDistanceID' value='1' max='100' min='0'
                         onchange="setDistance('blankspace', this)">
                     <span id='blankspacesize'>1%</span>
-                </li>
-                <li>
-                    <label for="trackerOpacityID">Tracker Opacity</label>
-                    <input type="range" name='trackerOpacity' id='trackerOpacityID' value='100' max='100' min='0'
-                        onchange="setOpacity('tracker', this)">
-                    <span id='trackersize'>100%</span>
                 </li>
                 <li>
                     <label for="background-select">Background Image</label>
