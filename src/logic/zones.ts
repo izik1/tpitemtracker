@@ -122,6 +122,36 @@ const faronZoneDataGlitchless: Zone[] = [
             "Faron Woods Golden Wolf",
         ],
     },
+    {
+        name: "Faron Field",
+        neighbors: [
+            new ZoneNeighbor("South Faron Woods", fns.always),
+            // key setting requirement
+            new ZoneNeighbor("Outside Castle Town South", fns.never),
+            new ZoneNeighbor("Kakariko Gorge", fns.always),
+            // key setting requirement
+            new ZoneNeighbor("Lake Hylia Bridge", fns.never),
+            new ZoneNeighbor("Faron Field Corner Grotto", () => store.items.Crystal),
+        ],
+        checks: [
+            "Faron Field Bridge Chest",
+            "Faron Field Tree Heart Piece",
+            "Faron Field Male Beetle",
+            "Faron Field Female Beetle",
+            "Faron Field Poe",
+        ]
+    },
+    {
+        name: "Faron Field Corner Grotto",
+        neighbors: [
+            new ZoneNeighbor("Faron Field", fns.always),
+        ],
+        checks: [
+            "Faron Field Corner Grotto Right Chest",
+            "Faron Field Corner Grotto Left Chest",
+            "Faron Field Corner Grotto Rear Chest",
+        ]
+    }
 ];
 
 const forestTempleZoneDataGlitchless: Zone[] = [

@@ -172,7 +172,47 @@ export const overworld: OverworldCheck[] = [
         name: "Faron Woods Golden Wolf",
         x: "calc(48.16% - 8px)",
         y: "calc(68.6% - 8px)",
-    }
+    },
+    {
+        name: "Faron Field Corner Grotto Right Chest",
+        x: "calc(58.11% - 8px)",
+        y: "calc(64.16% - 8px)",
+    },
+    {
+        name: "Faron Field Corner Grotto Left Chest",
+        x: "calc(57.01% - 8px)",
+        y: "calc(64.16% - 8px)",
+    },
+    {
+        name: "Faron Field Corner Grotto Rear Chest",
+        x: "calc(57.01% - 8px)",
+        y: "calc(65.16% - 8px)",
+    },
+    {
+        name: "Faron Field Bridge Chest",
+        x: "calc(54.91% - 8px)",
+        y: "calc(58.8% - 8px)",
+    },
+    {
+        name: "Faron Field Tree Heart Piece",
+        x: "calc(56% - 8px)",
+        y: "calc(60.88% - 8px)",
+    },
+    {
+        name: "Faron Field Poe",
+        x: "54.58%",
+        y: "59.04%",
+    },
+    {
+        name: "Faron Field Male Beetle",
+        x: "53.58%",
+        y: "62.16%",
+    },
+    {
+        name: "Faron Field Female Beetle",
+        x: "57.33%",
+        y: "58.72%",
+    },
 ];
 
 // define grouped chests
@@ -1823,6 +1863,8 @@ export const overworld: OverworldCheck[] = [
 //     },
 // ];
 
+/* overworld */
+
 // //Overworld Chests
 // var overworldChests = [
 //     {
@@ -2061,50 +2103,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "56.24%",
 //         isAvailable: function () {
 //             if (canAccessLanayruField() && items.Clawshot && shootPew()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Under Bridge Chest",
-//         x: "54.91%",
-//         y: "58.8%",
-//         isAvailable: function () {
-//             if (canAccessFaronField() && items.Clawshot) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Chu, Baba, and Keese  Right Chest",
-//         x: "58.11%",
-//         y: "64.16%",
-//         isAvailable: function () {
-//             if (canAccessFaronField() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Chu, Baba, and Keese  Left Chest",
-//         x: "57.01%",
-//         y: "64.16%",
-//         isAvailable: function () {
-//             if (canAccessFaronField() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Chu, Baba, and Keese  Rear Chest",
-//         x: "57.01%",
-//         y: "65.16%",
-//         isAvailable: function () {
-//             if (canAccessFaronField() && items.Crystal) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -2596,17 +2594,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Tree Heart Piece",
-//         x: "56%",
-//         y: "60.88%",
-//         isAvailable: function () {
-//             if (canAccessFaronField() && (items.Boomerang || items.Clawshot)) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Shield Attack",
 //         x: "54.5%",
 //         y: "81.24%",
@@ -2785,18 +2772,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "71.4%",
 //         isAvailable: function () {
 //             if (canAccessGrove2() && setMDHFlag() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //18
-//         name: "Faron Field Poe",
-//         x: "54.58%",
-//         y: "59.04%",
-//         isAvailable: function () {
-//             if (canAccessFaronField() && setMDHFlag() && items.Crystal) {
 //                 return "available";
 //             }
 //             return "poeunavailable";
@@ -3267,28 +3242,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     // bugs
-//     {
-//         //1
-//         name: "Male Beetle",
-//         x: "53.58%",
-//         y: "62.16%",
-//         isAvailable: function () {
-//             if (canAccessFaronField())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //2
-//         name: "Female Beetle",
-//         x: "57.33%",
-//         y: "58.72%",
-//         isAvailable: function () {
-//             if (canAccessFaronField() && (items.Boomerang || items.Clawshot))
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
 //     {
 //         //3
 //         name: "Male Pill Bug",

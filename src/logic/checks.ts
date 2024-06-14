@@ -99,6 +99,28 @@ const faronCheckDataGlitchless: Check[] = [
         () => fns.canCompletePrologue(),
     ),
     new Check(
+        "Faron Field Bridge Chest",
+        () => store.items.Clawshot > 0,
+    ),
+    new Check("Faron Field Corner Grotto Left Chest", fns.always),
+    new Check("Faron Field Corner Grotto Rear Chest", fns.always),
+    new Check("Faron Field Corner Grotto Right Chest", fns.always),
+    new Check(
+        "Faron Field Female Beetle",
+        () => store.items.Boomerang || store.items.Clawshot > 0,
+        "bug",
+    ),
+    new Check("Faron Field Male Beetle", fns.always, "bug"),
+    new Check(
+        "Faron Field Poe",
+        () => store.items.Crystal && fns.canCompleteMDH(),
+        "poe"
+    ),
+    new Check(
+        "Faron Field Tree Heart Piece",
+        () => store.items.Boomerang || store.items.Clawshot > 0,
+    ),
+    new Check(
         "Faron Woods Owl Statue Sky Character",
         () => fns.canSmash() && store.items.Dominion >= 2 && fns.canClearForest()
     ),
