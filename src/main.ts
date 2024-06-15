@@ -1,4 +1,4 @@
-import { init, setTracker, setLogic, setSkipOption, showSettings, editMode, resetLayout } from "./render";
+import { init, setFaronEscape, setKeysy, setTracker, setLogic, setSkipOption, showSettings, editMode, resetLayout } from "./render";
 
 if (document.readyState === "loading") {
     // Loading hasn't finished yet
@@ -45,6 +45,8 @@ window.onload = () => {
     document.getElementById('settingsbutton')!.onclick = (ev) => showSettings(ev.currentTarget! as HTMLElement);
     document.getElementById('edit-mode')!.onclick = (_ev) => editMode();
     document.getElementById('reset-layout')!.onclick = (_ev) => resetLayout();
+    document.getElementById('enable-small-keysy')!.onclick = (ev) => setKeysy(ev.currentTarget! as HTMLInputElement);
+    document.getElementById('faron-escape')!.onclick = (ev) => setFaronEscape(ev.currentTarget! as HTMLInputElement);
 
     for (const elem of document.querySelectorAll<HTMLElement>('[data-skip]')) {
         console.debug("registering skip option: ", elem.dataset.skip);

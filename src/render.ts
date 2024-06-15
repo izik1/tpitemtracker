@@ -104,7 +104,10 @@ function loadStorage() {
     });
 
     rewards = cookieobj.rewards;
-    store.items = cookieobj.obtainedItems;
+
+    let storedItems = cookieobj.obtainedItems ?? {};
+
+    store.items = { ...baseItems, ...storedItems };
 
     // I literally can't think of a less dumb way to do this right now.
     store.settings = JSON.parse(localStorage.getItem('settings') ?? "null") ?? store.settings;
@@ -274,6 +277,26 @@ export function setSkipOption(option: string, sender: { checked: boolean; }) {
     // TS isn't inferring this correctly.
     skip[(option as keyof typeof skip)] = sender.checked;
     updateMap();
+    saveStorage();
+}
+
+export function setKeysy(sender: { checked: boolean; }) {
+    // for an item tracker we don't really care about anything other than keysy.
+    const value = sender.checked ? "keysy" : "vanilla";
+    store.settings.randomizer.smallKeys = value;
+
+    updateMap();
+    saveStorage();
+}
+
+export function setFaronEscape(sender: { checked: boolean; }) {
+    // for an item tracker we don't really care about anything other than keysy.
+    const value = sender.checked ? "open" : "closed";
+    store.settings.randomizer.faronWoodsLogic = value;
+
+    updateMap();
+    saveStorage();
+
 }
 
 export function setLogic(sender: { value: LogicValue; }) {
@@ -509,8 +532,15 @@ function makeGridItem(row: number, col: number, item: ItemId) {
     let cornerItem = makeGridItemCorner(item);
 
     if (typeof (cornerItem) !== 'undefined') {
-        cornerItem.onclick = (_ev) => gridItemClick(row, col, true);
-        cornerItem.oncontextmenu = (_ev) => gridItemRClick(row, col, true);
+        cornerItem.onclick = (ev) => {
+            gridItemClick(row, col, true);
+            ev.stopPropagation();
+        };
+        cornerItem.oncontextmenu = (ev) => {
+            gridItemRClick(row, col, true);
+            ev.stopPropagation();
+            ev.preventDefault();
+        };
         elem.appendChild(cornerItem);
     }
 
@@ -624,7 +654,7 @@ function initGridRow(itemsets: ItemId[][]) {
 
 function editModeItemClick(row: number, col: number) {
     if ("item" in selected) {
-        document.getElementById(selected.item)!.style.border = '1px solid white';
+        document.getElementById(selected.item)!.style.border = '';
         var old = itemLayout[row][col];
 
         if (old == selected.item) {
@@ -632,21 +662,26 @@ function editModeItemClick(row: number, col: number) {
             return;
         }
 
-        itemLayout[row][col] = selected.item;
+        itemLayout[row][col] = selected.item as ItemId;
         updateGridItem(row, col);
         selected = {};
-        document.getElementById(old)!.style.opacity = "unset";
+        saveStorage();
     } else if ("row" in selected) {
-        itemGrid[selected.row][selected.col]['item'].style.border = '1px solid white';
-
         var temp = itemLayout[row][col];
         itemLayout[row][col] = itemLayout[selected.row][selected.col];
         itemLayout[selected.row][selected.col] = temp;
         updateGridItem(row, col);
         updateGridItem(selected.row, selected.col);
+        saveStorage();
         selected = {};
     } else {
-        itemGrid[row][col]['item'].style.border = '3px solid yellow';
+        let elem = document.getElementById('itemdiv')?.children[row]?.children[col + 1] ?? null;
+
+        if (!elem) {
+            return;
+        }
+
+        (elem as HTMLElement).style.border = '3px solid yellow';
         selected = { row: row, col: col };
     }
 }
@@ -657,7 +692,7 @@ function updateItem(row: number, col: number, corner: boolean, value: 1 | -1) {
 
     // cursed function, but it does evreything it needs to.
     const newValue = (min: number, max: number, old: number) => {
-        const modRange = (max - min);
+        const modRange = (max - min + 1);
         return (((old + value - min) % modRange) + modRange) % modRange + min;
     };
 
@@ -760,7 +795,6 @@ function itemConfigClick(sender: EventTarget | null) {
         sender.style.border = '3px solid yellow';
         selected = { item: item };
     } else if ("row" in selected) {
-        itemGrid[selected.row][selected.col]['item'].style.border = '1px solid white';
         var old = itemLayout[selected.row][selected.col];
 
         if (old == item) {
@@ -770,8 +804,6 @@ function itemConfigClick(sender: EventTarget | null) {
 
         itemLayout[selected.row][selected.col] = item;
         updateGridItem(selected.row, selected.col);
-
-        document.getElementById(old).style.opacity = 1;
 
         selected = {};
     } else {

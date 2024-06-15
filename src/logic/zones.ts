@@ -66,7 +66,7 @@ const faronZoneDataGlitchless: Zone[] = [
         name: "South Faron Woods",
         neighbors: [
             new ZoneNeighbor("Ordon Province", fns.always),
-            new ZoneNeighbor("Faron Field", fns.never),
+            new ZoneNeighbor("Faron Field", fns.canClearForest),
             new ZoneNeighbor("South Faron Woods Cave", fns.always),
             new ZoneNeighbor("Faron Mist Area", () => fns.canSmash() && store.items.Dominion >= 2 && store.items.Crystal && fns.canClearForest()),
         ],
@@ -126,10 +126,11 @@ const faronZoneDataGlitchless: Zone[] = [
         name: "Faron Field",
         neighbors: [
             new ZoneNeighbor("South Faron Woods", fns.always),
-            // key setting requirement
+            // fixme: missing zone.
             new ZoneNeighbor("Outside Castle Town South", fns.never),
+            // fixme: missing zone.
             new ZoneNeighbor("Kakariko Gorge", fns.always),
-            // key setting requirement
+            // fixme: missing zone.
             new ZoneNeighbor("Lake Hylia Bridge", fns.never),
             new ZoneNeighbor("Faron Field Corner Grotto", () => store.items.Crystal),
         ],
@@ -151,7 +152,216 @@ const faronZoneDataGlitchless: Zone[] = [
             "Faron Field Corner Grotto Left Chest",
             "Faron Field Corner Grotto Rear Chest",
         ]
+    },
+    {
+        name: "Lost Woods",
+        neighbors: [
+            new ZoneNeighbor("North Faron Woods", fns.always),
+            new ZoneNeighbor(
+                "Sacred Grove Master Sword",
+                // ToT entrance settings for alt.
+                () => (fns.canDefeatSkullKid() && store.items.Crystal),
+            )
+        ],
+        checks: [
+            "Lost Woods Lantern Chest",
+            "Lost Woods Boulder Poe",
+            "Lost Woods Waterfall Poe",
+        ]
+    },
+    {
+        name: "Sacred Grove Master Sword",
+        neighbors: [
+            new ZoneNeighbor("Lost Woods", fns.always),
+            new ZoneNeighbor(
+                "Sacred Grove Temple of Time",
+                // ToT entrance settings.
+                () => (fns.canDefeatShadowBeast() && store.items.Sword >= 3),
+            ),
+            new ZoneNeighbor(
+                "Sacred Grove Baba Serpent Grotto",
+                () => fns.canSmash() && store.items.Crystal
+            )
+        ],
+        checks: [
+            "Sacred Grove Spinner Chest",
+            "Sacred Grove Male Snail",
+            "Sacred Grove Master Sword Poe",
+        ]
+    },
+    {
+        name: "Sacred Grove Temple of Time",
+        neighbors: [
+            new ZoneNeighbor("Sacred Grove Master Sword", fns.always),
+            // ToT entrance settings.
+            new ZoneNeighbor("Temple of Time Entrance", () => store.items.Sword >= 3)
+        ],
+        checks: [
+            "Sacred Grove Past Owl Statue Chest",
+            "Sacred Grove Female Snail",
+            "Sacred Grove Temple of Time Owl Statue Poe",
+        ],
     }
+];
+
+const eldinZoneDataGlitchless: Zone[] = [
+    {
+        name: "Hidden Village",
+        // todo: missing zone
+        neighbors: [new ZoneNeighbor("Lanayru Field", fns.never)],
+        checks: [
+            "Cats Hide and Seek Minigame",
+            "Ilia Charm",
+            "Hidden Village Poe",
+            "Skybook From Impaz",
+        ],
+    },
+    {
+        name: "Eldin Field Bomskit Grotto",
+        neighbors: [new ZoneNeighbor("Eldin Field", fns.always)],
+        checks: [
+            "Eldin Field Bomskit Grotto Left Chest",
+            "Eldin Field Bomskit Grotto Lantern Chest",
+        ],
+    },
+    {
+        name: "Eldin Field Stalfos Grotto",
+        neighbors: [new ZoneNeighbor("Eldin Field", fns.always)],
+        checks: [
+            "Eldin Field Stalfos Grotto Right Small Chest",
+            "Eldin Field Stalfos Grotto Left Small Chest",
+            "Eldin Field Stalfos Grotto Stalfos Chest",
+        ],
+    },
+    {
+        name: "Eldin Field Water Bomb Fish Grotto",
+        neighbors: [new ZoneNeighbor("Eldin Field", fns.always)],
+        checks: ["Eldin Field Water Bomb Fish Grotto Chest"],
+    },
+    {
+        name: "Eldin Field",
+        neighbors: [
+            new ZoneNeighbor("Kakariko Gorge", fns.canSmash),
+            new ZoneNeighbor("Kakariko Village", fns.always),
+            new ZoneNeighbor("Goron Stockcave", () => store.items.Clawshot > 0),
+            // fixme: missing zone.
+            new ZoneNeighbor("Castle Town", fns.never),
+            // fixme: missing zone.
+            new ZoneNeighbor("Lanayru Field", fns.never),
+            new ZoneNeighbor("Eldin Field Water Bomb Fish Grotto", () => store.items.Crystal),
+            new ZoneNeighbor("Eldin Field Bomskit Grotto", () => store.items.Crystal),
+            new ZoneNeighbor(
+                "Eldin Field Stalfos Grotto",
+                // the smash requirement feels redundant, but, shrug.
+                () => store.items.Crystal
+                    && store.items.Spinner
+                    && (fns.canSmash() || store.settings.randomizer.skip.lanayruTwilight || store.items.Crystal)
+                    && (store.items.GateKeys || store.settings.randomizer.smallKeys === "keysy")
+            ),
+        ],
+        checks: [
+            "Eldin Field Bomb Rock Chest",
+            "Bridge of Eldin Owl Statue Chest",
+            "Goron Springwater Rush",
+            "Bridge of Eldin Owl Statue Sky Character",
+            "Eldin Field Male Grasshopper",
+            "Eldin Field Female Grasshopper",
+            "Bridge of Eldin Male Phasmid",
+            "Bridge of Eldin Female Phasmid",
+        ],
+    },
+    {
+        name: "Eldin Long Cave",
+        neighbors: [new ZoneNeighbor("Kakariko Gorge", fns.always)],
+        checks: [
+            "Eldin Lantern Cave First Chest",
+            "Eldin Lantern Cave Lantern Chest",
+            "Eldin Lantern Cave Second Chest",
+            "Eldin Lantern Cave Poe",
+        ],
+    },
+    {
+        name: "Goron Stockcave",
+        neighbors: [new ZoneNeighbor("Eldin Field", fns.always)],
+        checks: [
+            "Eldin Stockcave Upper Chest",
+            "Eldin Stockcave Lantern Chest",
+            "Eldin Stockcave Lowest Chest",
+        ],
+    },
+    {
+        name: "Kakariko Gorge",
+        neighbors: [
+            new ZoneNeighbor("Eldin Field", fns.canSmash),
+            new ZoneNeighbor("Faron Field", fns.always),
+            new ZoneNeighbor("Kakariko Village", fns.always),
+            new ZoneNeighbor("Eldin Long Cave", fns.canSmash),
+        ],
+        checks: [
+            "Kakariko Gorge Owl Statue Chest",
+            "Kakariko Gorge Double Clawshot Chest",
+            "Kakariko Gorge Spire Heart Piece",
+            "Kakariko Gorge Owl Statue Sky Character",
+            "Kakariko Gorge Male Pill Bug",
+            "Kakariko Gorge Female Pill Bug",
+            "Kakariko Gorge Poe",
+        ],
+    },
+    {
+        name: "Death Mountain Interiors",
+        neighbors: [
+            new ZoneNeighbor("Death Mountain Volcano", fns.always),
+            new ZoneNeighbor("Goron Mines entrance", fns.never),
+        ],
+        checks: [],
+    },
+    {
+        name: "Death Mountain Trail",
+        neighbors: [
+            new ZoneNeighbor("Kakariko Village", fns.always),
+            new ZoneNeighbor("Death Mountain Volcano", () => store.items.IronBoots || store.items.Crystal),
+        ],
+        checks: [
+            "Death Mountain Alcove Chest",
+            "Death Mountain Trail Poe",
+        ],
+    },
+    {
+        name: "Death Mountain Volcano",
+        neighbors: [
+            new ZoneNeighbor("Death Mountain Trail", fns.always),
+            new ZoneNeighbor(
+                "Death Mountain Interiors",
+                () => store.items.IronBoots && (fns.canDefeatGoron() || store.settings.randomizer.goronMinesLogic === "open")
+            )
+        ],
+        checks: [],
+    },
+    {
+        name: "Kakariko Village",
+        neighbors: [
+            new ZoneNeighbor("Kakariko Gorge", fns.always),
+            new ZoneNeighbor("Eldin Field", fns.always),
+            new ZoneNeighbor("Death Mountain Trail", fns.always),
+            new ZoneNeighbor(
+                "Lake Hylia",
+                fns.never,
+                // () => fns.canUseWaterBombs()
+                //     && (store.items.IronBoots || store.items.ZoraArmor)
+                //     && (store.items.GateKeys || store.settings.randomizer.smallKeys === "keysy"),
+            ),
+        ],
+        checks: [
+            "Kakariko Graveyard Lantern Chest",
+            "Gift From Ralis",
+            "Rutelas Blessing",
+            "Kakariko Graveyard Male Ant",
+            "Kakariko Graveyard Grave Poe",
+            "Kakariko Graveyard Open Poe",
+            "Kakariko Graveyard Golden Wolf",
+        ],
+    },
+
 ];
 
 const forestTempleZoneDataGlitchless: Zone[] = [
@@ -243,6 +453,7 @@ export const zoneDataGlitchless: Zone[] = [
     // overworld
     ...ordonZoneDataGlitchless,
     ...faronZoneDataGlitchless,
+    ...eldinZoneDataGlitchless,
 
     // dungeon time
     ...forestTempleZoneDataGlitchless,

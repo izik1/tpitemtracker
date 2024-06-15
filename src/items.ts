@@ -65,58 +65,6 @@ export var defaultItemGrid: ItemId[][] = [
     ]
 ];
 
-/**
- * @typedef {Object} Items
- * @property {number} Bow,
-* @property {boolean} Chainball,
-* @property {boolean} Slingshot,
-* @property {boolean} Boomerang,
-* @property {number} Bombs,
-* @property {boolean} WBombs,
-* @property {number} Rod,
-* @property {boolean} Lantern,
-* @property {boolean} Hawkeye,
-* @property {boolean} Spinner,
-* @property {boolean} Memo,
-* @property {boolean} Sketch,
-* @property {number} Skybook,
-* @property {number} Dominion,
-* @property {boolean} Renardos_Letter,
-* @property {boolean} Invoice,
-* @property {boolean} Wooden_Statue,
-* @property {boolean} Ilias_Charm,
-* @property {boolean} Horse_Call,
-* @property {number} Bugs,
-* @property {number} Bottle,
-* @property {number} Wallet,
-* @property {number} Sword,
-* @property {number} Skills,
-* @property {number} Shield,
-* @property {number} Soul,
-* @property {number} Vessel,
-* @property {boolean} YouthScent,
-* @property {boolean} IliaScent,
-* @property {boolean} PoeScent,
-* @property {boolean} ReekfishScent,
-* @property {boolean} MedicineScent,
-* @property {number} Shadow,
-* @property {number} Shard,
-* @property {boolean} Crystal,
-* @property {boolean} ZoraArmor,
-* @property {boolean} MagicArmor,
-* @property {boolean} IronBoots,
-* @property {boolean} Boss1,
-* @property {boolean} Boss2,
-* @property {boolean} Boss3,
-* @property {boolean} Boss4,
-* @property {boolean} Boss5,
-* @property {boolean} Boss6,
-* @property {boolean} Boss7,
-* @property {boolean} Boss8,
-* @property {boolean} blank,
- */
-
-
 export type ItemId = keyof typeof baseItems;
 // fixme: Replace with something that actually checks if its numeric
 export type NumericItemId = keyof typeof itemsMin;
@@ -167,6 +115,9 @@ export const baseItems = {
     MagicArmor: false,
     IronBoots: false,
 
+    NorthFaronWoodsGateKey: false,
+    GateKeys: false,
+
     Boss1: false,
     Boss2: false,
     Boss3: false,
@@ -198,7 +149,7 @@ export const itemsMax: typeof itemsMin = {
     Shard: 4,
     Dominion: 2,
     Skybook: 7,
-    Vessel: 3
+    Vessel: 3,
 };
 
 // idk whether or not to put them as progressive as the images allow or leave them number based.

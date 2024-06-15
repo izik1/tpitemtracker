@@ -31,7 +31,23 @@ type ToTZoneId = never;
 
 type OverworldZoneId = EldinZoneId | FaronZoneId | GerudoZoneId | LanayruZoneId | OrdonaZoneId | SnowpeakZoneId;
 
-type EldinZoneId = never;
+type EldinZoneId =
+    | HiddenVillageZoneId
+    | EldinFieldZoneId
+    | "Death Mountain Interiors"
+    | "Death Mountain Trail"
+    | "Death Mountain Volcano"
+    | "Kakariko Village";
+
+type HiddenVillageZoneId = "Hidden Village";
+type EldinFieldZoneId =
+    | "Eldin Field Bomskit Grotto"
+    | "Eldin Field Stalfos Grotto"
+    | "Eldin Field Water Bomb Fish Grotto"
+    | "Eldin Field"
+    | "Eldin Long Cave"
+    | "Goron Stockcave"
+    | "Kakariko Gorge";
 
 type FaronZoneId = FaronWoodsZoneId | FaronFieldZoneId | SacredGroveZoneId;
 

@@ -86,6 +86,38 @@ export const groups: Group[] = [
             ...zonesGlitchless["Forest Temple North Wing"].checks,
             ...zonesGlitchless["Forest Temple Boss Room"].checks,
         ]
+    },
+    {
+        name: "Eldin Long Cave",
+        x: "calc(65.91% - 12px)",
+        y: "calc(57.31% - 12px)",
+        checks: [
+            ...zonesGlitchless["Eldin Long Cave"].checks
+        ]
+    },
+    {
+        name: "Kakariko Village",
+        x: "calc(80.41% - 12px)",
+        y: "calc(53.36% - 12px)",
+        checks: [
+            ...zonesGlitchless["Kakariko Village"].checks,
+        ]
+    },
+    {
+        name: "Goron Stockcave",
+        x: "calc(81.0% - 12px)",
+        y: "calc(27.6% - 12px)",
+        checks: [
+            ...zonesGlitchless["Goron Stockcave"].checks,
+        ]
+    },
+    {
+        name: "Hidden Village",
+        x: "72%",
+        y: "23.8%",
+        checks: [
+            ...zonesGlitchless["Hidden Village"].checks,
+        ]
     }
 ];
 
@@ -200,19 +232,184 @@ export const overworld: OverworldCheck[] = [
     },
     {
         name: "Faron Field Poe",
-        x: "54.58%",
-        y: "59.04%",
+        x: "calc(54.58% - 8px)",
+        y: "calc(59.04% - 8px)",
     },
     {
         name: "Faron Field Male Beetle",
-        x: "53.58%",
-        y: "62.16%",
+        x: "calc(53.58% - 8px)",
+        y: "calc(62.16% - 8px)",
     },
     {
         name: "Faron Field Female Beetle",
-        x: "57.33%",
-        y: "58.72%",
+        x: "calc(57.33% - 8px)",
+        y: "calc(58.72% - 8px)",
     },
+    {
+        name: "Kakariko Gorge Double Clawshot Chest",
+        x: "calc(61.75% - 8px)",
+        y: "calc(52.16% - 8px)",
+    },
+    {
+        name: "Kakariko Gorge Female Pill Bug",
+        x: "calc(65% - 8px)",
+        y: "calc(53.60% - 8px)",
+    },
+    {
+        name: "Kakariko Gorge Male Pill Bug",
+        x: "calc(68.16% - 8px)",
+        y: "calc(54.56% - 8px)",
+    },
+    {
+        name: "Kakariko Gorge Owl Statue Chest",
+        x: "calc(66% - 8px)",
+        y: "calc(48.8% - 8px)",
+    },
+    {
+        name: "Kakariko Gorge Owl Statue Sky Character",
+        x: "calc(67% - 8px)",
+        y: "calc(48.8% - 8px)",
+    },
+    {
+        name: "Kakariko Gorge Poe",
+        x: "calc(65.25% - 8px)",
+        y: "calc(53.52% - 8px)",
+    },
+    {
+        name: "Kakariko Gorge Spire Heart Piece",
+        x: "calc(62.85% - 8px)",
+        y: "calc(52.40% - 8px)",
+    },
+    {
+        name: "Death Mountain Alcove Chest",
+        x: "calc(85.83% - 8px)",
+        y: "calc(41.28% - 8px)",
+    },
+    {
+        name: "Death Mountain Trail Poe",
+        x: "calc(85.91% - 8px)",
+        y: "calc(44% - 8px)",
+    },
+    {
+        name: "Eldin Field Bomb Rock Chest",
+        x: "calc(71.91% - 8px)",
+        y: "calc(43.52% - 8px)",
+    },
+    {
+        name: "Eldin Field Bomskit Grotto Left Chest",
+        x: "calc(69.66% - 8px)",
+        y: "calc(39.36% - 8px)",
+    },
+    {
+        name: "Eldin Field Bomskit Grotto Lantern Chest",
+        x: "calc(70.86% - 8px)",
+        y: "calc(39.36% - 8px)",
+    },
+    {
+        name: "Eldin Field Water Bomb Fish Grotto Chest",
+        x: "calc(77.41% - 8px)",
+        y: "calc(34.88% - 8px)",
+    },
+    {
+        name: "Bridge of Eldin Owl Statue Chest",
+        x: "calc(77.75% - 8px)",
+        y: "calc(32.64% - 8px)",
+    },
+    {
+        name: "Goron Springwater Rush",
+        x: "calc(60.25% - 8px)",
+        y: "calc(40.4% - 8px)",
+    },
+    {
+        name: "Bridge of Eldin Owl Statue Sky Character",
+        x: "calc(77.75% - 8px)",
+        y: "calc(28.64% - 8px)",
+    },
+    {
+        name: "Eldin Field Male Grasshopper",
+        x: "calc(74.58% - 8px)",
+        y: "calc(40.80% - 8px)",
+    },
+    {
+        name: "Eldin Field Female Grasshopper",
+        x: "calc(66.67% - 8px)",
+        y: "calc(34.56% - 8px)",
+    },
+    {
+        name: "Bridge of Eldin Male Phasmid",
+        x: "calc(78.58% - 8px)",
+        y: "calc(33.12% - 8px)",
+    },
+    {
+        name: "Bridge of Eldin Female Phasmid",
+        x: "calc(80.00% - 8px)",
+        y: "calc(26.64% - 8px)",
+    },
+    {
+        name: "Eldin Field Stalfos Grotto Left Small Chest",
+        x: "calc(74.16% - 8px)",
+        y: "calc(19.6% - 8px)",
+    },
+    {
+        name: "Eldin Field Stalfos Grotto Right Small Chest",
+        x: "calc(75.16% - 8px)",
+        y: "calc(19.6% - 8px)",
+    },
+    {
+        name: "Eldin Field Stalfos Grotto Stalfos Chest",
+        x: "calc(74.66% - 8px)",
+        y: "calc(18.6% - 8px)",
+    },
+    {
+        name: "Lost Woods Lantern Chest",
+        x: "calc(calc(45.41% - 8px)",
+        y: "calc(calc(70.8% - 8px)",
+    },
+    {
+        name: "Lost Woods Boulder Poe",
+        x: "calc(43.78% - 8px)",
+        y: "calc(68.88% - 8px)",
+    },
+    {
+        name: "Lost Woods Waterfall Poe",
+        x: "calc(47% - 8px)",
+        y: "calc(71.4% - 8px)",
+    },
+    {
+        name: "Sacred Grove Spinner Chest",
+        x: "calc(42.91% - 8px)",
+        y: "calc(70.8% - 8px)",
+    },
+    {
+        name: "Sacred Grove Baba Serpent Grotto Chest",
+        x: "calc(42.16% - 8px)",
+        y: "calc(68.88% - 8px)",
+    },
+    {
+        name: "Sacred Grove Male Snail",
+        x: "calc(44.08% - 8px)",
+        y: "calc(69.6% - 8px)",
+    },
+    {
+        name: "Sacred Grove Master Sword Poe",
+        x: "calc(44.20% - 8px)",
+        y: "calc(65.68% - 8px)",
+    },
+    {
+        name: "Sacred Grove Past Owl Statue Chest",
+        x: "calc(45.08% - 8px)",
+        y: "calc(68.88% - 8px)",
+    },
+    {
+        name: "Sacred Grove Female Snail",
+        x: "calc(42.41% - 8px)",
+        y: "calc(69.9% - 8px)",
+    },
+    {
+        name: "Sacred Grove Temple of Time Owl Statue Poe",
+        x: "calc(43.78% - 8px)",
+        y: "calc(68.88% - 8px)",
+    }
 ];
 
 // define grouped chests
@@ -1443,127 +1640,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Bridge of Eldin Stockcave",
-//         x: "81.0%",
-//         y: "27.6%",
-//         chestlist: {
-//             'Dodongo Chest': {
-//                 isAvailable: function () {
-//                     return canAccessEldinField() && items.Clawshot && items.IronBoots;
-//                 },
-//             },
-//             'Lantern Chest': {
-//                 isAvailable: function () {
-//                     return canAccessEldinField() && items.Clawshot && items.Lantern && items.IronBoots;
-//                 },
-//             },
-//             'Heart Piece Chest': {
-//                 isAvailable: function () {
-//                     return canAccessEldinField() && items.Clawshot && items.Lantern && items.IronBoots;
-//                 },
-//             },
-//         },
-//         isBeatable: function () {
-//             return this.canGetChest();
-//         },
-//         canGetChest: function () {
-//             return generalCanGetChest(this.chestlist);
-//         },
-//     },
-//     {
-//         name: "Kakariko Village",
-//         x: "80.41%",
-//         y: "53.36%",
-//         chestlist: {
-//             'Inn Small Chest': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage();
-//                 },
-//             },
-//             'Barnes Bomb Bag': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && (items.Boss2 || MinesPatch);
-//                 },
-//             },
-//             'Eldin Spring Heart Piece': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && items.IronBoots && canSmash();
-//                 },
-//             },
-//             'Bomb Rock Spire Heart Piece': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && items.Boomerang && shootPew();
-//                 },
-//             },
-//             'Graveyard Lantern Chest': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && items.Lantern;
-//                 },
-//             },
-//             'Watchtower Chest': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage();
-//                 },
-//             },
-//             'Watchtower Alcove Chest': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && canSmash();
-//                 },
-//             },
-//             'Archery Heart Piece': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && items.Bow && (items.Boss2 || MinesPatch);
-//                 },
-//             },
-//             'Hylian Shield': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage();
-//                 },
-//             },
-//             'Hawkeye': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && (items.Boss2 || MinesPatch);
-//                 },
-//             },
-//             'Zora Armor': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && lanayruTwilightCleared() && ((items.Bow && items.Boomerang) || EscortSkip);
-//                 },
-//             },
-//             'Coral Earring': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && items.Sketch;
-//                 },
-//             },
-//             'Jump Strike': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && canAccessSnowpeakSummit();
-//                 },
-//             },
-//             'Renados Letter': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && items.Boss6;
-//                 },
-//             },
-//             'Horse Call': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && items.Charm >= 4;
-//                 },
-//             },
-//             'Powered Dominion Rod': {
-//                 isAvailable: function () {
-//                     return canAccessKakVillage() && items.Skybook >= 1;
-//                 },
-//             },
-//         },
-//         isBeatable: function () {
-//             return this.canGetChest();
-//         },
-//         canGetChest: function () {
-//             return generalCanGetChest(this.chestlist);
-//         },
-//     },
-//     {
 //         name: "Lanayru Spring",
 //         x: "42.5%",
 //         y: "52.08%",
@@ -1785,39 +1861,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Kakariko Gorge Lantern Cave",
-//         x: "65.91%",
-//         y: "57.31%",
-//         chestlist: {
-//             'First Chest': {
-//                 isAvailable: function () {
-//                     return canSmash() && canAccessKakGorge() && canBurnWebs();
-//                 },
-//             },
-//             'Second Chest': {
-//                 isAvailable: function () {
-//                     return canSmash() && canAccessKakGorge() && canBurnWebs();
-//                 },
-//             },
-//             'Heart Piece Chest': {
-//                 isAvailable: function () {
-//                     return canSmash() && canAccessKakGorge() && canBurnWebs() && items.Lantern;
-//                 },
-//             },
-//             'Poe': {
-//                 isAvailable: function () {
-//                     return canSmash() && canAccessKakGorge() && canBurnWebs() && items.Crystal;
-//                 },
-//             },
-//         },
-//         isBeatable: function () {
-//             return this.canGetChest();
-//         },
-//         canGetChest: function () {
-//             return generalCanGetChest(this.chestlist);
-//         },
-//     },
-//     {
 //         name: "Bublin Camp",
 //         x: "14.98%",
 //         y: "44.96%",
@@ -1868,30 +1911,7 @@ export const overworld: OverworldCheck[] = [
 // //Overworld Chests
 // var overworldChests = [
 //     {
-//         name: "Alcove Heart Piece Chest",
-//         x: "85.83%",
-//         y: "41.28%",
-//         isAvailable: function () {
-//             if (eldinTwilightCleared() && canAccessDeathMountain() && ((items.Boss2 || MinesPatch) || items.Clawshot)) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Past - Heart Piece",
-//         x: "45.08%",
-//         y: "68.88%",
-//         isAvailable: function () {
-//             if (canAccessTot() && items.Dominion > 0)
-//                 return "available";
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Bomb Rock Ledge Heart Piece",
-//         x: "71.91%",
-//         y: "43.52%",
 //         isAvailable: function () {
 //             if (canSmash() && canAccessEldinField()) {
 //                 return "available";
@@ -1938,17 +1958,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "54.06%",
 //         isAvailable: function () {
 //             if (canAccessLakeHylia() && items.IronBoots) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Deku Baba Heart Piece Chest",
-//         x: "42.16%",
-//         y: "68.88%",
-//         isAvailable: function () {
-//             if (canAccessGrove() && items.Crystal && canSmash()) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -2131,39 +2140,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Grotto - Bomskit Left Chest",
-//         x: "69.66%",
-//         y: "39.36%",
-//         isAvailable: function () {
-//             if (canAccessEldinField() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Bomskit Right Chest",
-//         x: "70.86%",
-//         y: "39.36%",
-//         isAvailable: function () {
-//             if (canAccessEldinField() && items.Crystal && items.Lantern) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Water Bomb Fish Chest",
-//         x: "77.41%",
-//         y: "34.88%",
-//         isAvailable: function () {
-//             if (canAccessEldinField() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Grotto - Skulltula Chest",
 //         x: "33.58%",
 //         y: "60.32%",
@@ -2318,39 +2294,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Grotto - Stalfos Left Small Chest",
-//         x: "74.16%",
-//         y: "19.6%",
-//         isAvailable: function () {
-//             if (((canAccessEldinField() && canSmash()) || canAccessLanayruField()) && items.Spinner) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Stalfos Right Small Chest",
-//         x: "75.16%",
-//         y: "19.6%",
-//         isAvailable: function () {
-//             if (((canAccessEldinField() && canSmash()) || canAccessLanayruField()) && items.Spinner) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Stalfos Heart Piece Chest",
-//         x: "74.66%",
-//         y: "18.6%",
-//         isAvailable: function () {
-//             if (((canAccessEldinField() && canSmash()) || canAccessLanayruField()) && items.Spinner && canSmash()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Fountain Chest",
 //         x: "54.01%",
 //         y: "45.68%",
@@ -2401,72 +2344,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "26.04%",
 //         isAvailable: function () {
 //             if (canAccessLanayruField() && items.Chainball) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Lost Woods - Lantern Chest",
-//         x: "45.41%",
-//         y: "70.8%",
-//         isAvailable: function () {
-//             if (canAccessGrove2() && items.Lantern) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Lost Woods - Spinner Chest",
-//         x: "42.91%",
-//         y: "70.8%",
-//         isAvailable: function () {
-//             if (canAccessGrove() && items.Spinner) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Eldin Bridge Owl Chest",
-//         x: "77.75%",
-//         y: "32.64%",
-//         isAvailable: function () {
-//             if (canAccessEldinField() && items.Dominion > 1) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Eldin Bridge Skybook Letter",
-//         x: "77.75%",
-//         y: "28.64%",
-//         isAvailable: function () {
-//             if (canAccessEldinField() && items.Dominion > 1) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Gorge Owl Statue Chest",
-//         x: "66%",
-//         y: "48.8%",
-//         isAvailable: function () {
-//             if (canAccessKakGorge() && items.Dominion > 1) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Gorge Skybook Letter",
-//         x: "67%",
-//         y: "48.8%",
-//         isAvailable: function () {
-//             if (canAccessKakGorge() && items.Dominion > 1) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -2539,33 +2416,11 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Gorge Spire Chest",
-//         x: "61.75%",
-//         y: "52.16%",
-//         isAvailable: function () {
-//             if (canAccessKakGorge() && items.Clawshot > 1) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Lake Chasm Chest",
 //         x: "51.50%",
 //         y: "46.88%",
 //         isAvailable: function () {
 //             if (canAccessCastleTown() && items.Clawshot > 1) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Gorge Spire Heart Piece",
-//         x: "62.85%",
-//         y: "52.40%",
-//         isAvailable: function () {
-//             if (canAccessKakGorge() && (items.Boomerang || items.Clawshot)) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -2650,21 +2505,8 @@ export const overworld: OverworldCheck[] = [
 //     },
 //     {
 //         name: "Hidden Village - Hide and Seek",
-//         x: "72%",
-//         y: "23.8%",
 //         isAvailable: function () {
 //             if (items.Charm >= 4 && canAccessHiddenVillage()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Hot Springwater Goron",
-//         x: "60.25%",
-//         y: "40.4%",
-//         isAvailable: function () {
-//             if (canAccessKakVillage() && canAccessEldinField()) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -2766,64 +2608,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         //17
-//         name: "Lost Woods Poe",
-//         x: "47%",
-//         y: "71.4%",
-//         isAvailable: function () {
-//             if (canAccessGrove2() && setMDHFlag() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //19
-//         name: "Kakariko Gorge Poe",
-//         x: "65.25%",
-//         y: "53.52%",
-//         isAvailable: function () {
-//             if (canAccessKakGorge() && setMDHFlag() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //20
-//         name: "Poe Under Rock",
-//         x: "42.16%",
-//         y: "68.88%",
-//         isAvailable: function () {
-//             if (canAccessGrove() && canSmash() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //21
-//         name: "Master Sword Poe",
-//         x: "44.20%",
-//         y: "65.68%",
-//         isAvailable: function () {
-//             if (canAccessGrove2() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //22
-//         name: "Past - Poe",
-//         x: "43.78%",
-//         y: "68.88%",
-//         isAvailable: function () {
-//             if (canAccessTot() && items.Dominion && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
 //         //23
 //         name: "CoO - F17 Poe",
 //         x: "14.25%",
@@ -2852,17 +2636,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "61.4%",
 //         isAvailable: function () {
 //             if (canAccessDesert() && items.Clawshot > 1 && items.Crystal && items.Spinner && items.Chainball && items.Dominion > 1)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //26
-//         name: "Death Mountain Poe",
-//         x: "85.91%",
-//         y: "44%",
-//         isAvailable: function () {
-//             if (canAccessDeathMountain() && (items.Boss2 || MinesPatch) && setMDHFlag() && items.Crystal)
 //                 return "available";
 //             return "poeunavailable";
 //         },
@@ -3243,28 +3016,6 @@ export const overworld: OverworldCheck[] = [
 //     },
 //     // bugs
 //     {
-//         //3
-//         name: "Male Pill Bug",
-//         x: "65%",
-//         y: "53.60%",
-//         isAvailable: function () {
-//             if (canAccessKakGorge())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //4
-//         name: "Female Pill Bug",
-//         x: "68.16%",
-//         y: "54.56%",
-//         isAvailable: function () {
-//             if (canAccessKakGorge())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
 //         //5
 //         name: "Male Ant",
 //         x: "84.58%",
@@ -3282,50 +3033,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "52.48%",
 //         isAvailable: function () {
 //             if (canAccessKakVillage())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //7
-//         name: "Male Grasshopper",
-//         x: "74.58%",
-//         y: "40.80%",
-//         isAvailable: function () {
-//             if (canAccessEldinField())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //8
-//         name: "Female Grasshopper",
-//         x: "66.67%",
-//         y: "34.56%",
-//         isAvailable: function () {
-//             if (canAccessEldinField())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //9
-//         name: "Male Phasmid",
-//         x: "78.58%",
-//         y: "33.12%",
-//         isAvailable: function () {
-//             if (canAccessEldinField() && (items.Clawshot || items.Boomerang))
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //10
-//         name: "Female Phasmid",
-//         x: "80.00%",
-//         y: "26.64%",
-//         isAvailable: function () {
-//             if (canAccessEldinField() && (items.Clawshot || items.Boomerang))
 //                 return "available";
 //             return "bugunavailable";
 //         },
@@ -3462,28 +3169,6 @@ export const overworld: OverworldCheck[] = [
 //             return "bugunavailable";
 //         },
 //     },
-//     {
-//         //23
-//         name: "Male Snail",
-//         x: "44.08%",
-//         y: "69.6%",
-//         isAvailable: function () {
-//             if (canAccessGrove())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //24
-//         name: "Female Snail",
-//         x: "42.41%",
-//         y: "69.9%",
-//         isAvailable: function () {
-//             if (canAccessTot())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     }
 // ]
 /*
 //Shops

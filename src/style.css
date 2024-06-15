@@ -179,7 +179,9 @@ label {
 }
 
 .mapdiv {
-    background-image: url(~/static/images/General/map2x.webp);
+    /* background-image: url(~/static/images/General/map2x.webp?quality=75&width=1200&height=1256); */
+    background-image: image-set(url(~/static/images/General/map2x.webp?quality=75&width=1200&height=1256) 1x,
+            url(~/static/images/General/map2x.webp?quality=75) 2x);
     background-size: 100% 100%;
     background-repeat: no-repeat;
 
@@ -206,6 +208,7 @@ div.trackerItem {
     background-size: 64px 64px;
     display: grid;
     grid-template: ". ." 3fr ". Icon" 2fr / 3fr 2fr;
+    contain: strict;
 }
 
 div.trackerTextIcon {
