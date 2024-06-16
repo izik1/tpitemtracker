@@ -5,7 +5,7 @@ type FaronWoodsLogic = "open" | "closed";
 type KeyLogic = "keysy" | "vanilla";
 type GoronMinesEntranceLogic = "closed" | "no-wrestling" | "open";
 
-export let settings = {
+export const settings = {
     taloMap: false,
     itemBoxes: true,
     randomizer: {

@@ -1,5 +1,4 @@
 import store from "../store";
-import { type Zones } from "./zones";
 
 export function hasDamagingIronBoots() {
     return (canDoNicheStuff() && store.items.IronBoots);
@@ -665,7 +664,7 @@ export function canCompleteGoronMines() {
 }
 
 export function canCompleteLakebedTemple() {
-    return store.logic.reachableZones.has("Lakebed Temple Boos Room") && canDefeatMorpheel();
+    return store.logic.reachableZones.has("Lakebed Temple Boss Room") && canDefeatMorpheel();
 }
 
 export function canCompleteArbitersGrounds() {

@@ -2,7 +2,6 @@ import { type ZoneId } from "./zone-id";
 import { type LogicValue } from "../settings";
 import { zonesGlitchless, zoneDataGlitchless, type Zone, recalculateReachableZones, Zones, } from "./zones";
 import { checkIdsGlitchless, checkDataGlitchless, type CheckIds, Check } from "./checks";
-import store from "../store";
 import { CheckName } from "./check-name";
 
 export { checkIdsGlitchless, checkDataGlitchless } from "./checks";
@@ -10,7 +9,7 @@ export { zonesGlitchless, type Zones } from "./zones";
 
 
 function makeChecksToZones(zoneData: Zone[], checkIds: CheckIds): { [x: number]: ZoneId; } {
-    let output: { [x: number]: ZoneId; } = {};
+    const output: { [x: number]: ZoneId; } = {};
     for (const zone of zoneData) {
         for (const check of zone.checks) {
             output[checkIds[check]] = zone.name;

@@ -1,5 +1,5 @@
 //set up how we want the item grid to be displayed by default
-export var defaultItemGrid: ItemId[][] = [
+export const defaultItemGrid: ItemId[][] = [
     [
         "Rod",
         "Slingshot",
@@ -127,7 +127,6 @@ export const baseItems = {
     Boss7: false,
     Boss8: false,
 
-    blank: null,
     ...itemsMin,
 };
 
@@ -157,7 +156,7 @@ export const itemsMax: typeof itemsMin = {
 // "Shadow",
 export type ProgressiveItemId = "Bow" | "Clawshot" | "Wallet" | "Rod" | "Sword" | "Shield" | "Dominion" | "Vessel";
 
-export function isProgressiveItemId(itemId: ItemId) {
+export function isProgressiveItemId(itemId: ItemId): itemId is ProgressiveItemId {
     return ["Bow", "Clawshot", "Wallet", "Rod", "Sword", "Shield", "Dominion", "Vessel"].includes(itemId);
 }
 

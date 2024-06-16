@@ -572,7 +572,7 @@ export type Zones = { [x in ZoneId]: Zone; };
  * @returns {Object.<ZoneId, Zone>}
  */
 function makeZones(zoneData: Zone[]): Zones {
-    let output: Partial<Zones> = {};
+    const output: Partial<Zones> = {};
 
     for (const zone of zoneData) {
         output[zone.name] = zone;
@@ -585,7 +585,7 @@ export const zonesGlitchless = makeZones(zoneDataGlitchless);
 
 export function recalculateReachableZones(searchZones: Zones, start: ZoneId = "Ordon Province") {
     // An implementation of DFS
-    let stack: ZoneId[] = [];
+    const stack: ZoneId[] = [];
     stack.push(start);
 
     if (store.settings.randomizer.openMap && store.items.Crystal) {

@@ -1,29 +1,29 @@
 "use strict";
 
 import { checkDataGlitchless, checkIdsGlitchless, Logic } from "./logic/index";
-import { defaultItemGrid, itemsMax, itemsMin, baseItems, ItemId, isProgressiveItemId, isNumericItemId } from "./items";
+import { defaultItemGrid, itemsMax, itemsMin, baseItems, ItemId, isProgressiveItemId, isNumericItemId, ProgressiveItemId, NumericItemId } from "./items";
 import store from "./store";
 import { overworld, groups, checkStatus, groupStatus, CheckStatus } from "./chests";
 
-// @ts-expect-error
+// @ts-expect-error ts doesn't understand the module transforms.
 import Backgrounds from 'url:~/static/images/Backgrounds/*';
 
-// @ts-expect-error
-import BossRewards from 'url:~/static/images/BossRewards/*.webp';
+// // @ts-expect-error ts doesn't understand the module transforms.
+// import BossRewards from 'url:~/static/images/BossRewards/*.webp';
 
-// @ts-expect-error
+// @ts-expect-error ts doesn't understand the module transforms.
 import itemBoxImage from 'url:~/static/images/General/ItemBox.webp';
 
-// @ts-expect-error
+// @ts-expect-error ts doesn't understand the module transforms.
 import ItemCounts from 'url:~/static/images/ItemCounts/*.webp';
 
-// @ts-expect-error
+// @ts-expect-error ts doesn't understand the module transforms.
 import Items from 'url:~/static/images/Items/*.webp';
 import { LogicValue } from "./settings";
 import { CheckName } from "./logic/check-name";
 
 //set the boss reward values for later testing
-var defaultrewards = {
+const defaultrewards = {
     Boss1: 0,
     Boss2: 0,
     Boss3: 0,
@@ -38,27 +38,32 @@ function isReward(key: string): key is keyof typeof defaultrewards {
     return key in defaultrewards;
 }
 
-var rewards = defaultrewards;
+let rewards = defaultrewards;
 
 //sets the z of the dungeon rewards to their appropriate values
-var dungeonImg = [
-    'Unknown',
-    'label1',
-    'label2',
-    'label3',
-    'label4',
-    'label5',
-    'label6',
-    'label7'
-];
+// const dungeonImg = [
+//     'Unknown',
+//     'label1',
+//     'label2',
+//     'label3',
+//     'label4',
+//     'label5',
+//     'label6',
+//     'label7'
+// ];
 
 //set our default variables
 let showprizes = true;
 
-let itemLayout: ItemId[][] = [];
+/**
+ * The item grid can have blank spaces we can fill in, but it's part of the layout.
+ */
+type LayoutItem = ItemId | null;
+
+let itemLayout: LayoutItem[][] = [];
 
 let editmode = false;
-let selected: {} | { item: string; } | { row: number, col: number; } = {};
+let selected: Record<string, never> | { item: ItemId; } | { row: number, col: number; } = {};
 
 // if we change an option, we want to update our cookies
 function setCookie(obj: object) {
@@ -67,7 +72,7 @@ function setCookie(obj: object) {
 
 //upon loading the website we want to get our cookie values that were stored if any
 function getCookie() {
-    let item = localStorage.getItem("data");
+    const item = localStorage.getItem("data");
     if (item === null) {
         return {};
     }
@@ -77,7 +82,7 @@ function getCookie() {
 
 
 //we want to set our default cookie values so that we can just load from there if need be
-var cookieDefault = {
+const cookieDefault = {
     map: 1,
     iZoom: 100,
     mZoom: 90,
@@ -89,12 +94,12 @@ var cookieDefault = {
 };
 
 // fixme: remove this
-var hackNoSaveWhileLoading = false;
+let hackNoSaveWhileLoading = false;
 
 // loads everything.
 function loadStorage() {
     hackNoSaveWhileLoading = true;
-    let cookieobj = getCookie();
+    const cookieobj = getCookie();
 
     Object.keys(cookieDefault).forEach(function (key) {
         const typedKey = key as keyof typeof cookieDefault;
@@ -106,7 +111,7 @@ function loadStorage() {
 
     rewards = cookieobj.rewards;
 
-    let storedItems = cookieobj.obtainedItems ?? {};
+    const storedItems = cookieobj.obtainedItems ?? {};
 
     store.items = { ...baseItems, ...storedItems };
 
@@ -147,10 +152,10 @@ function saveStorage() {
     }
 
     setCookie({
-        iZoom: document.getElementsByName('itemdivsize')[0].value,
-        mZoom: document.getElementsByName('mapdivsize')[0].value,
-        mPos: document.getElementsByName('mapposition')[1].checked ? 1 : 0,
-        prize: document.getElementsByName('showprizes')[0].checked ? 1 : 0,
+        iZoom: (<HTMLInputElement> document.getElementsByName('itemdivsize')[0]).value,
+        mZoom: (<HTMLInputElement> document.getElementsByName('mapdivsize')[0]).value,
+        mPos: (<HTMLInputElement> document.getElementsByName('mapposition')[1]).checked ? 1 : 0,
+        prize: (<HTMLInputElement> document.getElementsByName('showprizes')[0]).checked ? 1 : 0,
         rewards: rewards,
         obtainedItems: store.items,
     });
@@ -168,11 +173,11 @@ function serializeChecks() {
     return [...store.openedChecks];
 }
 
-function deserializeChecks(serializedChecks: Iterable<string> | null | undefined) {
+function deserializeChecks(serializedChecks: Iterable<CheckName> | null | undefined) {
     store.openedChecks = new Set(serializedChecks);
 }
 
-function onCheckChanged(c: string): CheckStatus {
+function onCheckChanged(c: CheckName): CheckStatus {
     const oldStatus = checkStatus(c);
 
     if (!store.openedChecks.delete(c)) {
@@ -193,7 +198,7 @@ function onCheckChanged(c: string): CheckStatus {
 }
 
 // Event of clicking a chest on the map
-export function toggleChest(sender: HTMLButtonElement, c: string) {
+export function toggleChest(sender: HTMLButtonElement, c: CheckName) {
     const status = onCheckChanged(c);
 
     sender.ariaPressed = ("opened" === status).toString();
@@ -207,7 +212,7 @@ export function toggleChest(sender: HTMLButtonElement, c: string) {
 export function clickDungeon(ev: MouseEvent) {
     document.querySelector('.dungeon.active')?.classList.remove('active');
 
-    let elem = (ev.currentTarget! as HTMLElement);
+    const elem = (ev.currentTarget! as HTMLElement);
 
     elem.classList.add('active');
 
@@ -215,18 +220,18 @@ export function clickDungeon(ev: MouseEvent) {
 
     document.getElementById('submaparea')!.textContent = groups[dungeonSelect].name;
     document.getElementById('submaparea')!.className = 'DC' + groupStatus(groups[dungeonSelect]);
-    var submaplist = document.getElementById('submaplist')!;
+    const submaplist = document.getElementById('submaplist')!;
     submaplist.replaceChildren();
 
-    let frag = document.createDocumentFragment();
+    const frag = document.createDocumentFragment();
 
     for (const check of groups[dungeonSelect].checks) {
-        var s = document.createElement('li');
+        const s = document.createElement('li');
         s.textContent = check;
 
         s.className = 'DC' + checkStatus(check);
 
-        s.onclick = (ev) => toggleDungeonChest(ev.currentTarget!, check);
+        s.onclick = (ev) => toggleDungeonChest(ev.currentTarget! as HTMLElement, check);
         s.style.cursor = "pointer";
 
         frag.appendChild(s);
@@ -235,7 +240,7 @@ export function clickDungeon(ev: MouseEvent) {
     submaplist.append(frag);
 }
 
-export function toggleDungeonChest(sender: EventTarget, c: CheckName) {
+export function toggleDungeonChest(sender: HTMLElement, c: CheckName) {
     const status = onCheckChanged(c);
 
     sender.className = 'DC' + status;
@@ -245,10 +250,11 @@ export function toggleDungeonChest(sender: EventTarget, c: CheckName) {
 }
 
 export function setOrder(H: any, save = true) {
+    const layoutdiv = document.getElementById('layoutdiv')!;
     if (H) {
-        document.getElementById('layoutdiv').classList.remove('flexcontainer');
+        layoutdiv.classList.remove('flexcontainer');
     } else {
-        document.getElementById('layoutdiv').classList.add('flexcontainer');
+        layoutdiv.classList.add('flexcontainer');
     }
 
     if (save) {
@@ -266,7 +272,7 @@ export function showPrizes(checked: boolean, save = true) {
 }
 
 export function setSkipOption(option: string, sender: { checked: boolean; }) {
-    let skip = store.settings.randomizer.skip;
+    const skip = store.settings.randomizer.skip;
     if (!(option in skip)) {
         console.error("Invalid skip option", option);
         return;
@@ -314,8 +320,7 @@ export function setLogic(sender: { value: LogicValue; }) {
 }
 
 export function setTracker() {
-    /** @type {CheckKind} */
-    let visible = (document.querySelector("input[name='checktracker']:checked")! as HTMLInputElement).value;
+    const visible = (document.querySelector("input[name='checktracker']:checked")! as HTMLInputElement).value;
 
     const collection = document.getElementById('mapoverlay')!.getElementsByClassName("chest");
 
@@ -331,7 +336,7 @@ export function setTracker() {
 
 //Set map zoom
 function setZoom(target: string, value: number, save = true) {
-    let elem = document.getElementById(target)!;
+    const elem = document.getElementById(target)!;
     elem.style.transformOrigin = '0 0';
     elem.style.transform = `scale(${value / 100})`;
 
@@ -344,8 +349,7 @@ function setZoom(target: string, value: number, save = true) {
 
 //Set map distance from item tracker
 function setDistance(target: string, sender: { value: number; }, save = true) {
-    document.getElementById(target).style.width = (sender.value / 40 * 20) + "%";
-    document.getElementById(target).style.width = (sender.value / 40 * 20) + "%";
+    document.getElementById(target)!.style.width = (sender.value / 40 * 20) + "%";
 
     document.getElementById(target + 'size')!.textContent = (sender.value) + '%';
 
@@ -381,7 +385,7 @@ export function showSettings(sender: HTMLElement) {
         sender.textContent = '🔧';
         saveStorage();
     } else {
-        var x = document.getElementById('settings')!;
+        const x = document.getElementById('settings')!;
         if (!x.style.display || x.style.display == 'none') {
             x.style.display = 'initial';
             sender.textContent = 'X';
@@ -404,7 +408,6 @@ function showTracker(sender: { checked: boolean; }) {
 
 //sets all of the item and map options to their defaults
 export function resetLayout() {
-    let itemDiv = document.getElementById('itemdiv')!.replaceChildren();
     initGridRow(defaultItemGrid);
     updateGridItemAll();
 
@@ -448,16 +451,16 @@ function ResetTracker() {
 
 //adds an item to the item tracker 
 function addItem(row: number) {
-    let elem = document.getElementById('itemdiv')?.children[row];
+    const elem = document.getElementById('itemdiv')?.children[row];
 
     if (elem === null) {
         return;
     }
 
-    var col = itemLayout[row].length;
-    itemLayout[row].push('blank');
+    const col = itemLayout[row].length;
+    itemLayout[row].push(null);
 
-    (elem as HTMLElement).appendChild(makeGridItem(row, col, 'blank'));
+    (elem as HTMLElement).appendChild(makeGridItem(row, col, null));
 
     saveStorage();
 }
@@ -477,9 +480,9 @@ function removeItem(row: number) {
 
 //sets the images, etc of an item 
 function updateGridItem(row: number, col: number) {
-    var item = itemLayout[row][col];
+    const item = itemLayout[row][col];
 
-    let elem = document.getElementById('itemdiv')?.children[row]?.children[col + 1] ?? null;
+    const elem = document.getElementById('itemdiv')?.children[row]?.children[col + 1] ?? null;
 
     if (elem === null) {
         console.warn(`attempted to set non-existed grid item (${row},${col})`);
@@ -497,7 +500,7 @@ function updateGridItem(row: number, col: number) {
 
 
 function updateGridItemAll() {
-    var r: number, c: number;
+    let r: number, c: number;
 
     if (editmode) {
         for (const elem of document.getElementsByClassName('edit-mode')) {
@@ -518,18 +521,17 @@ function updateGridItemAll() {
 }
 
 
-function makeGridItem(row: number, col: number, item: ItemId) {
-    let elem = document.createElement('div');
+function makeGridItem(row: number, col: number, item: ItemId | null) {
+    const elem = document.createElement('div');
     elem.className = 'trackerItem';
-    elem.onclick = (_ev) => gridItemClick(row, col, false);
+    elem.onclick = () => gridItemClick(row, col, false);
     elem.oncontextmenu = (ev) => {
         gridItemRClick(row, col, false);
         ev.preventDefault();
     };
 
-    let cornerItem = makeGridItemCorner(item);
-
-    if (typeof (cornerItem) !== 'undefined') {
+    if (item !== null && isNumericItemId(item) && !isProgressiveItemId(item)) {
+        const cornerItem = makeGridItemCorner(item);
         cornerItem.onclick = (ev) => {
             gridItemClick(row, col, true);
             ev.stopPropagation();
@@ -544,46 +546,45 @@ function makeGridItem(row: number, col: number, item: ItemId) {
 
 
     elem.style.backgroundImage = makeItemImages(item);
-    elem.classList.add((!!store.items[item]).toString());
+
+    elem.classList.add(((item !== null) && !!store.items[item]).toString());
 
     return elem;
 }
 
-function makeGridItemCorner(item: ItemId): HTMLElement | undefined {
+function makeGridItemCorner(item: Exclude<NumericItemId, ProgressiveItemId>): HTMLElement {
     // todo:
     // if (item in rewards) { }
 
-    if (!isProgressiveItemId(item) && isNumericItemId(item)) {
-        let value = store.items[item];
-        const displayedValue = editmode ? itemsMax[item] : value;
+    const value = store.items[item];
+    const displayedValue = editmode ? itemsMax[item] : value;
 
-        let elem = document.createElement('div');
-        elem.className = 'trackerTextIcon';
-        let textSpan = document.createElement('span');
-        textSpan.textContent = displayedValue > 0 ? displayedValue.toString() : '';
-        if (displayedValue === itemsMax[item]) {
-            elem.style.color = "#00ff00";
-        }
-
-        elem.appendChild(textSpan);
-
-        return elem;
+    const elem = document.createElement('div');
+    elem.className = 'trackerTextIcon';
+    const textSpan = document.createElement('span');
+    textSpan.textContent = displayedValue > 0 ? displayedValue.toString() : '';
+    if (displayedValue === itemsMax[item]) {
+        elem.style.color = "#00ff00";
     }
 
-    return undefined;
+    elem.appendChild(textSpan);
+
+    return elem;
 }
 
-function makeItemImages(item: ItemId): string {
+function makeItemImages(item: ItemId | null): string {
     const makeStyle = (images: string[]) => images.map(elem => `url(${elem})`).join(',');
 
     // itemGrid[row][col]['item'].style.border = '0px';
 
-    let imageStack: string[] = [];
+    const imageStack: string[] = [];
 
-    if (isProgressiveItemId(item)) {
-        imageStack.push(Items[`${item}${store.items[item]}`]);
-    } else if (item !== 'blank') {
-        imageStack.push(Items[item]);
+    if (item !== null) {
+        if (isProgressiveItemId(item)) {
+            imageStack.push(Items[`${item}${store.items[item]}`]);
+        } else {
+            imageStack.push(Items[item]);
+        }
     }
 
     if (store.settings.itemBoxes) {
@@ -596,19 +597,19 @@ function makeItemImages(item: ItemId): string {
     // z[row][col]['item'].className = 'griditem ' + !!store.items[item];
 }
 
-function initGridRow(itemsets: ItemId[][]) {
+function initGridRow(itemsets: LayoutItem[][]) {
     console.debug("building item grid", itemsets);
 
-    let grid = document.getElementById('itemdiv')!;
+    const grid = document.getElementById('itemdiv')!;
 
     for (const [i, row] of itemsets.entries()) {
-        let rowElem = document.createElement('div');
+        const rowElem = document.createElement('div');
         rowElem.style.display = "flex";
         rowElem.style.justifyContent = "center";
         rowElem.style.gap = "0.2em";
 
 
-        let addButton = document.createElement('button');
+        const addButton = document.createElement('button');
 
         addButton.className = 'edit-mode add';
         addButton.textContent = '+';
@@ -617,13 +618,13 @@ function initGridRow(itemsets: ItemId[][]) {
 
 
 
-        let removeButton = document.createElement('button');
+        const removeButton = document.createElement('button');
         removeButton.className = 'edit-mode remove';
         removeButton.textContent = '-';
         removeButton.style.display = 'none';
         removeButton.onclick = () => removeItem(i);
 
-        let buttonBox = document.createElement('div');
+        const buttonBox = document.createElement('div');
         buttonBox.style.alignSelf = 'center';
         buttonBox.appendChild(addButton);
         buttonBox.appendChild(removeButton);
@@ -631,7 +632,7 @@ function initGridRow(itemsets: ItemId[][]) {
         rowElem.appendChild(buttonBox);
 
         for (const [j, col] of row.entries()) {
-            let colItem = makeGridItem(i, j, col);
+            const colItem = makeGridItem(i, j, col);
             rowElem.appendChild(colItem);
         }
 
@@ -653,7 +654,7 @@ function initGridRow(itemsets: ItemId[][]) {
 function editModeItemClick(row: number, col: number) {
     if ("item" in selected) {
         document.getElementById(selected.item)!.style.border = '';
-        var old = itemLayout[row][col];
+        const old = itemLayout[row][col];
 
         if (old == selected.item) {
             selected = {};
@@ -665,7 +666,7 @@ function editModeItemClick(row: number, col: number) {
         selected = {};
         saveStorage();
     } else if ("row" in selected) {
-        var temp = itemLayout[row][col];
+        const temp = itemLayout[row][col];
         itemLayout[row][col] = itemLayout[selected.row][selected.col];
         itemLayout[selected.row][selected.col] = temp;
         updateGridItem(row, col);
@@ -673,7 +674,7 @@ function editModeItemClick(row: number, col: number) {
         saveStorage();
         selected = {};
     } else {
-        let elem = document.getElementById('itemdiv')?.children[row]?.children[col + 1] ?? null;
+        const elem = document.getElementById('itemdiv')?.children[row]?.children[col + 1] ?? null;
 
         if (!elem) {
             return;
@@ -686,18 +687,17 @@ function editModeItemClick(row: number, col: number) {
 
 
 function updateItem(row: number, col: number, corner: boolean, value: 1 | -1) {
-    let item = itemLayout[row][col];
-
     // cursed function, but it does evreything it needs to.
     const newValue = (min: number, max: number, old: number) => {
         const modRange = (max - min + 1);
         return (((old + value - min) % modRange) + modRange) % modRange + min;
     };
 
-    if (item === "blank") {
+    const item = itemLayout[row][col];
+
+    if (item === null) {
         return;
     }
-
 
     if (corner === true && isReward(item) && showprizes) {
         //this is where the code for the dungeon list happenes
@@ -751,7 +751,7 @@ function updateMap() {
     }
 
     for (const [i, group] of groups.entries()) {
-        let elem = document.getElementById('dungeon' + i)!;
+        const elem = document.getElementById('dungeon' + i)!;
 
         elem.dataset.status = groupStatus(group);
 
@@ -764,7 +764,7 @@ function updateMap() {
         }
     }
 
-    let activeDungeon = document.querySelector('.dungeon.active');
+    const activeDungeon = document.querySelector('.dungeon.active');
     if (activeDungeon === null) {
         return;
     }
@@ -772,25 +772,25 @@ function updateMap() {
     const dungeonSelect = groupElemIdToIdx(activeDungeon);
 
     document.getElementById('submaparea')!.className = 'DC' + groupStatus(groups[dungeonSelect]);
-    var itemlist = document.getElementById('submaplist')!.children;
-    for (var item in itemlist) {
-        if (itemlist.hasOwnProperty(item)) {
+    const itemlist = document.getElementById('submaplist')!.children;
+    for (const item in itemlist) {
+        if (Object.hasOwn(itemlist, item)) {
             itemlist[item].className = 'DC' + checkStatus(groups[dungeonSelect].checks[item]);
         }
     }
 }
 
-function itemConfigClick(sender: EventTarget | null) {
-    var item = sender.id;
+function itemConfigClick(sender: HTMLElement) {
+    const item = sender.id as ItemId;
 
     if ("item" in selected) {
-        document.getElementById(selected.item).style.border = '0px';
+        document.getElementById(selected.item)!.style.border = '0px';
         sender.style.border = '3px solid yellow';
         selected = { item: item };
     } else if ("row" in selected) {
-        var old = itemLayout[selected.row][selected.col];
+        const old = itemLayout[selected.row][selected.col];
 
-        if (old == item) {
+        if (old === item) {
             selected = {};
             return;
         }
@@ -806,20 +806,19 @@ function itemConfigClick(sender: EventTarget | null) {
 }
 
 function populateMapdiv() {
-    let frag = document.createDocumentFragment();
+    const frag = document.createDocumentFragment();
 
     let totalAvailable = 0;
 
     for (const [i, check] of overworld.entries()) {
-        let s = document.createElement('button');
+        const s = document.createElement('button');
         s.id = `overworld${i}`;
-        s.onclick = _ev => toggleChest(s, check.name);
+        s.onclick = () => toggleChest(s, check.name);
         s.style.left = check.x;
         s.style.top = check.y;
 
         s.ariaPressed = store.openedChecks.has(check.name).toString();
 
-        /** @type {Check} */
         const checkData = checkDataGlitchless[checkIdsGlitchless[check.name]];
 
         const checkKind = (checkData?.kind ?? "standard");
@@ -832,7 +831,7 @@ function populateMapdiv() {
 
         s.classList.add('chest', checkKind);
 
-        var itemCount = document.createElement('span');
+        const itemCount = document.createElement('span');
         itemCount.role = 'tooltip';
         itemCount.id = `ow-tt${i}`;
         itemCount.textContent = check.name;
@@ -845,7 +844,7 @@ function populateMapdiv() {
     }
 
     for (const [i, group] of groups.entries()) {
-        let groupElem = document.createElement('button');
+        const groupElem = document.createElement('button');
         groupElem.id = `dungeon${i}`;
         groupElem.onclick = (ev) => clickDungeon(ev);
         groupElem.style.left = group.x;
@@ -857,13 +856,13 @@ function populateMapdiv() {
 
         totalAvailable += availableChecks;
 
-        var itemCount = document.createElement('span');
+        const itemCount = document.createElement('span');
         itemCount.className = 'chestCount';
         itemCount.textContent = availableChecks === 0 ? '' : availableChecks.toString();
 
         groupElem.appendChild(itemCount);
 
-        var tooltip = document.createElement('span');
+        const tooltip = document.createElement('span');
         tooltip.role = 'tooltip';
         tooltip.id = `dun-tt${i}`;
         tooltip.className = 'gray';
@@ -876,7 +875,7 @@ function populateMapdiv() {
         frag.appendChild(groupElem);
     }
 
-    let mapdiv = document.getElementById('mapoverlay')!;
+    const mapdiv = document.getElementById('mapoverlay')!;
 
     mapdiv.appendChild(frag);
 
@@ -914,28 +913,24 @@ function populateItemconfig() {
         return images.map(elem => `url(${elem})`).join(',');
     };
 
-    var grid = document.getElementById('itemconfig')!;
+    const grid = document.getElementById('itemconfig')!;
 
-    var i = 0;
+    let i = 0;
 
     let row: HTMLTableRowElement;
 
-    for (var key of <ItemId[]> Object.keys(store.items)) {
-        if (key === 'blank') {
-            continue;
-        }
-
+    for (const key of <ItemId[]> Object.keys(store.items)) {
         if (i % 10 == 0) {
             row = document.createElement('tr');
             grid.appendChild(row);
         }
         i++;
 
-        var rowitem = document.createElement('td');
+        const rowitem = document.createElement('td');
         rowitem.className = 'corner';
         rowitem.id = key;
         rowitem.style.backgroundSize = '100% 100%';
-        rowitem.onclick = (ev) => itemConfigClick(ev.currentTarget);
+        rowitem.onclick = (ev) => itemConfigClick(ev.currentTarget as HTMLElement);
 
         if (!isNumericItemId(key)) {
             rowitem.style.backgroundImage = makeStyle([Items[key]]);

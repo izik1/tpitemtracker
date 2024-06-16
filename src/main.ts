@@ -14,8 +14,8 @@ window.onload = () => {
             constructor() {
                 super();
 
-                let template = document.getElementById("settings-list")! as HTMLTemplateElement;
-                let templateContent = template.content;
+                const template = document.getElementById("settings-list")! as HTMLTemplateElement;
+                const templateContent = template.content;
 
                 const shadowRoot = this.attachShadow({ mode: "open" });
                 shadowRoot.appendChild(templateContent.cloneNode(true));
@@ -28,8 +28,8 @@ window.onload = () => {
             constructor() {
                 super();
 
-                let template = document.getElementById("settings-menu")! as HTMLTemplateElement;
-                let templateContent = template.content;
+                const template = document.getElementById("settings-menu")! as HTMLTemplateElement;
+                const templateContent = template.content;
 
                 const shadowRoot = this.attachShadow({ mode: "open" });
                 shadowRoot.appendChild(templateContent.cloneNode(true));
@@ -43,8 +43,8 @@ window.onload = () => {
 
 
     document.getElementById('settingsbutton')!.onclick = (ev) => showSettings(ev.currentTarget! as HTMLElement);
-    document.getElementById('edit-mode')!.onclick = (_ev) => editMode();
-    document.getElementById('reset-layout')!.onclick = (_ev) => resetLayout();
+    document.getElementById('edit-mode')!.onclick = () => editMode();
+    document.getElementById('reset-layout')!.onclick = () => resetLayout();
     document.getElementById('enable-small-keysy')!.onclick = (ev) => setKeysy(ev.currentTarget! as HTMLInputElement);
     document.getElementById('faron-escape')!.onclick = (ev) => setFaronEscape(ev.currentTarget! as HTMLInputElement);
 

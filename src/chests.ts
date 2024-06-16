@@ -49,8 +49,8 @@ export function groupStatus(group: Group): CheckStatus | "possible" {
 
 interface Group {
     readonly name: string;
-    readonly x: any;
-    readonly y: any,
+    readonly x: string;
+    readonly y: string,
     readonly checks: CheckName[];
 }
 
@@ -139,8 +139,8 @@ export const groups: Group[] = [
 
 interface OverworldCheck {
     readonly name: CheckName,
-    readonly x: any,
-    readonly y: any,
+    readonly x: string,
+    readonly y: string,
 }
 
 // important note: These are tabbed *in order*.

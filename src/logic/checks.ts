@@ -2,7 +2,6 @@
 import store from '../store';
 import { CheckName } from './check-name';
 import * as fns from './logic-functions';
-import { zonesGlitchless } from './zones';
 
 export type CheckKind = "standard" | "poe" | "bug";
 
@@ -387,7 +386,7 @@ export const checkDataGlitchless: Check[] = [
 export type CheckIds = { [x: string]: number; };
 
 function makeCheckIds(checkData: Check[]): CheckIds {
-    let output: CheckIds = {};
+    const output: CheckIds = {};
 
     for (const [i, check] of checkData.entries()) {
         output[check.name] = i;

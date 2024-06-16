@@ -1,6 +1,5 @@
 import { settings as defaultSettings } from "./settings";
 import { baseItems } from "./items";
-import { ZoneId } from "./logic/zone-id";
 import { Logic } from "./logic/index";
 import { CheckName } from "./logic/check-name";
 
