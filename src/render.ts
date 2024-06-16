@@ -20,6 +20,7 @@ import ItemCounts from 'url:~/static/images/ItemCounts/*.webp';
 // @ts-expect-error
 import Items from 'url:~/static/images/Items/*.webp';
 import { LogicValue } from "./settings";
+import { CheckName } from "./logic/check-name";
 
 //set the boss reward values for later testing
 var defaultrewards = {
@@ -181,11 +182,11 @@ function onCheckChanged(c: string): CheckStatus {
     const status = checkStatus(c);
 
     if (status === 'available') {
-        updateCheckCounter({ type: "modify", items: 1 });
+        updateCheckCounter({ kind: "modify", items: 1 });
     } else if (status === "opened" && oldStatus === "available") {
-        updateCheckCounter({ type: "modify", items: -1 });
+        updateCheckCounter({ kind: "modify", items: -1 });
     } else {
-        updateCheckCounter({ type: "modify", items: 0 });
+        updateCheckCounter({ kind: "modify", items: 0 });
     }
 
     return status;
@@ -193,7 +194,7 @@ function onCheckChanged(c: string): CheckStatus {
 
 // Event of clicking a chest on the map
 export function toggleChest(sender: HTMLButtonElement, c: string) {
-    let status = onCheckChanged(c);
+    const status = onCheckChanged(c);
 
     sender.ariaPressed = ("opened" === status).toString();
     sender.dataset.status = status;
@@ -234,15 +235,12 @@ export function clickDungeon(ev: MouseEvent) {
     submaplist.append(frag);
 }
 
-export function toggleDungeonChest(sender: EventTarget, c: string) {
-    if (!store.openedChecks.delete(c)) {
-        store.openedChecks.add(c);
-    }
+export function toggleDungeonChest(sender: EventTarget, c: CheckName) {
+    const status = onCheckChanged(c);
 
-    sender.className = 'DC' + checkStatus(c);
+    sender.className = 'DC' + status;
 
     updateMap();
-    updateCheckCounter();
     saveChecks();
 }
 
@@ -349,7 +347,7 @@ function setDistance(target: string, sender: { value: number; }, save = true) {
     document.getElementById(target).style.width = (sender.value / 40 * 20) + "%";
     document.getElementById(target).style.width = (sender.value / 40 * 20) + "%";
 
-    document.getElementById(target + 'size').innerHTML = (sender.value) + '%';
+    document.getElementById(target + 'size')!.textContent = (sender.value) + '%';
 
 
     if (save === true) {
@@ -380,16 +378,16 @@ export function showSettings(sender: HTMLElement) {
         updateGridItemAll();
         showTracker(<HTMLInputElement> document.getElementsByName('showmap')[0]);
         document.getElementById('itemconfig')!.style.display = 'none';
-        sender.innerHTML = '🔧';
+        sender.textContent = '🔧';
         saveStorage();
     } else {
         var x = document.getElementById('settings')!;
         if (!x.style.display || x.style.display == 'none') {
             x.style.display = 'initial';
-            sender.innerHTML = 'X';
+            sender.textContent = 'X';
         } else {
             x.style.display = 'none';
-            sender.innerHTML = '🔧';
+            sender.textContent = '🔧';
         }
     }
 }
@@ -429,10 +427,10 @@ export function editMode() {
 
     updateGridItemAll();
     showTracker({ checked: false });
-    document.getElementById('settings').style.display = 'none';
-    document.getElementById('itemconfig').style.display = '';
+    document.getElementById('settings')!.style.display = 'none';
+    document.getElementById('itemconfig')!.style.display = '';
 
-    document.getElementById('settingsbutton').innerHTML = 'Exit Edit Mode';
+    document.getElementById('settingsbutton')!.textContent = 'Exit Edit Mode';
 }
 
 function ResetTracker() {
@@ -759,15 +757,10 @@ function updateMap() {
 
         const availableChecks = group.checks.reduce((total, it) => total + +(checkStatus(it) === "available"), 0);
 
-        for (const child of elem.children) {
-            if (child.className == 'chestCount') {
-                if (availableChecks === 0) {
-                    child.innerHTML = '';
-                } else {
-                    child.innerHTML = availableChecks.toString();
-                }
-                break;
-            }
+        const child = elem.querySelector('.chestCount');
+
+        if (child !== null) {
+            child.textContent = availableChecks === 0 ? '' : availableChecks.toString();
         }
     }
 
@@ -813,7 +806,9 @@ function itemConfigClick(sender: EventTarget | null) {
 }
 
 function populateMapdiv() {
-    var mapdiv = document.getElementById('mapoverlay')!;
+    let frag = document.createDocumentFragment();
+
+    let totalAvailable = 0;
 
     for (const [i, check] of overworld.entries()) {
         let s = document.createElement('button');
@@ -829,7 +824,11 @@ function populateMapdiv() {
 
         const checkKind = (checkData?.kind ?? "standard");
 
-        s.dataset.status = checkStatus(check.name);
+        const status = checkStatus(check.name);
+
+        s.dataset.status = status;
+
+        totalAvailable += +(status === "available");
 
         s.classList.add('chest', checkKind);
 
@@ -842,7 +841,7 @@ function populateMapdiv() {
 
         s.appendChild(itemCount);
 
-        mapdiv.appendChild(s);
+        frag.appendChild(s);
     }
 
     for (const [i, group] of groups.entries()) {
@@ -856,14 +855,11 @@ function populateMapdiv() {
 
         const availableChecks = group.checks.reduce((total, it) => total + +(checkStatus(it) === "available"), 0);
 
-        // fixme: when the item count reaches 2 digits we 
+        totalAvailable += availableChecks;
+
         var itemCount = document.createElement('span');
         itemCount.className = 'chestCount';
-        if (availableChecks === 0) {
-            itemCount.innerHTML = '';
-        } else {
-            itemCount.innerHTML = availableChecks.toString();
-        }
+        itemCount.textContent = availableChecks === 0 ? '' : availableChecks.toString();
 
         groupElem.appendChild(itemCount);
 
@@ -877,20 +873,24 @@ function populateMapdiv() {
 
         groupElem.appendChild(tooltip);
 
-        mapdiv.appendChild(groupElem);
+        frag.appendChild(groupElem);
     }
 
-    updateCheckCounter();
+    let mapdiv = document.getElementById('mapoverlay')!;
+
+    mapdiv.appendChild(frag);
+
+    updateCheckCounter({ kind: "set", items: totalAvailable });
 }
 
 
 let availableItemCache = 0;
-function updateCheckCounter(availableDamage: { type: "modify", items: number; } | { type: "set", items: number; } | "full" = "full") {
+function updateCheckCounter(availableDamage: { kind: "modify", items: number; } | { kind: "set", items: number; } | "full" = "full") {
 
     if (availableDamage === "full") {
         availableItemCache = checkDataGlitchless.reduce((total, it) => total + +(checkStatus(it.name) === "available"), 0);
     } else {
-        switch (availableDamage.type) {
+        switch (availableDamage.kind) {
             case "modify":
                 availableItemCache += availableDamage.items;
                 break;

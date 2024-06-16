@@ -201,7 +201,7 @@ label {
     color: white;
 }
 
-div.trackerItem {
+.trackerItem {
     width: 64px;
     height: 64px;
     background-repeat: no-repeat;
@@ -211,7 +211,7 @@ div.trackerItem {
     contain: strict;
 }
 
-div.trackerTextIcon {
+.trackerTextIcon {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -222,7 +222,6 @@ div.trackerTextIcon {
     background: black;
     text-align: center;
 }
-
 
 .layoutdiv {
     width: 100%;
