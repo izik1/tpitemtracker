@@ -330,6 +330,10 @@ export function canDefeatSkulltula() {
         || canUseBacksliceAsSword();
 }
 
+export function canDefeatStalfos() {
+    return canSmash();
+}
+
 export function canDefeatStalhound() {
     console.debug('stub');
     return false;
