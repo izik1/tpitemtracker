@@ -57,6 +57,7 @@ interface Group {
 // note: for some reason I cannot fathom, *all* `x`,`y`s are offset by an amount from the percentage.
 // this is caused by there (formerly) being a negative margin.
 // until I get around re-calculating all the percentages, this is what we're living with.
+// note: we use `zonesGlitchless` for the check lists, but it's _probably_ the same checklists in glitchled logic.
 export const groups: Group[] = [
     {
         name: "Ordon Village",
@@ -104,17 +105,32 @@ export const groups: Group[] = [
         ]
     },
     {
+        name: "Goron Mines",
+        x: "calc(85.91% - 12px)",
+        y: "calc(38.16% - 12px)",
+        checks: [
+            ...zonesGlitchless["Goron Mines Entrance"].checks,
+            ...zonesGlitchless["Goron Mines Magnet Room"].checks,
+            ...zonesGlitchless["Goron Mines Lower West Wing"].checks,
+            ...zonesGlitchless["Goron Mines Crystal Switch Room"].checks,
+            ...zonesGlitchless["Goron Mines North Wing"].checks,
+            ...zonesGlitchless["Goron Mines Upper East Wing"].checks,
+            ...zonesGlitchless["Goron Mines Boss Room"].checks,
+        ]
+    },
+    // this one is positioned correctly without the `calc`
+    {
         name: "Goron Stockcave",
-        x: "calc(81.0% - 12px)",
-        y: "calc(27.6% - 12px)",
+        x: "79.7%",
+        y: "26.8%",
         checks: [
             ...zonesGlitchless["Goron Stockcave"].checks,
         ]
     },
     {
         name: "Hidden Village",
-        x: "72%",
-        y: "23.8%",
+        x: "calc(72% - 12px)",
+        y: "calc(23.8% - 12px)",
         checks: [
             ...zonesGlitchless["Hidden Village"].checks,
         ]
@@ -413,136 +429,6 @@ export const overworld: OverworldCheck[] = [
 ];
 
 // define grouped chests
-//     {
-//         name: "Goron Mines",
-//         x: "85.91%",
-//         y: "38.16%",
-//         chestlist: {
-//             'Entrace Small Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines();
-//                 },
-//             },
-//             'Main Magnet Room Bottom Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Dungeon Map Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Gor Amato Small Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Gor Amato Key Shard': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Ooccoo': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Magnet Maze Heart Piece': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Switch Room Underwater Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Switch Room Small Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'After Switch Room Heart Piece': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Outside Beamos Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Gor Ebizo Key Shard': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Gor Ebizo Small Chest ': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Small Chest Before Dangoro': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Bow Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots && canDoDamage();
-//                 },
-//             },
-//             'Compass Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots && canDoDamage() && items.Bow;
-//                 },
-//             },
-//             'Gor Liggs Key Shard': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots && canDoDamage() && items.Bow;
-//                 },
-//             },
-//             'Gor Liggs Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots && canDoDamage() && items.Bow;
-//                 },
-//             },
-//             'Main Magnet Room Top Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots && canDoDamage() && items.Bow;
-//                 },
-//             },
-//             'Outside Underwater Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.IronBoots;
-//                 },
-//             },
-//             'Outside Clawshot Chest': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.Clawshot && items.IronBoots;
-//                 },
-//             },
-//             'Fyrus': {
-//                 isAvailable: function () {
-//                     return canAccessMines() && items.Bow && items.IronBoots;
-//                 },
-//             },
-//         },
-//         isBeatable: function () {
-//             if (canAccessMines()) {
-//                 if (this.canGetChest() == 'available') {
-//                     return 'available';
-//                 }
-//                 return 'possible';
-//             } else {
-//                 return "unavailable";
-//             }
-//         },
-//         canGetChest: function () {
-//             return generalCanGetChest(this.chestlist);
-//         },
-//     },
 //     {
 //         name: "Lakebed Temple",
 //         x: "40.33%",

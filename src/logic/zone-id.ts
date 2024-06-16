@@ -15,7 +15,14 @@ type ForestTempleZoneId =
     | "Forest Temple West Wing"
     | "Ook";
 
-type GoronMinesZoneId = never;
+type GoronMinesZoneId =
+    | "Goron Mines Boss Room"
+    | "Goron Mines Crystal Switch Room"
+    | "Goron Mines Entrance"
+    | "Goron Mines Lower West Wing"
+    | "Goron Mines Magnet Room"
+    | "Goron Mines North Wing"
+    | "Goron Mines Upper East Wing";
 
 type HyruleCastleZoneId = never;
 

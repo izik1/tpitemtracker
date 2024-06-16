@@ -170,6 +170,13 @@ const faronZoneDataGlitchless: Zone[] = [
         ]
     },
     {
+        name: "Sacred Grove Baba Serpent Grotto",
+        neighbors: [new ZoneNeighbor("Lost Woods", fns.always)],
+        checks: [
+            "Sacred Grove Baba Serpent Grotto Chest",
+        ],
+    },
+    {
         name: "Sacred Grove Master Sword",
         neighbors: [
             new ZoneNeighbor("Lost Woods", fns.always),
@@ -311,7 +318,10 @@ const eldinZoneDataGlitchless: Zone[] = [
         name: "Death Mountain Interiors",
         neighbors: [
             new ZoneNeighbor("Death Mountain Volcano", fns.always),
-            new ZoneNeighbor("Goron Mines entrance", fns.never),
+            new ZoneNeighbor(
+                "Goron Mines Entrance",
+                () => store.items.IronBoots || store.settings.randomizer.goronMinesLogic !== "closed"
+            ),
         ],
         checks: [],
     },
@@ -449,6 +459,100 @@ const forestTempleZoneDataGlitchless: Zone[] = [
     }
 ];
 
+const goronMinesZoneDataGlitchless: Zone[] = [
+    {
+        name: "Goron Mines Entrance",
+        neighbors: [
+            new ZoneNeighbor("Death Mountain Interiors", fns.always),
+            new ZoneNeighbor("Goron Mines Magnet Room", () => store.items.IronBoots && fns.canBreakWoodenDoor()),
+        ],
+        checks: [
+            "Goron Mines Entrance Chest",
+        ]
+    },
+    {
+        name: "Goron Mines Magnet Room",
+        neighbors: [
+            new ZoneNeighbor("Goron Mines Entrance", fns.always),
+            // key related setting, we assume we have the key.
+            new ZoneNeighbor("Goron Mines Lower West Wing", fns.always),
+            // key related setting, we assume we have the key.
+            new ZoneNeighbor("Goron Mines Crystal Switch Room", () => store.items.IronBoots),
+        ],
+        checks: [
+            "Goron Mines Main Magnet Room Bottom Chest",
+            "Goron Mines Main Magnet Room Top Chest",
+        ]
+    },
+    {
+        name: "Goron Mines Lower West Wing",
+        neighbors: [new ZoneNeighbor("Goron Mines Magnet Room", fns.always)],
+        checks: [
+            "Goron Mines Magnet Maze Chest",
+            "Goron Mines Gor Amato Chest",
+            "Goron Mines Gor Amato Small Chest",
+            "Goron Mines Gor Amato Key Shard",
+        ],
+    },
+    {
+        name: "Goron Mines Crystal Switch Room",
+        neighbors: [
+            new ZoneNeighbor("Goron Mines Magnet Room", fns.always),
+            new ZoneNeighbor(
+                "Goron Mines North Wing",
+                // key related setting, we assume we have the key.
+                () => (store.items.IronBoots && store.items.Sword > 0) || store.items.Bow > 0,
+            )
+        ],
+        checks: [
+            "Goron Mines Crystal Switch Room Underwater Chest",
+            "Goron Mines Crystal Switch Room Small Chest",
+            "Goron Mines After Crystal Switch Room Magnet Wall Chest"
+        ]
+    },
+    {
+        name: "Goron Mines North Wing",
+        neighbors: [
+            new ZoneNeighbor("Goron Mines Crystal Switch Room", fns.always),
+            // key related setting, we assume we have the key.
+            new ZoneNeighbor("Goron Mines Upper East Wing", fns.always),
+            // key related setting, we assume we have the key.
+            new ZoneNeighbor("Goron Mines Boss Room", () => store.items.Bow > 0 && store.items.IronBoots && fns.canDefeatBulbin())
+        ],
+        checks: [
+            "Goron Mines Outside Beamos Chest",
+            "Goron Mines Outside Underwater Chest",
+            "Goron Mines Outside Clawshot Chest",
+        ]
+    },
+    {
+        name: "Goron Mines Upper East Wing",
+        neighbors: [
+            new ZoneNeighbor("Goron Mines Upper East Wing", fns.always),
+            new ZoneNeighbor("Goron Mines Magnet Room", () => store.items.IronBoots && fns.canDefeatDangoro() && store.items.Bow > 0),
+        ],
+        checks: [
+            "Goron Mines Gor Ebizo Chest",
+            "Goron Mines Chest Before Dangoro",
+            "Goron Mines Gor Ebizo Key Shard",
+            "Goron Mines Dangoro Chest",
+            "Goron Mines Beamos Room Chest",
+            "Goron Mines Gor Liggs Chest",
+            "Goron Mines Gor Liggs Key Shard"
+        ]
+    },
+    {
+        name: "Goron Mines Boss Room",
+        neighbors: [
+            new ZoneNeighbor("Kakariko Village", fns.canDefeatFyrus),
+        ],
+        checks: [
+            "Goron Mines Fyrus Heart Container",
+            "Goron Mines Dungeon Reward",
+        ]
+    },
+];
+
 export const zoneDataGlitchless: Zone[] = [
     // overworld
     ...ordonZoneDataGlitchless,
@@ -457,6 +561,7 @@ export const zoneDataGlitchless: Zone[] = [
 
     // dungeon time
     ...forestTempleZoneDataGlitchless,
+    ...goronMinesZoneDataGlitchless,
 ];
 
 export type Zones = { [x in ZoneId]: Zone; };

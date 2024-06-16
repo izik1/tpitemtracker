@@ -100,8 +100,14 @@ export function canDefeatBombling() {
 }
 
 export function canDefeatBomskit() {
-    console.debug('stub');
-    return false;
+    return store.items.Sword > 0
+        || store.items.Chainball
+        || store.items.Bow > 0
+        || store.items.Spinner
+        || store.items.Crystal
+        || hasBombs()
+        || canUseBacksliceAsSword()
+        || (canDoNicheStuff() && store.items.IronBoots);
 }
 
 export function canDefeatBubble() {
@@ -110,8 +116,14 @@ export function canDefeatBubble() {
 }
 
 export function canDefeatBulbin() {
-    console.debug('stub');
-    return false;
+    return store.items.Sword > 0
+        || store.items.Chainball
+        || store.items.Bow > 0
+        || (canDoNicheStuff() && store.items.IronBoots)
+        || store.items.Spinner
+        || store.items.Crystal
+        || hasBombs()
+        || canUseBacksliceAsSword();
 }
 
 export function canDefeatChilfos() {
@@ -170,8 +182,17 @@ export function canDefeatFreezard() {
 }
 
 export function canDefeatGoron() {
-    console.debug('stub');
-    return false;
+    return store.items.Sword > 0
+        || store.items.Chainball
+        || store.items.Bow > 0
+        || (canDoNicheStuff() && (store.items.IronBoots || store.items.Boomerang))
+        || store.items.Spinner
+        || (hasShield() && (store.items.Skills >= 2))
+        || store.items.Slingshot
+        || (canDoDifficultCombat() && store.items.Lantern)
+        || store.items.Clawshot > 0
+        || hasBombs()
+        || canUseBacksliceAsSword();
 }
 
 export function canDefeatGhoulRat() {
@@ -255,8 +276,7 @@ export function canDefeatRedeadKnight() {
 }
 
 export function canDefeatShadowBeast() {
-    console.debug('stub');
-    return false;
+    return store.items.Sword > 0 || (store.items.Crystal && canCompleteMDH());
 }
 
 export function canDefeatShadowBublin() {
@@ -389,8 +409,12 @@ export function canDefeatOok() {
 }
 
 export function canDefeatDangoro() {
-    console.debug('stub');
-    return false;
+    return store.items.IronBoots
+        && (
+            store.items.Sword > 0
+            || store.items.Crystal
+            || (canDoNicheStuff() && (store.items.Chainball || (store.items.Bow > 0 && hasBombs())))
+        );
 }
 
 export function canDefeatCarrierKargarok() {
@@ -409,8 +433,7 @@ export function canDefeatDekuToad() {
 }
 
 export function canDefeatSkullKid() {
-    console.debug('stub');
-    return false;
+    return store.items.Bow > 0;
 }
 
 export function canDefeatKingBulblinBridge() {
@@ -457,13 +480,16 @@ export function canDefeatDiababa() {
 }
 
 export function canDefeatFyrus() {
-    console.debug('stub');
-    return false;
+    return store.items.Bow > 0
+        && store.items.IronBoots
+        && (store.items.Sword > 0 || (canDoDifficultCombat() && canUseBacksliceAsSword()));
 }
 
 export function canDefeatMorpheel() {
-    console.debug('stub');
-    return false;
+    return store.items.ZoraArmor
+        && store.items.IronBoots
+        && store.items.Sword > 0
+        && store.items.Clawshot > 0;
 }
 
 export function canDefeatStallord() {
@@ -559,8 +585,7 @@ export function canBreakMonkeyCage() {
 }
 
 export function canPressMinesSwitch() {
-    console.debug('stub');
-    return false;
+    return store.items.IronBoots || (canDoNicheStuff() && store.items.Chainball);
 }
 
 export function canFreeAllMonkeys() {
@@ -579,13 +604,18 @@ export function canFreeAllMonkeys() {
 }
 
 export function canKnockDownHangingBaba() {
-    console.debug('stub');
-    return false;
+    return store.items.Bow > 0
+        || store.items.Clawshot > 0
+        || store.items.Boomerang
+        || store.items.Slingshot;
 }
 
 export function canBreakWoodenDoor() {
-    console.debug('stub');
-    return false;
+    return store.items.Crystal
+        || store.items.Sword > 0
+        || canSmash()
+        || canUseBacksliceAsSword();
+
 }
 
 export function hasBombs() {
@@ -608,14 +638,13 @@ export function canClearForest() {
     return (canCompleteForestTemple() || store.settings.randomizer.faronWoodsLogic === "open") && canCompletePrologue();
 }
 
-// todo: put this in the right spot
 export function canCompletePrologue() {
     // fixme: check for north faron gate key (or keysy)
     return (store.items.Sword >= 1 && store.items.Slingshot) || store.settings.randomizer.skip.prologue;
 }
 
 export function canCompleteMDH() {
-    return canCompleteLakebedTemple() || store.settings.randomizer.skip.mdh;
+    return store.settings.randomizer.skip.mdh || canCompleteLakebedTemple();
 }
 
 export function canCompleteEldinTwilight() {
@@ -628,13 +657,11 @@ export function canCompleteForestTemple() {
 }
 
 export function canCompleteGoronMines() {
-    console.debug('stub');
-    return false;
+    return store.logic.reachableZones.has("Goron Mines Boss Room") && canDefeatFyrus();
 }
 
 export function canCompleteLakebedTemple() {
-    console.debug('stub');
-    return false;
+    return store.logic.reachableZones.has("Lakebed Temple Boos Room") && canDefeatMorpheel();
 }
 
 export function canCompleteArbitersGrounds() {
@@ -674,7 +701,8 @@ export function hasBug() {
 
 export function canDoDifficultCombat() {
     // https://github.com/zsrtp/Randomizer-Web-Generator/blob/b5ad864ba738a7daa3ccfe8f3076d2a906d6474d/Generator/Logic/LogicFunctions.cs#L1777
-    console.debug('stub');
+    // it's a stub, but it actually always returns the right value.
+    // console.debug('half-stub');
     return false;
 }
 
@@ -698,13 +726,13 @@ export function hasSwordOrBS() {
 }
 
 export function hasBottle() {
-    console.debug('stub');
-    return false;
+    // lantern is required in case oil is in all bottles.
+    return store.items.Bottle > 0 && store.items.Lantern;
 }
 
 export function hasBottles() {
-    console.debug('stub');
-    return false;
+    // lantern is required in case oil is in all bottles.
+    return store.items.Bottle >= 2 && store.items.Lantern;
 }
 
 export function hasHeavyMod() {

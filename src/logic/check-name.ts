@@ -34,7 +34,30 @@ type ForestTempleCheckName =
     | "Forest Temple West Tile Worm Room Vines Chest"
     | "Forest Temple Windless Bridge Chest";
 
-type GoronMinesCheckName = never;
+type GoronMinesCheckName =
+    | "Goron Mines After Crystal Switch Room Magnet Wall Chest"
+    | "Goron Mines Beamos Room Chest"
+    | "Goron Mines Chest Before Dangoro"
+    | "Goron Mines Crystal Switch Room Small Chest"
+    | "Goron Mines Crystal Switch Room Underwater Chest"
+    | "Goron Mines Dangoro Chest"
+    | "Goron Mines Dungeon Reward"
+    | "Goron Mines Entrance Chest"
+    | "Goron Mines Fyrus Heart Container"
+    | "Goron Mines Gor Amato Chest"
+    | "Goron Mines Gor Amato Key Shard"
+    | "Goron Mines Gor Amato Small Chest"
+    | "Goron Mines Gor Ebizo Chest"
+    | "Goron Mines Gor Ebizo Key Shard"
+    | "Goron Mines Gor Liggs Chest"
+    | "Goron Mines Gor Liggs Key Shard"
+    | "Goron Mines Magnet Maze Chest"
+    | "Goron Mines Main Magnet Room Bottom Chest"
+    | "Goron Mines Main Magnet Room Top Chest"
+    | "Goron Mines Outside Beamos Chest"
+    | "Goron Mines Outside Clawshot Chest"
+    | "Goron Mines Outside Underwater Chest";
+
 type HyruleCastleCheckName = never;
 type LakebedTempleCheckName = never;
 type PoTCheckName = never;

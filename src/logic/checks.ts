@@ -347,11 +347,41 @@ const forestTempleCheckDataGlitchless: Check[] = [
     new Check("Forest Temple Windless Bridge Chest", fns.always),
 ];
 
+export const goronMinesCheckDataGlitchless: Check[] = [
+    new Check("Goron Mines After Crystal Switch Room Magnet Wall Chest", () => store.items.IronBoots),
+    new Check("Goron Mines Beamos Room Chest", () => store.items.IronBoots && fns.canDefeatDangoro() && store.items.Bow > 0),
+    new Check("Goron Mines Chest Before Dangoro", () => store.items.IronBoots),
+    new Check("Goron Mines Crystal Switch Room Small Chest", () => store.items.IronBoots),
+    new Check("Goron Mines Crystal Switch Room Underwater Chest", () => store.items.IronBoots),
+    new Check("Goron Mines Dangoro Chest", () => store.items.IronBoots && fns.canDefeatDangoro()),
+    new Check("Goron Mines Dungeon Reward", fns.canDefeatFyrus),
+    new Check("Goron Mines Entrance Chest", () => fns.canPressMinesSwitch() && fns.canBreakWoodenDoor()),
+    new Check("Goron Mines Fyrus Heart Container", fns.canDefeatFyrus),
+    new Check("Goron Mines Gor Amato Chest", () => store.items.IronBoots),
+    new Check("Goron Mines Gor Amato Key Shard", () => store.items.IronBoots),
+    new Check("Goron Mines Gor Amato Small Chest", () => store.items.IronBoots),
+    new Check("Goron Mines Gor Ebizo Chest", fns.always),
+    new Check("Goron Mines Gor Ebizo Key Shard", fns.always),
+    new Check("Goron Mines Gor Liggs Chest", () => store.items.IronBoots && fns.canDefeatDangoro() && store.items.Bow > 0),
+    new Check("Goron Mines Gor Liggs Key Shard", () => store.items.IronBoots && fns.canDefeatDangoro() && store.items.Bow > 0),
+    new Check("Goron Mines Magnet Maze Chest", () => store.items.IronBoots),
+    new Check("Goron Mines Main Magnet Room Bottom Chest", fns.always),
+    // Key setting ignored.
+    new Check("Goron Mines Main Magnet Room Top Chest", () => store.items.Bow > 0 && store.items.IronBoots && fns.canDefeatDangoro()),
+    new Check("Goron Mines Outside Beamos Chest", fns.always),
+    new Check("Goron Mines Outside Clawshot Chest", () => store.items.Clawshot > 0 && (store.items.Bow > 0 || store.items.Slingshot)),
+    new Check("Goron Mines Outside Underwater Chest", () => (store.items.Sword > 0 || fns.canUseWaterBombs()) && store.items.IronBoots),
+];
+
 export const checkDataGlitchless: Check[] = [
+    // overworld
     ...ordonCheckDataGlitchless,
     ...faronCheckDataGlitchless,
     ...eldinCheckDataGlitchless,
+
+    // dungeons
     ...forestTempleCheckDataGlitchless,
+    ...goronMinesCheckDataGlitchless
 ];
 
 export type CheckIds = { [x: string]: number; };
