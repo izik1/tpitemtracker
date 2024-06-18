@@ -3,10 +3,11 @@
 import { writable, type Writable } from "svelte/store";
 import type { CheckName } from "./logic/check-name";
 import { checkStatus, type Group } from "./chests";
-import type { LogicStore } from "./logic";
+import type { LogicStore } from "./logic/index";
+import { Set as ReactiveSet } from "svelte/reactivity";
 
-export const openedChecks: Writable<Set<CheckName>> = writable(new Set());
 
+export const openedChecks: ReactiveSet<CheckName> = new ReactiveSet();
 
 export type Image = {
     sources: {
@@ -28,18 +29,13 @@ export const itemImages = import.meta.glob<Image>('$lib/assets/Items/*.webp', {
 });
 
 export const toggleCheck = (c: CheckName) => {
-    openedChecks.update((value) => {
-        if (!value.delete(c)) {
-            value.add(c);
-        }
-
-        return value;
-    });
+    if (!openedChecks.delete(c)) {
+        openedChecks.add(c);
+    }
 };
 
 export const availableChecks = (
     checks: CheckName[],
     completableChecks: Readonly<Set<CheckName>>,
-    opened: Readonly<Set<CheckName>>,
-) => checks.reduce((total, it) => total + +(checkStatus(completableChecks, opened, it) === "available"), 0);
+) => checks.reduce((total, it) => total + +(checkStatus(completableChecks, it) === "available"), 0);
 

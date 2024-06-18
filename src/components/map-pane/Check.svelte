@@ -6,21 +6,26 @@
         checkIdsGlitchless,
         completableChecks,
     } from "$lib/logic";
-
     import Tooltip from "./Tooltip.svelte";
 
-    export let index: number;
-    export let check: OverworldCheck;
+    interface CheckProps {
+        index: number;
+        check: OverworldCheck;
+    }
+
+    let { index, check }: CheckProps = $props();
+
+
     export const kind =
         checkDataGlitchless[checkIdsGlitchless[check.name]].kind;
 </script>
 
 <button
     style="left: {check.x}; top: {check.y};"
-    data-status={checkStatus($completableChecks, $openedChecks, check.name)}
+    data-status={checkStatus($completableChecks, check.name)}
     class="chest {kind}"
-    on:click={() => toggleCheck(check.name)}
-    aria-pressed={$openedChecks.has(check.name)}
+    onclick={() => toggleCheck(check.name)}
+    aria-pressed={openedChecks.has(check.name)}
     aria-labelledby="ow-tt-{index}"
 >
     <Tooltip id="ow-tt-{index}" content={check.name}></Tooltip>

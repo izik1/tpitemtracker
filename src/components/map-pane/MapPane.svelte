@@ -1,12 +1,12 @@
 <script lang="ts">
-    import Group from "./ActiveGroup.svelte";
+    import ActiveGroup from "./ActiveGroup.svelte";
     import RadioGroup from "../RadioGroup.svelte";
     import MapOverlay from "./MapOverlay.svelte";
     import CheckStatus from "./CheckStatus.svelte";
     import type { CheckKind } from "$lib/logic/checks";
 
-    let activeMap: CheckKind;
-    let activeGroup: number | null = null;
+    let activeMap: CheckKind = $state("standard");
+    let activeGroup: number | null = $state(null);
 </script>
 
 <div class="map">
@@ -16,7 +16,7 @@
         src="$lib/assets/map.webp?q=75"
     />
 
-    <Group groupId={activeGroup}></Group>
+    <ActiveGroup groupId={activeGroup}></ActiveGroup>
     <CheckStatus></CheckStatus>
     <MapOverlay {activeMap} bind:activeGroup></MapOverlay>
 

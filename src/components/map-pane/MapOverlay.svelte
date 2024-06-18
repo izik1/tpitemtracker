@@ -5,15 +5,17 @@
         checkIdsGlitchless,
         completableChecks,
     } from "$lib/logic";
-    import { overworld, type Group } from "$lib/chests";
+    import { overworld } from "$lib/chests";
     import type { CheckName } from "$lib/logic/check-name";
-    import { openedChecks, availableChecks } from "$lib";
+    import { availableChecks } from "$lib";
     import Check from "./Check.svelte";
     import type { CheckKind } from "$lib/logic/checks";
     import Tooltip from "./Tooltip.svelte";
 
-    export let activeMap: CheckKind = "standard";
-    export let activeGroup: number | null = null;
+    let {
+        activeMap = "standard",
+        activeGroup = $bindable(null),
+    }: { activeMap: CheckKind; activeGroup: number | null } = $props();
 
     const checkKind = (check: CheckName) =>
         checkDataGlitchless[checkIdsGlitchless[check]].kind;
@@ -26,16 +28,12 @@
         {/if}
     {/each}
     {#each groups as group, index}
-        {@const checkCount = availableChecks(
-            group.checks,
-            $completableChecks,
-            $openedChecks,
-        )}
+        {@const checkCount = availableChecks(group.checks, $completableChecks)}
         <button
             class="dungeon"
-            data-status={groupStatus($completableChecks, $openedChecks, group)}
+            data-status={groupStatus($completableChecks, group)}
             style="left: {group.x}; top: {group.y}"
-            on:click={() => {
+            onclick={() => {
                 activeGroup = index;
             }}
         >
@@ -64,12 +62,12 @@
         border: 1px solid black;
     }
 
-    .poe[data-status="unavailable"] {
-        background-color: rgb(188, 0, 161);
+    [data-status="unavailable"] {
+        background-color: rgb(255, 0, 0);
     }
 
-    .bug[data-status="unavailable"] {
-        background-color: rgb(255, 255, 0);
+    [data-status="available"] {
+        background-color: rgb(0, 255, 0);
     }
 
     [data-status="possible"] {

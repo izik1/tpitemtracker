@@ -1,7 +1,6 @@
 import { writable, type Writable } from 'svelte/store';
 import storage from './store';
 
-
 export type LogicValue = "glitchless";
 // export type LogicValue = "glitchless" | "glitched";
 

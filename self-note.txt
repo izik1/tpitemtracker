@@ -1,0 +1,2 @@
+If s-l-s is crashing uninstall the image plugin, restart everything, install it again after it loads (open a svelte file).
+Super cursed, but it works

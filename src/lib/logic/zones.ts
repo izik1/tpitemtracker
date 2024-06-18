@@ -3,7 +3,7 @@ import * as fns from "./logic-functions";
 import { type CheckName } from "./check-name";
 import type { baseItems } from "$lib/items";
 import type { RandomizerSettings } from "$lib/settings";
-import { reachableZones, type LogicStore } from ".";
+import { reachableZones, type LogicStore } from "./index";
 
 
 export class ZoneNeighbor {

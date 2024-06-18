@@ -1,12 +1,14 @@
 <script lang="ts">
-    export let title: string;
+    import type { Snippet } from "svelte";
+
+    const { title, children }: { title: string, children: Snippet } = $props();
 </script>
 
 <li>
     <fieldset>
         <legend>{title}</legend>
         <ul>
-            <slot></slot>
+            {@render children()}
         </ul>
     </fieldset>
 </li>

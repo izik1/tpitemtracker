@@ -1,9 +1,10 @@
+import { openedChecks } from "$lib/index";
 import { type CheckName } from "./logic/check-name";
 import { completableChecks, zonesGlitchless, type LogicStore } from "./logic/index";
 
 export type CheckStatus = "opened" | "available" | "unavailable" | "possible";
 
-export function checkStatus(completableChecks: Readonly<Set<CheckName>>, openedChecks: Readonly<Set<CheckName>>, check: CheckName): CheckStatus {
+export function checkStatus(completableChecks: Readonly<Set<CheckName>>, check: CheckName): CheckStatus {
     if (openedChecks.has(check)) {
         return "opened";
     }
@@ -16,7 +17,7 @@ export function checkStatus(completableChecks: Readonly<Set<CheckName>>, openedC
 }
 
 
-export function groupStatus(completableChecks: Readonly<Set<CheckName>>, openedChecks: Readonly<Set<CheckName>>, group: Group): CheckStatus | "possible" {
+export function groupStatus(completableChecks: Readonly<Set<CheckName>>, group: Group): CheckStatus | "possible" {
     let unopened = 0;
     let completable = 0;
     for (const check of group.checks) {

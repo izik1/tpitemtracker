@@ -1,8 +1,9 @@
-<svelte:options immutable={true} />
 <script lang="ts">
-    export let id: string;
-    export let content: string;
-    export let color: string = "black";
+    const {
+        id,
+        content,
+        color = "black",
+    }: { id: string; content: string; color?: string } = $props();
 </script>
 
 <span {id} role="tooltip" style="background-color:{color}">{content}</span>

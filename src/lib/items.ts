@@ -1,4 +1,3 @@
-import { writable } from "svelte/store";
 import storage from "./store";
 
 export type ItemId = keyof typeof baseItems;

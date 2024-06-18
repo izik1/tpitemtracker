@@ -1,4 +1,4 @@
-import type { LogicStore } from ".";
+import type { LogicStore } from "./index";
 
 export function hasDamagingIronBoots(store: LogicStore) {
     return (canDoNicheStuff(store) && store.items.IronBoots);

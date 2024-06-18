@@ -1,14 +1,13 @@
 <script lang="ts">
-    import { openedChecks, toggleCheck } from "$lib";
+    import { toggleCheck } from "$lib";
     import { checkStatus, groups } from "$lib/chests";
-    import { completableChecks, logicStore } from "$lib/logic";
+    import { completableChecks } from "$lib/logic";
 
-    export let groupId: number | null;
+    const { groupId }: { groupId: number | null } = $props();
 
-    $: group = groupId !== null ? groups[groupId] : null;
-
-    $: groupName = group?.name ?? "Hyrule";
-    $: checks = group?.checks ?? [];
+    const group = $derived(groupId !== null ? groups[groupId] : null);
+    const groupName = $derived(group?.name ?? "Hyrule");
+    const checks = $derived(group?.checks ?? []);
 </script>
 
 <div class="group">
@@ -18,12 +17,8 @@
         {#each checks as check}
             <li>
                 <button
-                    data-status={checkStatus(
-                        $completableChecks,
-                        $openedChecks,
-                        check,
-                    )}
-                    on:click={() => toggleCheck(check)}>{check}</button
+                    data-status={checkStatus($completableChecks, check)}
+                    onclick={() => toggleCheck(check)}>{check}</button
                 >
             </li>
         {/each}

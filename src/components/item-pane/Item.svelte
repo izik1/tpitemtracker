@@ -8,8 +8,10 @@
         itemsMin,
         type ItemId,
         type LayoutItem,
-        type ProgressiveItemId,
     } from "$lib/items";
+
+    const { itemId }: { itemId: LayoutItem } = $props();
+    const dimmed = $derived(itemId === null || !$items[itemId]);
 
     import { itemImages, type Image } from "$lib";
 
@@ -53,18 +55,17 @@
     }
 
     import itemBox from "$lib/assets/item-box.webp";
-
-    export let itemId: LayoutItem;
-
-    $: dimmed = itemId === null || !$items[itemId];
 </script>
 
 <button
     class:dimmed
     style="background-image: url({itemBox})"
     disabled={!itemId}
-    on:click={() => updateItem(1)}
-    on:contextmenu|preventDefault={() => updateItem(-1)}
+    onclick={() => updateItem(1)}
+    oncontextmenu={(ev) => {
+        ev.preventDefault();
+        updateItem(-1);
+    }}
 >
     {#if itemId !== null}
         <enhanced:img

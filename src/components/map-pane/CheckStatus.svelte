@@ -3,11 +3,12 @@
     import { availableChecks, openedChecks } from "$lib";
 
     const totalChecks = checkDataGlitchless.length;
-    $: remaining = totalChecks - $openedChecks.size;
-    $: available = availableChecks(
-        checkDataGlitchless.map((it) => it.name),
-        $completableChecks,
-        $openedChecks,
+    const remaining = $derived(totalChecks - openedChecks.size);
+    const available = $derived(
+        availableChecks(
+            checkDataGlitchless.map((it) => it.name),
+            $completableChecks,
+        ),
     );
 </script>
 

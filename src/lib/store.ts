@@ -4,6 +4,7 @@ import { browser } from '$app/environment';
 import type { Writable } from 'svelte/store';
 import { writable, get } from 'svelte/store';
 
+
 const storage = <T>(key: string, initValue: T): Writable<T> => {
     const store = writable(initValue);
     if (!browser) return store;

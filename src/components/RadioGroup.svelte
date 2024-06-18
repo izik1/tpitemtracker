@@ -1,8 +1,12 @@
 <script lang="ts">
-    export let title: string;
-    export let groupName: string;
-    export let items: { value: string; label: string }[];
-    export let group: string | undefined = items?.[0].value;
+    interface Props {
+        title: string;
+        groupName: string;
+        items: { value: string; label: string}[];
+        group: string | undefined;
+    }
+
+    let { title, groupName, items, group = $bindable(items?.[0].value) }: Props = $props();
 </script>
 
 <fieldset>

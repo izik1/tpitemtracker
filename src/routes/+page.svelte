@@ -2,6 +2,7 @@
     import MapPane from "../components/map-pane/MapPane.svelte";
     import ItemPane from "../components/item-pane/ItemPane.svelte";
     import SettingsPane from "../components/settings-pane/SettingsPane.svelte";
+    import { openedChecks } from "../lib";
 </script>
 
 <svelte:head>
@@ -13,9 +14,10 @@
 </header>
 
 <main>
-    <ItemPane></ItemPane>
+    <ItemPane />
     <MapPane></MapPane>
     <SettingsPane></SettingsPane>
+    <button onclick={() => openedChecks.clear()}></button>
 </main>
 
 <footer>

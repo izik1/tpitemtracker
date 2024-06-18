@@ -1,5 +1,5 @@
 
-import type { LogicStore } from '.';
+import type { LogicStore } from './index';
 import type { CheckName } from './check-name';
 import * as fns from './logic-functions';
 
@@ -68,10 +68,6 @@ const ordonCheckDataGlitchless: Check[] = [
     new Check(
         "Sera Shop Slingshot",
         // extra check that isn't possible in vanilla lol
-        fns.always,
-    ),
-    new Check(
-        "Uli Cradle Delivery",
         fns.always,
     ),
     new Check(

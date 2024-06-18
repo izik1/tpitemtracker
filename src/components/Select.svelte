@@ -1,9 +1,17 @@
 <script lang="ts">
-    export let title: string;
-    export let name: string;
-    export let options: { value: string; label: string }[];
-    export let value: string | undefined = options?.[0].value;
-    export let enabled: boolean = true;
+    let {
+        title,
+        name,
+        options,
+        value = $bindable(options?.[0].value),
+        enabled = true,
+    }: {
+        title: string;
+        name: string;
+        options: { value: string; label: string }[];
+        value: string;
+        enabled?: boolean;
+    } = $props();
 </script>
 
 <li>
