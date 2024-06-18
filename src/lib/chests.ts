@@ -1,15 +1,14 @@
 import { type CheckName } from "./logic/check-name";
-import { zonesGlitchless } from "./logic/index";
-import store from "./store";
+import { completableChecks, zonesGlitchless, type LogicStore } from "./logic/index";
 
 export type CheckStatus = "opened" | "available" | "unavailable" | "possible";
 
-export function checkStatus(check: CheckName): CheckStatus {
-    if (store.openedChecks.has(check)) {
+export function checkStatus(completableChecks: Readonly<Set<CheckName>>, openedChecks: Readonly<Set<CheckName>>, check: CheckName): CheckStatus {
+    if (openedChecks.has(check)) {
         return "opened";
     }
 
-    if (store.logic.checkCompletable(check)) {
+    if (completableChecks.has(check)) {
         return "available";
     }
 
@@ -17,14 +16,14 @@ export function checkStatus(check: CheckName): CheckStatus {
 }
 
 
-export function groupStatus(group: Group): CheckStatus | "possible" {
+export function groupStatus(completableChecks: Readonly<Set<CheckName>>, openedChecks: Readonly<Set<CheckName>>, group: Group): CheckStatus | "possible" {
     let unopened = 0;
     let completable = 0;
     for (const check of group.checks) {
-        if (!store.openedChecks.has(check)) {
+        if (!openedChecks.has(check)) {
             unopened += 1;
 
-            if (store.logic.checkCompletable(check)) {
+            if (completableChecks.has(check)) {
                 completable += 1;
             }
         }
@@ -47,7 +46,7 @@ export function groupStatus(group: Group): CheckStatus | "possible" {
     return "possible";
 }
 
-interface Group {
+export interface Group {
     readonly name: string;
     readonly x: string;
     readonly y: string,
@@ -137,7 +136,7 @@ export const groups: Group[] = [
     }
 ];
 
-interface OverworldCheck {
+export interface OverworldCheck {
     readonly name: CheckName,
     readonly x: string,
     readonly y: string,
@@ -378,8 +377,8 @@ export const overworld: OverworldCheck[] = [
     },
     {
         name: "Lost Woods Lantern Chest",
-        x: "calc(calc(45.41% - 8px)",
-        y: "calc(calc(70.8% - 8px)",
+        x: "calc(45.41% - 8px)",
+        y: "calc(70.8% - 8px)",
     },
     {
         name: "Lost Woods Boulder Poe",
