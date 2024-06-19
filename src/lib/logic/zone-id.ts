@@ -2,11 +2,11 @@ export type ZoneId = DungeonZoneId | OverworldZoneId;
 
 type DungeonZoneId = ArbitersGroundsZoneId | CitSZoneId | ForestTempleZoneId | GoronMinesZoneId | HyruleCastleZoneId | LakebedTempleZoneId | PoTZoneId | SnowpeakRuinsZoneId | ToTZoneId;
 
-type ArbitersGroundsZoneId = never;
+export type ArbitersGroundsZoneId = never;
 
-type CitSZoneId = never;
+export type CitSZoneId = never;
 
-type ForestTempleZoneId =
+export type ForestTempleZoneId =
     | "Forest Temple Boss Room"
     | "Forest Temple East Wing"
     | "Forest Temple Entrance"
@@ -15,7 +15,7 @@ type ForestTempleZoneId =
     | "Forest Temple West Wing"
     | "Ook";
 
-type GoronMinesZoneId =
+export type GoronMinesZoneId =
     | "Goron Mines Boss Room"
     | "Goron Mines Crystal Switch Room"
     | "Goron Mines Entrance"
@@ -38,7 +38,7 @@ type ToTZoneId = never;
 
 type OverworldZoneId = EldinZoneId | FaronZoneId | GerudoZoneId | LanayruZoneId | OrdonaZoneId | SnowpeakZoneId;
 
-type EldinZoneId =
+export type EldinZoneId =
     | HiddenVillageZoneId
     | EldinFieldZoneId
     | "Death Mountain Interiors"
@@ -56,7 +56,7 @@ type EldinFieldZoneId =
     | "Goron Stockcave"
     | "Kakariko Gorge";
 
-type FaronZoneId = FaronWoodsZoneId | FaronFieldZoneId | SacredGroveZoneId;
+export type FaronZoneId = FaronWoodsZoneId | FaronFieldZoneId | SacredGroveZoneId;
 
 type FaronWoodsZoneId = "Faron Mist Area" | "Faron Mist Cave" | "North Faron Woods" | "South Faron Woods Cave" | "South Faron Woods";
 
@@ -68,6 +68,6 @@ type GerudoZoneId = never;
 
 type LanayruZoneId = never;
 
-type OrdonaZoneId = "Ordon Province" | "Ordon Ranch Grotto";
+export type OrdonaZoneId = "Ordon Province" | "Ordon Ranch Grotto";
 
 type SnowpeakZoneId = never;

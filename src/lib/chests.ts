@@ -1,6 +1,7 @@
 import { openedChecks } from "$lib/index";
 import { type CheckName } from "./logic/check-name";
 import { completableChecks, zonesGlitchless, type LogicStore } from "./logic/index";
+import { zoneData } from "./logic/zones";
 
 export type CheckStatus = "opened" | "available" | "unavailable" | "possible";
 
@@ -58,7 +59,6 @@ export interface Group {
 // note: for some reason I cannot fathom, *all* `x`,`y`s are offset by an amount from the percentage.
 // this is caused by there (formerly) being a negative margin.
 // until I get around re-calculating all the percentages, this is what we're living with.
-// note: we use `zonesGlitchless` for the check lists, but it's _probably_ the same checklists in glitchled logic.
 export const groups: Group[] = [
     {
         name: "Ordon Village",
@@ -80,13 +80,13 @@ export const groups: Group[] = [
         x: "calc(47.58% - 12px)",
         y: "calc(66.2% - 12px)",
         checks: [
-            ...zonesGlitchless["Forest Temple Entrance"].checks,
-            ...zonesGlitchless["Forest Temple Lobby"].checks,
-            ...zonesGlitchless["Forest Temple East Wing"].checks,
-            ...zonesGlitchless["Forest Temple West Wing"].checks,
-            ...zonesGlitchless["Ook"].checks,
-            ...zonesGlitchless["Forest Temple North Wing"].checks,
-            ...zonesGlitchless["Forest Temple Boss Room"].checks,
+            ...zoneData["Forest Temple Entrance"],
+            ...zoneData["Forest Temple Lobby"],
+            ...zoneData["Forest Temple East Wing"],
+            ...zoneData["Forest Temple West Wing"],
+            ...zoneData["Ook"],
+            ...zoneData["Forest Temple North Wing"],
+            ...zoneData["Forest Temple Boss Room"],
         ]
     },
     {
@@ -94,7 +94,7 @@ export const groups: Group[] = [
         x: "calc(65.91% - 12px)",
         y: "calc(57.31% - 12px)",
         checks: [
-            ...zonesGlitchless["Eldin Long Cave"].checks
+            ...zoneData["Eldin Long Cave"],
         ]
     },
     {
@@ -102,7 +102,7 @@ export const groups: Group[] = [
         x: "calc(80.41% - 12px)",
         y: "calc(53.36% - 12px)",
         checks: [
-            ...zonesGlitchless["Kakariko Village"].checks,
+            ...zoneData["Kakariko Village"],
         ]
     },
     {
@@ -110,13 +110,13 @@ export const groups: Group[] = [
         x: "calc(85.91% - 12px)",
         y: "calc(38.16% - 12px)",
         checks: [
-            ...zonesGlitchless["Goron Mines Entrance"].checks,
-            ...zonesGlitchless["Goron Mines Magnet Room"].checks,
-            ...zonesGlitchless["Goron Mines Lower West Wing"].checks,
-            ...zonesGlitchless["Goron Mines Crystal Switch Room"].checks,
-            ...zonesGlitchless["Goron Mines North Wing"].checks,
-            ...zonesGlitchless["Goron Mines Upper East Wing"].checks,
-            ...zonesGlitchless["Goron Mines Boss Room"].checks,
+            ...zoneData["Goron Mines Entrance"],
+            ...zoneData["Goron Mines Magnet Room"],
+            ...zoneData["Goron Mines Lower West Wing"],
+            ...zoneData["Goron Mines Crystal Switch Room"],
+            ...zoneData["Goron Mines North Wing"],
+            ...zoneData["Goron Mines Upper East Wing"],
+            ...zoneData["Goron Mines Boss Room"],
         ]
     },
     // this one is positioned correctly without the `calc`
@@ -125,7 +125,7 @@ export const groups: Group[] = [
         x: "79.7%",
         y: "26.8%",
         checks: [
-            ...zonesGlitchless["Goron Stockcave"].checks,
+            ...zoneData["Goron Stockcave"],
         ]
     },
     {
@@ -133,7 +133,7 @@ export const groups: Group[] = [
         x: "calc(72% - 12px)",
         y: "calc(23.8% - 12px)",
         checks: [
-            ...zonesGlitchless["Hidden Village"].checks,
+            ...zoneData["Hidden Village"],
         ]
     }
 ];

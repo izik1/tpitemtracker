@@ -1,10 +1,8 @@
 // place files you want to import through the `$lib` alias in this folder.
 
-import { writable, type Writable } from "svelte/store";
 import type { CheckName } from "./logic/check-name";
-import { checkStatus, type Group } from "./chests";
-import type { LogicStore } from "./logic/index";
-import storage, { setStorage } from "./store";
+import { checkStatus } from "./chests";
+import { setStorage } from "./store";
 import { Set as ReactiveSet } from "svelte/reactivity";
 
 export const openedChecks = setStorage<CheckName>("openedChecks", new ReactiveSet());

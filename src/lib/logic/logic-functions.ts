@@ -749,7 +749,7 @@ export function hasCutsceneItem(store: LogicStore) {
     return false;
 }
 
-export function zDoLJA(store: LogicStore) {
+export function canDoLJA(store: LogicStore) {
     console.debug('stub');
     return false;
 }
