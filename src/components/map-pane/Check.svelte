@@ -22,10 +22,10 @@
 
 <button
     style="left: {check.x}; top: {check.y};"
-    data-status={checkStatus($completableChecks, check.name)}
+    data-status={checkStatus($completableChecks, $openedChecks, check.name)}
     class="chest {kind}"
     onclick={() => toggleCheck(check.name)}
-    aria-pressed={openedChecks.has(check.name)}
+    aria-pressed={$openedChecks.has(check.name)}
     aria-labelledby="ow-tt-{index}"
 >
     <Tooltip id="ow-tt-{index}" content={check.name}></Tooltip>

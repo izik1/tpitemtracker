@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { toggleCheck } from "$lib";
+    import { openedChecks, toggleCheck } from "$lib";
     import { checkStatus, groups } from "$lib/chests";
     import { completableChecks } from "$lib/logic";
 
@@ -17,7 +17,11 @@
         {#each checks as check}
             <li>
                 <button
-                    data-status={checkStatus($completableChecks, check)}
+                    data-status={checkStatus(
+                        $completableChecks,
+                        $openedChecks,
+                        check,
+                    )}
                     onclick={() => toggleCheck(check)}>{check}</button
                 >
             </li>

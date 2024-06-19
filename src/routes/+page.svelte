@@ -17,7 +17,7 @@
     <ItemPane />
     <MapPane></MapPane>
     <SettingsPane></SettingsPane>
-    <button onclick={() => openedChecks.clear()}></button>
+    <button onclick={() => $openedChecks.clear()}></button>
 </main>
 
 <footer>

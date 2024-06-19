@@ -7,7 +7,7 @@
     } from "$lib/logic";
     import { overworld } from "$lib/chests";
     import type { CheckName } from "$lib/logic/check-name";
-    import { availableChecks } from "$lib";
+    import { availableChecks, openedChecks } from "$lib";
     import Check from "./Check.svelte";
     import type { CheckKind } from "$lib/logic/checks";
     import Tooltip from "./Tooltip.svelte";
@@ -28,10 +28,10 @@
         {/if}
     {/each}
     {#each groups as group, index}
-        {@const checkCount = availableChecks(group.checks, $completableChecks)}
+        {@const checkCount = availableChecks(group.checks, $openedChecks, $completableChecks)}
         <button
             class="dungeon"
-            data-status={groupStatus($completableChecks, group)}
+            data-status={groupStatus($completableChecks, $openedChecks, group)}
             style="left: {group.x}; top: {group.y}"
             onclick={() => {
                 activeGroup = index;
