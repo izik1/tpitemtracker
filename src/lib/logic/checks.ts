@@ -104,7 +104,7 @@ const faronCheckDataGlitchless: Check[] = [
     new Check("Faron Field Male Beetle", fns.always, "bug"),
     new Check(
         "Faron Field Poe",
-        (store) => store.items.Crystal && fns.canCompleteMDH(store),
+        (store) => store.items.Crystal && fns.canCompleteMDH(store) === true,
         "poe"
     ),
     new Check(
@@ -233,7 +233,7 @@ const eldinCheckDataGlitchless: Check[] = [
         // fixme: `barrenDungeons` setting (currently assumed false, which means the goron mines check is always an option).
         (store) => (fns.canCompleteGoronMines(store)) || (store.items.Clawshot > 0 && (store.items.IronBoots || store.items.Crystal)),
     ),
-    new Check("Death Mountain Trail Poe", (store) => store.items.Crystal && fns.canCompleteGoronMines(store), "poe"),
+    new Check("Death Mountain Trail Poe", (store) => store.items.Crystal && fns.canCompleteGoronMines(store) === true, "poe"),
     new Check("Eldin Field Bomb Rock Chest", fns.canSmash),
     new Check("Eldin Field Bomskit Grotto Lantern Chest", (store) => store.items.Lantern && fns.canDefeatBomskit(store)),
     new Check("Eldin Field Bomskit Grotto Left Chest", fns.canDefeatBomskit),
@@ -277,7 +277,7 @@ const eldinCheckDataGlitchless: Check[] = [
     new Check("Kakariko Gorge Male Pill Bug", fns.always, "bug"),
     new Check("Kakariko Gorge Owl Statue Chest", (store) => store.items.Dominion >= 2),
     new Check("Kakariko Gorge Owl Statue Sky Character", (store) => store.items.Dominion >= 2),
-    new Check("Kakariko Gorge Poe", (store) => store.items.Crystal && fns.canCompleteMDH(store), "poe"),
+    new Check("Kakariko Gorge Poe", (store) => store.items.Crystal && fns.canCompleteMDH(store) === true, "poe"),
     new Check("Kakariko Gorge Spire Heart Piece", (store) => store.items.Clawshot > 0 || store.items.Boomerang),
     new Check("Kakariko Graveyard Golden Wolf",
         fns.never,
@@ -297,21 +297,21 @@ const eldinCheckDataGlitchless: Check[] = [
     ),
     new Check("Kakariko Village Bomb Shop Poe", (store) => store.items.Crystal, "poe"),
     new Check("Kakariko Village Female Ant", fns.always),
-    new Check("Kakariko Village Malo Mart Hawkeye", (store) => store.items.Bow > 0 && fns.canCompleteGoronMines(store)),
+    new Check("Kakariko Village Malo Mart Hawkeye", (store) => store.items.Bow > 0 && fns.canCompleteGoronMines(store) === true),
     new Check("Kakariko Village Malo Mart Hylian Shield", fns.always),
     // new Check("Kakariko Village Malo Mart Red Potion", ),
     // new Check("Kakariko Village Malo Mart Wooden Shield",),
     new Check("Kakariko Village Watchtower Poe", (store) => store.items.Crystal, "poe"),
     new Check("Kakariko Watchtower Alcove Chest", fns.canSmash),
     new Check("Kakariko Watchtower Chest", fns.always),
-    new Check("Renados Letter", fns.canCompleteTempleofTime),
+    new Check("Renados Letter", (store) => fns.canCompleteTempleofTime(store) === true),
     new Check("Rutelas Blessing", (store) => store.items.GateKeys || store.settings.smallKeys === "keysy"),
     new Check("Skybook From Impaz", (store) => store.items.Bow > 0 && store.items.Dominion > 0),
-    new Check("Talo Sharpshooting", (store) => store.items.Bow > 0 && fns.canCompleteGoronMines(store)),
+    new Check("Talo Sharpshooting", (store) => store.items.Bow > 0 && fns.canCompleteGoronMines(store) === true),
 ];
 
 const forestTempleCheckDataGlitchless: Check[] = [
-    new Check("Forest Temple Big Baba Key", (store) => fns.canDefeatBigBaba(store) && fns.canDefeatWalltula(store)),
+    new Check("Forest Temple Big Baba Key", (store) => fns.canDefeatBigBaba(store) && fns.canDefeatWalltula(store) === true),
     new Check("Forest Temple Big Key Chest", (store) => store.items.Boomerang),
     new Check("Forest Temple Central Chest Behind Stairs", (store) => store.items.Boomerang),
     new Check("Forest Temple Central Chest Hanging From Web", (store) => fns.canCutHangingWeb(store)),
@@ -322,7 +322,7 @@ const forestTempleCheckDataGlitchless: Check[] = [
         "Forest Temple East Tile Worm Chest",
         // todo: key setting:
         // https://github.com/zsrtp/Randomizer-Web-Generator/blob/b5ad864ba738a7daa3ccfe8f3076d2a906d6474d/Generator/World/Checks/Dungeons/Forest%20Temple/Forest%20Temple%20East%20Tile%20Worm%20Chest.jsonc#L2
-        (store) => fns.canDefeatTileWorm(store) && fns.canDefeatSkulltula(store) && fns.canDefeatWalltula(store),
+        (store) => fns.canDefeatTileWorm(store) && fns.canDefeatSkulltula(store) && fns.canDefeatWalltula(store) === true,
     ),
     new Check("Forest Temple East Water Cave Chest", fns.always),
     new Check("Forest Temple Entrance Vines Chest", fns.always),
@@ -332,7 +332,7 @@ const forestTempleCheckDataGlitchless: Check[] = [
     // https://github.com/zsrtp/Randomizer-Web-Generator/blob/b5ad864ba738a7daa3ccfe8f3076d2a906d6474d/Generator/World/Checks/Dungeons/Forest%20Temple/Forest%20Temple%20Second%20Monkey%20Under%20Bridge%20Chest.jsonc#L2
     new Check("Forest Temple Second Monkey Under Bridge Chest", fns.always),
     new Check("Forest Temple Totem Pole Chest", fns.always),
-    new Check("Forest Temple West Deku Like Chest", (store) => fns.canDefeatWalltula(store)),
+    new Check("Forest Temple West Deku Like Chest", (store) => fns.canDefeatWalltula(store) === true),
     new Check("Forest Temple West Tile Worm Chest Behind Stairs", (store) => store.items.Boomerang),
     new Check("Forest Temple West Tile Worm Room Vines Chest", fns.always),
     new Check("Forest Temple Windless Bridge Chest", fns.always),

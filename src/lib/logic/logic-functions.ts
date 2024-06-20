@@ -1,5 +1,8 @@
 import type { ItemId } from "$lib/items";
 import type { LogicStore } from "./index";
+import type { ZoneId } from "./zone-id";
+
+// fixme: remove tri-state logic again, just, do it carefully.
 
 export function hasDamagingIronBoots(store: LogicStore) {
     return (canDoNicheStuff(store) && store.items.IronBoots);
@@ -785,22 +788,24 @@ export function hasRangedItem(store: LogicStore) {
         || store.items.Boomerang;
 }
 
+const canReachZone = (store: LogicStore, zone: ZoneId) => store.reachableZones.has(zone) ? true : null;
+
 export function hasShield(store: LogicStore) {
     return store.items.Shield === 2
-        || store.reachableZones.has("Kakariko Village")
-        || store.reachableZones.has("Castle Town")
+        || canReachZone(store, "Kakariko Village")
+        || canReachZone(store, "Castle Town")
         // if we need a source of wooden shields to beat Gorons,
         // and we need to beat Gorons to have a source of wooden shields.
         // then we can't beat Gorons. 
-        || store.reachableZones.has("Death Mountain Volcano") && canDefeatGoron(store, false);
+        || canReachZone(store, "Death Mountain Volcano") && canDefeatGoron(store, false);
 }
 
 export function canUseBottledFairy(store: LogicStore) {
-    return hasBottle(store) && store.reachableZones.has("Lake Hylia");
+    return hasBottle(store) && canReachZone(store, "Lake Hylia");
 }
 
 export function canUseBottledFairies(store: LogicStore) {
-    return hasBottles(store) && store.reachableZones.has("Lake Hylia");
+    return hasBottles(store) && canReachZone(store, "Lake Hylia");
 }
 
 export function canLaunchBombs(store: LogicStore) {
@@ -882,11 +887,11 @@ export function canUseWaterBombs(store: LogicStore) {
 }
 
 export function canGetArrows(store: LogicStore) {
-    return canClearForest(store) || store.reachableZones.has("Lost Woods");
+    return canClearForest(store) || canReachZone(store, "Lost Woods");
 }
 
 export function canClearForest(store: LogicStore) {
-    return (canCompleteForestTemple(store) || store.settings.faronWoodsLogic === "open") && canCompletePrologue(store);
+    return canCompletePrologue(store) && (store.settings.faronWoodsLogic === "open" || canCompleteForestTemple(store));
 }
 
 export function canCompletePrologue({ settings, items }: LogicStore) {
@@ -903,35 +908,35 @@ export function canCompleteEldinTwilight(store: LogicStore) {
 }
 
 export function canCompleteForestTemple(store: LogicStore) {
-    return store.reachableZones.has("Forest Temple Boss Room") && canDefeatDiababa(store);
+    return canReachZone(store, "Forest Temple Boss Room") && canDefeatDiababa(store);
 }
 
 export function canCompleteGoronMines(store: LogicStore) {
-    return store.reachableZones.has("Goron Mines Boss Room") && canDefeatFyrus(store);
+    return canReachZone(store, "Goron Mines Boss Room") && canDefeatFyrus(store);
 }
 
 export function canCompleteLakebedTemple(store: LogicStore) {
-    return store.reachableZones.has("Lakebed Temple Boss Room") && canDefeatMorpheel(store);
+    return canReachZone(store, "Lakebed Temple Boss Room") && canDefeatMorpheel(store);
 }
 
 export function canCompleteArbitersGrounds(store: LogicStore) {
-    return store.reachableZones.has("Arbiters Grounds Boss Room") && canDefeatStallord(store);
+    return canReachZone(store, "Arbiters Grounds Boss Room") && canDefeatStallord(store);
 }
 
 export function canCompleteSnowpeakRuins(store: LogicStore) {
-    return store.reachableZones.has("Snowpeak Ruins Boss Room") && canDefeatBlizzeta(store);
+    return canReachZone(store, "Snowpeak Ruins Boss Room") && canDefeatBlizzeta(store);
 }
 
 export function canCompleteTempleofTime(store: LogicStore) {
-    return store.reachableZones.has("Temple of Time Boss Room") && canDefeatArmogohma(store);
+    return canReachZone(store, "Temple of Time Boss Room") && canDefeatArmogohma(store);
 }
 
 export function canCompleteCityInTheSky(store: LogicStore) {
-    return store.reachableZones.has("City in the Sky Boss Room") && canDefeatArgorok(store);
+    return canReachZone(store, "City in the Sky Boss Room") && canDefeatArgorok(store);
 }
 
 export function canCompletePalaceofTwilight(store: LogicStore) {
-    return store.reachableZones.has("Palace of Twilight Boss Room") && canDefeatZant(store);
+    return canReachZone(store, "Palace of Twilight Boss Room") && canDefeatZant(store);
 }
 
 export function canCompleteAllDungeons(store: LogicStore) {
@@ -1000,7 +1005,7 @@ export function canDoJSLJA(store: LogicStore) {
 }
 
 export function canDoMapGlitch(store: LogicStore) {
-    return store.items.Crystal && store.reachableZones.has("Kakariko Gorge");
+    return store.items.Crystal && canReachZone(store, "Kakariko Gorge");
 }
 
 export function canDoStorage(store: LogicStore) {

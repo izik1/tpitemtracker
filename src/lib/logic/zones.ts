@@ -3,14 +3,14 @@ import * as fns from "./logic-functions";
 import { type CheckName } from "./check-name";
 import type { baseItems } from "$lib/items";
 import type { RandomizerSettings } from "$lib/settings";
-import { reachableZones, type LogicStore } from "./index";
+import { type LogicStore } from "./index";
 
 
 export class ZoneNeighbor {
     #name;
     readonly accessable;
 
-    constructor(name: ZoneId, accessable: (store: LogicStore) => boolean) {
+    constructor(name: ZoneId, accessable: (store: LogicStore) => boolean | null) {
         this.#name = name;
         this.accessable = accessable;
     }
@@ -177,7 +177,8 @@ const zoneNeighborsFaronGlitchless: Record<FaronZoneId, ZoneNeighbor[]> = {
     "Sacred Grove Temple of Time": [
         new ZoneNeighbor("Sacred Grove Master Sword", fns.always),
         // ToT entrance settings.
-        new ZoneNeighbor("Temple of Time Entrance", store => store.items.Sword >= 3)
+        // new ZoneNeighbor("Temple of Time Entrance", store => store.items.Sword >= 3)
+        new ZoneNeighbor("Temple of Time Entrance", fns.never)
     ],
 };
 
@@ -476,7 +477,7 @@ export const zoneNeighborsGlitchless: Record<ZoneId, ZoneNeighbor[]> = {
 };
 
 export function calculateReachableZones(searchZones: Record<ZoneId, ZoneNeighbor[]>, settings: RandomizerSettings, items: typeof baseItems, start: ZoneId = "Ordon Province") {
-    // An implementation of DFS
+    // An implementation of DFS, modified to support interdependencies of zones.
     const stack: ZoneId[] = [];
     stack.push(start);
 
@@ -499,28 +500,60 @@ export function calculateReachableZones(searchZones: Record<ZoneId, ZoneNeighbor
         reachableZones: new Set()
     };
 
-    while (stack.length > 0) {
-        const zone = stack.pop();
-        // we want to check now instead of when iterating the neighbors because the first item could be the goal,
-        // and if so I'd rataher not duplicate the check.
+    let retry: Map<ZoneId, ZoneNeighbor[]> = new Map();
 
-        if (typeof (zone) === 'undefined') {
-            break;
-        }
+    while (true) {
+        while (stack.length > 0) {
+            const zone = stack.pop();
+            // we want to check now instead of when iterating the neighbors because the first item could be the goal,
+            // and if so I'd rataher not duplicate the check.
 
-        if (fakeStore.reachableZones.has(zone)) {
-            continue;
-        }
+            if (typeof (zone) === 'undefined') {
+                break;
+            }
 
-        fakeStore.reachableZones.add(zone);
+            retry.delete(zone);
 
-        for (const neighbor of searchZones[zone]) {
-            if (neighbor.accessable(fakeStore)) {
-                stack.push(neighbor.name);
+            if (fakeStore.reachableZones.has(zone)) {
+                continue;
+            }
+
+            fakeStore.reachableZones.add(zone);
+
+            for (const neighbor of searchZones[zone]) {
+                let accessable = neighbor.accessable(fakeStore);
+                if (accessable === null) {
+                    let entry = retry.get(neighbor.name);
+                    if (entry === undefined) {
+                        entry = [];
+                        retry.set(neighbor.name, entry);
+                    }
+
+                    entry.push(neighbor);
+                }
+
+                if (accessable) {
+                    stack.push(neighbor.name);
+                }
+            }
+        };
+
+        let cont = false;
+        for (const [zone, entry] of retry) {
+            for (const neighbor of entry) {
+                if (neighbor.accessable(fakeStore)) {
+                    cont = true;
+                    stack.push(zone);
+                    // make sure we only do each zone once.
+                    break;
+                }
             }
         }
-    };
 
+        if (!cont) {
+            break;
+        }
+    }
 
     return fakeStore.reachableZones;
 }
