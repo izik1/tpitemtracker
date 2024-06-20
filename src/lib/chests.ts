@@ -135,6 +135,44 @@ export const groups: Group[] = [
         checks: [
             ...zoneData["Hidden Village"],
         ]
+    },
+    {
+        name: "Castle Town",
+        x: "calc(53.75% - 12px)",
+        y: "calc(41.2% - 12px)",
+        checks: zoneData["Castle Town"],
+    },
+    {
+        name: "Lanayru Spring",
+        x: "calc(42.5% - 12px)",
+        y: "calc(52.08% - 12px)",
+        checks: [
+            "Lanayru Spring Underwater Left Chest",
+            "Lanayru Spring Underwater Right Chest",
+            "Lanayru Spring Back Room Left Chest",
+            "Lanayru Spring Back Room Right Chest",
+            "Lanayru Spring Back Room Lantern Chest",
+            "Lanayru Spring East Double Clawshot Chest",
+            "Lanayru Spring West Double Clawshot Chest",
+        ]
+    },
+    {
+        name: "Flight By Fowl",
+        x: "calc(43.5% - 12px)",
+        y: "calc(48.0% - 12px)",
+        checks: [
+            "Flight By Fowl Top Platform Reward",
+            "Flight By Fowl Second Platform Chest",
+            "Flight By Fowl Third Platform Chest",
+            "Flight By Fowl Fourth Platform Chest",
+            "Flight By Fowl Fifth Platform Chest",
+        ]
+    },
+    {
+        name: "Lake Hylia Long Cave",
+        x: "calc(40.75% - 12px)",
+        y: "calc(55.68% - 12px)",
+        checks: zoneData["Lake Hylia Long Cave"]
     }
 ];
 
@@ -426,7 +464,298 @@ export const overworld: OverworldCheck[] = [
         name: "Sacred Grove Temple of Time Owl Statue Poe",
         x: "calc(43.78% - 8px)",
         y: "calc(68.88% - 8px)",
-    }
+    },
+    {
+        name: "Lanayru Field Poe Grotto Left Poe",
+        x: "calc(49.66% - 8px)",
+        y: "calc(26.8% - 8px)",
+    },
+    {
+        name: "Lanayru Field Poe Grotto Right Poe",
+        x: "calc(50.66% - 8px)",
+        y: "calc(26.8% - 8px)",
+    },
+    {
+        name: "Lanayru Field Skulltula Grotto Chest",
+        x: "calc(33.58% - 8px)",
+        y: "calc(60.32% - 8px)",
+    },
+    {
+        name: "Lanayru Field Behind Gate Underwater Chest",
+        x: "calc(53.83% - 8px)",
+        y: "calc(29.84% - 8px)",
+    },
+    {
+        name: "Lanayru Field Spinner Track Chest",
+        x: "calc(41.41% - 8px)",
+        y: "calc(38.08% - 8px)",
+    },
+    {
+        name: "Lanayru Field Male Stag Beetle",
+        x: "calc(50.58% - 8px)",
+        y: "calc(28.00% - 8px)",
+    },
+    {
+        name: "Lanayru Field Female Stag Beetle",
+        x: "calc(53.25% - 8px)",
+        y: "calc(24.48% - 8px)",
+    },
+    {
+        name: "Lanayru Field Bridge Poe",
+        x: "calc(54.25% - 8px)",
+        y: "calc(26.88% - 8px)",
+    },
+    {
+        name: "Lanayru Ice Block Puzzle Cave Chest",
+        x: "calc(52.85% - 8px)",
+        y: "calc(26.04% - 8px)",
+    },
+    {
+        name: "Hyrule Field Amphitheater Owl Statue Chest",
+        x: "calc(45.38% - 8px)",
+        y: "calc(43.84% - 8px)",
+    },
+    {
+        name: "Hyrule Field Amphitheater Owl Statue Sky Character",
+        x: "calc(46.38% - 8px)",
+        y: "calc(43.84% - 8px)",
+    },
+    {
+        name: "West Hyrule Field Male Butterfly",
+        x: "calc(46.58% - 8px)",
+        y: "calc(42.24% - 8px)",
+    },
+    {
+        name: "West Hyrule Field Female Butterfly",
+        x: "calc(45.5% - 8px)",
+        y: "calc(38.48% - 8px)",
+    },
+    {
+        name: "Hyrule Field Amphitheater Poe",
+        x: "calc(45.16% - 8px)",
+        y: "calc(43.36% - 8px)",
+    },
+    {
+        name: "West Hyrule Field Golden Wolf",
+        x: "calc(48.38% - 8px)",
+        y: "calc(40.84% - 8px)",
+    },
+    {
+        name: "Outside South Castle Town Tightrope Chest",
+        x: "calc(52.83% - 8px)",
+        y: "calc(44.16% - 8px)",
+    },
+    {
+        name: "Outside South Castle Town Fountain Chest",
+        x: "calc(54.01% - 8px)",
+        y: "calc(45.68% - 8px)",
+    },
+    {
+        name: "Outside South Castle Town Double Clawshot Chasm Chest",
+        x: "calc(51.50% - 8px)",
+        y: "calc(46.88% - 8px)",
+    },
+    {
+        name: "Wooden Statue",
+        x: "calc(54.01% - 8px)",
+        y: "calc(47.68% - 8px)",
+    },
+    {
+        name: "Outside South Castle Town Male Ladybug",
+        x: "calc(55.08% - 8px)",
+        y: "calc(46.16% - 8px)",
+    },
+    {
+        name: "Outside South Castle Town Female Ladybug",
+        x: "calc(52.5% - 8px)",
+        y: "calc(45.2% - 8px)",
+    },
+    {
+        name: "Outside South Castle Town Poe",
+        x: "calc(53.66% - 8px)",
+        y: "calc(45.84% - 8px)",
+    },
+    {
+        name: "Outside South Castle Town Golden Wolf",
+        x: "calc(52.83% - 8px)",
+        y: "calc(46.16% - 8px)",
+    },
+    {
+        name: "Outside South Castle Town Tektite Grotto Chest",
+        x: "calc(55.8% - 8px)",
+        y: "calc(46.12% - 8px)",
+    },
+
+    {
+        name: "Lake Hylia Bridge Vines Chest",
+        x: "calc(41.58% - 8px)",
+        y: "calc(45.84% - 8px)",
+    },
+
+    {
+        name: "Lake Hylia Bridge Owl Statue Chest",
+        x: "calc(41.45% - 8px)",
+        y: "calc(43.44% - 8px)",
+    },
+    {
+        name: "Lake Hylia Bridge Owl Statue Sky Character",
+        x: "calc(42.45% - 8px)",
+        y: "calc(43.44% - 8px)",
+    },
+    {
+        name: "Lake Hylia Bridge Male Mantis",
+        x: "calc(41.17% - 8px)",
+        y: "calc(46.24% - 8px)",
+    },
+    {
+        name: "Lake Hylia Bridge Female Mantis",
+        x: "calc(42.75% - 8px)",
+        y: "calc(54.16% - 8px)",
+    },
+    {
+        name: "Lake Hylia Bridge Cliff Poe",
+        x: "calc(44.42% - 8px)",
+        y: "calc(56% - 8px)",
+    },
+    {
+        name: "Lake Hylia Bridge Bubble Grotto Chest",
+        x: "calc(46.33% - 8px)",
+        y: "calc(56.24% - 8px)",
+    },
+    {
+        name: "Lake Hylia Bridge Cliff Chest",
+        x: "calc(44.83% - 8px)",
+        y: "calc(56.24% - 8px)",
+    },
+    {
+        name: "Lake Hylia Underwater Chest",
+        x: "calc(39.85% - 8px)",
+        y: "calc(54.06% - 8px)",
+    },
+    {
+        name: "Outside Lanayru Spring Left Statue Chest",
+        x: "calc(42.05% - 8px)",
+        y: "calc(50.76% - 8px)",
+    },
+    {
+        name: "Outside Lanayru Spring Right Statue Chest",
+        x: "calc(43.15% - 8px)",
+        y: "calc(50.76% - 8px)",
+    },
+    {
+        name: "Iza Helping Hand",
+        x: "calc(65.8% - 8px)",
+        y: "calc(12% - 8px)",
+    },
+    {
+        name: "Iza Raging Rapids Minigame",
+        x: "calc(66.8% - 8px)",
+        y: "calc(12% - 8px)",
+    },
+    {
+        name: "Auru Gift To Fyer",
+        x: "calc(35.95% - 8px)",
+        y: "calc(55.26% - 8px)",
+    },
+    {
+        name: "Flight By Fowl Ledge Poe",
+        x: "calc(36.42% - 8px)",
+        y: "calc(46.72% - 8px)",
+    },
+    {
+        name: "Isle of Riches Poe",
+        x: "calc(39.08% - 8px)",
+        y: "calc(49.12% - 8px)",
+    },
+    {
+        name: "Lake Hylia Alcove Poe",
+        x: "calc(40.08% - 8px)",
+        y: "calc(54.72% - 8px)",
+    },
+    {
+        name: "Lake Hylia Dock Poe",
+        x: "calc(46.58% - 8px)",
+        y: "calc(50.64% - 8px)",
+    },
+    {
+        name: "Lake Hylia Tower Poe",
+        x: "calc(80.83% - 8px)",
+        y: "calc(50.88% - 8px)",
+    },
+    {
+        name: "Lake Hylia Shell Blade Grotto Chest",
+        x: "calc(38.41% - 8px)",
+        y: "calc(45.92% - 8px)",
+    },
+    {
+        name: "Lake Hylia Water Toadpoli Grotto Chest",
+        x: "calc(38.95% - 8px)",
+        y: "calc(55.26% - 8px)",
+    },
+    {
+        name: "Zoras Domain Chest By Mother and Child Isles",
+        x: "calc(56.73% - 8px)",
+        y: "calc(11.44% - 8px)",
+    },
+    {
+        name: "Zoras Domain Chest Behind Waterfall",
+        x: "calc(55.93% - 8px)",
+        y: "calc(10.56% - 8px)",
+    },
+    {
+        name: "Zoras Domain Light All Torches Chest",
+        x: "calc(55.5% - 8px)",
+        y: "calc(08.48% - 8px)",
+    },
+    {
+        name: "Zoras Domain Extinguish All Torches Chest",
+        x: "calc(54.5% - 8px)",
+        y: "calc(08.48% - 8px)",
+    },
+    {
+        name: "Fishing Hole Heart Piece",
+        x: "calc(64.5% - 8px)",
+        y: "calc(9% - 8px)",
+    },
+    {
+        name: "Fishing Hole Bottle",
+        x: "calc(65.8% - 8px)",
+        y: "calc(9.5% - 8px)",
+    },
+    // missing from old tracker, have to position.
+    // {
+    //     name: "Zoras Domain Underwater Goron",
+    // },
+    {
+        name: "Plumm Fruit Balloon Minigame",
+        x: "calc(65.8% - 8px)",
+        y: "calc(14.5% - 8px)",
+    },
+    {
+        name: "Zoras Domain Male Dragonfly",
+        x: "calc(55.5% - 8px)",
+        y: "calc(11.44% - 8px)",
+    },
+    {
+        name: "Upper Zoras River Female Dragonfly",
+        x: "calc(65.58% - 8px)",
+        y: "calc(13.20% - 8px)",
+    },
+    {
+        name: "Upper Zoras River Poe",
+        x: "calc(64% - 8px)",
+        y: "calc(14.16% - 8px)",
+    },
+    {
+        name: "Zoras Domain Mother and Child Isle Poe",
+        x: "calc(55.25% - 8px)",
+        y: "calc(11.36% - 8px)",
+    },
+    {
+        name: "Zoras Domain Waterfall Poe",
+        x: "calc(54.5% - 8px)",
+        y: "calc(9.52% - 8px)",
+    },
 ];
 
 // define grouped chests
@@ -473,21 +802,6 @@ export const overworld: OverworldCheck[] = [
 //     },
 //     */
 //     {
-//         name: "Lake Hylia Lantern Cave",
-//         x: "40.75%",
-//         y: "55.68%",
-//     },
-//     {
-//         name: "Lanayru Spring",
-//         x: "42.5%",
-//         y: "52.08%",
-//     },
-//     {
-//         name: "Hyrule Castle Town",
-//         x: "53.75%",
-//         y: "41.2%",
-//     },
-//     {
 //         name: "Bublin Camp",
 //         x: "14.98%",
 //         y: "44.96%",
@@ -499,44 +813,11 @@ export const overworld: OverworldCheck[] = [
 // //Overworld Chests
 // var overworldChests = [
 //     {
-//         name: "Small Chest Under Waterfall",
-//         x: "55.93%",
-//         y: "10.56%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Ashei's Sketch",
 //         x: "51.00%",
 //         y: "11.06%",
 //         isAvailable: function () {
 //             if (canAccessZoraDomain()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Small Chest Near Mother and Child Isles",
-//         x: "56.73%",
-//         y: "11.44%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         }
-//     },
-//     {
-//         name: "Underwater Chest",
-//         x: "39.85%",
-//         y: "54.06%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && items.IronBoots) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -554,176 +835,11 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Grotto - Water Toadpoli Chest",
-//         x: "38.95%",
-//         y: "55.26%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && items.Crystal && (items.Boss3 || EarlyCits)) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Auru's Memo",
-//         x: "35.95%",
-//         y: "55.26%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Outside Lanayru Spring - Left Statue Small Chest",
-//         x: "42.05%",
-//         y: "50.76%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Outside Lanayru Spring - Right Statue Chest",
-//         x: "43.15%",
-//         y: "50.76%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         }
-//     },
-//     {
-//         name: "Flight-By-Fowl (5)",
-//         x: "43.5%",
-//         y: "48.0%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         }
-//     },
-//     {
-//         name: "Grotto - Shell Blade Chest",
-//         x: "38.41%",
-//         y: "45.92%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && items.Crystal && items.IronBoots && (items.Boss3 || EarlyCits) && (items.Sword || items.MSword || items.WBombs)) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Underwater Right Chest",
-//         x: "55.5%",
-//         y: "08.48%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && items.Lantern && items.IronBoots) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Underwater Left Chest",
-//         x: "54.5%",
-//         y: "08.48%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && items.Boomerang && items.IronBoots && items.Lantern) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Grotto - Skultulla Chest",
 //         x: "54.0%",
 //         y: "22.8%",
 //         isAvailable: function () {
 //             if (canAccessLanayruField() && items.Crystal && items.Lantern) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Behind Gate Underwater Chest",
-//         x: "53.83%",
-//         y: "29.84%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.IronBoots) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Bridge Vines Chest",
-//         x: "41.58%",
-//         y: "45.84%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Clawshot) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Bubble Chest",
-//         x: "46.33%",
-//         y: "56.24%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Crystal && items.Clawshot && items.Lantern && shootPew()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Oustide Grotto Chest",
-//         x: "44.83%",
-//         y: "56.24%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Clawshot && shootPew()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Castle Pillar Chest",
-//         x: "52.83%",
-//         y: "44.16%",
-//         isAvailable: function () {
-//             if (canAccessCastleTown() && items.Clawshot && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Tetike Chest",
-//         x: "55.8%",
-//         y: "46.12%",
-//         isAvailable: function () {
-//             if (canAccessCastleTown() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Skulltula Chest",
-//         x: "33.58%",
-//         y: "60.32%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Crystal) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -862,39 +978,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Spinner Wall Heart Piece Chest",
-//         x: "41.41%",
-//         y: "38.08%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Spinner) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Fountain Chest",
-//         x: "54.01%",
-//         y: "45.68%",
-//         isAvailable: function () {
-//             if (canAccessCastleTown() && items.Spinner && items.Clawshot) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Wooden Statue",
-//         x: "54.01%",
-//         y: "47.68%",
-//         isAvailable: function () {
-//             if (canAccessCastleTown() && items.MedicineScent) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Frozen Lantern Chest",
 //         x: "38.26%",
 //         y: "11.48%",
@@ -912,61 +995,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "9.12%",
 //         isAvailable: function () {
 //             if (items.Crystal && items.Chainball && canAccessSnowpeakSummit()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Frozen Block Cave Chest",
-//         x: "52.85%",
-//         y: "26.04%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Chainball) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Castle Ruins Owl Statue Chest",
-//         x: "45.38%",
-//         y: "43.84%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Dominion > 1) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Castle Ruins Skybook Letter",
-//         x: "46.38%",
-//         y: "43.84%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Dominion > 1) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Hylia Bridge Owl Statue Chest",
-//         x: "41.45%",
-//         y: "43.44%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Dominion > 1 && items.Clawshot) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Hylia Bridge Skybook Letter",
-//         x: "42.45%",
-//         y: "43.44%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Dominion > 1 && items.Clawshot) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -995,39 +1023,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Lake Chasm Chest",
-//         x: "51.50%",
-//         y: "46.88%",
-//         isAvailable: function () {
-//             if (canAccessCastleTown() && items.Clawshot > 1) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Fishing Hole Heart Piece",
-//         x: "64.5%",
-//         y: "9%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Fishing Hole Bottle",
-//         x: "65.8%",
-//         y: "9.5%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && items.Rod) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Shield Attack",
 //         x: "54.5%",
 //         y: "81.24%",
@@ -1036,28 +1031,6 @@ export const overworld: OverworldCheck[] = [
 //                 return "available";
 //             }
 //             return "unavailable"
-//         },
-//     },
-//     {
-//         name: "Back Slice",
-//         x: "48.38%",
-//         y: "40.84%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && canAccessLanayruField() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Helm Splitter",
-//         x: "52.83%",
-//         y: "46.16%",
-//         isAvailable: function () {
-//             if (canAccessGrove() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
 //         },
 //     },
 //     {
@@ -1094,40 +1067,6 @@ export const overworld: OverworldCheck[] = [
 //             return "unavailable";
 //         },
 //     },
-//     {
-//         name: "Iza Bomb Bag",
-//         x: "65.8%",
-//         y: "12%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && (items.Sword || items.MSword || items.Crystal) && items.Bow) {
-//                 return "available";
-//             }
-//             return "unavailable";
-
-//         },
-//     },
-//     {
-//         name: "Giant Bomb Bag",
-//         x: "66.8%",
-//         y: "12%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && (items.Sword || items.MSword || items.Crystal) && items.Bow) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Plumm Fruit Game Heart Piece",
-//         x: "65.8%",
-//         y: "14.5%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
 //     //poes
 //     {
 //         //12
@@ -1148,30 +1087,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "40.56%",
 //         isAvailable: function () {
 //             if (canAccessCastleTown() && setMDHFlag() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //14
-//         name: "South Castle Town Field Poe",
-//         x: "53.66%",
-//         y: "45.84%",
-//         isAvailable: function () {
-//             if (canAccessCastleTown() && setMDHFlag() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //15
-//         name: "Castle Ruins Poe",
-//         x: "45.16%",
-//         y: "43.36%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && setMDHFlag() && items.Crystal) {
 //                 return "available";
 //             }
 //             return "poeunavailable";
@@ -1332,50 +1247,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         //39
-//         name: "Bridge Poe",
-//         x: "54.25%",
-//         y: "26.88%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //40
-//         name: "Grotto Poe #1",
-//         x: "49.66%",
-//         y: "26.8%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //41
-//         name: "Grotto Poe #2",
-//         x: "50.66%",
-//         y: "26.8%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //42
-//         name: "Poe on Rock Ledge",
-//         x: "44.42%",
-//         y: "56%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Clawshot && shootPew() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
 //         //43
 //         name: "Bomb Shop Poe",
 //         x: "81.83%",
@@ -1387,100 +1258,12 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         //44
-//         name: "Watchtower Poe",
-//         x: "80.83%",
-//         y: "50.88%",
-//         isAvailable: function () {
-//             if (canAccessKakVillage() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //45
-//         name: "Poe by the Dock",
-//         x: "46.58%",
-//         y: "50.64%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //46
-//         name: "Alcove Poe",
-//         x: "40.08%",
-//         y: "54.72%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
 //         //47
 //         name: "Poe near Tower",
 //         x: "34.08%",
 //         y: "53.12%",
 //         isAvailable: function () {
 //             if (canAccessLakeHylia() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //48
-//         name: "Isle of Riches Poe",
-//         x: "39.08%",
-//         y: "49.12%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //49
-//         name: "Flight by Fowl Ledge Poe",
-//         x: "36.42%",
-//         y: "46.72%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //50
-//         name: "LLC Poe #1",
-//         x: "38.5%",
-//         y: "54.8%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && canSmash() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //51
-//         name: "LLC Poe #2",
-//         x: "39.5%",
-//         y: "55.8%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && canSmash() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //52
-//         name: "LLC Poe #3",
-//         x: "38.5%",
-//         y: "55.8%",
-//         isAvailable: function () {
-//             if (canAccessLakeHylia() && canSmash() && setMDHFlag() && items.Crystal)
 //                 return "available";
 //             return "poeunavailable";
 //         },
@@ -1540,39 +1323,6 @@ export const overworld: OverworldCheck[] = [
 //             return "poeunavailable";
 //         },
 //     },
-//     {
-//         //58
-//         name: "Upper Zora River Poe",
-//         x: "64%",
-//         y: "14.16%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //59
-//         name: "Poe Behind Waterfall",
-//         x: "54.5%",
-//         y: "9.52%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //60
-//         name: "Poe By Mother and Child Rocks",
-//         x: "55.25%",
-//         y: "11.36%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
 //     // bugs
 //     {
 //         //5
@@ -1592,116 +1342,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "52.48%",
 //         isAvailable: function () {
 //             if (canAccessKakVillage())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //11
-//         name: "Male Mantis",
-//         x: "41.17%",
-//         y: "46.24%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && (items.Clawshot || items.Boomerang))
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //12
-//         name: "Female Mantis",
-//         x: "42.75%",
-//         y: "54.16%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && (items.Clawshot || items.Boomerang))
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //13
-//         name: "Male Dragonfly",
-//         x: "55.5%",
-//         y: "11.44%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //14
-//         name: "Female Dragonfly",
-//         x: "65.58%",
-//         y: "13.20%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //15
-//         name: "Male Butterfly",
-//         x: "46.58%",
-//         y: "42.24%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //16
-//         name: "Female Butterfly",
-//         x: "45.5%",
-//         y: "38.48%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && (items.Clawshot || items.Boomerang))
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //17
-//         name: "Male Stag Beetle",
-//         x: "50.58%",
-//         y: "28.00%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //18
-//         name: "Female Stag Beetle",
-//         x: "53.25%",
-//         y: "24.48%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && (items.Clawshot || items.Boomerang))
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //19
-//         name: "Female LadyBug",
-//         x: "52.5%",
-//         y: "45.2%",
-//         isAvailable: function () {
-//             if (canAccessCastleTown())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //20
-//         name: "Male Ladybug",
-//         x: "55.08%",
-//         y: "46.16%",
-//         isAvailable: function () {
-//             if (canAccessCastleTown())
 //                 return "available";
 //             return "bugunavailable";
 //         },

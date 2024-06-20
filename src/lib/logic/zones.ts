@@ -1,4 +1,4 @@
-import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type OrdonaZoneId, type ZoneId } from "./zone-id";
+import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./zone-id";
 import * as fns from "./logic-functions";
 import { type CheckName } from "./check-name";
 import type { baseItems } from "$lib/items";
@@ -142,12 +142,25 @@ const zoneNeighborsFaronGlitchless: Record<FaronZoneId, ZoneNeighbor[]> = {
     ],
     "Faron Field": [
         new ZoneNeighbor("South Faron Woods", fns.always),
-        // fixme: missing zone.
-        new ZoneNeighbor("Outside Castle Town South", fns.never),
-        // fixme: missing zone.
+        new ZoneNeighbor("Outside Castle Town South", (store) => {
+            if (!fns.hasBottle(store)) {
+                return false;
+            }
+
+            if (fns.canSmash(store)) {
+                return true;
+            }
+
+            return ((store.items.GateKeys || store.settings.smallKeys === "keysy") && (store.items.Crystal || store.settings.skip.lanayruTwilight));
+        }),
         new ZoneNeighbor("Kakariko Gorge", fns.always),
-        // fixme: missing zone.
-        new ZoneNeighbor("Lake Hylia Bridge", fns.never),
+        new ZoneNeighbor("Lake Hylia Bridge", (store) => {
+            if (fns.canSmash(store)) {
+                return true;
+            }
+
+            return ((store.items.GateKeys || store.settings.smallKeys === "keysy") && (store.items.Crystal || store.settings.skip.lanayruTwilight));
+        }),
         new ZoneNeighbor("Faron Field Corner Grotto", store => store.items.Crystal),
     ],
     "Faron Field Corner Grotto": [
@@ -247,7 +260,7 @@ const zoneDataEldin: Record<EldinZoneId, CheckName[]> = {
 };
 
 const zoneNeighborsEldinGlitchless: Record<EldinZoneId, ZoneNeighbor[]> = {
-    "Hidden Village": [new ZoneNeighbor("Lanayru Field", fns.never)],
+    "Hidden Village": [new ZoneNeighbor("Lanayru Field", fns.always)],
     "Eldin Field Bomskit Grotto": [new ZoneNeighbor("Eldin Field", fns.always)],
     "Eldin Field Stalfos Grotto": [new ZoneNeighbor("Eldin Field", fns.always)],
     "Eldin Field Water Bomb Fish Grotto": [new ZoneNeighbor("Eldin Field", fns.always)],
@@ -255,8 +268,14 @@ const zoneNeighborsEldinGlitchless: Record<EldinZoneId, ZoneNeighbor[]> = {
         new ZoneNeighbor("Kakariko Gorge", fns.canSmash),
         new ZoneNeighbor("Kakariko Village", fns.always),
         new ZoneNeighbor("Goron Stockcave", store => store.items.Clawshot > 0),
-        new ZoneNeighbor("Castle Town", fns.never),
-        new ZoneNeighbor("Lanayru Field", fns.never),
+        new ZoneNeighbor("Castle Town", (store) => {
+            if (fns.canSmash(store)) {
+                return true;
+            }
+
+            return ((store.items.GateKeys || store.settings.smallKeys === "keysy") && (store.items.Crystal || store.settings.skip.lanayruTwilight));
+        }),
+        new ZoneNeighbor("Lanayru Field", fns.canSmash),
         new ZoneNeighbor("Eldin Field Water Bomb Fish Grotto", store => store.items.Crystal),
         new ZoneNeighbor("Eldin Field Bomskit Grotto", store => store.items.Crystal),
         new ZoneNeighbor(
@@ -300,11 +319,246 @@ const zoneNeighborsEldinGlitchless: Record<EldinZoneId, ZoneNeighbor[]> = {
         new ZoneNeighbor("Death Mountain Trail", fns.always),
         new ZoneNeighbor(
             "Lake Hylia",
-            fns.never,
-            // store => fns.canUseWaterBombs()
-            //     && (store.items.IronBoots || store.items.ZoraArmor)
-            //     && (store.items.GateKeys || store.settings.smallKeys === "keysy"),
+            (store) => fns.canUseWaterBombs(store)
+                && (store.items.IronBoots || store.items.ZoraArmor)
+                && (store.items.GateKeys || store.settings.smallKeys === "keysy"),
         ),
+    ],
+};
+
+
+const zoneDataLanayru: Record<LanayruZoneId, CheckName[]> = {
+    "Castle Town": [
+        "Doctors Office Balcony Chest",
+        "STAR Prize 1",
+        "STAR Prize 2",
+        "Charlo Donation Blessing",
+        "Telma Invoice",
+        // these are technically supposed to be by bug name,
+        // but fitting 24 bugs individually on an item tracker is kinda absurd, it's an extra 4 rows on its own.
+        // and they're almost interchangable otherwise.
+        "Agitha Bug #1 Reward",
+        "Agitha Bug #2 Reward",
+        "Agitha Bug #3 Reward",
+        "Agitha Bug #4 Reward",
+        "Agitha Bug #5 Reward",
+        "Agitha Bug #6 Reward",
+        "Agitha Bug #7 Reward",
+        "Agitha Bug #8 Reward",
+        "Agitha Bug #9 Reward",
+        "Agitha Bug #10 Reward",
+        "Agitha Bug #11 Reward",
+        "Agitha Bug #12 Reward",
+        "Agitha Bug #13 Reward",
+        "Agitha Bug #14 Reward",
+        "Agitha Bug #15 Reward",
+        "Agitha Bug #16 Reward",
+        "Agitha Bug #17 Reward",
+        "Agitha Bug #18 Reward",
+        "Agitha Bug #19 Reward",
+        "Agitha Bug #20 Reward",
+        "Agitha Bug #21 Reward",
+        "Agitha Bug #22 Reward",
+        "Agitha Bug #23 Reward",
+        "Agitha Bug #24 Reward",
+        "East Castle Town Bridge Poe",
+        "Jovani House Poe",
+        "North Castle Town Golden Wolf",
+        "Castle Town Malo Mart Magic Armor",
+        "Jovani 20 Poe Soul Reward",
+        "Jovani 60 Poe Soul Reward",
+    ],
+    "Lake Hylia Bridge Bubble Grotto": [
+        "Lake Hylia Bridge Bubble Grotto Chest",
+    ],
+    "Lake Hylia Bridge": [
+        "Lake Hylia Bridge Vines Chest",
+        "Lake Hylia Bridge Cliff Chest",
+        "Lake Hylia Bridge Owl Statue Chest",
+        "Lake Hylia Bridge Owl Statue Sky Character",
+        "Lake Hylia Bridge Male Mantis",
+        "Lake Hylia Bridge Female Mantis",
+        "Lake Hylia Bridge Cliff Poe",
+    ],
+    "Lanayru Field Poe Grotto": [
+        "Lanayru Field Poe Grotto Left Poe",
+        "Lanayru Field Poe Grotto Right Poe",
+    ],
+    "Lanayru Field Skulltula Grotto": [
+        "Lanayru Field Skulltula Grotto Chest",
+    ],
+    "Lanayru Field": [
+        "Lanayru Field Behind Gate Underwater Chest",
+        "Lanayru Field Spinner Track Chest",
+        "Lanayru Field Male Stag Beetle",
+        "Lanayru Field Female Stag Beetle",
+        "Lanayru Field Bridge Poe",
+    ],
+    "Lanayru Ice Puzzle Cave": [
+        "Lanayru Ice Block Puzzle Cave Chest",
+    ],
+    "Outside Castle Town South": [
+        "Outside South Castle Town Tightrope Chest",
+        "Outside South Castle Town Fountain Chest",
+        "Outside South Castle Town Double Clawshot Chasm Chest",
+        "Wooden Statue",
+        "Outside South Castle Town Male Ladybug",
+        "Outside South Castle Town Female Ladybug",
+        "Outside South Castle Town Poe",
+        "Outside South Castle Town Golden Wolf",
+    ],
+    "Outside Castle Town West": [
+        "Hyrule Field Amphitheater Owl Statue Chest",
+        "Hyrule Field Amphitheater Owl Statue Sky Character",
+        "West Hyrule Field Male Butterfly",
+        "West Hyrule Field Female Butterfly",
+        "Hyrule Field Amphitheater Poe",
+        "West Hyrule Field Golden Wolf",
+    ],
+    "Outside South Castle Town Tektite Grotto": [
+        "Outside South Castle Town Tektite Grotto Chest",
+    ],
+    "West Hyrule Field Helmasaur Grotto": [
+        "West Hyrule Field Helmasaur Grotto Chest",
+    ],
+    "Lake Hylia Long Cave": [
+        "Lake Lantern Cave First Chest",
+        "Lake Lantern Cave Second Chest",
+        "Lake Lantern Cave Third Chest",
+        "Lake Lantern Cave Fourth Chest",
+        "Lake Lantern Cave Fifth Chest",
+        "Lake Lantern Cave Sixth Chest",
+        "Lake Lantern Cave Seventh Chest",
+        "Lake Lantern Cave Eighth Chest",
+        "Lake Lantern Cave Ninth Chest",
+        "Lake Lantern Cave Tenth Chest",
+        "Lake Lantern Cave Eleventh Chest",
+        "Lake Lantern Cave Twelfth Chest",
+        "Lake Lantern Cave Thirteenth Chest",
+        "Lake Lantern Cave Fourteenth Chest",
+        "Lake Lantern Cave End Lantern Chest",
+        "Lake Lantern Cave First Poe",
+        "Lake Lantern Cave Second Poe",
+        "Lake Lantern Cave Final Poe",
+    ],
+    "Lake Hylia Shell Blade Grotto": ["Lake Hylia Shell Blade Grotto Chest"],
+    "Lake Hylia Water Toadpoli Grotto": ["Lake Hylia Water Toadpoli Grotto Chest"],
+    "Lake Hylia": [
+        "Lake Hylia Underwater Chest",
+        "Outside Lanayru Spring Left Statue Chest",
+        "Outside Lanayru Spring Right Statue Chest",
+        "Lanayru Spring Underwater Left Chest",
+        "Lanayru Spring Underwater Right Chest",
+        "Lanayru Spring Back Room Left Chest",
+        "Lanayru Spring Back Room Right Chest",
+        "Lanayru Spring Back Room Lantern Chest",
+        "Flight By Fowl Top Platform Reward",
+        "Flight By Fowl Second Platform Chest",
+        "Flight By Fowl Third Platform Chest",
+        "Flight By Fowl Fourth Platform Chest",
+        "Flight By Fowl Fifth Platform Chest",
+        "Lanayru Spring East Double Clawshot Chest",
+        "Lanayru Spring West Double Clawshot Chest",
+        "Iza Helping Hand",
+        "Iza Raging Rapids Minigame",
+        "Auru Gift To Fyer",
+        "Flight By Fowl Ledge Poe",
+        "Isle of Riches Poe",
+        "Lake Hylia Alcove Poe",
+        "Lake Hylia Dock Poe",
+        "Lake Hylia Tower Poe"
+    ],
+    "Zoras Domain": [
+        "Zoras Domain Chest By Mother and Child Isles",
+        "Zoras Domain Chest Behind Waterfall",
+        "Zoras Domain Light All Torches Chest",
+        "Zoras Domain Extinguish All Torches Chest",
+        "Fishing Hole Heart Piece",
+        "Fishing Hole Bottle",
+        "Zoras Domain Underwater Goron",
+        "Plumm Fruit Balloon Minigame",
+        "Zoras Domain Male Dragonfly",
+        "Upper Zoras River Female Dragonfly",
+        "Upper Zoras River Poe",
+        "Zoras Domain Mother and Child Isle Poe",
+        "Zoras Domain Waterfall Poe",
+    ]
+};
+
+const zoneNeighborsLanayruGlitchless: Record<LanayruZoneId, ZoneNeighbor[]> = {
+    "Castle Town": [
+        new ZoneNeighbor("Outside Castle Town West", fns.always),
+        new ZoneNeighbor("Eldin Field", fns.always),
+        new ZoneNeighbor("Outside Castle Town South", fns.always),
+        new ZoneNeighbor("Hyrule Castle Entrance", fns.never),
+    ],
+    "Lake Hylia Bridge Bubble Grotto": [new ZoneNeighbor("Lake Hylia Bridge", fns.always)],
+    "Lake Hylia Bridge": [
+        new ZoneNeighbor("Faron Field", (store) => store.items.GateKeys || store.settings.smallKeys === "keysy"),
+        new ZoneNeighbor("Lake Hylia", fns.always),
+        new ZoneNeighbor("Lanayru Field", fns.canSmash),
+        new ZoneNeighbor("Outside Castle Town West", fns.always),
+        new ZoneNeighbor("Lake Hylia Bridge Bubble Grotto", (store) => store.items.Crystal && fns.canLaunchBombs(store) && store.items.Clawshot > 0),
+    ],
+    "Lanayru Field Poe Grotto": [
+        new ZoneNeighbor("Lanayru Field", fns.always),
+    ],
+    "Lanayru Field Skulltula Grotto": [
+        new ZoneNeighbor("Lanayru Field", fns.always),
+    ],
+    "Lanayru Field": [
+        new ZoneNeighbor("Eldin Field", fns.canSmash),
+        new ZoneNeighbor("Zoras Domain", fns.canSmash),
+        new ZoneNeighbor("Outside Castle Town West", fns.always),
+        new ZoneNeighbor("Lanayru Ice Puzzle Cave", fns.canSmash),
+        new ZoneNeighbor("Lake Hylia Bridge", fns.canSmash),
+        new ZoneNeighbor("Hidden Village", (store) => store.items.Wooden_Statue),
+        new ZoneNeighbor("Lanayru Field Skulltula Grotto", (store) => store.items.Crystal),
+        new ZoneNeighbor("Lanayru Field Poe Grotto", (store) => store.items.Crystal),
+    ],
+    "Lanayru Ice Puzzle Cave": [
+        new ZoneNeighbor("Lanayru Field", fns.always),
+    ],
+    "Outside Castle Town South": [
+        new ZoneNeighbor("Castle Town", fns.always),
+        new ZoneNeighbor("Faron Field", fns.always),
+        new ZoneNeighbor("Outside South Castle Town Tektite Grotto", (store) => store.items.Crystal),
+        new ZoneNeighbor("Lake Hylia", fns.always),
+    ],
+    "Outside Castle Town West": [
+        new ZoneNeighbor("Lake Hylia Bridge", fns.always),
+        new ZoneNeighbor("Lanayru Field", fns.always),
+        new ZoneNeighbor("Castle Town", fns.always),
+        new ZoneNeighbor("West Hyrule Field Helmasaur Grotto", (store) => store.items.Crystal && store.items.Clawshot > 0),
+    ],
+    "Outside South Castle Town Tektite Grotto": [
+        new ZoneNeighbor("Outside Castle Town South", fns.always),
+    ],
+    "West Hyrule Field Helmasaur Grotto": [
+        new ZoneNeighbor("Outside Castle Town West", fns.always)
+    ],
+    "Lake Hylia Long Cave": [
+        new ZoneNeighbor("Lake Hylia", fns.always),
+    ],
+    "Lake Hylia Shell Blade Grotto": [
+        new ZoneNeighbor("Lake Hylia", fns.always),
+    ],
+    "Lake Hylia Water Toadpoli Grotto": [
+        new ZoneNeighbor("Lake Hylia", fns.always),
+    ],
+    "Lake Hylia": [
+        new ZoneNeighbor("Gerudo Desert", fns.never),
+        new ZoneNeighbor("Lake Hylia Long Cave", fns.canSmash),
+        new ZoneNeighbor("Lake Hylia Water Toadpoli Grotto", (store) => store.items.Crystal),
+        new ZoneNeighbor("Lake Hylia Shell Blade Grotto", (store) => store.items.Crystal),
+        new ZoneNeighbor("Lakebed Temple Entrance", fns.never),
+        new ZoneNeighbor("City in The Sky Entrance", fns.never),
+        new ZoneNeighbor("Lake Hylia Bridge", fns.always),
+        new ZoneNeighbor("Zoras Domain", (store) => store.items.Crystal),
+    ],
+    "Zoras Domain": [
+        new ZoneNeighbor("Lanayru Field", fns.always),
+        new ZoneNeighbor("Snowpeak Climb", fns.never),
     ],
 };
 
@@ -457,6 +711,7 @@ export const zoneData: { [Property in ZoneId]: CheckName[] } = {
     ...zoneDataOrdona,
     ...zoneDataFaron,
     ...zoneDataEldin,
+    ...zoneDataLanayru,
 
     // dungeon time
     ...zoneDataForestTemple,
@@ -470,6 +725,7 @@ export const zoneNeighborsGlitchless: Record<ZoneId, ZoneNeighbor[]> = {
     ...zoneNeighborsOrdonaGlitchless,
     ...zoneNeighborsFaronGlitchless,
     ...zoneNeighborsEldinGlitchless,
+    ...zoneNeighborsLanayruGlitchless,
 
     // dungeon time
     ...zoneNeighborsForestTempleGlitchless,

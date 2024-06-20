@@ -66,7 +66,29 @@ type SacredGroveZoneId = "Lost Woods" | "Sacred Grove Baba Serpent Grotto" | "Sa
 
 type GerudoZoneId = never;
 
-type LanayruZoneId = never;
+export type LanayruZoneId = CastleTownZoneId | LanayruFieldZoneId | LakeHyliaZoneId | ZorasDomainZoneId;
+
+type CastleTownZoneId = "Castle Town";
+
+type LanayruFieldZoneId =
+    | "Lake Hylia Bridge Bubble Grotto"
+    | "Lake Hylia Bridge"
+    | "Lanayru Field Poe Grotto"
+    | "Lanayru Field Skulltula Grotto"
+    | "Lanayru Field"
+    | "Lanayru Ice Puzzle Cave"
+    | "Outside Castle Town South"
+    | "Outside Castle Town West"
+    | "Outside South Castle Town Tektite Grotto"
+    | "West Hyrule Field Helmasaur Grotto";
+
+type LakeHyliaZoneId =
+    | "Lake Hylia Long Cave"
+    | "Lake Hylia Shell Blade Grotto"
+    | "Lake Hylia Water Toadpoli Grotto"
+    | "Lake Hylia";
+
+type ZorasDomainZoneId = "Zoras Domain";
 
 export type OrdonaZoneId = "Ordon Province" | "Ordon Ranch Grotto";
 

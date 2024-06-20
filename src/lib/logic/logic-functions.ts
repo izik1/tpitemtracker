@@ -491,7 +491,7 @@ export function canDefeatShadowVermin(store: LogicStore) {
 
 export function canDefeatShellBlade(store: LogicStore) {
     return canUseWaterBombs(store) ||
-        (store.items.Sword && (store.items.IronBoots || (canDoNicheStuff(store) && store.items.MagicArmor)));
+        (store.items.Sword > 0 && (store.items.IronBoots || (canDoNicheStuff(store) && store.items.MagicArmor)));
 }
 
 export function canDefeatSkullfish(store: LogicStore) {
@@ -709,7 +709,7 @@ export function canDefeatDarkhammer(store: LogicStore) {
         || (canDoDifficultCombat(store) && canUseBacksliceAsSword(store));
 }
 
-export function canDefeaatPhantomZant(store: LogicStore) {
+export function canDefeatPhantomZant(store: LogicStore) {
     return store.items.Crystal || store.items.Sword > 0;
 }
 

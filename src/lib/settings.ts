@@ -25,10 +25,14 @@ export interface RandomizerSettings {
         lanayruTwilight: boolean,
         mdh: boolean,
     };
+    itemPool: {
+        npcGifts: boolean,
+    };
     faronWoodsLogic: FaronWoodsLogic,
     openMap: boolean,
     smallKeys: KeyLogic,
     goronMinesLogic: GoronMinesEntranceLogic,
+    increaseWalletCapacity: boolean,
 }
 
 export const randomizerSettings: Writable<RandomizerSettings> = storage("randomizerSettings", {
@@ -40,8 +44,12 @@ export const randomizerSettings: Writable<RandomizerSettings> = storage("randomi
         lanayruTwilight: false,
         mdh: false,
     },
+    itemPool: {
+        npcGifts: false,
+    },
     faronWoodsLogic: "closed" as FaronWoodsLogic,
     openMap: false,
     smallKeys: "vanilla" as KeyLogic,
     goronMinesLogic: "closed" as GoronMinesEntranceLogic,
+    increaseWalletCapacity: false,
 });
