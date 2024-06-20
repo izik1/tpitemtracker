@@ -908,35 +908,35 @@ export function canCompleteEldinTwilight(store: LogicStore) {
 }
 
 export function canCompleteForestTemple(store: LogicStore) {
-    return canReachZone(store, "Forest Temple Boss Room") && canDefeatDiababa(store);
+    return store.items.Boss1;
 }
 
 export function canCompleteGoronMines(store: LogicStore) {
-    return canReachZone(store, "Goron Mines Boss Room") && canDefeatFyrus(store);
+    return store.items.Boss2;
 }
 
 export function canCompleteLakebedTemple(store: LogicStore) {
-    return canReachZone(store, "Lakebed Temple Boss Room") && canDefeatMorpheel(store);
+    return store.items.Boss3;
 }
 
 export function canCompleteArbitersGrounds(store: LogicStore) {
-    return canReachZone(store, "Arbiters Grounds Boss Room") && canDefeatStallord(store);
+    return store.items.Boss4;
 }
 
 export function canCompleteSnowpeakRuins(store: LogicStore) {
-    return canReachZone(store, "Snowpeak Ruins Boss Room") && canDefeatBlizzeta(store);
+    return store.items.Boss4;
 }
 
 export function canCompleteTempleofTime(store: LogicStore) {
-    return canReachZone(store, "Temple of Time Boss Room") && canDefeatArmogohma(store);
+    return store.items.Boss5;
 }
 
 export function canCompleteCityInTheSky(store: LogicStore) {
-    return canReachZone(store, "City in the Sky Boss Room") && canDefeatArgorok(store);
+    return store.items.Boss6;
 }
 
 export function canCompletePalaceofTwilight(store: LogicStore) {
-    return canReachZone(store, "Palace of Twilight Boss Room") && canDefeatZant(store);
+    return store.items.Boss7;
 }
 
 export function canCompleteAllDungeons(store: LogicStore) {
