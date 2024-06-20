@@ -1,7 +1,5 @@
-import { openedChecks } from "$lib/index";
 import { type CheckName } from "./logic/check-name";
-import { completableChecks, zonesGlitchless, type LogicStore } from "./logic/index";
-import { zoneData } from "./logic/zones";
+import { zoneData } from "./logic/zone/checks";
 
 export type CheckStatus = "opened" | "available" | "unavailable" | "possible";
 

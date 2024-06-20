@@ -174,5 +174,3 @@ export const defaultItemGrid: LayoutItem[][] = [
         null,
     ]
 ];
-
-export const itemLayout = storage("itemLayout", defaultItemGrid);

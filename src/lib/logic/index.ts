@@ -1,18 +1,22 @@
 import { derived, type Readable } from 'svelte/store';
 
-import { type ZoneId } from "./zone-id";
+import { type ZoneId } from "./zone/id";
 import { type LogicValue, randomizerSettings, type RandomizerSettings } from "../settings";
-import { zoneNeighborsGlitchless, calculateReachableZones, zoneData, type ZoneNeighbors, } from "./zones";
+import { calculateReachableZones, zoneNeighborsGlitchless, type ZoneNeighbors, } from "./zone/zones";
 import { checkIdsGlitchless, checkDataGlitchless, type CheckIds, Check } from "./checks";
 import { baseItems, items } from '$lib/items';
+import { zoneData } from './zone/checks';
 
 export { checkIdsGlitchless, checkDataGlitchless } from "./checks";
-export { zoneNeighborsGlitchless as zonesGlitchless, type ZoneNeighbors } from "./zones";
+export { zoneNeighborsGlitchless as zonesGlitchless, type ZoneNeighbors } from "./zone/zones";
 
 export type LogicStore = { settings: Readonly<RandomizerSettings>, reachableZones: Readonly<Set<ZoneId>>, items: Readonly<typeof baseItems>; };
 
 function makeChecksToZones(checkIds: CheckIds): { [x: number]: ZoneId; } {
     const output: { [x: number]: ZoneId; } = {};
+
+    console.log(`zonedata: ${zoneData}`);
+
     for (const [zone, checks] of Object.entries(zoneData)) {
         for (const check of checks) {
             output[checkIds[check]] = zone as ZoneId;

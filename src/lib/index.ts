@@ -42,4 +42,3 @@ export const availableChecks = (
     openedChecks: Set<CheckName>,
     completableChecks: Readonly<Set<CheckName>>
 ) => checks.reduce((total, it) => total + +(checkStatus(completableChecks, openedChecks, it) === "available"), 0);
-
