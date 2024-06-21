@@ -1,7 +1,15 @@
 <script lang="ts">
-    import { openedChecks, toggleCheck } from "$lib";
+    import { toggleCheck } from "$lib/index.svelte";
     import { checkStatus, groups } from "$lib/chests";
-    import { completableChecks } from "$lib/logic";
+
+    import type { LocalStore } from "$lib/local-store.svelte";
+    import type { CheckName } from "$lib/logic/check-name";
+    import { Set } from "svelte/reactivity";
+    import { getContext } from "svelte";
+
+    const openedChecks: LocalStore<Set<CheckName>> = getContext("openedChecks");
+    const completableChecks: { readonly value: Set<CheckName> } =
+        getContext("completableChecks");
 
     const { groupId }: { groupId: number | null } = $props();
 
@@ -18,11 +26,12 @@
             <li>
                 <button
                     data-status={checkStatus(
-                        $completableChecks,
-                        $openedChecks,
+                        completableChecks.value,
+                        openedChecks.value,
                         check,
                     )}
-                    onclick={() => toggleCheck(check)}>{check}</button
+                    onclick={() => toggleCheck(openedChecks.value, check)}
+                    >{check}</button
                 >
             </li>
         {/each}

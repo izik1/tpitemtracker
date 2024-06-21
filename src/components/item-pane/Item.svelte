@@ -3,17 +3,21 @@
         baseItems,
         isNumericItemId,
         isProgressiveItemId,
-        items,
         itemsMax,
         itemsMin,
         type ItemId,
         type LayoutItem,
     } from "$lib/items";
+    import { getContext } from "svelte";
+    import { itemImages, type Image } from "$lib/index.svelte";
+    import itemBox from "$lib/assets/item-box.webp";
+    import type { LocalStore } from "$lib/local-store.svelte";
+
+    const items: LocalStore<typeof baseItems> = getContext("items");
 
     const { itemId }: { itemId: LayoutItem } = $props();
-    const dimmed = $derived(itemId === null || !$items[itemId]);
 
-    import { itemImages, type Image } from "$lib";
+    const dimmed = $derived(itemId === null || !items.value[itemId]);
 
     const pathPre = "/src/lib/assets/Items";
 
@@ -24,6 +28,11 @@
             item = itemImages[`${pathPre}/${itemId}${items[itemId]}.webp`];
         } else {
             item = itemImages[`${pathPre}/${itemId}.webp`];
+        }
+
+        if (!item) {
+            console.log(itemId);
+            console.log(items);
         }
 
         return item ?? itemImages[`${pathPre}/Unknown.webp`];
@@ -42,19 +51,15 @@
         };
 
         if (isNumericItemId(tmp)) {
-            items.update((old) => {
-                old[tmp] = newValue(itemsMin[tmp], itemsMax[tmp], old[tmp]);
-                return old;
-            });
+            items.value[tmp] = newValue(
+                itemsMin[tmp],
+                itemsMax[tmp],
+                items.value[tmp],
+            );
         } else {
-            items.update((old) => {
-                old[tmp] = !old[tmp];
-                return old;
-            });
+            items.value[tmp] = !items.value[tmp];
         }
     }
-
-    import itemBox from "$lib/assets/item-box.webp";
 </script>
 
 <button
@@ -69,7 +74,7 @@
 >
     {#if itemId !== null}
         <enhanced:img
-            src={itemImage(itemId, $items)}
+            src={itemImage(itemId, items.value)}
             class="scale"
             alt={itemId}
         >
@@ -77,11 +82,11 @@
         {#if isNumericItemId(itemId)}
             <div
                 class="text-icon"
-                class:max={$items[itemId] === itemsMax[itemId]}
+                class:max={items.value[itemId] === itemsMax[itemId]}
                 class:visually-hidden={isProgressiveItemId(itemId)}
             >
-                {#if $items[itemId] !== 0}
-                    {$items[itemId]}
+                {#if items.value[itemId] !== 0}
+                    {items.value[itemId]}
                 {/if}
             </div>
         {/if}

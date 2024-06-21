@@ -1,10 +1,8 @@
-import { derived, type Readable } from 'svelte/store';
-
 import { type ZoneId } from "./zone/id";
-import { type LogicValue, randomizerSettings, type RandomizerSettings } from "../settings";
-import { calculateReachableZones, zoneNeighborsGlitchless, type ZoneNeighbors, } from "./zone/zones";
+import { type LogicValue, type RandomizerSettings } from "../settings";
+import { zoneNeighborsGlitchless, type ZoneNeighbors, } from "./zone/zones";
 import { checkIdsGlitchless, checkDataGlitchless, type CheckIds, Check } from "./checks";
-import { baseItems, items } from '$lib/items';
+import { baseItems } from '$lib/items';
 import { zoneData } from './zone/checks';
 
 export { checkIdsGlitchless, checkDataGlitchless } from "./checks";
@@ -14,8 +12,6 @@ export type LogicStore = { settings: Readonly<RandomizerSettings>, reachableZone
 
 function makeChecksToZones(checkIds: CheckIds): { [x: number]: ZoneId; } {
     const output: { [x: number]: ZoneId; } = {};
-
-    console.log(`zonedata: ${zoneData}`);
 
     for (const [zone, checks] of Object.entries(zoneData)) {
         for (const check of checks) {
@@ -66,16 +62,7 @@ export const logic: { [Property in LogicValue]: Logic; } = {
     glitchless: new Logic("glitchless")
 };
 
-export const reachableZones = derived([randomizerSettings, items], ([$rSettings, $items]) => {
-    return calculateReachableZones(logic[$rSettings.logic].zones, $rSettings, $items);
-});
-
-export const logicStore: Readable<LogicStore> = derived(
-    [randomizerSettings, reachableZones, items],
-    ([$settings, $reachableZones, $items]) => ({ settings: $settings, reachableZones: $reachableZones, items: $items })
-);
-
-export const completableChecks = derived(logicStore, ($store) => {
+export const makeCompletableChecks = ($store: LogicStore) => {
     function* filterMap(iter: IterableIterator<[number, Check]>) {
         for (const [i, check] of iter) {
             if ($store.reachableZones.has(checksToZones[i]) && check.accessable($store)) {
@@ -87,4 +74,4 @@ export const completableChecks = derived(logicStore, ($store) => {
     const { checksToZones, checkData } = logic[$store.settings.logic];
 
     return new Set(filterMap(checkData.entries()));
-});
+};

@@ -4,6 +4,41 @@
     import MapOverlay from "./MapOverlay.svelte";
     import CheckStatus from "./CheckStatus.svelte";
     import type { CheckKind } from "$lib/logic/checks";
+    import { getContext, setContext } from "svelte";
+    import { setStore, type LocalStore } from "$lib/local-store.svelte";
+    import { Set } from "svelte/reactivity";
+    import { type CheckName } from "$lib/logic/check-name";
+    import { logic, makeCompletableChecks } from "$lib/logic";
+    import { calculateReachableZones } from "$lib/logic/zone/zones";
+    import type { RandomizerSettings } from "$lib/settings";
+    import type { baseItems } from "$lib/items";
+
+    const items: LocalStore<typeof baseItems> = getContext("items");
+    const randoSettings: LocalStore<RandomizerSettings> =
+        getContext("randomizerSettings");
+
+    const reachableZones = $derived(
+        calculateReachableZones(
+            logic[randoSettings.value.logic].zones,
+            randoSettings.value,
+            items.value,
+        ),
+    );
+
+    const completableChecks = $derived(
+        makeCompletableChecks({
+            settings: randoSettings.value,
+            reachableZones: reachableZones,
+            items: items.value,
+        }),
+    );
+
+    setContext("openedChecks", setStore<CheckName>("openedChecks", new Set()));
+    setContext("completableChecks", {
+        get value() {
+            return completableChecks;
+        },
+    });
 
     let activeMap: CheckKind = $state("standard");
     let activeGroup: number | null = $state(null);
@@ -16,9 +51,9 @@
         src="$lib/assets/map.webp?q=75"
     />
 
-    <ActiveGroup groupId={activeGroup}></ActiveGroup>
-    <CheckStatus></CheckStatus>
-    <MapOverlay {activeMap} bind:activeGroup></MapOverlay>
+    <ActiveGroup groupId={activeGroup}/>
+    <CheckStatus />
+    <MapOverlay {activeMap} bind:activeGroup />
 
     <!--  This can't *just* be the fieldset because the legend would float over the map with no background -->
     <div class="select-map">

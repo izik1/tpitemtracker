@@ -2,10 +2,7 @@
 
 import type { CheckName } from "./logic/check-name";
 import { checkStatus } from "./chests";
-import { setStorage } from "./store";
 import { Set as ReactiveSet } from "svelte/reactivity";
-
-export const openedChecks = setStorage<CheckName>("openedChecks", new ReactiveSet());
 
 export type Image = {
     sources: {
@@ -26,15 +23,10 @@ export const itemImages = import.meta.glob<Image>('$lib/assets/Items/*.webp', {
     eager: true
 });
 
-export const toggleCheck = (c: CheckName) => {
-    openedChecks.update((set) => {
-        if (!set.delete(c)) {
-            set.add(c);
-        }
-
-        return set;
-    });
-
+export const toggleCheck = (set: ReactiveSet<CheckName>, c: CheckName) => {
+    if (!set.delete(c)) {
+        set.add(c);
+    }
 };
 
 export const availableChecks = (

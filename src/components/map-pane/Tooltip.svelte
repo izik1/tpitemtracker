@@ -1,12 +1,14 @@
 <script lang="ts">
+    import type { Snippet } from "svelte";
+
     const {
         id,
-        content,
+        children,
         color = "black",
-    }: { id: string; content: string; color?: string } = $props();
+    }: { id: string; children: Snippet; color?: string } = $props();
 </script>
 
-<span {id} role="tooltip" style="background-color:{color}">{content}</span>
+<span {id} role="tooltip" style="background-color:{color}">{@render children()}</span>
 
 <style>
     span {

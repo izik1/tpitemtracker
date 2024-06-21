@@ -1,7 +1,8 @@
 import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
 import * as fns from "../logic-functions";
-import { type CheckName } from "../check-name";
 import { type LogicStore } from "../index";
+import type { RandomizerSettings } from "$lib/settings";
+import type { baseItems } from "$lib/items";
 
 export class ZoneNeighbor {
     #name;

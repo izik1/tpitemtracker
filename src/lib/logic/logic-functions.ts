@@ -1,7 +1,6 @@
 import type { ItemId } from "$lib/items";
 import type { LogicStore } from "./index";
 import type { ZoneId } from "./zone/id";
-
 // fixme: remove tri-state logic again, just, do it carefully.
 
 export function hasDamagingIronBoots(store: LogicStore) {

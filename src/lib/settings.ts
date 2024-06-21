@@ -1,5 +1,4 @@
-import { writable, type Writable } from 'svelte/store';
-import storage from './store';
+import { writable } from 'svelte/store';
 
 export type LogicValue = "glitchless";
 // export type LogicValue = "glitchless" | "glitched";
@@ -35,7 +34,7 @@ export interface RandomizerSettings {
     increaseWalletCapacity: boolean,
 }
 
-export const randomizerSettings: Writable<RandomizerSettings> = storage("randomizerSettings", {
+export const defaultRandomizerSettings: RandomizerSettings = {
     logic: "glitchless" as LogicValue,
     skip: {
         prologue: false,
@@ -52,4 +51,4 @@ export const randomizerSettings: Writable<RandomizerSettings> = storage("randomi
     smallKeys: "vanilla" as KeyLogic,
     goronMinesLogic: "closed" as GoronMinesEntranceLogic,
     increaseWalletCapacity: false,
-});
+};

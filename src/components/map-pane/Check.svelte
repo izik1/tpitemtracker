@@ -1,12 +1,16 @@
 <script lang="ts">
-    import { openedChecks, toggleCheck } from "$lib";
+    import { toggleCheck } from "$lib/index.svelte";
     import { checkStatus, type OverworldCheck } from "$lib/chests";
-    import {
-        checkDataGlitchless,
-        checkIdsGlitchless,
-        completableChecks,
-    } from "$lib/logic";
+    import { checkDataGlitchless, checkIdsGlitchless } from "$lib/logic";
     import Tooltip from "./Tooltip.svelte";
+    import type { LocalStore } from "$lib/local-store.svelte";
+    import type { CheckName } from "$lib/logic/check-name";
+    import { Set } from "svelte/reactivity";
+    import { getContext } from "svelte";
+
+    const openedChecks: LocalStore<Set<CheckName>> = getContext("openedChecks");
+    const completableChecks: { readonly value: Set<CheckName> } =
+        getContext("completableChecks");
 
     interface CheckProps {
         index: number;
@@ -15,20 +19,23 @@
 
     let { index, check }: CheckProps = $props();
 
-
     export const kind =
         checkDataGlitchless[checkIdsGlitchless[check.name]].kind;
 </script>
 
 <button
     style="left: {check.x}; top: {check.y};"
-    data-status={checkStatus($completableChecks, $openedChecks, check.name)}
+    data-status={checkStatus(
+        completableChecks.value,
+        openedChecks.value,
+        check.name,
+    )}
     class="chest {kind}"
-    onclick={() => toggleCheck(check.name)}
-    aria-pressed={$openedChecks.has(check.name)}
+    onclick={() => toggleCheck(openedChecks.value, check.name)}
+    aria-pressed={openedChecks.value.has(check.name)}
     aria-labelledby="ow-tt-{index}"
 >
-    <Tooltip id="ow-tt-{index}" content={check.name}></Tooltip>
+    <Tooltip id="ow-tt-{index}">{check.name}</Tooltip>
 </button>
 
 <style>

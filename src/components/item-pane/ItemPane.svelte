@@ -1,12 +1,15 @@
 <script lang="ts">
-    import { itemLayout } from "$lib/items";
+    import { defaultItemGrid } from "$lib/items";
+    import localStore from "$lib/local-store.svelte";
     import Item from "./Item.svelte";
+
+    let itemLayout = localStore("itemLayout", defaultItemGrid);
 </script>
 
 <div>
     <section class="layout" aria-labelledby="h-item-tracker">
         <h2 id="h-item-tracker">Item tracker</h2>
-        {#each $itemLayout as row}
+        {#each itemLayout.value as row}
             <div class="row">
                 {#each row as col}
                     <Item itemId={col}></Item>

@@ -1,5 +1,3 @@
-import storage from "./store";
-
 export type ItemId = keyof typeof baseItems;
 // fixme: Replace with something that actually checks if its numeric
 export type NumericItemId = keyof typeof itemsMin;
@@ -99,14 +97,10 @@ export function isNumericItemId(itemId: ItemId): itemId is NumericItemId {
     return itemId in itemsMin;
 }
 
-export const items = storage("items", { ...baseItems });
-
 /**
  * The item grid can have blank spaces we can fill in, but it's part of the layout.
  */
 export type LayoutItem = ItemId | null;
-
-
 
 export const defaultItemGrid: LayoutItem[][] = [
     [

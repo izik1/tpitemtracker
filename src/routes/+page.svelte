@@ -2,7 +2,16 @@
     import MapPane from "../components/map-pane/MapPane.svelte";
     import ItemPane from "../components/item-pane/ItemPane.svelte";
     import SettingsPane from "../components/settings-pane/SettingsPane.svelte";
-    import { openedChecks } from "../lib";
+    import localStore from "$lib/local-store.svelte";
+    import { setContext } from "svelte";
+    import { baseItems } from "$lib/items";
+    import { defaultRandomizerSettings } from "$lib/settings";
+
+    setContext("items", localStore("items", baseItems));
+    setContext(
+        "randomizerSettings",
+        localStore("randomizerSettings", defaultRandomizerSettings),
+    );
 </script>
 
 <svelte:head>
@@ -17,13 +26,12 @@
     <ItemPane />
     <MapPane></MapPane>
     <SettingsPane></SettingsPane>
-    <button onclick={() => $openedChecks.clear()}></button>
 </main>
 
 <footer>
     <p>
         Twilight Princess Tracker v2.0, originally by Lunar Soap, Updated by
-        Feli Heli, and rewritten by orangesnowfox<br />
+        Feli Heli, and rewritten by orangesnowfox.
     </p>
     <p>
         With help and inspiration from

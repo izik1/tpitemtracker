@@ -1,8 +1,13 @@
 <script lang="ts">
     import SettingsGroup from "./SettingsGroup.svelte";
     import SettingsMenu from "./SettingsMenu.svelte";
-    import { randomizerSettings, type RandomizerSettings } from "$lib/settings";
+    import { type RandomizerSettings } from "$lib/settings";
     import Select from "../Select.svelte";
+    import type { LocalStore } from "$lib/local-store.svelte";
+    import { getContext } from "svelte";
+
+    const randomizerSettings: LocalStore<RandomizerSettings> =
+        getContext("randomizerSettings");
 
     const skipList: {
         label: string;
@@ -25,7 +30,7 @@
                 title="Logic Rules"
                 name="rando-logic"
                 enabled={false}
-                bind:value={$randomizerSettings.logic}
+                bind:value={randomizerSettings.value.logic}
                 options={[
                     { label: "Glitchless", value: "glitchless" },
                     { label: "Glitched", value: "glitched" },
@@ -36,7 +41,7 @@
             <Select
                 name="rando-access-faron"
                 title="Faron Access"
-                bind:value={$randomizerSettings.faronWoodsLogic}
+                bind:value={randomizerSettings.value.faronWoodsLogic}
                 options={[
                     { label: "Closed", value: "closed" },
                     { label: "Opened", value: "open" },
@@ -45,7 +50,7 @@
             <Select
                 name="rando-access-mines"
                 title="Goron Mines Access"
-                bind:value={$randomizerSettings.goronMinesLogic}
+                bind:value={randomizerSettings.value.goronMinesLogic}
                 options={[
                     { label: "Closed", value: "closed" },
                     { label: "No Wrestling", value: "no-wrestling" },
@@ -68,7 +73,7 @@
                         value: "keysy",
                     },
                 ]}
-                bind:value={$randomizerSettings.smallKeys}
+                bind:value={randomizerSettings.value.smallKeys}
             />
         </SettingsGroup>
 
@@ -78,7 +83,7 @@
                     <input
                         type="checkbox"
                         id="cb-rando-skip-{value}"
-                        bind:checked={$randomizerSettings.skip[value]}
+                        bind:checked={randomizerSettings.value.skip[value]}
                     />
                     <label for="cb-rando-skip-{value}">{label}</label>
                 </li>

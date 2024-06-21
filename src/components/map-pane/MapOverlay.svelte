@@ -1,16 +1,19 @@
 <script lang="ts">
     import { groups, groupStatus } from "$lib/chests";
-    import {
-        checkDataGlitchless,
-        checkIdsGlitchless,
-        completableChecks,
-    } from "$lib/logic";
+    import { checkDataGlitchless, checkIdsGlitchless } from "$lib/logic";
     import { overworld } from "$lib/chests";
     import type { CheckName } from "$lib/logic/check-name";
-    import { availableChecks, openedChecks } from "$lib";
+    import { availableChecks } from "$lib/index.svelte";
     import Check from "./Check.svelte";
     import type { CheckKind } from "$lib/logic/checks";
     import Tooltip from "./Tooltip.svelte";
+    import type { LocalStore } from "$lib/local-store.svelte";
+    import type { Set } from "svelte/reactivity";
+    import { getContext } from "svelte";
+
+    const openedChecks: LocalStore<Set<CheckName>> = getContext("openedChecks");
+    const completableChecks: { readonly value: Set<CheckName> } =
+        getContext("completableChecks");
 
     let {
         activeMap = "standard",
@@ -28,10 +31,18 @@
         {/if}
     {/each}
     {#each groups as group, index}
-        {@const checkCount = availableChecks(group.checks, $openedChecks, $completableChecks)}
+        {@const checkCount = availableChecks(
+            group.checks,
+            openedChecks.value,
+            completableChecks.value,
+        )}
         <button
             class="dungeon"
-            data-status={groupStatus($completableChecks, $openedChecks, group)}
+            data-status={groupStatus(
+                completableChecks.value,
+                openedChecks.value,
+                group,
+            )}
             style="left: {group.x}; top: {group.y}"
             onclick={() => {
                 activeGroup = index;
@@ -42,8 +53,7 @@
                     {checkCount}
                 {/if}
             </span>
-            <Tooltip id="gr-tt-{index}" content={group.name} color="grey"
-            ></Tooltip>
+            <Tooltip id="gr-tt-{index}" color="grey">{group.name}</Tooltip>
         </button>
     {/each}
 </div>
