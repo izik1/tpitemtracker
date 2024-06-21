@@ -1,6 +1,6 @@
 <script lang="ts">
     import { groups, groupStatus } from "$lib/chests";
-    import { checkDataGlitchless, checkIdsGlitchless } from "$lib/logic";
+    import { checkKinds } from "$lib/logic";
     import { overworld } from "$lib/chests";
     import type { CheckName } from "$lib/logic/check-name";
     import { availableChecks } from "$lib/index.svelte";
@@ -20,8 +20,7 @@
         activeGroup = $bindable(null),
     }: { activeMap: CheckKind; activeGroup: number | null } = $props();
 
-    const checkKind = (check: CheckName) =>
-        checkDataGlitchless[checkIdsGlitchless[check]].kind;
+    const checkKind = (check: CheckName) => checkKinds[check];
 </script>
 
 <div>

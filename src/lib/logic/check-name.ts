@@ -13,7 +13,8 @@ type DungeonCheckName =
 
 type ArbitersGroundsCheckName = never;
 type CitSCheckName = never;
-type ForestTempleCheckName =
+
+export type ForestTempleCheckName =
     | "Forest Temple Big Baba Key"
     | "Forest Temple Big Key Chest"
     | "Forest Temple Central Chest Behind Stairs"
@@ -33,7 +34,7 @@ type ForestTempleCheckName =
     | "Forest Temple West Tile Worm Room Vines Chest"
     | "Forest Temple Windless Bridge Chest";
 
-type GoronMinesCheckName =
+export type GoronMinesCheckName =
     | "Goron Mines After Crystal Switch Room Magnet Wall Chest"
     | "Goron Mines Beamos Room Chest"
     | "Goron Mines Chest Before Dangoro"
@@ -59,7 +60,7 @@ type GoronMinesCheckName =
 
 type HyruleCastleCheckName = never;
 
-type LakebedTempleCheckName =
+export type LakebedTempleCheckName =
     | "Lakebed Temple Before Deku Toad Alcove Chest"
     | "Lakebed Temple Before Deku Toad Underwater Left Chest"
     | "Lakebed Temple Before Deku Toad Underwater Right Chest"
@@ -89,15 +90,13 @@ type LakebedTempleCheckName =
     | "Lakebed Temple West Water Supply Chest"
     | "Lakebed Temple West Water Supply Small Chest";
 
-
-
 type PoTCheckName = never;
 type SnowpeakRuinsCheckName = never;
 type ToTCheckName = never;
 
 type OverworldCheckName = EldinCheckName | FaronCheckName | GerudoCheckName | LanayruCheckName | OrdonaCheckName | SnowpeakCheckName;
 
-type EldinCheckName =
+export type EldinCheckName =
     | "Barnes Bomb Bag"
     | "Bridge of Eldin Female Phasmid"
     | "Bridge of Eldin Male Phasmid"
@@ -146,8 +145,8 @@ type EldinCheckName =
     | "Kakariko Village Female Ant"
     | "Kakariko Village Malo Mart Hawkeye"
     | "Kakariko Village Malo Mart Hylian Shield"
-    | "Kakariko Village Malo Mart Red Potion"
-    | "Kakariko Village Malo Mart Wooden Shield"
+    // | "Kakariko Village Malo Mart Red Potion"
+    // | "Kakariko Village Malo Mart Wooden Shield"
     | "Kakariko Village Watchtower Poe"
     | "Kakariko Watchtower Alcove Chest"
     | "Kakariko Watchtower Chest"
@@ -156,7 +155,7 @@ type EldinCheckName =
     | "Skybook From Impaz"
     | "Talo Sharpshooting";
 
-type FaronCheckName =
+export type FaronCheckName =
     | "Coro Bottle"
     | "Faron Field Bridge Chest"
     | "Faron Field Corner Grotto Left Chest"
@@ -190,7 +189,7 @@ type FaronCheckName =
 
 type GerudoCheckName = never;
 
-type LanayruCheckName =
+export type LanayruCheckName =
     | "Agitha Bug #1 Reward"
     | "Agitha Bug #2 Reward"
     | "Agitha Bug #3 Reward"
@@ -316,7 +315,7 @@ type LanayruCheckName =
     | "Zoras Domain Underwater Goron"
     | "Zoras Domain Waterfall Poe";
 
-type OrdonaCheckName =
+export type OrdonaCheckName =
     | "Herding Goats Reward"
     | "Links Basement Chest"
     | "Ordon Cat Rescue"

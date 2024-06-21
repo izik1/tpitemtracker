@@ -13,6 +13,10 @@ export class ZoneNeighbor {
         this.accessable = accessable;
     }
 
+    static always(name: ZoneId) {
+        return new ZoneNeighbor(name, fns.always);
+    }
+
     get name() {
         return this.#name;
     }
@@ -27,16 +31,16 @@ const zoneNeighborsOrdonaGlitchless: ZoneNeighbors<OrdonaZoneId> = {
         new ZoneNeighbor("South Faron Woods", ({ settings, items }) => (items.Sword > 0 && items.Slingshot) || settings.skip.prologue),
     ],
     "Ordon Ranch Grotto": [
-        new ZoneNeighbor("Ordon Province", fns.always),
+        ZoneNeighbor.always("Ordon Province"),
     ],
 };
 
 
 const zoneNeighborsFaronGlitchless: ZoneNeighbors<FaronZoneId> = {
     "South Faron Woods": [
-        new ZoneNeighbor("Ordon Province", fns.always),
+        ZoneNeighbor.always("Ordon Province"),
         new ZoneNeighbor("Faron Field", fns.canClearForest),
-        new ZoneNeighbor("South Faron Woods Cave", fns.always),
+        ZoneNeighbor.always("South Faron Woods Cave"),
         new ZoneNeighbor("Faron Mist Area", store => fns.canSmash(store) && store.items.Dominion >= 2 && store.items.Crystal && fns.canClearForest(store)),
     ],
     "South Faron Woods Cave": [
@@ -44,20 +48,20 @@ const zoneNeighborsFaronGlitchless: ZoneNeighbors<FaronZoneId> = {
         new ZoneNeighbor("Faron Mist Area", store => fns.canBurnWebs(store) || store.items.Crystal || store.settings.skip.prologue),
     ],
     "Faron Mist Area": [
-        new ZoneNeighbor("South Faron Woods Cave", fns.always),
+        ZoneNeighbor.always("South Faron Woods Cave"),
         new ZoneNeighbor("Faron Mist Cave", store => store.items.Lantern),
         new ZoneNeighbor("North Faron Woods", store => fns.canCompletePrologue(store) && (store.items.Lantern || store.items.Crystal)),
     ],
     "Faron Mist Cave": [
-        new ZoneNeighbor("Faron Mist Area", fns.always),
+        ZoneNeighbor.always("Faron Mist Area"),
     ],
     "North Faron Woods": [
-        new ZoneNeighbor("Faron Mist Area", fns.always),
-        new ZoneNeighbor("Forest Temple Entrance", fns.always),
+        ZoneNeighbor.always("Faron Mist Area"),
+        ZoneNeighbor.always("Forest Temple Entrance"),
         new ZoneNeighbor("Lost Woods", store => store.items.Crystal),
     ],
     "Faron Field": [
-        new ZoneNeighbor("South Faron Woods", fns.always),
+        ZoneNeighbor.always("South Faron Woods"),
         new ZoneNeighbor("Outside Castle Town South", (store) => {
             if (!fns.hasBottle(store)) {
                 return false;
@@ -69,7 +73,7 @@ const zoneNeighborsFaronGlitchless: ZoneNeighbors<FaronZoneId> = {
 
             return ((store.items.GateKeys || store.settings.smallKeys === "keysy") && (store.items.Crystal || store.settings.skip.lanayruTwilight));
         }),
-        new ZoneNeighbor("Kakariko Gorge", fns.always),
+        ZoneNeighbor.always("Kakariko Gorge"),
         new ZoneNeighbor("Lake Hylia Bridge", (store) => {
             if (fns.canSmash(store)) {
                 return true;
@@ -80,19 +84,19 @@ const zoneNeighborsFaronGlitchless: ZoneNeighbors<FaronZoneId> = {
         new ZoneNeighbor("Faron Field Corner Grotto", store => store.items.Crystal),
     ],
     "Faron Field Corner Grotto": [
-        new ZoneNeighbor("Faron Field", fns.always),
+        ZoneNeighbor.always("Faron Field"),
     ],
     "Lost Woods": [
-        new ZoneNeighbor("North Faron Woods", fns.always),
+        ZoneNeighbor.always("North Faron Woods"),
         new ZoneNeighbor(
             "Sacred Grove Master Sword",
             // ToT entrance settings for alt.
             store => (fns.canDefeatSkullKid(store) && store.items.Crystal),
         )
     ],
-    "Sacred Grove Baba Serpent Grotto": [new ZoneNeighbor("Lost Woods", fns.always)],
+    "Sacred Grove Baba Serpent Grotto": [ZoneNeighbor.always("Lost Woods")],
     "Sacred Grove Master Sword": [
-        new ZoneNeighbor("Lost Woods", fns.always),
+        ZoneNeighbor.always("Lost Woods"),
         new ZoneNeighbor(
             "Sacred Grove Temple of Time",
             // ToT entrance settings.
@@ -104,7 +108,7 @@ const zoneNeighborsFaronGlitchless: ZoneNeighbors<FaronZoneId> = {
         )
     ],
     "Sacred Grove Temple of Time": [
-        new ZoneNeighbor("Sacred Grove Master Sword", fns.always),
+        ZoneNeighbor.always("Sacred Grove Master Sword"),
         // ToT entrance settings.
         // new ZoneNeighbor("Temple of Time Entrance", store => store.items.Sword >= 3)
         new ZoneNeighbor("Temple of Time Entrance", fns.never)
@@ -112,13 +116,13 @@ const zoneNeighborsFaronGlitchless: ZoneNeighbors<FaronZoneId> = {
 };
 
 const zoneNeighborsEldinGlitchless: ZoneNeighbors<EldinZoneId> = {
-    "Hidden Village": [new ZoneNeighbor("Lanayru Field", fns.always)],
-    "Eldin Field Bomskit Grotto": [new ZoneNeighbor("Eldin Field", fns.always)],
-    "Eldin Field Stalfos Grotto": [new ZoneNeighbor("Eldin Field", fns.always)],
-    "Eldin Field Water Bomb Fish Grotto": [new ZoneNeighbor("Eldin Field", fns.always)],
+    "Hidden Village": [ZoneNeighbor.always("Lanayru Field")],
+    "Eldin Field Bomskit Grotto": [ZoneNeighbor.always("Eldin Field")],
+    "Eldin Field Stalfos Grotto": [ZoneNeighbor.always("Eldin Field")],
+    "Eldin Field Water Bomb Fish Grotto": [ZoneNeighbor.always("Eldin Field")],
     "Eldin Field": [
         new ZoneNeighbor("Kakariko Gorge", fns.canSmash),
-        new ZoneNeighbor("Kakariko Village", fns.always),
+        ZoneNeighbor.always("Kakariko Village"),
         new ZoneNeighbor("Goron Stockcave", store => store.items.Clawshot > 0),
         new ZoneNeighbor("Castle Town", (store) => {
             if (fns.canSmash(store)) {
@@ -139,36 +143,36 @@ const zoneNeighborsEldinGlitchless: ZoneNeighbors<EldinZoneId> = {
                 && (store.items.GateKeys || store.settings.smallKeys === "keysy")
         ),
     ],
-    "Eldin Long Cave": [new ZoneNeighbor("Kakariko Gorge", fns.always)],
-    "Goron Stockcave": [new ZoneNeighbor("Eldin Field", fns.always)],
+    "Eldin Long Cave": [ZoneNeighbor.always("Kakariko Gorge")],
+    "Goron Stockcave": [ZoneNeighbor.always("Eldin Field")],
     "Kakariko Gorge": [
         new ZoneNeighbor("Eldin Field", fns.canSmash),
-        new ZoneNeighbor("Faron Field", fns.always),
-        new ZoneNeighbor("Kakariko Village", fns.always),
+        ZoneNeighbor.always("Faron Field"),
+        ZoneNeighbor.always("Kakariko Village"),
         new ZoneNeighbor("Eldin Long Cave", fns.canSmash),
     ],
     "Death Mountain Interiors": [
-        new ZoneNeighbor("Death Mountain Volcano", fns.always),
+        ZoneNeighbor.always("Death Mountain Volcano"),
         new ZoneNeighbor(
             "Goron Mines Entrance",
             store => store.items.IronBoots || store.settings.goronMinesLogic !== "closed"
         ),
     ],
     "Death Mountain Trail": [
-        new ZoneNeighbor("Kakariko Village", fns.always),
+        ZoneNeighbor.always("Kakariko Village"),
         new ZoneNeighbor("Death Mountain Volcano", store => store.items.IronBoots || store.items.Crystal),
     ],
     "Death Mountain Volcano": [
-        new ZoneNeighbor("Death Mountain Trail", fns.always),
+        ZoneNeighbor.always("Death Mountain Trail"),
         new ZoneNeighbor(
             "Death Mountain Interiors",
             store => store.items.IronBoots && (fns.canDefeatGoron(store) || store.settings.goronMinesLogic === "open")
         )
     ],
     "Kakariko Village": [
-        new ZoneNeighbor("Kakariko Gorge", fns.always),
-        new ZoneNeighbor("Eldin Field", fns.always),
-        new ZoneNeighbor("Death Mountain Trail", fns.always),
+        ZoneNeighbor.always("Kakariko Gorge"),
+        ZoneNeighbor.always("Eldin Field"),
+        ZoneNeighbor.always("Death Mountain Trail"),
         new ZoneNeighbor(
             "Lake Hylia",
             (store) => fns.canUseWaterBombs(store)
@@ -185,29 +189,29 @@ function inspect<T>(value: T): T {
 
 const zoneNeighborsLanayruGlitchless: ZoneNeighbors<LanayruZoneId> = {
     "Castle Town": [
-        new ZoneNeighbor("Outside Castle Town West", fns.always),
-        new ZoneNeighbor("Eldin Field", fns.always),
-        new ZoneNeighbor("Outside Castle Town South", fns.always),
+        ZoneNeighbor.always("Outside Castle Town West"),
+        ZoneNeighbor.always("Eldin Field"),
+        ZoneNeighbor.always("Outside Castle Town South"),
         new ZoneNeighbor("Hyrule Castle Entrance", fns.never),
     ],
-    "Lake Hylia Bridge Bubble Grotto": [new ZoneNeighbor("Lake Hylia Bridge", fns.always)],
+    "Lake Hylia Bridge Bubble Grotto": [ZoneNeighbor.always("Lake Hylia Bridge")],
     "Lake Hylia Bridge": [
         new ZoneNeighbor("Faron Field", (store) => store.items.GateKeys || store.settings.smallKeys === "keysy"),
-        new ZoneNeighbor("Lake Hylia", fns.always),
+        ZoneNeighbor.always("Lake Hylia"),
         new ZoneNeighbor("Lanayru Field", fns.canSmash),
-        new ZoneNeighbor("Outside Castle Town West", fns.always),
+        ZoneNeighbor.always("Outside Castle Town West"),
         new ZoneNeighbor("Lake Hylia Bridge Bubble Grotto", (store) => store.items.Crystal && fns.canLaunchBombs(store) && store.items.Clawshot > 0),
     ],
     "Lanayru Field Poe Grotto": [
-        new ZoneNeighbor("Lanayru Field", fns.always),
+        ZoneNeighbor.always("Lanayru Field"),
     ],
     "Lanayru Field Skulltula Grotto": [
-        new ZoneNeighbor("Lanayru Field", fns.always),
+        ZoneNeighbor.always("Lanayru Field"),
     ],
     "Lanayru Field": [
         new ZoneNeighbor("Eldin Field", fns.canSmash),
         new ZoneNeighbor("Zoras Domain", fns.canSmash),
-        new ZoneNeighbor("Outside Castle Town West", fns.always),
+        ZoneNeighbor.always("Outside Castle Town West"),
         new ZoneNeighbor("Lanayru Ice Puzzle Cave", fns.canSmash),
         new ZoneNeighbor("Lake Hylia Bridge", fns.canSmash),
         new ZoneNeighbor("Hidden Village", (store) => store.items.Wooden_Statue),
@@ -215,34 +219,34 @@ const zoneNeighborsLanayruGlitchless: ZoneNeighbors<LanayruZoneId> = {
         new ZoneNeighbor("Lanayru Field Poe Grotto", (store) => store.items.Crystal),
     ],
     "Lanayru Ice Puzzle Cave": [
-        new ZoneNeighbor("Lanayru Field", fns.always),
+        ZoneNeighbor.always("Lanayru Field"),
     ],
     "Outside Castle Town South": [
-        new ZoneNeighbor("Castle Town", fns.always),
-        new ZoneNeighbor("Faron Field", fns.always),
+        ZoneNeighbor.always("Castle Town"),
+        ZoneNeighbor.always("Faron Field"),
         new ZoneNeighbor("Outside South Castle Town Tektite Grotto", (store) => store.items.Crystal),
-        new ZoneNeighbor("Lake Hylia", fns.always),
+        ZoneNeighbor.always("Lake Hylia"),
     ],
     "Outside Castle Town West": [
-        new ZoneNeighbor("Lake Hylia Bridge", fns.always),
-        new ZoneNeighbor("Lanayru Field", fns.always),
-        new ZoneNeighbor("Castle Town", fns.always),
+        ZoneNeighbor.always("Lake Hylia Bridge"),
+        ZoneNeighbor.always("Lanayru Field"),
+        ZoneNeighbor.always("Castle Town"),
         new ZoneNeighbor("West Hyrule Field Helmasaur Grotto", (store) => store.items.Crystal && store.items.Clawshot > 0),
     ],
     "Outside South Castle Town Tektite Grotto": [
-        new ZoneNeighbor("Outside Castle Town South", fns.always),
+        ZoneNeighbor.always("Outside Castle Town South"),
     ],
     "West Hyrule Field Helmasaur Grotto": [
-        new ZoneNeighbor("Outside Castle Town West", fns.always)
+        ZoneNeighbor.always("Outside Castle Town West")
     ],
     "Lake Hylia Long Cave": [
-        new ZoneNeighbor("Lake Hylia", fns.always),
+        ZoneNeighbor.always("Lake Hylia"),
     ],
     "Lake Hylia Shell Blade Grotto": [
-        new ZoneNeighbor("Lake Hylia", fns.always),
+        ZoneNeighbor.always("Lake Hylia"),
     ],
     "Lake Hylia Water Toadpoli Grotto": [
-        new ZoneNeighbor("Lake Hylia", fns.always),
+        ZoneNeighbor.always("Lake Hylia"),
     ],
     "Lake Hylia": [
         new ZoneNeighbor("Gerudo Desert", fns.never),
@@ -255,23 +259,23 @@ const zoneNeighborsLanayruGlitchless: ZoneNeighbors<LanayruZoneId> = {
                 ((store.items.IronBoots && fns.canUseWaterBombs(store)) || store.settings.skip.lakebedEntrance)
         ),
         new ZoneNeighbor("City in The Sky Entrance", fns.never),
-        new ZoneNeighbor("Lake Hylia Bridge", fns.always),
+        ZoneNeighbor.always("Lake Hylia Bridge"),
         new ZoneNeighbor("Zoras Domain", (store) => store.items.Crystal),
     ],
     "Zoras Domain": [
-        new ZoneNeighbor("Lanayru Field", fns.always),
+        ZoneNeighbor.always("Lanayru Field"),
         new ZoneNeighbor("Snowpeak Climb", fns.never),
     ],
 };
 
 const zoneNeighborsForestTempleGlitchless: ZoneNeighbors<ForestTempleZoneId> = {
     "Forest Temple Entrance": [
-        new ZoneNeighbor("North Faron Woods", fns.always),
+        ZoneNeighbor.always("North Faron Woods"),
         new ZoneNeighbor("Forest Temple Lobby", store => fns.canDefeatWalltula(store) && fns.canDefeatBokoblin(store) && fns.canBreakMonkeyCage(store)),
     ],
     "Forest Temple Lobby": [
-        new ZoneNeighbor("Forest Temple Entrance", fns.always),
-        new ZoneNeighbor("Forest Temple East Wing", fns.always),
+        ZoneNeighbor.always("Forest Temple Entrance"),
+        ZoneNeighbor.always("Forest Temple East Wing"),
         // todo: key related settings?
         // https://github.com/zsrtp/Randomizer-Web-Generator/blob/b5ad864ba738a7daa3ccfe8f3076d2a906d6474d/Generator/World/Rooms/Dungeons/Forest%20Temple/Forest%20Temple%20Lobby.jsonc#L12C6-L12C17
         new ZoneNeighbor("Forest Temple West Wing", store => fns.canBurnWebs(store) && (fns.canDefeatBokoblin(store) || store.items.Clawshot >= 1)),
@@ -279,18 +283,18 @@ const zoneNeighborsForestTempleGlitchless: ZoneNeighbors<ForestTempleZoneId> = {
         new ZoneNeighbor("Ook", store => store.items.Lantern && fns.canDefeatWalltula(store) && fns.canDefeatBokoblin(store) && fns.canBreakMonkeyCage(store)),
     ],
     "Forest Temple East Wing": [
-        new ZoneNeighbor("Forest Temple Lobby", fns.always),
-        new ZoneNeighbor("Forest Temple North Wing", fns.always),
+        ZoneNeighbor.always("Forest Temple Lobby"),
+        ZoneNeighbor.always("Forest Temple North Wing"),
     ],
     "Forest Temple West Wing": [
-        new ZoneNeighbor("Forest Temple Lobby", fns.always),
+        ZoneNeighbor.always("Forest Temple Lobby"),
         new ZoneNeighbor("Ook", store => store.items.Boomerang),
     ],
     "Ook": [
         new ZoneNeighbor("Forest Temple West Wing", store => fns.canDefeatOok(store) && store.items.Boomerang),
     ],
     "Forest Temple North Wing": [
-        new ZoneNeighbor("Forest Temple East Wing", fns.always),
+        ZoneNeighbor.always("Forest Temple East Wing"),
         new ZoneNeighbor("Forest Temple Boss Room", store => store.items.Boomerang && (fns.canFreeAllMonkeys(store) || store.items.Clawshot >= 1)),
     ],
     "Forest Temple Boss Room": [
@@ -300,19 +304,19 @@ const zoneNeighborsForestTempleGlitchless: ZoneNeighbors<ForestTempleZoneId> = {
 
 const zoneNeighborsGoronMinesGlitchless: ZoneNeighbors<GoronMinesZoneId> = {
     "Goron Mines Entrance": [
-        new ZoneNeighbor("Death Mountain Interiors", fns.always),
+        ZoneNeighbor.always("Death Mountain Interiors"),
         new ZoneNeighbor("Goron Mines Magnet Room", store => store.items.IronBoots && fns.canBreakWoodenDoor(store)),
     ],
     "Goron Mines Magnet Room": [
-        new ZoneNeighbor("Goron Mines Entrance", fns.always),
+        ZoneNeighbor.always("Goron Mines Entrance"),
         // key related setting, we assume we have the key.
-        new ZoneNeighbor("Goron Mines Lower West Wing", fns.always),
+        ZoneNeighbor.always("Goron Mines Lower West Wing"),
         // key related setting, we assume we have the key.
         new ZoneNeighbor("Goron Mines Crystal Switch Room", store => store.items.IronBoots),
     ],
-    "Goron Mines Lower West Wing": [new ZoneNeighbor("Goron Mines Magnet Room", fns.always)],
+    "Goron Mines Lower West Wing": [ZoneNeighbor.always("Goron Mines Magnet Room")],
     "Goron Mines Crystal Switch Room": [
-        new ZoneNeighbor("Goron Mines Magnet Room", fns.always),
+        ZoneNeighbor.always("Goron Mines Magnet Room"),
         new ZoneNeighbor(
             "Goron Mines North Wing",
             // key related setting, we assume we have the key.
@@ -320,14 +324,14 @@ const zoneNeighborsGoronMinesGlitchless: ZoneNeighbors<GoronMinesZoneId> = {
         )
     ],
     "Goron Mines North Wing": [
-        new ZoneNeighbor("Goron Mines Crystal Switch Room", fns.always),
+        ZoneNeighbor.always("Goron Mines Crystal Switch Room"),
         // key related setting, we assume we have the key.
-        new ZoneNeighbor("Goron Mines Upper East Wing", fns.always),
+        ZoneNeighbor.always("Goron Mines Upper East Wing"),
         // key related setting, we assume we have the key.
         new ZoneNeighbor("Goron Mines Boss Room", store => store.items.Bow > 0 && store.items.IronBoots && fns.canDefeatBulbin(store))
     ],
     "Goron Mines Upper East Wing": [
-        new ZoneNeighbor("Goron Mines Upper East Wing", fns.always),
+        ZoneNeighbor.always("Goron Mines Upper East Wing"),
         new ZoneNeighbor("Goron Mines Magnet Room", store => store.items.IronBoots && fns.canDefeatDangoro(store) && store.items.Bow > 0),
     ],
     "Goron Mines Boss Room": [
@@ -338,28 +342,28 @@ const zoneNeighborsGoronMinesGlitchless: ZoneNeighbors<GoronMinesZoneId> = {
 
 const zoneNeighborsLakebedTempleGlitchless: ZoneNeighbors<LakebedTempleZoneId> = {
     "Lakebed Temple Entrance": [
-        new ZoneNeighbor("Lake Hylia", fns.always),
+        ZoneNeighbor.always("Lake Hylia"),
         new ZoneNeighbor("Lakebed Temple Central Room", fns.canLaunchBombs),
     ],
     "Lakebed Temple Central Room": [
-        new ZoneNeighbor("Lakebed Temple Entrance", fns.always),
+        ZoneNeighbor.always("Lakebed Temple Entrance"),
         // small key requirement, assume we have it.
-        new ZoneNeighbor("Lakebed Temple East Wing Second Floor", fns.always),
-        new ZoneNeighbor("Lakebed Temple East Wing First Floor", fns.always),
+        ZoneNeighbor.always("Lakebed Temple East Wing Second Floor"),
+        ZoneNeighbor.always("Lakebed Temple East Wing First Floor"),
         // key requirement, assume we have it.
         new ZoneNeighbor("Lakebed Temple West Wing", (store) => fns.canSmash(store) && store.items.Clawshot > 0),
         // key requirement, assume we have it.
         new ZoneNeighbor("Lakebed Temple Boss Room", (store) => fns.canLaunchBombs(store) && store.items.Clawshot > 0),
     ],
     "Lakebed Temple East Wing First Floor": [
-        new ZoneNeighbor("Lakebed Temple Central Room", fns.always),
+        ZoneNeighbor.always("Lakebed Temple Central Room"),
     ],
     "Lakebed Temple East Wing Second Floor": [
-        new ZoneNeighbor("Lakebed Temple Central Room", fns.always),
+        ZoneNeighbor.always("Lakebed Temple Central Room"),
         new ZoneNeighbor("Lakebed Temple East Wing First Floor", (store) => fns.canLaunchBombs(store) || store.items.Clawshot > 0),
     ],
     "Lakebed Temple West Wing": [
-        new ZoneNeighbor("Lakebed Temple Central Room", fns.always),
+        ZoneNeighbor.always("Lakebed Temple Central Room"),
     ],
     "Lakebed Temple Boss Room": [
         new ZoneNeighbor("Lake Hylia", fns.canDefeatMorpheel)
@@ -381,7 +385,7 @@ export const zoneNeighborsGlitchless: ZoneNeighbors = {
     ...zoneNeighborsLakebedTempleGlitchless
 };
 
-export function calculateReachableZones(searchZones: Record<ZoneId, ZoneNeighbor[]>, settings: RandomizerSettings, items: typeof baseItems, start: ZoneId = "Ordon Province") {
+export function calculateReachableZones(searchZones: ZoneNeighbors, settings: RandomizerSettings, items: typeof baseItems, start: ZoneId = "Ordon Province") {
     // An implementation of DFS, modified to support interdependencies of zones.
     const stack: ZoneId[] = [];
     stack.push(start);

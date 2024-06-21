@@ -1,7 +1,9 @@
-import type { CheckName } from "../check-name";
+import type { CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from "../check-name";
 import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
 
-const zoneDataOrdona: Record<OrdonaZoneId, CheckName[]> = {
+export type ZoneChecks<Z extends ZoneId = ZoneId, C extends CheckName = CheckName> = Record<Z, C[]>;
+
+const zoneDataOrdona: ZoneChecks<OrdonaZoneId, OrdonaCheckName> = {
     "Ordon Province": [
         "Uli Cradle Delivery",
         "Ordon Cat Rescue",
@@ -19,7 +21,7 @@ const zoneDataOrdona: Record<OrdonaZoneId, CheckName[]> = {
     ],
 };
 
-const zoneDataFaron: Record<FaronZoneId, CheckName[]> = {
+const zoneDataFaron: ZoneChecks<FaronZoneId, FaronCheckName> = {
     "South Faron Woods": [
         "Coro Bottle",
         "Faron Woods Owl Statue Sky Character",
@@ -84,7 +86,7 @@ const zoneDataFaron: Record<FaronZoneId, CheckName[]> = {
     ],
 };
 
-const zoneDataEldin: Record<EldinZoneId, CheckName[]> = {
+const zoneDataEldin: ZoneChecks<EldinZoneId, EldinCheckName> = {
     "Hidden Village": [
         "Cats Hide and Seek Minigame",
         "Ilia Charm",
@@ -148,7 +150,7 @@ const zoneDataEldin: Record<EldinZoneId, CheckName[]> = {
     ],
 };
 
-const zoneDataLanayru: Record<LanayruZoneId, CheckName[]> = {
+const zoneDataLanayru: ZoneChecks<LanayruZoneId, LanayruCheckName> = {
     "Castle Town": [
         "Doctors Office Balcony Chest",
         "STAR Prize 1",
@@ -306,7 +308,7 @@ const zoneDataLanayru: Record<LanayruZoneId, CheckName[]> = {
     ]
 };
 
-const zoneDataForestTemple: Record<ForestTempleZoneId, CheckName[]> = {
+const zoneDataForestTemple: ZoneChecks<ForestTempleZoneId, ForestTempleCheckName> = {
     "Forest Temple Entrance": [
         "Forest Temple Entrance Vines Chest",
     ],
@@ -340,7 +342,7 @@ const zoneDataForestTemple: Record<ForestTempleZoneId, CheckName[]> = {
     ]
 };
 
-const zoneDataGoronMines: Record<GoronMinesZoneId, CheckName[]> = {
+const zoneDataGoronMines: ZoneChecks<GoronMinesZoneId, GoronMinesCheckName> = {
     "Goron Mines Entrance": [
         "Goron Mines Entrance Chest",
     ],
@@ -379,7 +381,7 @@ const zoneDataGoronMines: Record<GoronMinesZoneId, CheckName[]> = {
     ],
 };
 
-const zoneDataLakebedTemple: Record<LakebedTempleZoneId, CheckName[]> = {
+const zoneDataLakebedTemple: ZoneChecks<LakebedTempleZoneId, LakebedTempleCheckName> = {
     "Lakebed Temple Entrance": [
         "Lakebed Temple Lobby Left Chest",
         "Lakebed Temple Lobby Rear Chest",
@@ -422,7 +424,7 @@ const zoneDataLakebedTemple: Record<LakebedTempleZoneId, CheckName[]> = {
     ]
 };
 
-export const zoneData: Record<ZoneId, CheckName[]> = {
+export const zoneData: ZoneChecks = {
     // overworld
     ...zoneDataOrdona,
     ...zoneDataFaron,

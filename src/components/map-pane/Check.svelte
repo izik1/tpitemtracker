@@ -1,7 +1,7 @@
 <script lang="ts">
     import { toggleCheck } from "$lib/index.svelte";
     import { checkStatus, type OverworldCheck } from "$lib/chests";
-    import { checkDataGlitchless, checkIdsGlitchless } from "$lib/logic";
+    import { checkKinds } from "$lib/logic";
     import Tooltip from "./Tooltip.svelte";
     import type { LocalStore } from "$lib/local-store.svelte";
     import type { CheckName } from "$lib/logic/check-name";
@@ -19,8 +19,7 @@
 
     let { index, check }: CheckProps = $props();
 
-    export const kind =
-        checkDataGlitchless[checkIdsGlitchless[check.name]].kind;
+    export const kind = checkKinds[check.name];
 </script>
 
 <button

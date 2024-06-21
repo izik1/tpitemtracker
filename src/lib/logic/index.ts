@@ -1,16 +1,16 @@
 import { type ZoneId } from "./zone/id";
 import { type LogicValue, type RandomizerSettings } from "../settings";
 import { zoneNeighborsGlitchless, type ZoneNeighbors, } from "./zone/zones";
-import { checkIdsGlitchless, checkDataGlitchless, type CheckIds, Check } from "./checks";
+import { checkIds, type Accessable, checkAccessibilityGlitchless, checkNames } from "./checks";
 import { baseItems } from '$lib/items';
 import { zoneData } from './zone/checks';
 
-export { checkIdsGlitchless, checkDataGlitchless } from "./checks";
+export { checkIds, checkKinds, checkNames } from "./checks";
 export { zoneNeighborsGlitchless as zonesGlitchless, type ZoneNeighbors } from "./zone/zones";
 
 export type LogicStore = { settings: Readonly<RandomizerSettings>, reachableZones: Readonly<Set<ZoneId>>, items: Readonly<typeof baseItems>; };
 
-function makeChecksToZones(checkIds: CheckIds): { [x: number]: ZoneId; } {
+function makeChecksToZones(): { [x: number]: ZoneId; } {
     const output: { [x: number]: ZoneId; } = {};
 
     for (const [zone, checks] of Object.entries(zoneData)) {
@@ -22,19 +22,17 @@ function makeChecksToZones(checkIds: CheckIds): { [x: number]: ZoneId; } {
     return output;
 };
 
+const checksToZones = makeChecksToZones();
+
 export class Logic {
-    readonly #checksToZones: ReturnType<typeof makeChecksToZones>;
-    readonly #checkIds: CheckIds;
-    readonly #checkData: Check[];
     readonly #zones: ZoneNeighbors;
+    readonly #checkAccessibility: Accessable[];
     readonly kind: LogicValue;
     constructor(logic: LogicValue) {
         this.kind = logic;
         switch (logic) {
             case "glitchless":
-                this.#checkIds = checkIdsGlitchless;
-                this.#checkData = checkDataGlitchless;
-                this.#checksToZones = makeChecksToZones(checkIdsGlitchless);
+                this.#checkAccessibility = checkAccessibilityGlitchless;
                 this.#zones = zoneNeighborsGlitchless;
 
                 break;
@@ -47,14 +45,8 @@ export class Logic {
         return this.#zones;
     }
 
-    get checksToZones() {
-        return this.#checksToZones;
-    }
-    get checkIds() {
-        return this.#checkIds;
-    }
-    get checkData() {
-        return this.#checkData;
+    get checkAccessibility() {
+        return this.#checkAccessibility;
     }
 }
 
@@ -63,15 +55,15 @@ export const logic: { [Property in LogicValue]: Logic; } = {
 };
 
 export const makeCompletableChecks = ($store: LogicStore) => {
-    function* filterMap(iter: IterableIterator<[number, Check]>) {
+    const checkAccessibility = logic[$store.settings.logic].checkAccessibility;
+
+    function* filterMap(iter: IterableIterator<[number, Accessable]>) {
         for (const [i, check] of iter) {
-            if ($store.reachableZones.has(checksToZones[i]) && check.accessable($store)) {
-                yield check.name;
+            if ($store.reachableZones.has(checksToZones[i]) && check($store)) {
+                yield checkNames[i];
             }
         }
     }
 
-    const { checksToZones, checkData } = logic[$store.settings.logic];
-
-    return new Set(filterMap(checkData.entries()));
+    return new Set(filterMap(checkAccessibility.entries()));
 };

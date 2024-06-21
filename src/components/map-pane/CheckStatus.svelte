@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { checkDataGlitchless } from "$lib/logic";
+    import { checkNames } from "$lib/logic";
     import { availableChecks } from "$lib/index.svelte";
     import { getContext } from "svelte";
     import type { CheckName } from "$lib/logic/check-name";
@@ -10,11 +10,11 @@
     const completableChecks: { readonly value: Set<CheckName> } =
         getContext("completableChecks");
 
-    const totalChecks = checkDataGlitchless.length;
+    const totalChecks = checkNames.length;
     const remaining = $derived(totalChecks - openedChecks.value.size);
     const available = $derived(
         availableChecks(
-            checkDataGlitchless.map((it) => it.name),
+            checkNames,
             openedChecks.value,
             completableChecks.value,
         ),
