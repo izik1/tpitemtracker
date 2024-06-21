@@ -171,6 +171,19 @@ export const groups: Group[] = [
         x: "calc(40.75% - 12px)",
         y: "calc(55.68% - 12px)",
         checks: zoneData["Lake Hylia Long Cave"]
+    },
+    {
+        name: "Lakebed Temple",
+        x: "calc(40.33% - 12px)",
+        y: "calc(47.76% - 12px)",
+        checks: [
+            ...zoneData["Lakebed Temple Entrance"],
+            ...zoneData["Lakebed Temple Central Room"],
+            ...zoneData["Lakebed Temple East Wing First Floor"],
+            ...zoneData["Lakebed Temple East Wing Second Floor"],
+            ...zoneData["Lakebed Temple West Wing"],
+            ...zoneData["Lakebed Temple Boss Room"],
+        ]
     }
 ];
 
@@ -757,11 +770,6 @@ export const overworld: OverworldCheck[] = [
 ];
 
 // define grouped chests
-//     {
-//         name: "Lakebed Temple",
-//         x: "40.33%",
-//         y: "47.76%",
-//     },
 //     {
 //         name: "Arbiter's Grounds",
 //         x: "15.2%",

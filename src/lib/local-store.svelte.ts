@@ -18,7 +18,6 @@ const localStore = <T,>(key: string, initValue: T): LocalStore<T> => {
 
     // hack: this is needed to prevent hydration errors, is there a better way to do it?
     $effect(() => {
-        console.log("running effect");
         const storedValueStr = localStorage.getItem(key);
 
         if (storedValueStr != null) {
@@ -27,7 +26,6 @@ const localStore = <T,>(key: string, initValue: T): LocalStore<T> => {
     });
 
     $effect(() => {
-        console.log("running update effect");
         if ([null, undefined].includes(value)) {
             localStorage.removeItem(key);
         } else {
@@ -70,7 +68,6 @@ export const setStore = <T>(key: string, initValue: Set<T>): LocalStore<Set<T>> 
 
     // hack: this is needed to prevent hydration errors, is there a better way to do it?
     $effect(() => {
-        console.log("running effect");
         const storedValueStr = localStorage.getItem(key);
 
         if (storedValueStr != null) {
@@ -79,7 +76,6 @@ export const setStore = <T>(key: string, initValue: Set<T>): LocalStore<Set<T>> 
     });
 
     $effect(() => {
-        console.log("running update effect");
         if ([null, undefined].includes(value)) {
             localStorage.removeItem(key);
         } else {

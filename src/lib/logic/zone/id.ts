@@ -26,7 +26,13 @@ export type GoronMinesZoneId =
 
 type HyruleCastleZoneId = never;
 
-type LakebedTempleZoneId = never;
+export type LakebedTempleZoneId =
+    | "Lakebed Temple Boss Room"
+    | "Lakebed Temple Central Room"
+    | "Lakebed Temple East Wing First Floor"
+    | "Lakebed Temple East Wing Second Floor"
+    | "Lakebed Temple Entrance"
+    | "Lakebed Temple West Wing";
 
 type PoTZoneId = never;
 

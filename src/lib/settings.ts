@@ -23,6 +23,7 @@ export interface RandomizerSettings {
         eldinTwilight: boolean,
         lanayruTwilight: boolean,
         mdh: boolean,
+        lakebedEntrance: boolean,
     };
     itemPool: {
         npcGifts: boolean,
@@ -42,6 +43,7 @@ export const defaultRandomizerSettings: RandomizerSettings = {
         eldinTwilight: false,
         lanayruTwilight: false,
         mdh: false,
+        lakebedEntrance: false,
     },
     itemPool: {
         npcGifts: false,

@@ -11,7 +11,6 @@ type DungeonCheckName =
     | SnowpeakRuinsCheckName
     | ToTCheckName;
 
-
 type ArbitersGroundsCheckName = never;
 type CitSCheckName = never;
 type ForestTempleCheckName =
@@ -59,7 +58,39 @@ type GoronMinesCheckName =
     | "Goron Mines Outside Underwater Chest";
 
 type HyruleCastleCheckName = never;
-type LakebedTempleCheckName = never;
+
+type LakebedTempleCheckName =
+    | "Lakebed Temple Before Deku Toad Alcove Chest"
+    | "Lakebed Temple Before Deku Toad Underwater Left Chest"
+    | "Lakebed Temple Before Deku Toad Underwater Right Chest"
+    | "Lakebed Temple Big Key Chest"
+    | "Lakebed Temple Central Room Chest"
+    | "Lakebed Temple Central Room Small Chest"
+    | "Lakebed Temple Central Room Spire Chest"
+    | "Lakebed Temple Chandelier Chest"
+    | "Lakebed Temple Deku Toad Chest"
+    | "Lakebed Temple Dungeon Reward"
+    | "Lakebed Temple East Lower Waterwheel Bridge Chest"
+    | "Lakebed Temple East Lower Waterwheel Stalactite Chest"
+    | "Lakebed Temple East Second Floor Southeast Chest"
+    | "Lakebed Temple East Second Floor Southwest Chest"
+    | "Lakebed Temple East Water Supply Clawshot Chest"
+    | "Lakebed Temple East Water Supply Small Chest"
+    | "Lakebed Temple Lobby Left Chest"
+    | "Lakebed Temple Lobby Rear Chest"
+    | "Lakebed Temple Morpheel Heart Container"
+    | "Lakebed Temple Stalactite Room Chest"
+    | "Lakebed Temple Underwater Maze Small Chest"
+    | "Lakebed Temple West Lower Small Chest"
+    | "Lakebed Temple West Second Floor Central Small Chest"
+    | "Lakebed Temple West Second Floor Northeast Chest"
+    | "Lakebed Temple West Second Floor Southeast Chest"
+    | "Lakebed Temple West Second Floor Southwest Underwater Chest"
+    | "Lakebed Temple West Water Supply Chest"
+    | "Lakebed Temple West Water Supply Small Chest";
+
+
+
 type PoTCheckName = never;
 type SnowpeakRuinsCheckName = never;
 type ToTCheckName = never;

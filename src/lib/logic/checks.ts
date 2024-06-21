@@ -525,6 +525,98 @@ export const goronMinesCheckDataGlitchless: Check[] = [
     new Check("Goron Mines Outside Underwater Chest", (store) => (store.items.Sword > 0 || fns.canUseWaterBombs(store)) && store.items.IronBoots),
 ];
 
+export const lakebedTempleCheckDataGlitchless: Check[] = [
+    new Check(
+        "Lakebed Temple Before Deku Toad Alcove Chest",
+        // key settings ignored
+        (store) => (
+            fns.canDefeatDekuToad(store)
+            && store.items.ZoraArmor
+            && store.items.IronBoots
+            && fns.canUseWaterBombs(store)
+            && store.items.Clawshot > 0
+        )
+            || fns.canLaunchBombs(store)
+            || (store.items.Clawshot > 0 && fns.canSmash(store))
+
+    ),
+    new Check(
+        "Lakebed Temple Before Deku Toad Underwater Left Chest",
+        (store) => store.items.ZoraArmor
+            && store.items.IronBoots
+            && (fns.canLaunchBombs(store) || (store.items.Clawshot > 0 && fns.canSmash(store)))
+    ),
+    new Check(
+        "Lakebed Temple Before Deku Toad Underwater Right Chest",
+        (store) => store.items.ZoraArmor
+            && store.items.IronBoots
+            && (fns.canLaunchBombs(store) || (store.items.Clawshot > 0 && fns.canSmash(store)))
+    ),
+    new Check(
+        "Lakebed Temple Big Key Chest",
+        (store) => store.items.Clawshot > 0
+            && fns.canUseWaterBombs(store)
+            && store.items.ZoraArmor && fns.canLaunchBombs(store)
+            && store.items.IronBoots
+    ),
+    new Check("Lakebed Temple Central Room Chest", fns.always),
+    new Check("Lakebed Temple Central Room Small Chest", fns.always),
+    // key skip
+    new Check("Lakebed Temple Central Room Spire Chest", (store) => store.items.IronBoots && fns.canLaunchBombs(store)),
+    new Check("Lakebed Temple Chandelier Chest", ({ items }) => items.Clawshot > 0),
+    // key skip
+    new Check(
+        "Lakebed Temple Deku Toad Chest",
+        (store) => fns.canDefeatDekuToad(store)
+            && store.items.ZoraArmor
+            && store.items.IronBoots
+            && fns.canUseWaterBombs(store)
+            && (fns.canLaunchBombs(store) || (store.items.Clawshot > 0 && fns.canSmash(store)))
+    ),
+    new Check("Lakebed Temple Dungeon Reward", fns.canDefeatMorpheel),
+    // key skip
+    new Check("Lakebed Temple East Lower Waterwheel Bridge Chest", (store) => store.items.Clawshot > 0 && fns.canLaunchBombs(store)),
+    new Check("Lakebed Temple East Lower Waterwheel Stalactite Chest", fns.canLaunchBombs),
+    new Check(
+        "Lakebed Temple East Second Floor Southeast Chest",
+        (store) => fns.canLaunchBombs(store)
+            || (store.items.Clawshot > 0 && fns.canSmash(store))
+    ),
+    new Check("Lakebed Temple East Second Floor Southwest Chest", fns.always),
+    // key skip
+    new Check(
+        "Lakebed Temple East Water Supply Clawshot Chest",
+        (store) => store.items.Clawshot > 0 && fns.canSmash(store) && store.items.IronBoots
+    ),
+    new Check(
+        "Lakebed Temple East Water Supply Small Chest",
+        (store) => (store.items.Clawshot > 0 || fns.canLaunchBombs(store))
+            && fns.canSmash(store) && store.items.IronBoots
+
+    ),
+    new Check("Lakebed Temple Lobby Left Chest", ({ items }) => items.ZoraArmor),
+    new Check("Lakebed Temple Lobby Rear Chest", ({ items }) => items.ZoraArmor),
+    new Check("Lakebed Temple Morpheel Heart Container", fns.canDefeatMorpheel),
+    new Check("Lakebed Temple Stalactite Room Chest", fns.canLaunchBombs),
+    new Check("Lakebed Temple Underwater Maze Small Chest", (store) => store.items.ZoraArmor && store.items.Clawshot > 0 && fns.canLaunchBombs(store)),
+    new Check("Lakebed Temple West Lower Small Chest", ({ items }) => items.Clawshot > 0),
+    new Check("Lakebed Temple West Second Floor Central Small Chest", ({ items }) => items.Clawshot > 0),
+    new Check("Lakebed Temple West Second Floor Northeast Chest", (store) => store.items.Clawshot > 0 && fns.canLaunchBombs(store)),
+    new Check("Lakebed Temple West Second Floor Southeast Chest", (store) => store.items.Clawshot > 0 && fns.canLaunchBombs(store)),
+    new Check(
+        "Lakebed Temple West Second Floor Southwest Underwater Chest",
+        (store) => store.items.Clawshot > 0 && store.items.IronBoots && fns.canLaunchBombs(store)
+    ),
+    new Check(
+        "Lakebed Temple West Water Supply Chest",
+        (store) => store.items.Clawshot > 0 && store.items.IronBoots && fns.canLaunchBombs(store)
+    ),
+    new Check(
+        "Lakebed Temple West Water Supply Small Chest",
+        (store) => store.items.Clawshot > 0 && store.items.IronBoots && fns.canLaunchBombs(store)
+    ),
+];
+
 export const checkDataGlitchless: Check[] = [
     // overworld
     ...ordonCheckDataGlitchless,
@@ -533,7 +625,8 @@ export const checkDataGlitchless: Check[] = [
     ...lanayruCheckDataGlitchless,
     // dungeons
     ...forestTempleCheckDataGlitchless,
-    ...goronMinesCheckDataGlitchless
+    ...goronMinesCheckDataGlitchless,
+    ...lakebedTempleCheckDataGlitchless
 ];
 
 export type CheckIds = { [x: string]: number; };

@@ -1,4 +1,4 @@
-import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
+import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
 import * as fns from "../logic-functions";
 import { type LogicStore } from "../index";
 import type { RandomizerSettings } from "$lib/settings";
@@ -21,7 +21,7 @@ export class ZoneNeighbor {
 // This is literally copied from zsrtp/Randomizer-Web-Generator with minimal differences.
 // After all, what better place to get the logic from than the logic itself.
 
-const zoneNeighborsOrdonaGlitchless: Record<OrdonaZoneId, ZoneNeighbor[]> = {
+const zoneNeighborsOrdonaGlitchless: ZoneNeighbors<OrdonaZoneId> = {
     "Ordon Province": [
         new ZoneNeighbor("Ordon Ranch Grotto", store => fns.canCompletePrologue(store) && store.items.Crystal),
         new ZoneNeighbor("South Faron Woods", ({ settings, items }) => (items.Sword > 0 && items.Slingshot) || settings.skip.prologue),
@@ -32,7 +32,7 @@ const zoneNeighborsOrdonaGlitchless: Record<OrdonaZoneId, ZoneNeighbor[]> = {
 };
 
 
-const zoneNeighborsFaronGlitchless: Record<FaronZoneId, ZoneNeighbor[]> = {
+const zoneNeighborsFaronGlitchless: ZoneNeighbors<FaronZoneId> = {
     "South Faron Woods": [
         new ZoneNeighbor("Ordon Province", fns.always),
         new ZoneNeighbor("Faron Field", fns.canClearForest),
@@ -111,7 +111,7 @@ const zoneNeighborsFaronGlitchless: Record<FaronZoneId, ZoneNeighbor[]> = {
     ],
 };
 
-const zoneNeighborsEldinGlitchless: Record<EldinZoneId, ZoneNeighbor[]> = {
+const zoneNeighborsEldinGlitchless: ZoneNeighbors<EldinZoneId> = {
     "Hidden Village": [new ZoneNeighbor("Lanayru Field", fns.always)],
     "Eldin Field Bomskit Grotto": [new ZoneNeighbor("Eldin Field", fns.always)],
     "Eldin Field Stalfos Grotto": [new ZoneNeighbor("Eldin Field", fns.always)],
@@ -178,7 +178,12 @@ const zoneNeighborsEldinGlitchless: Record<EldinZoneId, ZoneNeighbor[]> = {
     ],
 };
 
-const zoneNeighborsLanayruGlitchless: Record<LanayruZoneId, ZoneNeighbor[]> = {
+function inspect<T>(value: T): T {
+    console.log(value);
+    return value;
+}
+
+const zoneNeighborsLanayruGlitchless: ZoneNeighbors<LanayruZoneId> = {
     "Castle Town": [
         new ZoneNeighbor("Outside Castle Town West", fns.always),
         new ZoneNeighbor("Eldin Field", fns.always),
@@ -244,7 +249,11 @@ const zoneNeighborsLanayruGlitchless: Record<LanayruZoneId, ZoneNeighbor[]> = {
         new ZoneNeighbor("Lake Hylia Long Cave", fns.canSmash),
         new ZoneNeighbor("Lake Hylia Water Toadpoli Grotto", (store) => store.items.Crystal),
         new ZoneNeighbor("Lake Hylia Shell Blade Grotto", (store) => store.items.Crystal),
-        new ZoneNeighbor("Lakebed Temple Entrance", fns.never),
+        new ZoneNeighbor(
+            "Lakebed Temple Entrance",
+            (store) => store.items.ZoraArmor &&
+                ((store.items.IronBoots && fns.canUseWaterBombs(store)) || store.settings.skip.lakebedEntrance)
+        ),
         new ZoneNeighbor("City in The Sky Entrance", fns.never),
         new ZoneNeighbor("Lake Hylia Bridge", fns.always),
         new ZoneNeighbor("Zoras Domain", (store) => store.items.Crystal),
@@ -255,7 +264,7 @@ const zoneNeighborsLanayruGlitchless: Record<LanayruZoneId, ZoneNeighbor[]> = {
     ],
 };
 
-const zoneNeighborsForestTempleGlitchless: Record<ForestTempleZoneId, ZoneNeighbor[]> = {
+const zoneNeighborsForestTempleGlitchless: ZoneNeighbors<ForestTempleZoneId> = {
     "Forest Temple Entrance": [
         new ZoneNeighbor("North Faron Woods", fns.always),
         new ZoneNeighbor("Forest Temple Lobby", store => fns.canDefeatWalltula(store) && fns.canDefeatBokoblin(store) && fns.canBreakMonkeyCage(store)),
@@ -289,7 +298,7 @@ const zoneNeighborsForestTempleGlitchless: Record<ForestTempleZoneId, ZoneNeighb
     ],
 };
 
-const zoneNeighborsGoronMinesGlitchless: Record<GoronMinesZoneId, ZoneNeighbor[]> = {
+const zoneNeighborsGoronMinesGlitchless: ZoneNeighbors<GoronMinesZoneId> = {
     "Goron Mines Entrance": [
         new ZoneNeighbor("Death Mountain Interiors", fns.always),
         new ZoneNeighbor("Goron Mines Magnet Room", store => store.items.IronBoots && fns.canBreakWoodenDoor(store)),
@@ -326,9 +335,40 @@ const zoneNeighborsGoronMinesGlitchless: Record<GoronMinesZoneId, ZoneNeighbor[]
     ],
 };
 
-export type ZoneNeighbors = Record<ZoneId, ZoneNeighbor[]>;
 
-export const zoneNeighborsGlitchless: Record<ZoneId, ZoneNeighbor[]> = {
+const zoneNeighborsLakebedTempleGlitchless: ZoneNeighbors<LakebedTempleZoneId> = {
+    "Lakebed Temple Entrance": [
+        new ZoneNeighbor("Lake Hylia", fns.always),
+        new ZoneNeighbor("Lakebed Temple Central Room", fns.canLaunchBombs),
+    ],
+    "Lakebed Temple Central Room": [
+        new ZoneNeighbor("Lakebed Temple Entrance", fns.always),
+        // small key requirement, assume we have it.
+        new ZoneNeighbor("Lakebed Temple East Wing Second Floor", fns.always),
+        new ZoneNeighbor("Lakebed Temple East Wing First Floor", fns.always),
+        // key requirement, assume we have it.
+        new ZoneNeighbor("Lakebed Temple West Wing", (store) => fns.canSmash(store) && store.items.Clawshot > 0),
+        // key requirement, assume we have it.
+        new ZoneNeighbor("Lakebed Temple Boss Room", (store) => fns.canLaunchBombs(store) && store.items.Clawshot > 0),
+    ],
+    "Lakebed Temple East Wing First Floor": [
+        new ZoneNeighbor("Lakebed Temple Central Room", fns.always),
+    ],
+    "Lakebed Temple East Wing Second Floor": [
+        new ZoneNeighbor("Lakebed Temple Central Room", fns.always),
+        new ZoneNeighbor("Lakebed Temple East Wing First Floor", (store) => fns.canLaunchBombs(store) || store.items.Clawshot > 0),
+    ],
+    "Lakebed Temple West Wing": [
+        new ZoneNeighbor("Lakebed Temple Central Room", fns.always),
+    ],
+    "Lakebed Temple Boss Room": [
+        new ZoneNeighbor("Lake Hylia", fns.canDefeatMorpheel)
+    ]
+};
+
+export type ZoneNeighbors<T extends ZoneId = ZoneId> = Record<T, ZoneNeighbor[]>;
+
+export const zoneNeighborsGlitchless: ZoneNeighbors = {
     // overworld
     ...zoneNeighborsOrdonaGlitchless,
     ...zoneNeighborsFaronGlitchless,
@@ -338,6 +378,7 @@ export const zoneNeighborsGlitchless: Record<ZoneId, ZoneNeighbor[]> = {
     // dungeon time
     ...zoneNeighborsForestTempleGlitchless,
     ...zoneNeighborsGoronMinesGlitchless,
+    ...zoneNeighborsLakebedTempleGlitchless
 };
 
 export function calculateReachableZones(searchZones: Record<ZoneId, ZoneNeighbor[]>, settings: RandomizerSettings, items: typeof baseItems, start: ZoneId = "Ordon Province") {

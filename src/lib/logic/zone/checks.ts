@@ -1,5 +1,5 @@
 import type { CheckName } from "../check-name";
-import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
+import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
 
 const zoneDataOrdona: Record<OrdonaZoneId, CheckName[]> = {
     "Ordon Province": [
@@ -379,7 +379,50 @@ const zoneDataGoronMines: Record<GoronMinesZoneId, CheckName[]> = {
     ],
 };
 
-export const zoneData: { [Property in ZoneId]: CheckName[] } = {
+const zoneDataLakebedTemple: Record<LakebedTempleZoneId, CheckName[]> = {
+    "Lakebed Temple Entrance": [
+        "Lakebed Temple Lobby Left Chest",
+        "Lakebed Temple Lobby Rear Chest",
+        "Lakebed Temple Stalactite Room Chest"
+    ],
+    "Lakebed Temple Central Room": [
+        "Lakebed Temple Central Room Small Chest",
+        "Lakebed Temple Central Room Chest",
+        "Lakebed Temple Chandelier Chest",
+        "Lakebed Temple Central Room Spire Chest"
+    ],
+    "Lakebed Temple East Wing First Floor": [
+        "Lakebed Temple East Lower Waterwheel Stalactite Chest",
+        "Lakebed Temple East Lower Waterwheel Bridge Chest",
+        "Lakebed Temple Before Deku Toad Alcove Chest",
+        "Lakebed Temple Before Deku Toad Underwater Left Chest",
+        "Lakebed Temple Before Deku Toad Underwater Right Chest",
+        "Lakebed Temple Deku Toad Chest"
+    ],
+    "Lakebed Temple East Wing Second Floor": [
+        "Lakebed Temple East Second Floor Southwest Chest",
+        "Lakebed Temple East Second Floor Southeast Chest",
+        "Lakebed Temple East Water Supply Small Chest",
+        "Lakebed Temple East Water Supply Clawshot Chest"
+    ],
+    "Lakebed Temple West Wing": [
+        "Lakebed Temple West Lower Small Chest",
+        "Lakebed Temple West Second Floor Central Small Chest",
+        "Lakebed Temple Underwater Maze Small Chest",
+        "Lakebed Temple Big Key Chest",
+        "Lakebed Temple West Second Floor Southwest Underwater Chest",
+        "Lakebed Temple West Second Floor Northeast Chest",
+        "Lakebed Temple West Second Floor Southeast Chest",
+        "Lakebed Temple West Water Supply Small Chest",
+        "Lakebed Temple West Water Supply Chest",
+    ],
+    "Lakebed Temple Boss Room": [
+        "Lakebed Temple Morpheel Heart Container",
+        "Lakebed Temple Dungeon Reward"
+    ]
+};
+
+export const zoneData: Record<ZoneId, CheckName[]> = {
     // overworld
     ...zoneDataOrdona,
     ...zoneDataFaron,
@@ -389,4 +432,5 @@ export const zoneData: { [Property in ZoneId]: CheckName[] } = {
     // dungeon time
     ...zoneDataForestTemple,
     ...zoneDataGoronMines,
+    ...zoneDataLakebedTemple,
 };

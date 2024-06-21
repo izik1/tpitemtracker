@@ -882,7 +882,7 @@ export function hasBombs(store: LogicStore) {
 export function canUseWaterBombs(store: LogicStore) {
     // the actual rando logic a lot more complicated:
     // https://github.com/zsrtp/Randomizer-Web-Generator/blob/b5ad864ba738a7daa3ccfe8f3076d2a906d6474d/Generator/Logic/LogicFunctions.cs#L1577
-    return store.items.WBombs;
+    return hasBombs(store) && store.items.WBombs;
 }
 
 export function canGetArrows(store: LogicStore) {
