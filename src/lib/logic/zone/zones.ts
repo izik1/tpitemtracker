@@ -1,4 +1,4 @@
-import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type SnowpeakZoneId, type ZoneId } from "./id";
+import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type SnowpeakRuinsZoneId, type SnowpeakZoneId, type ZoneId } from "./id";
 import * as fns from "../logic-functions";
 import { type LogicStore } from "../index";
 import type { RandomizerSettings } from "$lib/settings";
@@ -549,6 +549,83 @@ const zoneNeighborsArbitersGrounds: ZoneNeighbors<ArbitersGroundsZoneId> = {
     ],
 };
 
+const zoneNeighborsSnowpeakRuinsGlitchless: ZoneNeighbors<SnowpeakRuinsZoneId> = {
+    "Snowpeak Ruins Boss Room": [
+        new ZoneNeighbor("Snowpeak Summit", fns.canDefeatBlizzeta),
+    ],
+    "Snowpeak Ruins Caged Freezard Room": [
+        ZoneNeighbor.always("Snowpeak Ruins Yeto and Yeta"),
+        // key setting ignored
+        new ZoneNeighbor("Snowpeak Ruins Second Floor Mini Freezard Room", ({ items }) => items.Chainball),
+        new ZoneNeighbor("Snowpeak Ruins Wooden Beam Room", ({ items }) => items.Chainball),
+        // key setting ignored
+        ZoneNeighbor.always("Snowpeak Ruins West Courtyard"),
+    ],
+    "Snowpeak Ruins Chapel": [
+        new ZoneNeighbor("Snowpeak Ruins West Courtyard", fns.canDefeatChilfos)
+    ],
+    "Snowpeak Ruins Darkhammer Room": [
+        new ZoneNeighbor("Snowpeak Ruins West Courtyard", fns.canDefeatDarkhammer)
+    ],
+    "Snowpeak Ruins East Courtyard": [
+        ZoneNeighbor.always("Snowpeak Ruins Yeto and Yeta"),
+        new ZoneNeighbor("Snowpeak Ruins West Courtyard", ({ items }) => items.Chainball),
+        // https://github.com/zsrtp/Randomizer-Web-Generator/blob/b5ad864ba738a7daa3ccfe8f3076d2a906d6474d/Generator/World/Rooms/Dungeons/Snowpeak%20Ruins/Snowpeak%20Ruins%20East%20Courtyard.jsonc#L12
+        // key settings being ignored simplifies this massively.
+        new ZoneNeighbor("Snowpeak Ruins Northeast Chilfos Room First Floor", fns.canDefeatMiniFreezard)
+    ],
+    "Snowpeak Ruins Entrance": [
+        ZoneNeighbor.always("Snowpeak Summit"),
+        ZoneNeighbor.always("Snowpeak Ruins Yeto and Yeta"),
+    ],
+    "Snowpeak Ruins Northeast Chilfos Room First Floor": [
+        ZoneNeighbor.always("Snowpeak Ruins East Courtyard"),
+        new ZoneNeighbor("Snowpeak Ruins Yeto and Yeta", fns.canDefeatChilfos),
+    ],
+    "Snowpeak Ruins Northeast Chilfos Room Second Floor": [
+        ZoneNeighbor.always("Snowpeak Ruins Northeast Chilfos Room First Floor"),
+        new ZoneNeighbor("Snowpeak Ruins Yeto and Yeta", ({ items }) => items.Chainball),
+    ],
+    "Snowpeak Ruins Second Floor Mini Freezard Room": [
+        ZoneNeighbor.always("Snowpeak Ruins Entrance"),
+        new ZoneNeighbor("Snowpeak Ruins East Courtyard", ({ items }) => items.Crystal || items.Chainball),
+        new ZoneNeighbor(
+            "Snowpeak Ruins Northeast Chilfos Room Second Floor",
+            (store) => store.items.Chainball && store.items.Clawshot > 0 && fns.canDefeatChilfos(store)
+        ),
+        ZoneNeighbor.always("Snowpeak Ruins Caged Freezard Room"),
+
+    ],
+    "Snowpeak Ruins West Cannon Room": [
+        ZoneNeighbor.always("Snowpeak Ruins West Courtyard"),
+        new ZoneNeighbor("Snowpeak Ruins Wooden Beam Room", fns.canSmash),
+
+    ],
+    "Snowpeak Ruins West Courtyard": [
+        ZoneNeighbor.always("Snowpeak Ruins Yeto and Yeta"),
+        new ZoneNeighbor("Snowpeak Ruins East Courtyard", ({ items }) => items.Chainball),
+        ZoneNeighbor.always("Snowpeak Ruins West Cannon Room"),
+        // key setting ignored.
+        new ZoneNeighbor("Snowpeak Ruins Chapel", (store) => store.items.Chainball && fns.hasBombs(store)),
+        // key setting ignored.
+        new ZoneNeighbor("Snowpeak Ruins Darkhammer Room", (store) => store.items.Chainball || fns.hasBombs(store)),
+        // key setting ignored.
+        new ZoneNeighbor("Snowpeak Ruins Boss Room", (store) => store.items.Chainball && fns.hasBombs(store)),
+    ],
+    "Snowpeak Ruins Wooden Beam Room": [
+        ZoneNeighbor.always("Snowpeak Ruins West Cannon Room"),
+    ],
+    "Snowpeak Ruins Yeto and Yeta": [
+        ZoneNeighbor.always("Snowpeak Ruins Entrance"),
+
+        // key setting ignored.
+        ZoneNeighbor.always("Snowpeak Ruins Caged Freezard Room"),
+        // key setting ignored.
+        ZoneNeighbor.always("Snowpeak Ruins West Courtyard"),
+        new ZoneNeighbor("Snowpeak Ruins East Courtyard", ({ items }) => items.Crystal || items.Chainball)
+    ],
+};
+
 export type ZoneNeighbors<T extends ZoneId = ZoneId> = Record<T, ZoneNeighbor[]>;
 
 export const zoneNeighborsGlitchless: ZoneNeighbors = {
@@ -565,6 +642,7 @@ export const zoneNeighborsGlitchless: ZoneNeighbors = {
     ...zoneNeighborsGoronMinesGlitchless,
     ...zoneNeighborsLakebedTempleGlitchless,
     ...zoneNeighborsArbitersGrounds,
+    ...zoneNeighborsSnowpeakRuinsGlitchless
 };
 
 export function calculateReachableZones(searchZones: ZoneNeighbors, settings: RandomizerSettings, items: typeof baseItems, start: ZoneId = "Ordon Province") {

@@ -204,6 +204,28 @@ export const groups: Group[] = [
             ...zoneData["Arbiters Grounds Boss Room"],
         ]
     },
+    {
+        name: "Snowpeak Ruins",
+        x: "calc(21.31% - 12px)",
+        y: "calc(28.64% - 12px)",
+        checks: [
+            // fixme: re-order these based on vanilla order.
+            // vanilla order is just a little unclear looking at the requirements.
+            ...zoneData["Snowpeak Ruins Entrance"],
+            ...zoneData["Snowpeak Ruins Yeto and Yeta"],
+            ...zoneData["Snowpeak Ruins East Courtyard"],
+            ...zoneData["Snowpeak Ruins Caged Freezard Room"],
+            ...zoneData["Snowpeak Ruins West Courtyard"],
+            ...zoneData["Snowpeak Ruins Northeast Chilfos Room First Floor"],
+            ...zoneData["Snowpeak Ruins Wooden Beam Room"],
+            ...zoneData["Snowpeak Ruins Second Floor Mini Freezard Room"],
+            ...zoneData["Snowpeak Ruins West Cannon Room"],
+            ...zoneData["Snowpeak Ruins Darkhammer Room"],
+            ...zoneData["Snowpeak Ruins Northeast Chilfos Room Second Floor"],
+            ...zoneData["Snowpeak Ruins Chapel"],
+            ...zoneData["Snowpeak Ruins Boss Room"],
+        ]
+    },
 ];
 
 export interface OverworldCheck {
@@ -988,11 +1010,6 @@ export const overworld: OverworldCheck[] = [
 ];
 
 // define grouped chests
-//     {
-//         name: "Snowpeak Ruins",
-//         x: "21.31%",
-//         y: "28.64%",
-//     },
 //     {
 //         name: "Temple of Time",
 //         x: "43.83%",

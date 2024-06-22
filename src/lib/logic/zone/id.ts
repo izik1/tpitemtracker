@@ -41,7 +41,20 @@ export type LakebedTempleZoneId =
 
 type PoTZoneId = never;
 
-type SnowpeakRuinsZoneId = never;
+export type SnowpeakRuinsZoneId =
+    | "Snowpeak Ruins Boss Room"
+    | "Snowpeak Ruins Caged Freezard Room"
+    | "Snowpeak Ruins Chapel"
+    | "Snowpeak Ruins Darkhammer Room"
+    | "Snowpeak Ruins East Courtyard"
+    | "Snowpeak Ruins Entrance"
+    | "Snowpeak Ruins Northeast Chilfos Room First Floor"
+    | "Snowpeak Ruins Northeast Chilfos Room Second Floor"
+    | "Snowpeak Ruins Second Floor Mini Freezard Room"
+    | "Snowpeak Ruins West Cannon Room"
+    | "Snowpeak Ruins West Courtyard"
+    | "Snowpeak Ruins Wooden Beam Room"
+    | "Snowpeak Ruins Yeto and Yeta";
 
 type ToTZoneId = never;
 

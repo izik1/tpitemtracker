@@ -116,7 +116,33 @@ export type LakebedTempleCheckName =
     | "Lakebed Temple West Water Supply Small Chest";
 
 type PoTCheckName = never;
-type SnowpeakRuinsCheckName = never;
+
+export type SnowpeakRuinsCheckName =
+    | "Snowpeak Ruins Ball and Chain"
+    | "Snowpeak Ruins Blizzeta Heart Container"
+    | "Snowpeak Ruins Broken Floor Chest"
+    | "Snowpeak Ruins Chapel Chest"
+    | "Snowpeak Ruins Chest After Darkhammer"
+    | "Snowpeak Ruins Courtyard Central Chest"
+    | "Snowpeak Ruins Dungeon Reward"
+    | "Snowpeak Ruins East Courtyard Buried Chest"
+    | "Snowpeak Ruins East Courtyard Chest"
+    | "Snowpeak Ruins Ice Room Poe"
+    | "Snowpeak Ruins Lobby Armor Poe"
+    | "Snowpeak Ruins Lobby Chandelier Chest"
+    | "Snowpeak Ruins Lobby East Armor Chest"
+    | "Snowpeak Ruins Lobby Poe"
+    | "Snowpeak Ruins Lobby West Armor Chest"
+    | "Snowpeak Ruins Mansion Map"
+    | "Snowpeak Ruins Northeast Chandelier Chest"
+    | "Snowpeak Ruins Ordon Pumpkin Chest"
+    | "Snowpeak Ruins West Cannon Room Central Chest"
+    | "Snowpeak Ruins West Cannon Room Corner Chest"
+    | "Snowpeak Ruins West Courtyard Buried Chest"
+    | "Snowpeak Ruins Wooden Beam Central Chest"
+    | "Snowpeak Ruins Wooden Beam Chandelier Chest"
+    | "Snowpeak Ruins Wooden Beam Northwest Chest";
+
 type ToTCheckName = never;
 
 type OverworldCheckName = EldinCheckName | FaronCheckName | GerudoCheckName | LanayruCheckName | OrdonaCheckName | SnowpeakCheckName;

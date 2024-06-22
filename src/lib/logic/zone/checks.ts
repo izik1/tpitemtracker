@@ -1,5 +1,5 @@
-import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName, SnowpeakCheckName } from "../check-name";
-import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type SnowpeakZoneId, type ZoneId } from "./id";
+import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName, SnowpeakCheckName, SnowpeakRuinsCheckName } from "../check-name";
+import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type SnowpeakRuinsZoneId, type SnowpeakZoneId, type ZoneId } from "./id";
 
 export type ZoneChecks<Z extends ZoneId = ZoneId, C extends CheckName = CheckName> = Record<Z, C[]>;
 
@@ -361,7 +361,7 @@ const zoneDataGerudo: ZoneChecks<GerudoZoneId, GerudoCheckName> = {
     ],
 };
 
-const zoneDataSnowPeak: ZoneChecks<SnowpeakZoneId, SnowpeakCheckName> = {
+const zoneDataSnowpeak: ZoneChecks<SnowpeakZoneId, SnowpeakCheckName> = {
     "Snowpeak Climb": [
         "Ashei Sketch",
         "Snowpeak Above Freezard Grotto Poe",
@@ -534,6 +534,59 @@ const zoneDataArbitersGrounds: ZoneChecks<ArbitersGroundsZoneId, ArbitersGrounds
     ]
 };
 
+const zoneDataSnowpeakRuins: ZoneChecks<SnowpeakRuinsZoneId, SnowpeakRuinsCheckName> = {
+    "Snowpeak Ruins Boss Room": [
+        "Snowpeak Ruins Blizzeta Heart Container",
+        "Snowpeak Ruins Dungeon Reward"
+    ],
+    "Snowpeak Ruins Caged Freezard Room": [
+        "Snowpeak Ruins Broken Floor Chest"
+    ],
+    "Snowpeak Ruins Chapel": [
+        "Snowpeak Ruins Chapel Chest"
+    ],
+    "Snowpeak Ruins Darkhammer Room": [
+        "Snowpeak Ruins Ball and Chain",
+        "Snowpeak Ruins Chest After Darkhammer"
+    ],
+    "Snowpeak Ruins East Courtyard": [
+        "Snowpeak Ruins East Courtyard Buried Chest",
+        "Snowpeak Ruins East Courtyard Chest"
+    ],
+    "Snowpeak Ruins Entrance": [
+        "Snowpeak Ruins Lobby Chandelier Chest",
+        "Snowpeak Ruins Lobby West Armor Chest",
+        "Snowpeak Ruins Lobby East Armor Chest",
+        "Snowpeak Ruins Lobby Armor Poe",
+        "Snowpeak Ruins Lobby Poe"
+    ],
+    "Snowpeak Ruins Northeast Chilfos Room First Floor": [
+        "Snowpeak Ruins Ordon Pumpkin Chest"
+    ],
+    "Snowpeak Ruins Northeast Chilfos Room Second Floor": [
+        "Snowpeak Ruins Northeast Chandelier Chest"
+    ],
+    "Snowpeak Ruins Second Floor Mini Freezard Room": [
+        "Snowpeak Ruins Ice Room Poe"
+    ],
+    "Snowpeak Ruins West Cannon Room": [
+        "Snowpeak Ruins West Cannon Room Central Chest",
+        "Snowpeak Ruins West Cannon Room Corner Chest"
+    ],
+    "Snowpeak Ruins West Courtyard": [
+        "Snowpeak Ruins West Courtyard Buried Chest",
+        "Snowpeak Ruins Courtyard Central Chest"
+    ],
+    "Snowpeak Ruins Wooden Beam Room": [
+        "Snowpeak Ruins Wooden Beam Central Chest",
+        "Snowpeak Ruins Wooden Beam Northwest Chest",
+        "Snowpeak Ruins Wooden Beam Chandelier Chest"
+    ],
+    "Snowpeak Ruins Yeto and Yeta": [
+        "Snowpeak Ruins Mansion Map"
+    ],
+};
+
 export const zoneData: ZoneChecks = {
     // overworld
     ...zoneDataOrdona,
@@ -541,11 +594,12 @@ export const zoneData: ZoneChecks = {
     ...zoneDataEldin,
     ...zoneDataLanayru,
     ...zoneDataGerudo,
-    ...zoneDataSnowPeak,
+    ...zoneDataSnowpeak,
 
     // dungeon time
     ...zoneDataForestTemple,
     ...zoneDataGoronMines,
     ...zoneDataLakebedTemple,
     ...zoneDataArbitersGrounds,
+    ...zoneDataSnowpeakRuins
 };

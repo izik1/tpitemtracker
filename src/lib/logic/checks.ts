@@ -1,6 +1,6 @@
 
 import type { LogicStore } from './index';
-import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName, SnowpeakCheckName } from './check-name';
+import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName, SnowpeakCheckName, SnowpeakRuinsCheckName } from './check-name';
 import * as fns from './logic-functions';
 
 export type CheckKind = "standard" | "poe" | "bug";
@@ -19,7 +19,7 @@ interface Regions<V> {
     readonly goronMines: Record<GoronMinesCheckName, V>,
     readonly lakebedTemple: Record<LakebedTempleCheckName, V>,
     readonly arbitersGrounds: Record<ArbitersGroundsCheckName, V>;
-
+    readonly snowpeakRuins: Record<SnowpeakRuinsCheckName, V>;
 }
 
 const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
@@ -601,7 +601,33 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
             && fns.canDefeatStalchild(store)
             && fns.canDefeatBubble(store)
             && fns.canDefeatGhoulRat(store),
-    }
+    },
+    snowpeakRuins: {
+        "Snowpeak Ruins Ball and Chain": fns.never,
+        "Snowpeak Ruins Blizzeta Heart Container": fns.never,
+        "Snowpeak Ruins Broken Floor Chest": fns.never,
+        "Snowpeak Ruins Chapel Chest": fns.never,
+        "Snowpeak Ruins Chest After Darkhammer": fns.never,
+        "Snowpeak Ruins Courtyard Central Chest": fns.never,
+        "Snowpeak Ruins Dungeon Reward": fns.never,
+        "Snowpeak Ruins East Courtyard Buried Chest": fns.never,
+        "Snowpeak Ruins East Courtyard Chest": fns.never,
+        "Snowpeak Ruins Ice Room Poe": fns.never,
+        "Snowpeak Ruins Lobby Armor Poe": fns.never,
+        "Snowpeak Ruins Lobby Chandelier Chest": fns.never,
+        "Snowpeak Ruins Lobby East Armor Chest": fns.never,
+        "Snowpeak Ruins Lobby Poe": fns.never,
+        "Snowpeak Ruins Lobby West Armor Chest": fns.never,
+        "Snowpeak Ruins Mansion Map": fns.never,
+        "Snowpeak Ruins Northeast Chandelier Chest": fns.never,
+        "Snowpeak Ruins Ordon Pumpkin Chest": fns.never,
+        "Snowpeak Ruins West Cannon Room Central Chest": fns.never,
+        "Snowpeak Ruins West Cannon Room Corner Chest": fns.never,
+        "Snowpeak Ruins West Courtyard Buried Chest": fns.never,
+        "Snowpeak Ruins Wooden Beam Central Chest": fns.never,
+        "Snowpeak Ruins Wooden Beam Chandelier Chest": fns.never,
+        "Snowpeak Ruins Wooden Beam Northwest Chest": fns.never,
+    },
 };
 
 const checkKindsRegions: Regions<CheckKind> = {
@@ -983,6 +1009,32 @@ const checkKindsRegions: Regions<CheckKind> = {
         "Arbiters Grounds West Small Chest Behind Block": "standard",
         "Arbiters Grounds West Stalfos Northeast Chest": "standard",
         "Arbiters Grounds West Stalfos West Chest": "standard",
+    },
+    snowpeakRuins: {
+        "Snowpeak Ruins Ball and Chain": "standard",
+        "Snowpeak Ruins Blizzeta Heart Container": "standard",
+        "Snowpeak Ruins Broken Floor Chest": "standard",
+        "Snowpeak Ruins Chapel Chest": "standard",
+        "Snowpeak Ruins Chest After Darkhammer": "standard",
+        "Snowpeak Ruins Courtyard Central Chest": "standard",
+        "Snowpeak Ruins Dungeon Reward": "standard",
+        "Snowpeak Ruins East Courtyard Buried Chest": "standard",
+        "Snowpeak Ruins East Courtyard Chest": "standard",
+        "Snowpeak Ruins Ice Room Poe": "poe",
+        "Snowpeak Ruins Lobby Armor Poe": "poe",
+        "Snowpeak Ruins Lobby Chandelier Chest": "standard",
+        "Snowpeak Ruins Lobby East Armor Chest": "standard",
+        "Snowpeak Ruins Lobby Poe": "poe",
+        "Snowpeak Ruins Lobby West Armor Chest": "standard",
+        "Snowpeak Ruins Mansion Map": "standard",
+        "Snowpeak Ruins Northeast Chandelier Chest": "standard",
+        "Snowpeak Ruins Ordon Pumpkin Chest": "standard",
+        "Snowpeak Ruins West Cannon Room Central Chest": "standard",
+        "Snowpeak Ruins West Cannon Room Corner Chest": "standard",
+        "Snowpeak Ruins West Courtyard Buried Chest": "standard",
+        "Snowpeak Ruins Wooden Beam Central Chest": "standard",
+        "Snowpeak Ruins Wooden Beam Chandelier Chest": "standard",
+        "Snowpeak Ruins Wooden Beam Northwest Chest": "standard",
     }
 };
 
@@ -998,6 +1050,7 @@ export const checkKinds: Record<CheckName, CheckKind> = {
     ...checkKindsRegions.goronMines,
     ...checkKindsRegions.lakebedTemple,
     ...checkKindsRegions.arbitersGrounds,
+    ...checkKindsRegions.snowpeakRuins
 };
 
 export const checkNames: CheckName[] = <CheckName[]> Object.keys(checkKinds);
