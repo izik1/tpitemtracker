@@ -191,7 +191,19 @@ export const groups: Group[] = [
         y: "calc(44.96% - 12px)",
         checks: zoneData["Bulblin Camp"],
     },
-
+    {
+        name: "Arbiter's Grounds",
+        x: "calc(15.2% - 12px)",
+        y: "calc(41.44% - 12px)",
+        checks: [
+            ...zoneData["Arbiters Grounds Entrance"],
+            ...zoneData["Arbiters Grounds Lobby"],
+            ...zoneData["Arbiters Grounds East Wing"],
+            ...zoneData["Arbiters Grounds West Wing"],
+            ...zoneData["Arbiters Grounds After Poe Gate"],
+            ...zoneData["Arbiters Grounds Boss Room"],
+        ]
+    },
 ];
 
 export interface OverworldCheck {
@@ -931,11 +943,6 @@ export const overworld: OverworldCheck[] = [
 ];
 
 // define grouped chests
-//     {
-//         name: "Arbiter's Grounds",
-//         x: "15.2%",
-//         y: "41.44%",
-//     },
 //     {
 //         name: "Snowpeak Ruins",
 //         x: "21.31%",

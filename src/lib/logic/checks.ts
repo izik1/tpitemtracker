@@ -1,6 +1,6 @@
 
 import type { LogicStore } from './index';
-import type { CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from './check-name';
+import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from './check-name';
 import * as fns from './logic-functions';
 
 export type CheckKind = "standard" | "poe" | "bug";
@@ -17,6 +17,7 @@ interface Regions<V> {
     readonly forestTemple: Record<ForestTempleCheckName, V>,
     readonly goronMines: Record<GoronMinesCheckName, V>,
     readonly lakebedTemple: Record<LakebedTempleCheckName, V>,
+    readonly arbitersGrounds: Record<ArbitersGroundsCheckName, V>;
 
 }
 
@@ -518,6 +519,68 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
 
         "Lakebed Temple West Water Supply Small Chest": (store) => store.items.Clawshot > 0
             && store.items.IronBoots && fns.canLaunchBombs(store),
+    },
+    arbitersGrounds: {
+        "Arbiters Grounds Big Key Chest": (store) => store.items.Clawshot > 0
+            && store.items.Spinner
+            && fns.canSmash(store),
+        "Arbiters Grounds Death Sword Chest": (store) => fns.canDefeatDeathSword(store)
+            && store.items.Clawshot > 0
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatStalfos(store),
+        "Arbiters Grounds East Lower Turnable Redead Chest": ({ items }) => items.Crystal,
+        "Arbiters Grounds East Turning Room Poe": ({ items }) => items.Crystal && items.Clawshot > 0,
+        "Arbiters Grounds East Upper Turnable Chest": fns.always,
+        "Arbiters Grounds East Upper Turnable Redead Chest": fns.hasDamagingItem,
+        "Arbiters Grounds Entrance Chest": fns.canBreakWoodenDoor,
+        "Arbiters Grounds Ghoul Rat Room Chest": (store) => fns.canDefeatBubble(store)
+            && fns.canDefeatStalchild(store)
+            && fns.canDefeatRedeadKnight(store),
+        "Arbiters Grounds Hidden Wall Poe": (store) => store.items.Crystal
+            && fns.canDefeatRedeadKnight(store),
+        "Arbiters Grounds North Turning Room Chest": ({ items }) => items.Clawshot > 0,
+        "Arbiters Grounds Spinner Room First Small Chest": (store) => store.items.Clawshot > 0
+            && store.items.Spinner
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatStalfos(store),
+        "Arbiters Grounds Spinner Room Lower Central Small Chest": (store) => store.items.Clawshot > 0
+            && store.items.Spinner
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatStalfos(store),
+        "Arbiters Grounds Spinner Room Lower North Chest": (store) => store.items.Clawshot > 0
+            && store.items.Spinner
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatStalfos(store),
+        "Arbiters Grounds Spinner Room Second Small Chest": (store) => store.items.Clawshot > 0
+            && store.items.Spinner
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatStalfos(store),
+        "Arbiters Grounds Spinner Room Stalfos Alcove Chest": (store) => store.items.Clawshot > 0
+            && store.items.Spinner
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatStalfos(store),
+        "Arbiters Grounds Stallord Heart Container": fns.canDefeatStallord,
+        "Arbiters Grounds Torch Room East Chest": fns.always,
+        "Arbiters Grounds Torch Room Poe": ({ items }) => items.Crystal,
+        "Arbiters Grounds Torch Room West Chest": fns.always,
+        "Arbiters Grounds West Chandelier Chest": ({ items }) => items.Crystal,
+        "Arbiters Grounds West Poe": (store) => store.items.Crystal
+            && fns.canSmash(store)
+            && fns.canDefeatRedeadKnight(store)
+            && fns.canDefeatStalchild(store)
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatGhoulRat(store),
+        "Arbiters Grounds West Small Chest Behind Block": fns.always,
+        "Arbiters Grounds West Stalfos Northeast Chest": (store) => fns.canBreakWoodenDoor(store)
+            && fns.canDefeatRedeadKnight(store)
+            && fns.canDefeatStalchild(store)
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatGhoulRat(store),
+        "Arbiters Grounds West Stalfos West Chest": (store) => fns.canBreakWoodenDoor(store)
+            && fns.canDefeatRedeadKnight(store)
+            && fns.canDefeatStalchild(store)
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatGhoulRat(store),
     }
 };
 
@@ -863,6 +926,32 @@ const checkKindsRegions: Regions<CheckKind> = {
         "Lakebed Temple West Second Floor Southwest Underwater Chest": "standard",
         "Lakebed Temple West Water Supply Chest": "standard",
         "Lakebed Temple West Water Supply Small Chest": "standard",
+    },
+    arbitersGrounds: {
+        "Arbiters Grounds Big Key Chest": "standard",
+        "Arbiters Grounds Death Sword Chest": "standard",
+        "Arbiters Grounds East Lower Turnable Redead Chest": "standard",
+        "Arbiters Grounds East Turning Room Poe": "poe",
+        "Arbiters Grounds East Upper Turnable Chest": "standard",
+        "Arbiters Grounds East Upper Turnable Redead Chest": "standard",
+        "Arbiters Grounds Entrance Chest": "standard",
+        "Arbiters Grounds Ghoul Rat Room Chest": "standard",
+        "Arbiters Grounds Hidden Wall Poe": "poe",
+        "Arbiters Grounds North Turning Room Chest": "standard",
+        "Arbiters Grounds Spinner Room First Small Chest": "standard",
+        "Arbiters Grounds Spinner Room Lower Central Small Chest": "standard",
+        "Arbiters Grounds Spinner Room Lower North Chest": "standard",
+        "Arbiters Grounds Spinner Room Second Small Chest": "standard",
+        "Arbiters Grounds Spinner Room Stalfos Alcove Chest": "standard",
+        "Arbiters Grounds Stallord Heart Container": "standard",
+        "Arbiters Grounds Torch Room East Chest": "standard",
+        "Arbiters Grounds Torch Room Poe": "poe",
+        "Arbiters Grounds Torch Room West Chest": "standard",
+        "Arbiters Grounds West Chandelier Chest": "standard",
+        "Arbiters Grounds West Poe": "poe",
+        "Arbiters Grounds West Small Chest Behind Block": "standard",
+        "Arbiters Grounds West Stalfos Northeast Chest": "standard",
+        "Arbiters Grounds West Stalfos West Chest": "standard",
     }
 };
 
@@ -876,6 +965,7 @@ export const checkKinds: Record<CheckName, CheckKind> = {
     ...checkKindsRegions.forestTemple,
     ...checkKindsRegions.goronMines,
     ...checkKindsRegions.lakebedTemple,
+    ...checkKindsRegions.arbitersGrounds,
 };
 
 export const checkNames: CheckName[] = <CheckName[]> Object.keys(checkKinds);
@@ -910,4 +1000,5 @@ export const checkAccessibilityGlitchless = makeCheckAccessibility({
     ...checkAccessibilityGlitchlessRegions.forestTemple,
     ...checkAccessibilityGlitchlessRegions.goronMines,
     ...checkAccessibilityGlitchlessRegions.lakebedTemple,
+    ...checkAccessibilityGlitchlessRegions.arbitersGrounds,
 });

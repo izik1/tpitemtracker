@@ -8,7 +8,7 @@ export function hasDamagingIronBoots(store: LogicStore) {
 }
 
 // Logic export functions, these help make item requirements simpler and allow us not to clutter the individual item checks
-export function hasDamagingItem(store: LogicStore, checkNiche: boolean) {
+export function hasDamagingItem(store: LogicStore, checkNiche: boolean = false) {
     return store.items.Sword > 0
         || store.items.Chainball
         || store.items.Bow > 0

@@ -11,7 +11,32 @@ type DungeonCheckName =
     | SnowpeakRuinsCheckName
     | ToTCheckName;
 
-type ArbitersGroundsCheckName = never;
+export type ArbitersGroundsCheckName =
+    | "Arbiters Grounds Big Key Chest"
+    | "Arbiters Grounds Death Sword Chest"
+    | "Arbiters Grounds East Lower Turnable Redead Chest"
+    | "Arbiters Grounds East Turning Room Poe"
+    | "Arbiters Grounds East Upper Turnable Chest"
+    | "Arbiters Grounds East Upper Turnable Redead Chest"
+    | "Arbiters Grounds Entrance Chest"
+    | "Arbiters Grounds Ghoul Rat Room Chest"
+    | "Arbiters Grounds Hidden Wall Poe"
+    | "Arbiters Grounds North Turning Room Chest"
+    | "Arbiters Grounds Spinner Room First Small Chest"
+    | "Arbiters Grounds Spinner Room Lower Central Small Chest"
+    | "Arbiters Grounds Spinner Room Lower North Chest"
+    | "Arbiters Grounds Spinner Room Second Small Chest"
+    | "Arbiters Grounds Spinner Room Stalfos Alcove Chest"
+    | "Arbiters Grounds Stallord Heart Container"
+    | "Arbiters Grounds Torch Room East Chest"
+    | "Arbiters Grounds Torch Room Poe"
+    | "Arbiters Grounds Torch Room West Chest"
+    | "Arbiters Grounds West Chandelier Chest"
+    | "Arbiters Grounds West Poe"
+    | "Arbiters Grounds West Small Chest Behind Block"
+    | "Arbiters Grounds West Stalfos Northeast Chest"
+    | "Arbiters Grounds West Stalfos West Chest";
+
 type CitSCheckName = never;
 
 export type ForestTempleCheckName =

@@ -1,5 +1,5 @@
-import type { CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from "../check-name";
-import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
+import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from "../check-name";
+import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
 
 export type ZoneChecks<Z extends ZoneId = ZoneId, C extends CheckName = CheckName> = Record<Z, C[]>;
 
@@ -477,6 +477,45 @@ const zoneDataLakebedTemple: ZoneChecks<LakebedTempleZoneId, LakebedTempleCheckN
     ]
 };
 
+const zoneDataArbitersGrounds: ZoneChecks<ArbitersGroundsZoneId, ArbitersGroundsCheckName> = {
+    "Arbiters Grounds Entrance": [
+        "Arbiters Grounds Entrance Chest",
+    ],
+    "Arbiters Grounds Lobby": [
+        "Arbiters Grounds Torch Room East Chest",
+        "Arbiters Grounds Torch Room West Chest",
+        "Arbiters Grounds Torch Room Poe",
+    ],
+    "Arbiters Grounds East Wing": [
+        "Arbiters Grounds East Lower Turnable Redead Chest",
+        "Arbiters Grounds East Upper Turnable Chest",
+        "Arbiters Grounds East Upper Turnable Redead Chest",
+        "Arbiters Grounds Ghoul Rat Room Chest",
+        "Arbiters Grounds East Turning Room Poe",
+        "Arbiters Grounds Hidden Wall Poe",
+    ],
+    "Arbiters Grounds West Wing": [
+        "Arbiters Grounds West Small Chest Behind Block",
+        "Arbiters Grounds West Chandelier Chest",
+        "Arbiters Grounds West Stalfos West Chest",
+        "Arbiters Grounds West Stalfos Northeast Chest",
+        "Arbiters Grounds West Poe",
+    ],
+    "Arbiters Grounds After Poe Gate": [
+        "Arbiters Grounds Big Key Chest",
+        "Arbiters Grounds North Turning Room Chest",
+        "Arbiters Grounds Death Sword Chest",
+        "Arbiters Grounds Spinner Room First Small Chest",
+        "Arbiters Grounds Spinner Room Second Small Chest",
+        "Arbiters Grounds Spinner Room Lower Central Small Chest",
+        "Arbiters Grounds Spinner Room Stalfos Alcove Chest",
+        "Arbiters Grounds Spinner Room Lower North Chest",
+    ],
+    "Arbiters Grounds Boss Room": [
+        "Arbiters Grounds Stallord Heart Container"
+    ]
+};
+
 export const zoneData: ZoneChecks = {
     // overworld
     ...zoneDataOrdona,
@@ -489,4 +528,5 @@ export const zoneData: ZoneChecks = {
     ...zoneDataForestTemple,
     ...zoneDataGoronMines,
     ...zoneDataLakebedTemple,
+    ...zoneDataArbitersGrounds,
 };

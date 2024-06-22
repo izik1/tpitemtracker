@@ -2,7 +2,13 @@ export type ZoneId = DungeonZoneId | OverworldZoneId;
 
 type DungeonZoneId = ArbitersGroundsZoneId | CitSZoneId | ForestTempleZoneId | GoronMinesZoneId | HyruleCastleZoneId | LakebedTempleZoneId | PoTZoneId | SnowpeakRuinsZoneId | ToTZoneId;
 
-export type ArbitersGroundsZoneId = never;
+export type ArbitersGroundsZoneId =
+    | "Arbiters Grounds After Poe Gate"
+    | "Arbiters Grounds Boss Room"
+    | "Arbiters Grounds East Wing"
+    | "Arbiters Grounds Entrance"
+    | "Arbiters Grounds Lobby"
+    | "Arbiters Grounds West Wing";
 
 export type CitSZoneId = never;
 
@@ -25,7 +31,6 @@ export type GoronMinesZoneId =
     | "Goron Mines Upper East Wing";
 
 type HyruleCastleZoneId = never;
-
 export type LakebedTempleZoneId =
     | "Lakebed Temple Boss Room"
     | "Lakebed Temple Central Room"

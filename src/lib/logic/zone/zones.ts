@@ -1,4 +1,4 @@
-import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
+import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
 import * as fns from "../logic-functions";
 import { type LogicStore } from "../index";
 import type { RandomizerSettings } from "$lib/settings";
@@ -289,10 +289,10 @@ const zoneNeighborsGerudoGlitchless: ZoneNeighbors<GerudoZoneId> = {
     ],
     "Outside Arbiters Grounds": [
         ZoneNeighbor.always("Bulblin Camp"),
-        new ZoneNeighbor("Arbiters Grounds Entrance", fns.never),
+        ZoneNeighbor.always("Arbiters Grounds Entrance"),
     ],
     "Mirror Chamber": [
-        new ZoneNeighbor("Arbiters Grounds Boss Room", fns.never),
+        ZoneNeighbor.always("Arbiters Grounds Boss Room"),
         new ZoneNeighbor("Palace of Twilight Entrance", fns.never),
     ],
     "Cave of Ordeals Floors 01-11": [
@@ -498,6 +498,42 @@ const zoneNeighborsLakebedTempleGlitchless: ZoneNeighbors<LakebedTempleZoneId> =
     ]
 };
 
+const zoneNeighborsArbitersGrounds: ZoneNeighbors<ArbitersGroundsZoneId> = {
+    "Arbiters Grounds Entrance": [
+        ZoneNeighbor.always("Outside Arbiters Grounds"),
+        new ZoneNeighbor("Arbiters Grounds Lobby", ({ items }) => items.Lantern),
+    ],
+    "Arbiters Grounds Lobby": [
+        ZoneNeighbor.always("Arbiters Grounds Entrance"),
+        ZoneNeighbor.always("Arbiters Grounds East Wing"),
+        ZoneNeighbor.always("Arbiters Grounds West Wing"),
+        new ZoneNeighbor(
+            "Arbiters Grounds After Poe Gate",
+            (store) => store.items.Crystal
+                && store.items.Clawshot > 0
+                && fns.canDefeatPoe(store)
+                && fns.canDefeatRedeadKnight(store)
+                && fns.canDefeatStalchild(store)
+                && fns.canDefeatBubble(store)
+                && fns.canDefeatGhoulRat(store)
+                && fns.canDefeatStalfos(store)
+        )
+    ],
+    "Arbiters Grounds East Wing": [
+        ZoneNeighbor.always("Arbiters Grounds Lobby"),
+    ],
+    "Arbiters Grounds West Wing": [
+        ZoneNeighbor.always("Arbiters Grounds Lobby"),
+    ],
+    "Arbiters Grounds After Poe Gate": [
+        ZoneNeighbor.always("Arbiters Grounds Lobby"),
+        new ZoneNeighbor("Arbiters Grounds Boss Room", ({ items }) => items.Spinner),
+    ],
+    "Arbiters Grounds Boss Room": [
+        new ZoneNeighbor("Mirror Chamber", fns.canDefeatStallord),
+    ],
+};
+
 export type ZoneNeighbors<T extends ZoneId = ZoneId> = Record<T, ZoneNeighbor[]>;
 
 export const zoneNeighborsGlitchless: ZoneNeighbors = {
@@ -511,7 +547,8 @@ export const zoneNeighborsGlitchless: ZoneNeighbors = {
     // dungeon time
     ...zoneNeighborsForestTempleGlitchless,
     ...zoneNeighborsGoronMinesGlitchless,
-    ...zoneNeighborsLakebedTempleGlitchless
+    ...zoneNeighborsLakebedTempleGlitchless,
+    ...zoneNeighborsArbitersGrounds,
 };
 
 export function calculateReachableZones(searchZones: ZoneNeighbors, settings: RandomizerSettings, items: typeof baseItems, start: ZoneId = "Ordon Province") {
