@@ -18,7 +18,7 @@ devDependencies:
     specifier: ^2.5.17
     version: 2.5.17(@sveltejs/vite-plugin-svelte@4.0.0-next.3)(svelte@5.0.0-next.158)(vite@5.3.1)
   '@sveltejs/vite-plugin-svelte':
-    specifier: ^4.0.0-next.3
+    specifier: 4.0.0-next.3
     version: 4.0.0-next.3(svelte@5.0.0-next.158)(vite@5.3.1)
   svelte:
     specifier: 5.0.0-next.158
@@ -30,8 +30,8 @@ devDependencies:
     specifier: ^2.6.3
     version: 2.6.3
   typescript:
-    specifier: ^5.4.5
-    version: 5.4.5
+    specifier: ^5.5.2
+    version: 5.5.2
   vite:
     specifier: ^5.3.1
     version: 5.3.1
@@ -1361,8 +1361,8 @@ packages:
       picocolors: 1.0.1
       sade: 1.8.1
       svelte: 5.0.0-next.158
-      svelte-preprocess: 5.1.4(svelte@5.0.0-next.158)(typescript@5.4.5)
-      typescript: 5.4.5
+      svelte-preprocess: 5.1.4(svelte@5.0.0-next.158)(typescript@5.5.2)
+      typescript: 5.5.2
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -1383,7 +1383,7 @@ packages:
       svelte: 5.0.0-next.158
     dev: true
 
-  /svelte-preprocess@5.1.4(svelte@5.0.0-next.158)(typescript@5.4.5):
+  /svelte-preprocess@5.1.4(svelte@5.0.0-next.158)(typescript@5.5.2):
     resolution: {integrity: sha512-IvnbQ6D6Ao3Gg6ftiM5tdbR6aAETwjhHV+UKGf5bHGYR69RQvF1ho0JKPcbUON4vy4R7zom13jPjgdOWCQ5hDA==}
     engines: {node: '>= 16.0.0'}
     requiresBuild: true
@@ -1427,7 +1427,7 @@ packages:
       sorcery: 0.11.1
       strip-indent: 3.0.0
       svelte: 5.0.0-next.158
-      typescript: 5.4.5
+      typescript: 5.5.2
     dev: true
 
   /svelte@5.0.0-next.158:
@@ -1472,8 +1472,8 @@ packages:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
     dev: true
 
-  /typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
+  /typescript@5.5.2:
+    resolution: {integrity: sha512-NcRtPEOsPFFWjobJEtfihkLCZCXZt/os3zf8nTxjVH3RvTSxjrCamJpbExGvYOF+tFHc3pA65qpdwPbzjohhew==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true

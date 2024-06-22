@@ -187,7 +187,42 @@ export type FaronCheckName =
     | "Sacred Grove Temple of Time Owl Statue Poe"
     | "South Faron Cave Chest";
 
-type GerudoCheckName = never;
+export type GerudoCheckName =
+    | "Bulblin Camp First Chest Under Tower At Entrance"
+    | "Bulblin Camp Poe"
+    | "Bulblin Camp Roasted Boar"
+    | "Bulblin Camp Small Chest in Back of Camp"
+    | "Bulblin Guard Key"
+    | "Cave of Ordeals Floor 17 Poe"
+    | "Cave of Ordeals Floor 33 Poe"
+    | "Cave of Ordeals Floor 44 Poe"
+    | "Cave of Ordeals Great Fairy Reward"
+    | "Gerudo Desert Campfire East Chest"
+    | "Gerudo Desert Campfire North Chest"
+    | "Gerudo Desert Campfire West Chest"
+    | "Gerudo Desert East Canyon Chest"
+    | "Gerudo Desert East Poe"
+    | "Gerudo Desert Female Dayfly"
+    | "Gerudo Desert Golden Wolf"
+    | "Gerudo Desert Lone Small Chest"
+    | "Gerudo Desert Male Dayfly"
+    | "Gerudo Desert North Peahat Poe"
+    | "Gerudo Desert North Small Chest Before Bulblin Camp"
+    | "Gerudo Desert Northeast Chest Behind Gates"
+    | "Gerudo Desert Northwest Chest Behind Gates"
+    | "Gerudo Desert Owl Statue Chest"
+    | "Gerudo Desert Owl Statue Sky Character"
+    | "Gerudo Desert Peahat Ledge Chest"
+    | "Gerudo Desert Poe Above Cave of Ordeals"
+    | "Gerudo Desert Rock Grotto First Poe"
+    | "Gerudo Desert Rock Grotto Lantern Chest"
+    | "Gerudo Desert Rock Grotto Second Poe"
+    | "Gerudo Desert Skulltula Grotto Chest"
+    | "Gerudo Desert South Chest Behind Wooden Gates"
+    | "Gerudo Desert West Canyon Chest"
+    | "Outside Arbiters Grounds Lantern Chest"
+    | "Outside Arbiters Grounds Poe"
+    | "Outside Bulblin Camp Poe";
 
 export type LanayruCheckName =
     | "Agitha Bug #1 Reward"

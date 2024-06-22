@@ -18,7 +18,7 @@ export function hasDamagingItem(store: LogicStore, checkNiche: boolean) {
         || store.items.Spinner;
 }
 
-export function canDefeatArealfos(store: LogicStore) {
+export function canDefeatAeralfos(store: LogicStore) {
     return store.items.Clawshot > 0 && (
         store.items.Sword > 0
         || store.items.Chainball
@@ -141,7 +141,7 @@ export function canDefeatBubble(store: LogicStore) {
         || canUseBacksliceAsSword(store);
 }
 
-export function canDefeatBulbin(store: LogicStore) {
+export function canDefeatBulblin(store: LogicStore) {
     return store.items.Sword > 0
         || store.items.Chainball
         || store.items.Bow > 0
@@ -539,7 +539,7 @@ export function canDefeatStalchild(store: LogicStore) {
         || canUseBacksliceAsSword(store);
 }
 
-export function canDefeatTaktite(store: LogicStore) {
+export function canDefeatTektite(store: LogicStore) {
     return store.items.Sword > 0
         || store.items.Chainball
         || store.items.Bow > 0

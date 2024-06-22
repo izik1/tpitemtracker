@@ -1,6 +1,6 @@
 
 import type { LogicStore } from './index';
-import type { CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from './check-name';
+import type { CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from './check-name';
 import * as fns from './logic-functions';
 
 export type CheckKind = "standard" | "poe" | "bug";
@@ -12,6 +12,7 @@ interface Regions<V> {
     readonly faron: Record<FaronCheckName, V>,
     readonly eldin: Record<EldinCheckName, V>,
     readonly lanayru: Record<LanayruCheckName, V>,
+    readonly gerudo: Record<GerudoCheckName, V>,
 
     readonly forestTemple: Record<ForestTempleCheckName, V>,
     readonly goronMines: Record<GoronMinesCheckName, V>,
@@ -292,7 +293,7 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
         "Outside South Castle Town Golden Wolf": (store) => store.items.Crystal && store.reachableZones.has("North Faron Woods"),
         "Outside South Castle Town Male Ladybug": fns.always,
         "Outside South Castle Town Poe": ({ items }) => items.Crystal,
-        "Outside South Castle Town Tektite Grotto Chest": (store) => fns.canDefeatTaktite(store),
+        "Outside South Castle Town Tektite Grotto Chest": (store) => fns.canDefeatTektite(store),
         "Outside South Castle Town Tightrope Chest": ({ items }) => items.Clawshot > 0 && items.Crystal,
         "Plumm Fruit Balloon Minigame": ({ items }) => items.Crystal,
         "STAR Prize 1": ({ items }) => items.Clawshot > 0,
@@ -316,6 +317,82 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
             && store.items.IronBoots && store.items.ZoraArmor,
 
         "Zoras Domain Waterfall Poe": ({ items }) => items.Crystal,
+    },
+    gerudo: {
+        "Bulblin Camp First Chest Under Tower At Entrance": fns.always,
+        // fixme: CampKey
+        "Bulblin Camp Poe": ({ items, settings }) => items.Crystal && (/* camp small key || */ settings.smallKeys === "keysy" || settings.skip.arbitersEntrance),
+        "Bulblin Camp Roasted Boar": (store) => fns.hasDamagingItem(store, false),
+        "Bulblin Camp Small Chest in Back of Camp": fns.always,
+        "Bulblin Guard Key": fns.canDefeatBulblin,
+        "Cave of Ordeals Floor 17 Poe": (store) => store.items.Spinner
+            && store.items.Crystal
+            && fns.canDefeatHelmasaur(store)
+            && fns.canDefeatRat(store)
+            && fns.canDefeatChu(store)
+            && fns.canDefeatChuWorm(store)
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatKeese(store)
+            && fns.canDefeatStalhound(store),
+        "Cave of Ordeals Floor 33 Poe": (store) => store.items.Crystal
+            && store.items.Dominion >= 2
+            && fns.canDefeatBeamos(store)
+            && fns.canDefeatKeese(store)
+            && fns.canDefeatDodongo(store)
+            && fns.canDefeatBubble(store)
+            && fns.canDefeatRedeadKnight(store),
+        "Cave of Ordeals Floor 44 Poe": (store) => store.items.Crystal
+            && store.items.Clawshot >= 2
+            && (store.items.Bow > 0 || store.items.Chainball)
+            && fns.canDefeatArmos(store)
+            && fns.canDefeatBabaSerpent(store)
+            && fns.canDefeatLizalfos(store)
+            && fns.canDefeatDinalfos(store),
+        "Cave of Ordeals Great Fairy Reward": (store) => store.items.Clawshot >= 2
+            && fns.canDefeatArmos(store)
+            && fns.canDefeatBokoblin(store)
+            && fns.canDefeatBabaSerpent(store)
+            && fns.canDefeatLizalfos(store)
+            && fns.canDefeatBulblin(store)
+            && fns.canDefeatDinalfos(store)
+            && fns.canDefeatPoe(store)
+            && fns.canDefeatRedeadKnight(store)
+            && fns.canDefeatChu(store)
+            && fns.canDefeatFreezard(store)
+            && fns.canDefeatChilfos(store)
+            && fns.canDefeatGhoulRat(store)
+            && fns.canDefeatRat(store)
+            && fns.canDefeatStalchild(store)
+            && fns.canDefeatAeralfos(store)
+            && fns.canDefeatDarknut(store),
+        "Gerudo Desert Campfire East Chest": fns.canDefeatBulblin,
+        "Gerudo Desert Campfire North Chest": fns.always,
+        "Gerudo Desert Campfire West Chest": fns.canDefeatBulblin,
+        "Gerudo Desert East Canyon Chest": fns.always,
+        "Gerudo Desert East Poe": ({ items }) => items.Crystal,
+        "Gerudo Desert Female Dayfly": fns.always,
+        "Gerudo Desert Golden Wolf": (store) => store.items.Crystal && store.reachableZones.has("Lake Hylia"),
+        "Gerudo Desert Lone Small Chest": fns.always,
+        "Gerudo Desert Male Dayfly": fns.always,
+        "Gerudo Desert North Peahat Poe": ({ items }) => items.Crystal && items.Clawshot > 0,
+        "Gerudo Desert North Small Chest Before Bulblin Camp": fns.canDefeatBulblin,
+        "Gerudo Desert Northeast Chest Behind Gates": fns.canDefeatBulblin,
+        "Gerudo Desert Northwest Chest Behind Gates": fns.canDefeatBulblin,
+        "Gerudo Desert Owl Statue Chest": ({ items }) => items.Dominion >= 2,
+        "Gerudo Desert Owl Statue Sky Character": ({ items }) => items.Dominion >= 2,
+        "Gerudo Desert Peahat Ledge Chest": ({ items }) => items.Clawshot > 0,
+        "Gerudo Desert Poe Above Cave of Ordeals": (store) => store.items.Crystal
+            && store.items.Clawshot > 0
+            && fns.canDefeatShadowBeast(store),
+        "Gerudo Desert Rock Grotto First Poe": (store) => store.items.Crystal && fns.canSmash(store),
+        "Gerudo Desert Rock Grotto Lantern Chest": (store) => store.items.Lantern && fns.canSmash(store),
+        "Gerudo Desert Rock Grotto Second Poe": (store) => store.items.Crystal && fns.canSmash(store),
+        "Gerudo Desert Skulltula Grotto Chest": fns.canDefeatSkulltula,
+        "Gerudo Desert South Chest Behind Wooden Gates": fns.canDefeatBulblin,
+        "Gerudo Desert West Canyon Chest": ({ items }) => items.Clawshot > 0,
+        "Outside Arbiters Grounds Lantern Chest": ({ items }) => items.Lantern,
+        "Outside Arbiters Grounds Poe": ({ items }) => items.Crystal,
+        "Outside Bulblin Camp Poe": ({ items }) => items.Crystal,
     },
     forestTemple: {
         "Forest Temple Big Baba Key": (store) => fns.canDefeatBigBaba(store) && fns.canDefeatWalltula(store) === true,
@@ -675,6 +752,43 @@ const checkKindsRegions: Regions<CheckKind> = {
         "Zoras Domain Underwater Goron": "standard",
         "Zoras Domain Waterfall Poe": "poe",
     },
+    gerudo: {
+        "Bulblin Camp First Chest Under Tower At Entrance": "standard",
+        "Bulblin Camp Poe": "poe",
+        "Bulblin Camp Roasted Boar": "standard",
+        "Bulblin Camp Small Chest in Back of Camp": "standard",
+        "Bulblin Guard Key": "standard",
+        "Cave of Ordeals Floor 17 Poe": "poe",
+        "Cave of Ordeals Floor 33 Poe": "poe",
+        "Cave of Ordeals Floor 44 Poe": "poe",
+        "Cave of Ordeals Great Fairy Reward": "standard",
+        "Gerudo Desert Campfire East Chest": "standard",
+        "Gerudo Desert Campfire North Chest": "standard",
+        "Gerudo Desert Campfire West Chest": "standard",
+        "Gerudo Desert East Canyon Chest": "standard",
+        "Gerudo Desert East Poe": "poe",
+        "Gerudo Desert Female Dayfly": "bug",
+        "Gerudo Desert Golden Wolf": "standard",
+        "Gerudo Desert Lone Small Chest": "standard",
+        "Gerudo Desert Male Dayfly": "bug",
+        "Gerudo Desert North Peahat Poe": "poe",
+        "Gerudo Desert North Small Chest Before Bulblin Camp": "standard",
+        "Gerudo Desert Northeast Chest Behind Gates": "standard",
+        "Gerudo Desert Northwest Chest Behind Gates": "standard",
+        "Gerudo Desert Owl Statue Chest": "standard",
+        "Gerudo Desert Owl Statue Sky Character": "standard",
+        "Gerudo Desert Peahat Ledge Chest": "standard",
+        "Gerudo Desert Poe Above Cave of Ordeals": "poe",
+        "Gerudo Desert Rock Grotto First Poe": "poe",
+        "Gerudo Desert Rock Grotto Lantern Chest": "standard",
+        "Gerudo Desert Rock Grotto Second Poe": "poe",
+        "Gerudo Desert Skulltula Grotto Chest": "standard",
+        "Gerudo Desert South Chest Behind Wooden Gates": "standard",
+        "Gerudo Desert West Canyon Chest": "standard",
+        "Outside Arbiters Grounds Lantern Chest": "standard",
+        "Outside Arbiters Grounds Poe": "poe",
+        "Outside Bulblin Camp Poe": "poe",
+    },
 
     forestTemple: {
         "Forest Temple Big Baba Key": "standard",
@@ -757,6 +871,7 @@ export const checkKinds: Record<CheckName, CheckKind> = {
     ...checkKindsRegions.faron,
     ...checkKindsRegions.eldin,
     ...checkKindsRegions.lanayru,
+    ...checkKindsRegions.gerudo,
 
     ...checkKindsRegions.forestTemple,
     ...checkKindsRegions.goronMines,
@@ -790,6 +905,7 @@ export const checkAccessibilityGlitchless = makeCheckAccessibility({
     ...checkAccessibilityGlitchlessRegions.faron,
     ...checkAccessibilityGlitchlessRegions.eldin,
     ...checkAccessibilityGlitchlessRegions.lanayru,
+    ...checkAccessibilityGlitchlessRegions.gerudo,
 
     ...checkAccessibilityGlitchlessRegions.forestTemple,
     ...checkAccessibilityGlitchlessRegions.goronMines,

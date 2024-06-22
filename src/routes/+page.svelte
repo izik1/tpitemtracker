@@ -5,13 +5,10 @@
     import localStore from "$lib/local-store.svelte";
     import { setContext } from "svelte";
     import { baseItems } from "$lib/items";
-    import { defaultRandomizerSettings } from "$lib/settings";
+    import { makeRandomizerSettings } from "$lib/settings";
 
     setContext("items", localStore("items", baseItems));
-    setContext(
-        "randomizerSettings",
-        localStore("randomizerSettings", defaultRandomizerSettings),
-    );
+    setContext("randomizerSettings", makeRandomizerSettings());
 </script>
 
 <svelte:head>

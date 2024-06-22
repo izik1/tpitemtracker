@@ -70,7 +70,22 @@ type FaronFieldZoneId = "Faron Field" | "Faron Field Corner Grotto";
 
 type SacredGroveZoneId = "Lost Woods" | "Sacred Grove Baba Serpent Grotto" | "Sacred Grove Master Sword" | "Sacred Grove Temple of Time";
 
-type GerudoZoneId = never;
+export type GerudoZoneId = GerudoDesertZoneId | CaveOfOrdealsZoneId;
+
+type GerudoDesertZoneId =
+    | "Bulblin Camp"
+    | "Gerudo Desert Rock Grotto"
+    | "Gerudo Desert Skulltula Grotto"
+    | "Gerudo Desert"
+    | "Mirror Chamber"
+    | "Outside Arbiters Grounds";
+
+type CaveOfOrdealsZoneId =
+    | "Cave of Ordeals Floors 01-11"
+    | "Cave of Ordeals Floors 12-21"
+    | "Cave of Ordeals Floors 22-31"
+    | "Cave of Ordeals Floors 32-41"
+    | "Cave of Ordeals Floors 42-50";
 
 export type LanayruZoneId = CastleTownZoneId | LanayruFieldZoneId | LakeHyliaZoneId | ZorasDomainZoneId;
 

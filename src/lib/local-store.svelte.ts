@@ -5,7 +5,7 @@ export interface LocalStore<T> {
     readonly value: T;
 }
 
-const localStore = <T,>(key: string, initValue: T): LocalStore<T> => {
+const localStore = <T,>(key: string, initValue: T, parse: (x: string) => T = JSON.parse, stringify: (x: T) => string = JSON.stringify): LocalStore<T> => {
     let value = $state(initValue);
 
     if (!browser) {

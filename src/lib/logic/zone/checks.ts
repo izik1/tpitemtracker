@@ -1,5 +1,5 @@
-import type { CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from "../check-name";
-import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
+import type { CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from "../check-name";
+import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
 
 export type ZoneChecks<Z extends ZoneId = ZoneId, C extends CheckName = CheckName> = Record<Z, C[]>;
 
@@ -308,6 +308,59 @@ const zoneDataLanayru: ZoneChecks<LanayruZoneId, LanayruCheckName> = {
     ]
 };
 
+const zoneDataGerudo: ZoneChecks<GerudoZoneId, GerudoCheckName> = {
+    "Gerudo Desert": [
+        "Gerudo Desert Peahat Ledge Chest",
+        "Gerudo Desert East Canyon Chest",
+        "Gerudo Desert Lone Small Chest",
+        "Gerudo Desert West Canyon Chest",
+        "Gerudo Desert Northeast Chest Behind Gates",
+        "Gerudo Desert South Chest Behind Wooden Gates",
+        "Gerudo Desert Campfire North Chest",
+        "Gerudo Desert Campfire East Chest",
+        "Gerudo Desert Campfire West Chest",
+        "Gerudo Desert Northwest Chest Behind Gates",
+        "Gerudo Desert North Small Chest Before Bulblin Camp",
+        "Gerudo Desert Owl Statue Chest",
+        "Gerudo Desert Owl Statue Sky Character",
+        "Gerudo Desert Male Dayfly",
+        "Gerudo Desert Female Dayfly",
+        "Gerudo Desert East Poe",
+        "Gerudo Desert North Peahat Poe",
+        "Gerudo Desert Poe Above Cave of Ordeals",
+        "Outside Bulblin Camp Poe",
+        "Gerudo Desert Golden Wolf",
+    ],
+    "Gerudo Desert Rock Grotto": [
+        "Gerudo Desert Rock Grotto Lantern Chest",
+        "Gerudo Desert Rock Grotto First Poe",
+        "Gerudo Desert Rock Grotto Second Poe"
+    ],
+    "Gerudo Desert Skulltula Grotto": [
+        "Gerudo Desert Skulltula Grotto Chest",
+    ],
+    "Bulblin Camp": [
+        "Bulblin Camp First Chest Under Tower At Entrance",
+        "Bulblin Camp Small Chest in Back of Camp",
+        "Bulblin Camp Roasted Boar",
+        "Bulblin Camp Poe",
+        "Bulblin Guard Key",
+    ],
+    "Outside Arbiters Grounds": [
+        "Outside Arbiters Grounds Lantern Chest",
+        "Outside Arbiters Grounds Poe",
+    ],
+    "Mirror Chamber": [],
+    "Cave of Ordeals Floors 01-11": ["Cave of Ordeals Floor 17 Poe"],
+    "Cave of Ordeals Floors 12-21": [],
+    "Cave of Ordeals Floors 22-31": [],
+    "Cave of Ordeals Floors 32-41": ["Cave of Ordeals Floor 33 Poe"],
+    "Cave of Ordeals Floors 42-50": [
+        "Cave of Ordeals Floor 44 Poe",
+        "Cave of Ordeals Great Fairy Reward",
+    ],
+};
+
 const zoneDataForestTemple: ZoneChecks<ForestTempleZoneId, ForestTempleCheckName> = {
     "Forest Temple Entrance": [
         "Forest Temple Entrance Vines Chest",
@@ -430,6 +483,7 @@ export const zoneData: ZoneChecks = {
     ...zoneDataFaron,
     ...zoneDataEldin,
     ...zoneDataLanayru,
+    ...zoneDataGerudo,
 
     // dungeon time
     ...zoneDataForestTemple,

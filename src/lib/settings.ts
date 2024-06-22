@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import localStore from './local-store.svelte';
 
 export type LogicValue = "glitchless";
 // export type LogicValue = "glitchless" | "glitched";
@@ -24,6 +25,7 @@ export interface RandomizerSettings {
         lanayruTwilight: boolean,
         mdh: boolean,
         lakebedEntrance: boolean,
+        arbitersEntrance: boolean,
     };
     itemPool: {
         npcGifts: boolean,
@@ -44,6 +46,7 @@ export const defaultRandomizerSettings: RandomizerSettings = {
         lanayruTwilight: false,
         mdh: false,
         lakebedEntrance: false,
+        arbitersEntrance: false,
     },
     itemPool: {
         npcGifts: false,
@@ -53,4 +56,49 @@ export const defaultRandomizerSettings: RandomizerSettings = {
     smallKeys: "vanilla" as KeyLogic,
     goronMinesLogic: "closed" as GoronMinesEntranceLogic,
     increaseWalletCapacity: false,
+};
+
+export const makeRandomizerSettings = () => {
+    type JSONObject = {
+        [x: string]: null | undefined | string | number | boolean | JSONObject;
+    };
+
+    // One of my greatest failings writing this was being unable to figure out how to make this even remotely type-safe.
+    // Even "the output type is the same as the input type", or "the input type is an object-like-thing"
+    const parseRecursive = (raw: JSONObject, defaultValue: any): any => {
+        const output: Partial<any> = {};
+
+        for (const [key, value] of Object.entries(defaultValue)) {
+            if (!Object.hasOwn(raw, key)) {
+                continue;
+            }
+
+            const rawTy = typeof (raw[key]);
+
+            if (rawTy !== typeof (value)) {
+                continue;
+            }
+
+            if (rawTy === "number" || rawTy === "string" || rawTy === "boolean") {
+                output[key] = raw[key];
+            }
+
+            if (raw[key] !== null && typeof (raw[key]) === "object") {
+                output[key] = parseRecursive(raw[key], value);
+            } else {
+                output[key] = raw[key];
+            }
+        }
+
+        return { ...defaultValue, ...output };
+    };
+
+    let parse = (x: string) => {
+
+        const raw: JSONObject = JSON.parse(x);
+
+        return <RandomizerSettings> parseRecursive(raw, defaultRandomizerSettings);
+    };
+
+    return localStore("randomizerSettings", defaultRandomizerSettings, parse);
 };

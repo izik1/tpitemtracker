@@ -184,7 +184,14 @@ export const groups: Group[] = [
             ...zoneData["Lakebed Temple West Wing"],
             ...zoneData["Lakebed Temple Boss Room"],
         ]
-    }
+    },
+    {
+        name: "Bublin Camp",
+        x: "calc(14.98% - 12px)",
+        y: "calc(44.96% - 12px)",
+        checks: zoneData["Bulblin Camp"],
+    },
+
 ];
 
 export interface OverworldCheck {
@@ -488,8 +495,8 @@ export const overworld: OverworldCheck[] = [
     },
     {
         name: "Lanayru Field Skulltula Grotto Chest",
-        x: "calc(33.58% - 8px)",
-        y: "calc(60.32% - 8px)",
+        x: "calc(54.0% - 8px)",
+        y: "calc(22.8% - 8px)",
     },
     {
         name: "Lanayru Field Behind Gate Underwater Chest",
@@ -547,6 +554,11 @@ export const overworld: OverworldCheck[] = [
         y: "calc(43.36% - 8px)",
     },
     {
+        name: "West Hyrule Field Helmasaur Grotto Chest",
+        x: "calc(45.25% - 8px)",
+        y: "calc(38.48% - 8px)",
+    },
+    {
         name: "West Hyrule Field Golden Wolf",
         x: "calc(48.38% - 8px)",
         y: "calc(40.84% - 8px)",
@@ -596,13 +608,11 @@ export const overworld: OverworldCheck[] = [
         x: "calc(55.8% - 8px)",
         y: "calc(46.12% - 8px)",
     },
-
     {
         name: "Lake Hylia Bridge Vines Chest",
         x: "calc(41.58% - 8px)",
         y: "calc(45.84% - 8px)",
     },
-
     {
         name: "Lake Hylia Bridge Owl Statue Chest",
         x: "calc(41.45% - 8px)",
@@ -690,8 +700,8 @@ export const overworld: OverworldCheck[] = [
     },
     {
         name: "Lake Hylia Tower Poe",
-        x: "calc(80.83% - 8px)",
-        y: "calc(50.88% - 8px)",
+        x: "calc(34.08% - 8px)",
+        y: "calc(53.12% - 8px)",
     },
     {
         name: "Lake Hylia Shell Blade Grotto Chest",
@@ -767,6 +777,157 @@ export const overworld: OverworldCheck[] = [
         x: "calc(54.5% - 8px)",
         y: "calc(9.52% - 8px)",
     },
+    {
+        name: "Gerudo Desert Skulltula Grotto Chest",
+        x: "calc(33.58% - 8px)",
+        y: "calc(60.32% - 8px)",
+    },
+    {
+        name: "Cave of Ordeals Floor 17 Poe",
+        x: "calc(14.25% - 8px)",
+        y: "calc(60.4% - 8px)",
+    },
+    {
+        name: "Cave of Ordeals Floor 33 Poe",
+        x: "calc(15.25% - 8px)",
+        y: "calc(60.4% - 8px)",
+    },
+    {
+        name: "Cave of Ordeals Floor 44 Poe",
+        x: "calc(14.25% - 8px)",
+        y: "calc(61.4% - 8px)",
+    },
+    {
+        name: "Cave of Ordeals Great Fairy Reward",
+        x: "calc(14.25% - 8px)",
+        y: "calc(60.4% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Campfire East Chest",
+        x: "calc(16% - 8px)",
+        y: "calc(51.36% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Campfire North Chest",
+        x: "calc(15% - 8px)",
+        y: "calc(51.36% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Campfire West Chest",
+        x: "calc(15% - 8px)",
+        y: "calc(52.36% - 8px)",
+    },
+    {
+        name: "Gerudo Desert East Canyon Chest",
+        x: "calc(29.33% - 8px)",
+        y: "calc(56.88% - 8px)",
+    },
+    {
+        name: "Gerudo Desert East Poe",
+        x: "calc(33.75% - 8px)",
+        y: "calc(60.40% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Female Dayfly",
+        x: "calc(18.16% - 8px)",
+        y: "calc(59.2% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Golden Wolf",
+        x: "calc(14.13% - 8px)",
+        y: "calc(47.36% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Lone Small Chest",
+        x: "calc(22.50% - 8px)",
+        y: "calc(57.68% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Male Dayfly",
+        x: "calc(22.75% - 8px)",
+        y: "calc(60.16% - 8px)",
+    },
+    {
+        name: "Gerudo Desert North Peahat Poe",
+        x: "calc(20.83% - 8px)",
+        y: "calc(50.88% - 8px)",
+    },
+    {
+        name: "Gerudo Desert North Small Chest Before Bulblin Camp",
+        x: "calc(16.33% - 8px)",
+        y: "calc(47.76% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Northeast Chest Behind Gates",
+        x: "calc(17% - 8px)",
+        y: "calc(49.28% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Northwest Chest Behind Gates",
+        x: "calc(12.8% - 8px)",
+        y: "calc(50.0% - 8px)",
+
+    },
+    {
+        name: "Gerudo Desert Owl Statue Chest",
+        x: "calc(20.58% - 8px)",
+        y: "calc(59.6% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Owl Statue Sky Character",
+        x: "calc(20.58% - 8px)",
+        y: "calc(61.1% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Peahat Ledge Chest",
+        x: "calc(29.08% - 8px)",
+        y: "calc(60.24% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Poe Above Cave of Ordeals",
+        x: "calc(14.17% - 8px)",
+        y: "calc(59.4% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Rock Grotto First Poe",
+        x: "calc(21.83% - 8px)",
+        y: "calc(50.88% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Rock Grotto Lantern Chest",
+        x: "calc(21.66% - 8px)",
+        y: "calc(50.64% - 8px)",
+    },
+    {
+        name: "Gerudo Desert Rock Grotto Second Poe",
+        x: "calc(20.83% - 8px)",
+        y: "calc(51.88% - 8px)",
+    },
+    {
+        name: "Gerudo Desert South Chest Behind Wooden Gates",
+        x: "calc(26.5% - 8px)",
+        y: "calc(61.28% - 8px)",
+    },
+    {
+        name: "Gerudo Desert West Canyon Chest",
+        x: "calc(14.08% - 8px)",
+        y: "calc(57.64% - 8px)",
+    },
+    {
+        name: "Outside Arbiters Grounds Lantern Chest",
+        x: "calc(15% - 8px)",
+        y: "calc(43.6% - 8px)",
+    },
+    {
+        name: "Outside Arbiters Grounds Poe",
+        x: "calc(15% - 8px)",
+        y: "calc(43.6% - 8px)",
+    },
+    {
+        name: "Outside Bulblin Camp Poe",
+        x: "calc(13.33% - 8px)",
+        y: "calc(47.2% - 8px)",
+    },
 ];
 
 // define grouped chests
@@ -800,18 +961,6 @@ export const overworld: OverworldCheck[] = [
 //         x: "53.78%",
 //         y: "36.56%",
 //     },
-//     /*
-//     {
-//         name: "Cave of Ordeals",
-//         x: "16.08%",
-//         y: "59.64%",
-//     },
-//     */
-//     {
-//         name: "Bublin Camp",
-//         x: "14.98%",
-//         y: "44.96%",
-//     },
 // ];
 
 /* overworld */
@@ -824,160 +973,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "11.06%",
 //         isAvailable: function () {
 //             if (canAccessZoraDomain()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Helmasaur Chest",
-//         x: "45.25%",
-//         y: "38.48%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Crystal && items.Clawshot) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Skultulla Chest",
-//         x: "54.0%",
-//         y: "22.8%",
-//         isAvailable: function () {
-//             if (canAccessLanayruField() && items.Crystal && items.Lantern) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Peahat Chest",
-//         x: "29.08%",
-//         y: "60.24%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "East Canyon Chest",
-//         x: "29.33%",
-//         y: "56.88%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Lone Small Chest",
-//         x: "22.50%",
-//         y: "57.68%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "West Canyon Chest",
-//         x: "14.08%",
-//         y: "57.64%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Grotto - Poe and Boulder Chest",
-//         x: "21.66%",
-//         y: "50.64%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Crystal && canSmash() && items.Lantern) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "North Small Chest Behind Gate",
-//         x: "17%",
-//         y: "49.28%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Northwest Small Chest Behind Gate",
-//         x: "12.8%",
-//         y: "50.0%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "South Chest Behind Gate",
-//         x: "26.5%",
-//         y: "61.28%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Top-Left Small Chest by Campfire",
-//         x: "15%",
-//         y: "51.36%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Right Small Chest by Campfire",
-//         x: "16%",
-//         y: "51.36%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Bottom-Left Small Chest by Campfire",
-//         x: "15%",
-//         y: "52.36%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Small Chest With Boxes",
-//         x: "16.33%",
-//         y: "47.76%",
-//         isAvailable: function () {
-//             if (canAccessDesert()) {
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -1007,28 +1002,6 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         name: "Gerudo Desert Owl Statue Chest",
-//         x: "20.58%",
-//         y: "59.6%",
-//         isAvailable: function () {
-//             if (items.Dominion > 1 && canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Gerudo Desert Skybook Letter",
-//         x: "20.58%",
-//         y: "61.1%",
-//         isAvailable: function () {
-//             if (items.Dominion > 1 && canAccessDesert()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
 //         name: "Shield Attack",
 //         x: "54.5%",
 //         y: "81.24%",
@@ -1037,17 +1010,6 @@ export const overworld: OverworldCheck[] = [
 //                 return "available";
 //             }
 //             return "unavailable"
-//         },
-//     },
-//     {
-//         name: "Mortal Draw",
-//         x: "14.13%",
-//         y: "47.36%",
-//         isAvailable: function () {
-//             if (items.Crystal && canAccessDesert() && canAccessLakeHylia()) {
-//                 return "available";
-//             }
-//             return "unavailable";
 //         },
 //     },
 //     {
@@ -1099,120 +1061,10 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 //     {
-//         //23
-//         name: "CoO - F17 Poe",
-//         x: "14.25%",
-//         y: "60.4%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //24
-//         name: "CoO - F33 Poe",
-//         x: "15.25%",
-//         y: "60.4%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot && items.Crystal && items.Spinner && items.Chainball && items.Dominion > 1)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //25
-//         name: "CoO - F44 Poe",
-//         x: "14.25%",
-//         y: "61.4%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot > 1 && items.Crystal && items.Spinner && items.Chainball && items.Dominion > 1)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //27
-//         name: "Poe By Entrance",
-//         x: "33.75%",
-//         y: "60.40%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //28
-//         name: "Poe Above CoO",
-//         x: "14.17%",
-//         y: "59.4%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //29
-//         name: "Poe Above Grotto",
-//         x: "20.83%",
-//         y: "50.88%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //30
-//         name: "Poe in Grotto #1",
-//         x: "21.83%",
-//         y: "50.88%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //31
-//         name: "Poe in Grotto #2",
-//         x: "20.83%",
-//         y: "51.88%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && items.Clawshot && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //32
-//         name: "Poe next to Bublin Camp",
-//         x: "13.33%",
-//         y: "47.2%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
 //         //33
 //         name: "Bublin Camp Poe",
 //         x: "15%",
 //         y: "45.2%",
-//         isAvailable: function () {
-//             if (canAccessDesert() && setMDHFlag() && items.Crystal && canDoDamage())
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //34
-//         name: "Poe before AG",
-//         x: "15%",
-//         y: "43.6%",
 //         isAvailable: function () {
 //             if (canAccessDesert() && setMDHFlag() && items.Crystal && canDoDamage())
 //                 return "available";
@@ -1348,28 +1200,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "52.48%",
 //         isAvailable: function () {
 //             if (canAccessKakVillage())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //21
-//         name: "Male Dayfly",
-//         x: "22.75%",
-//         y: "60.16%",
-//         isAvailable: function () {
-//             if (canAccessDesert())
-//                 return "available";
-//             return "bugunavailable";
-//         },
-//     },
-//     {
-//         //22
-//         name: "Female Dayfly",
-//         x: "18.16%",
-//         y: "59.2%",
-//         isAvailable: function () {
-//             if (canAccessDesert())
 //                 return "available";
 //             return "bugunavailable";
 //         },

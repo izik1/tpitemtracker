@@ -1,4 +1,4 @@
-import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
+import { type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
 import * as fns from "../logic-functions";
 import { type LogicStore } from "../index";
 import type { RandomizerSettings } from "$lib/settings";
@@ -249,7 +249,7 @@ const zoneNeighborsLanayruGlitchless: ZoneNeighbors<LanayruZoneId> = {
         ZoneNeighbor.always("Lake Hylia"),
     ],
     "Lake Hylia": [
-        new ZoneNeighbor("Gerudo Desert", fns.never),
+        new ZoneNeighbor("Gerudo Desert", ({ items }) => items.Memo),
         new ZoneNeighbor("Lake Hylia Long Cave", fns.canSmash),
         new ZoneNeighbor("Lake Hylia Water Toadpoli Grotto", (store) => store.items.Crystal),
         new ZoneNeighbor("Lake Hylia Shell Blade Grotto", (store) => store.items.Crystal),
@@ -265,6 +265,134 @@ const zoneNeighborsLanayruGlitchless: ZoneNeighbors<LanayruZoneId> = {
     "Zoras Domain": [
         ZoneNeighbor.always("Lanayru Field"),
         new ZoneNeighbor("Snowpeak Climb", fns.never),
+    ],
+};
+
+const zoneNeighborsGerudoGlitchless: ZoneNeighbors<GerudoZoneId> = {
+    "Gerudo Desert": [
+        new ZoneNeighbor("Cave of Ordeals Floors 01-11", store => fns.canDefeatShadowBeast(store) && store.items.Clawshot > 0),
+        new ZoneNeighbor("Bulblin Camp", fns.canDefeatBulblin),
+        new ZoneNeighbor("Gerudo Desert Rock Grotto", ({ items }) => items.Crystal && items.Clawshot > 0),
+        new ZoneNeighbor("Gerudo Desert Skulltula Grotto", ({ items }) => items.Crystal),
+    ],
+    "Gerudo Desert Rock Grotto": [ZoneNeighbor.always("Gerudo Desert")],
+    "Gerudo Desert Skulltula Grotto": [ZoneNeighbor.always("Gerudo Desert")],
+    "Bulblin Camp": [
+        ZoneNeighbor.always("Gerudo Desert"),
+        new ZoneNeighbor(
+            "Outside Arbiters Grounds",
+            (store) => store.settings.skip.arbitersEntrance || (
+                // fixme: Camp Key
+                fns.canDefeatKingBulbinDesert(store) && (store.settings.smallKeys === "keysy")
+            )
+        ),
+    ],
+    "Outside Arbiters Grounds": [
+        ZoneNeighbor.always("Bulblin Camp"),
+        new ZoneNeighbor("Arbiters Grounds Entrance", fns.never),
+    ],
+    "Mirror Chamber": [
+        new ZoneNeighbor("Arbiters Grounds Boss Room", fns.never),
+        new ZoneNeighbor("Palace of Twilight Entrance", fns.never),
+    ],
+    "Cave of Ordeals Floors 01-11": [
+        new ZoneNeighbor("Gerudo Desert", ({ items }) => items.Clawshot > 0),
+        new ZoneNeighbor(
+            "Cave of Ordeals Floors 12-21",
+            (store) => fns.canDefeatBokoblin(store)
+                && fns.canDefeatKeese(store)
+                && fns.canDefeatRat(store)
+                && fns.canDefeatBabaSerpent(store)
+                && fns.canDefeatSkulltula(store)
+                && fns.canDefeatBulblin(store)
+                && fns.canDefeatTorchSlug(store)
+                && fns.canDefeatFireKeese(store)
+                && fns.canDefeatDodongo(store)
+                && fns.canDefeatTektite(store)
+                && fns.canDefeatLizalfos(store)
+        )
+    ],
+    "Cave of Ordeals Floors 12-21": [
+        new ZoneNeighbor("Ordon Province", ({ items }) => items.Clawshot > 0),
+        new ZoneNeighbor(
+            "Cave of Ordeals Floors 22-31",
+            (store) => fns.canDefeatHelmasaur(store)
+                && fns.canDefeatRat(store)
+                && store.items.Spinner
+                && fns.canDefeatChu(store)
+                && fns.canDefeatChuWorm(store)
+                && fns.canDefeatBubble(store)
+                && fns.canDefeatBulblin(store)
+                && fns.canDefeatKeese(store)
+                && fns.canDefeatRat(store)
+                && fns.canDefeatStalhound(store)
+                && fns.canDefeatPoe(store)
+                && fns.canDefeatLeever(store)
+        )
+    ],
+    "Cave of Ordeals Floors 22-31": [
+        new ZoneNeighbor("South Faron Woods", ({ items }) => items.Clawshot > 0),
+        new ZoneNeighbor("Cave of Ordeals Floors 32-41",
+            (store) => fns.canDefeatBokoblin(store)
+                && fns.canDefeatIceKeese(store)
+                && store.items.Chainball
+                && fns.canDefeatKeese(store)
+                && fns.canDefeatRat(store)
+                && fns.canDefeatGhoulRat(store)
+                && fns.canDefeatStalchild(store)
+                && fns.canDefeatRedeadKnight(store)
+                && fns.canDefeatBulblin(store)
+                && fns.canDefeatStalfos(store)
+                && fns.canDefeatSkulltula(store)
+                && fns.canDefeatBubble(store)
+                && fns.canDefeatLizalfos(store)
+                && fns.canDefeatFireBubble(store),
+        )
+    ],
+    "Cave of Ordeals Floors 32-41": [
+        new ZoneNeighbor("Kakariko Village", ({ items }) => items.Clawshot > 0),
+        new ZoneNeighbor(
+            "Cave of Ordeals Floors 42-50",
+            (store) => fns.canDefeatBeamos(store)
+                && fns.canDefeatKeese(store)
+                && store.items.Dominion >= 2
+                && fns.canDefeatTorchSlug(store)
+                && fns.canDefeatFireKeese(store)
+                && fns.canDefeatDodongo(store)
+                && fns.canDefeatFireBubble(store)
+                && fns.canDefeatRedeadKnight(store)
+                && fns.canDefeatPoe(store)
+                && fns.canDefeatGhoulRat(store)
+                && fns.canDefeatChu(store)
+                && fns.canDefeatIceKeese(store)
+                && fns.canDefeatFreezard(store)
+                && fns.canDefeatChilfos(store)
+                && fns.canDefeatIceBubble(store)
+                && fns.canDefeatLeever(store)
+                && fns.canDefeatDarknut(store)
+        )
+    ],
+    "Cave of Ordeals Floors 42-50": [
+        new ZoneNeighbor(
+            "Lake Hylia",
+            (store) => fns.canDefeatArmos(store)
+                && store.items.Clawshot >= 2
+                && fns.canDefeatBokoblin(store)
+                && fns.canDefeatBabaSerpent(store)
+                && fns.canDefeatLizalfos(store)
+                && fns.canDefeatBulblin(store)
+                && fns.canDefeatDinalfos(store)
+                && fns.canDefeatPoe(store)
+                && fns.canDefeatRedeadKnight(store)
+                && fns.canDefeatChu(store)
+                && fns.canDefeatFreezard(store)
+                && fns.canDefeatChilfos(store)
+                && fns.canDefeatGhoulRat(store)
+                && fns.canDefeatRat(store)
+                && fns.canDefeatStalchild(store)
+                && fns.canDefeatAeralfos(store)
+                && fns.canDefeatDarknut(store)
+        )
     ],
 };
 
@@ -328,7 +456,7 @@ const zoneNeighborsGoronMinesGlitchless: ZoneNeighbors<GoronMinesZoneId> = {
         // key related setting, we assume we have the key.
         ZoneNeighbor.always("Goron Mines Upper East Wing"),
         // key related setting, we assume we have the key.
-        new ZoneNeighbor("Goron Mines Boss Room", store => store.items.Bow > 0 && store.items.IronBoots && fns.canDefeatBulbin(store))
+        new ZoneNeighbor("Goron Mines Boss Room", store => store.items.Bow > 0 && store.items.IronBoots && fns.canDefeatBulblin(store))
     ],
     "Goron Mines Upper East Wing": [
         ZoneNeighbor.always("Goron Mines Upper East Wing"),
@@ -378,6 +506,7 @@ export const zoneNeighborsGlitchless: ZoneNeighbors = {
     ...zoneNeighborsFaronGlitchless,
     ...zoneNeighborsEldinGlitchless,
     ...zoneNeighborsLanayruGlitchless,
+    ...zoneNeighborsGerudoGlitchless,
 
     // dungeon time
     ...zoneNeighborsForestTempleGlitchless,
