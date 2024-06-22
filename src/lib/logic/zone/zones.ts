@@ -1,4 +1,4 @@
-import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
+import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type SnowpeakZoneId, type ZoneId } from "./id";
 import * as fns from "../logic-functions";
 import { type LogicStore } from "../index";
 import type { RandomizerSettings } from "$lib/settings";
@@ -264,7 +264,7 @@ const zoneNeighborsLanayruGlitchless: ZoneNeighbors<LanayruZoneId> = {
     ],
     "Zoras Domain": [
         ZoneNeighbor.always("Lanayru Field"),
-        new ZoneNeighbor("Snowpeak Climb", fns.never),
+        ZoneNeighbor.always("Snowpeak Climb"),
     ],
 };
 
@@ -394,6 +394,21 @@ const zoneNeighborsGerudoGlitchless: ZoneNeighbors<GerudoZoneId> = {
                 && fns.canDefeatDarknut(store)
         )
     ],
+};
+
+const zoneNeighborsSnowpeakGlitchless: ZoneNeighbors<SnowpeakZoneId> = {
+    "Snowpeak Climb": [
+        ZoneNeighbor.always("Zoras Domain"),
+        new ZoneNeighbor("Snowpeak Summit", ({ settings, items }) => (items.Rod >= 2 || settings.skip.snowpeakEntrance) && items.Crystal),
+        new ZoneNeighbor("Snowpeak Freezard Grotto", ({ settings, items }) => (items.Rod >= 2 || settings.skip.snowpeakEntrance) && items.Crystal),
+    ],
+    "Snowpeak Freezard Grotto": [
+        ZoneNeighbor.always("Snowpeak Climb"),
+    ],
+    "Snowpeak Summit": [
+        new ZoneNeighbor("Snowpeak Climb", ({ items }) => items.Crystal),
+        new ZoneNeighbor("Snowpeak Ruins Entrance", fns.never),
+    ]
 };
 
 const zoneNeighborsForestTempleGlitchless: ZoneNeighbors<ForestTempleZoneId> = {
@@ -543,6 +558,7 @@ export const zoneNeighborsGlitchless: ZoneNeighbors = {
     ...zoneNeighborsEldinGlitchless,
     ...zoneNeighborsLanayruGlitchless,
     ...zoneNeighborsGerudoGlitchless,
+    ...zoneNeighborsSnowpeakGlitchless,
 
     // dungeon time
     ...zoneNeighborsForestTempleGlitchless,

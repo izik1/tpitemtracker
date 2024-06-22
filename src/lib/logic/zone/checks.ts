@@ -1,5 +1,5 @@
-import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from "../check-name";
-import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type ZoneId } from "./id";
+import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName, SnowpeakCheckName } from "../check-name";
+import { type ArbitersGroundsZoneId, type EldinZoneId, type FaronZoneId, type ForestTempleZoneId, type GerudoZoneId, type GoronMinesZoneId, type LakebedTempleZoneId, type LanayruZoneId, type OrdonaZoneId, type SnowpeakZoneId, type ZoneId } from "./id";
 
 export type ZoneChecks<Z extends ZoneId = ZoneId, C extends CheckName = CheckName> = Record<Z, C[]>;
 
@@ -361,6 +361,24 @@ const zoneDataGerudo: ZoneChecks<GerudoZoneId, GerudoCheckName> = {
     ],
 };
 
+const zoneDataSnowPeak: ZoneChecks<SnowpeakZoneId, SnowpeakCheckName> = {
+    "Snowpeak Climb": [
+        "Ashei Sketch",
+        "Snowpeak Above Freezard Grotto Poe",
+        "Snowpeak Blizzard Poe",
+        "Snowpeak Poe Among Trees"
+    ],
+    "Snowpeak Freezard Grotto": [
+        "Snowpeak Freezard Grotto Chest"
+    ],
+    "Snowpeak Summit": [
+        "Snowpeak Cave Ice Lantern Chest",
+        "Snowboard Racing Prize",
+        "Snowpeak Cave Ice Poe",
+        "Snowpeak Icy Summit Poe"
+    ],
+};
+
 const zoneDataForestTemple: ZoneChecks<ForestTempleZoneId, ForestTempleCheckName> = {
     "Forest Temple Entrance": [
         "Forest Temple Entrance Vines Chest",
@@ -523,6 +541,7 @@ export const zoneData: ZoneChecks = {
     ...zoneDataEldin,
     ...zoneDataLanayru,
     ...zoneDataGerudo,
+    ...zoneDataSnowPeak,
 
     // dungeon time
     ...zoneDataForestTemple,

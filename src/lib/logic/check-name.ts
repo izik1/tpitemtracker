@@ -388,4 +388,13 @@ export type OrdonaCheckName =
     | "Wooden Sword Chest"
     | "Wrestling With Bo";
 
-type SnowpeakCheckName = never;
+export type SnowpeakCheckName =
+    | "Ashei Sketch"
+    | "Snowboard Racing Prize"
+    | "Snowpeak Above Freezard Grotto Poe"
+    | "Snowpeak Blizzard Poe"
+    | "Snowpeak Cave Ice Lantern Chest"
+    | "Snowpeak Cave Ice Poe"
+    | "Snowpeak Freezard Grotto Chest"
+    | "Snowpeak Icy Summit Poe"
+    | "Snowpeak Poe Among Trees";

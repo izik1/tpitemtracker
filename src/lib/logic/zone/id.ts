@@ -118,4 +118,7 @@ type ZorasDomainZoneId = "Zoras Domain";
 
 export type OrdonaZoneId = "Ordon Province" | "Ordon Ranch Grotto";
 
-type SnowpeakZoneId = never;
+export type SnowpeakZoneId =
+    | "Snowpeak Climb"
+    | "Snowpeak Freezard Grotto"
+    | "Snowpeak Summit";

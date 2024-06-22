@@ -940,6 +940,51 @@ export const overworld: OverworldCheck[] = [
         x: "calc(13.33% - 8px)",
         y: "calc(47.2% - 8px)",
     },
+    {
+        name: "Ashei Sketch",
+        x: "calc(51.00% - 8px)",
+        y: "calc(11.06% - 8px)",
+    },
+    {
+        name: "Snowpeak Blizzard Poe",
+        x: "calc(44.67% - 8px)",
+        y: "calc(9.36% - 8px)",
+    },
+    {
+        name: "Snowpeak Above Freezard Grotto Poe",
+        x: "calc(41.75% - 8px)",
+        y: "calc(9.46% - 8px)",
+    },
+    {
+        name: "Snowpeak Poe Among Trees",
+        x: "calc(41.5% - 8px)",
+        y: "calc(8.08% - 8px)",
+    },
+    {
+        name: "Snowpeak Cave Ice Lantern Chest",
+        x: "calc(38.26% - 8px)",
+        y: "calc(11.48% - 8px)",
+    },
+    {
+        name: "Snowpeak Freezard Grotto Chest",
+        x: "calc(42.5% - 8px)",
+        y: "calc(9.12% - 8px)",
+    },
+    {
+        name: "Snowpeak Cave Ice Poe",
+        x: "calc(38.08% - 8px)",
+        y: "calc(11.44% - 8px)",
+    },
+    {
+        name: "Snowboard Racing Prize",
+        x: "calc(36.25% - 8px)",
+        y: "calc(11.68% - 8px)",
+    },
+    {
+        name: "Snowpeak Icy Summit Poe",
+        x: "calc(21.75% - 8px)",
+        y: "calc(31.52% - 8px)",
+    },
 ];
 
 // define grouped chests
@@ -973,41 +1018,6 @@ export const overworld: OverworldCheck[] = [
 /* overworld */
 
 // //Overworld Chests
-// var overworldChests = [
-//     {
-//         name: "Ashei's Sketch",
-//         x: "51.00%",
-//         y: "11.06%",
-//         isAvailable: function () {
-//             if (canAccessZoraDomain()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Frozen Lantern Chest",
-//         x: "38.26%",
-//         y: "11.48%",
-//         isAvailable: function () {
-//             if (items.Chainball && items.Lantern && canAccessSnowpeakSummit()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-
-//     {
-//         name: "Grotto - Freezard Chest",
-//         x: "42.5%",
-//         y: "9.12%",
-//         isAvailable: function () {
-//             if (items.Crystal && items.Chainball && canAccessSnowpeakSummit()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
 //     {
 //         name: "Shield Attack",
 //         x: "54.5%",
@@ -1025,18 +1035,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "38.8%",
 //         isAvailable: function () {
 //             if (items.Crystal && canAccessHiddenVillage()) {
-//                 return "available";
-//             }
-//             return "unavailable";
-//         },
-//     },
-//     {
-//         name: "Snowboard Racing",
-//         x: "36.25%",
-//         y: "11.68%",
-//         isAvailable: function () {
-//             if (items.Boss5 && canAccessSnowpeakSummit()) {
-
 //                 return "available";
 //             }
 //             return "unavailable";
@@ -1129,61 +1127,6 @@ export const overworld: OverworldCheck[] = [
 //         y: "53.12%",
 //         isAvailable: function () {
 //             if (canAccessLakeHylia() && setMDHFlag() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //53
-//         name: "Poe in Blizzard",
-//         x: "44.67%",
-//         y: "9.36%",
-//         isAvailable: function () {
-//             if (canAccessSnowpeakSummit() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //54
-//         name: "Poe under Tree",
-//         x: "41.5%",
-//         y: "8.08%",
-//         isAvailable: function () {
-//             if (canAccessSnowpeakSummit() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //55
-//         name: "Poe above Grotto",
-//         x: "41.75%",
-//         y: "9.46%",
-//         isAvailable: function () {
-//             if (canAccessSnowpeakSummit() && items.Crystal)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //56
-//         name: "Poe in Cave",
-//         x: "38.08%",
-//         y: "11.44%",
-//         isAvailable: function () {
-//             if (canAccessSnowpeakSummit() && items.Crystal && items.Chainball)
-//                 return "available";
-//             return "poeunavailable";
-//         },
-//     },
-//     {
-//         //57
-//         name: "Poe next to Snowpeak Ruins",
-//         x: "21.75%",
-//         y: "31.52%",
-//         isAvailable: function () {
-//             if (canAccessSnowpeakSummit() && items.Crystal)
 //                 return "available";
 //             return "poeunavailable";
 //         },

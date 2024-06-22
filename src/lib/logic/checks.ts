@@ -1,6 +1,6 @@
 
 import type { LogicStore } from './index';
-import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName } from './check-name';
+import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName, SnowpeakCheckName } from './check-name';
 import * as fns from './logic-functions';
 
 export type CheckKind = "standard" | "poe" | "bug";
@@ -13,6 +13,7 @@ interface Regions<V> {
     readonly eldin: Record<EldinCheckName, V>,
     readonly lanayru: Record<LanayruCheckName, V>,
     readonly gerudo: Record<GerudoCheckName, V>,
+    readonly snowpeak: Record<SnowpeakCheckName, V>,
 
     readonly forestTemple: Record<ForestTempleCheckName, V>,
     readonly goronMines: Record<GoronMinesCheckName, V>,
@@ -395,6 +396,25 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
         "Outside Arbiters Grounds Poe": ({ items }) => items.Crystal,
         "Outside Bulblin Camp Poe": ({ items }) => items.Crystal,
     },
+    snowpeak: {
+        "Ashei Sketch": fns.always,
+        "Snowboard Racing Prize": fns.canCompleteSnowpeakRuins,
+        "Snowpeak Above Freezard Grotto Poe": ({ settings, items }) => (items.Rod >= 2 || settings.skip.snowpeakEntrance) && items.Crystal,
+        "Snowpeak Blizzard Poe": ({ settings, items }) => (items.Rod >= 2 || settings.skip.snowpeakEntrance) && items.Crystal,
+        "Snowpeak Cave Ice Lantern Chest": ({ items }) => items.Lantern && items.Chainball,
+        "Snowpeak Cave Ice Poe": ({ items }) => items.Crystal && items.Chainball,
+        "Snowpeak Freezard Grotto Chest": (store) => store.items.Chainball && fns.canDefeatFreezard(store),
+        "Snowpeak Icy Summit Poe": (store) => {
+            // fixme: support bonksDoDamage and damage amplification settings:
+            // if OHKO you need a bottle and the lantern to be able guaranteed put a fairy in it,
+            // as well as access to lakebed temple (or CoO, or the end of forest temple, but logic only considers the first one).
+            const canSurvive = true;
+            return store.items.Crystal && fns.canDefeatShadowBeast(store) && canSurvive;
+
+        },
+        "Snowpeak Poe Among Trees": ({ settings, items }) => (items.Rod >= 2 || settings.skip.snowpeakEntrance) && items.Crystal,
+    },
+
     forestTemple: {
         "Forest Temple Big Baba Key": (store) => fns.canDefeatBigBaba(store) && fns.canDefeatWalltula(store) === true,
         "Forest Temple Big Key Chest": (store) => store.items.Boomerang,
@@ -852,6 +872,17 @@ const checkKindsRegions: Regions<CheckKind> = {
         "Outside Arbiters Grounds Poe": "poe",
         "Outside Bulblin Camp Poe": "poe",
     },
+    snowpeak: {
+        "Ashei Sketch": "standard",
+        "Snowboard Racing Prize": "standard",
+        "Snowpeak Above Freezard Grotto Poe": "poe",
+        "Snowpeak Blizzard Poe": "poe",
+        "Snowpeak Cave Ice Lantern Chest": "standard",
+        "Snowpeak Cave Ice Poe": "poe",
+        "Snowpeak Freezard Grotto Chest": "standard",
+        "Snowpeak Icy Summit Poe": "poe",
+        "Snowpeak Poe Among Trees": "poe",
+    },
 
     forestTemple: {
         "Forest Temple Big Baba Key": "standard",
@@ -961,6 +992,7 @@ export const checkKinds: Record<CheckName, CheckKind> = {
     ...checkKindsRegions.eldin,
     ...checkKindsRegions.lanayru,
     ...checkKindsRegions.gerudo,
+    ...checkKindsRegions.snowpeak,
 
     ...checkKindsRegions.forestTemple,
     ...checkKindsRegions.goronMines,
@@ -996,6 +1028,7 @@ export const checkAccessibilityGlitchless = makeCheckAccessibility({
     ...checkAccessibilityGlitchlessRegions.eldin,
     ...checkAccessibilityGlitchlessRegions.lanayru,
     ...checkAccessibilityGlitchlessRegions.gerudo,
+    ...checkAccessibilityGlitchlessRegions.snowpeak,
 
     ...checkAccessibilityGlitchlessRegions.forestTemple,
     ...checkAccessibilityGlitchlessRegions.goronMines,

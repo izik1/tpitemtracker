@@ -26,6 +26,7 @@ export interface RandomizerSettings {
         mdh: boolean,
         lakebedEntrance: boolean,
         arbitersEntrance: boolean,
+        snowpeakEntrance: boolean,
     };
     itemPool: {
         npcGifts: boolean,
@@ -47,6 +48,7 @@ export const defaultRandomizerSettings: RandomizerSettings = {
         mdh: false,
         lakebedEntrance: false,
         arbitersEntrance: false,
+        snowpeakEntrance: false,
     },
     itemPool: {
         npcGifts: false,
