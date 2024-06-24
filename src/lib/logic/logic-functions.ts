@@ -38,7 +38,7 @@ export function canDefeatBabaSerpent(store: LogicStore) {
         || canUseBacksliceAsSword(store);
 }
 
-export function canDefeatbabyGohma(store: LogicStore) {
+export function canDefeatBabyGohma(store: LogicStore) {
     return store.items.Sword > 0
         || store.items.Chainball
         || store.items.Bow > 0

@@ -143,7 +143,27 @@ export type SnowpeakRuinsCheckName =
     | "Snowpeak Ruins Wooden Beam Chandelier Chest"
     | "Snowpeak Ruins Wooden Beam Northwest Chest";
 
-export type ToTCheckName = never;
+export type ToTCheckName =
+    | "Temple of Time Armogohma Heart Container"
+    | "Temple of Time Armos Antechamber East Chest"
+    | "Temple of Time Armos Antechamber North Chest"
+    | "Temple of Time Armos Antechamber Statue Chest"
+    | "Temple of Time Big Key Chest"
+    | "Temple of Time Chest Before Darknut"
+    | "Temple of Time Darknut Chest"
+    | "Temple of Time Dungeon Reward"
+    | "Temple of Time First Staircase Armos Chest"
+    | "Temple of Time First Staircase Gohma Gate Chest"
+    | "Temple of Time First Staircase Window Chest"
+    | "Temple of Time Floor Switch Puzzle Room Upper Chest"
+    | "Temple of Time Gilloutine Chest"
+    | "Temple of Time Lobby Lantern Chest"
+    | "Temple of Time Moving Wall Beamos Room Chest"
+    | "Temple of Time Moving Wall Dinalfos Room Chest"
+    | "Temple of Time Poe Above Scales"
+    | "Temple of Time Poe Behind Gate"
+    | "Temple of Time Scales Gohma Chest"
+    | "Temple of Time Scales Upper Chest"; 
 
 type OverworldCheckName = EldinCheckName | FaronCheckName | GerudoCheckName | LanayruCheckName | OrdonaCheckName | SnowpeakCheckName;
 

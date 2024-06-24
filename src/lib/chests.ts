@@ -226,6 +226,24 @@ export const groups: Group[] = [
             ...zoneChecks["Snowpeak Ruins Boss Room"],
         ]
     },
+    {
+        name: "Temple of Time",
+        x: "calc(43.83% - 12px)",
+        y: "calc(63.36% - 12px)",
+        checks: [
+            ...zoneChecks["Temple of Time Entrance"],
+            ...zoneChecks["Temple of Time Connecting Corridors"],
+            ...zoneChecks["Temple of Time Central Mechanical Platform"],
+            ...zoneChecks["Temple of Time Armos Antechamber"],
+            ...zoneChecks["Temple of Time Moving Wall Hallways"],
+            ...zoneChecks["Temple of Time Scales of Time"],
+            ...zoneChecks["Temple of Time Floor Switch Puzzle Room"],
+            ...zoneChecks["Temple of Time Upper Spike Trap Corridor"],
+            ...zoneChecks["Temple of Time Darknut Arena"],
+            ...zoneChecks["Temple of Time Crumbling Corridor"],
+            ...zoneChecks["Temple of Time Boss Room"],
+        ]
+    }
 ];
 
 export interface OverworldCheck {
@@ -1010,11 +1028,6 @@ export const overworld: OverworldCheck[] = [
 ];
 
 // define grouped chests
-//     {
-//         name: "Temple of Time",
-//         x: "43.83%",
-//         y: "63.36%",
-//     },
 //     {
 //         name: "City In The Sky",
 //         x: "38.0%",

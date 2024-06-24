@@ -57,7 +57,18 @@ export type SnowpeakRuinsZoneId =
     | "Snowpeak Ruins Wooden Beam Room"
     | "Snowpeak Ruins Yeto and Yeta";
 
-export type ToTZoneId = never;
+export type ToTZoneId =
+    | "Temple of Time Armos Antechamber"
+    | "Temple of Time Boss Room"
+    | "Temple of Time Central Mechanical Platform"
+    | "Temple of Time Connecting Corridors"
+    | "Temple of Time Crumbling Corridor"
+    | "Temple of Time Darknut Arena"
+    | "Temple of Time Entrance"
+    | "Temple of Time Floor Switch Puzzle Room"
+    | "Temple of Time Moving Wall Hallways"
+    | "Temple of Time Scales of Time"
+    | "Temple of Time Upper Spike Trap Corridor";
 
 // Overworld
 

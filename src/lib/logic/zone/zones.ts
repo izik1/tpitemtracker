@@ -110,8 +110,7 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
         "Sacred Grove Temple of Time": [
             ZoneNeighbor.always("Sacred Grove Master Sword"),
             // ToT entrance settings.
-            // new ZoneNeighbor("Temple of Time Entrance", store => store.items.Sword >= 3)
-            new ZoneNeighbor("Temple of Time Entrance", fns.never)
+            new ZoneNeighbor("Temple of Time Entrance", store => store.items.Sword >= 3)
         ],
     },
     eldin: {
@@ -398,7 +397,8 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
         ],
         "Snowpeak Summit": [
             new ZoneNeighbor("Snowpeak Climb", ({ items }) => items.Crystal),
-            new ZoneNeighbor("Snowpeak Ruins Entrance", fns.never),
+            // fixme: bonks do damage settings
+            new ZoneNeighbor("Snowpeak Ruins Entrance", fns.canDefeatShadowBeast),
         ]
     },
 
@@ -611,7 +611,73 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
             new ZoneNeighbor("Snowpeak Ruins East Courtyard", ({ items }) => items.Crystal || items.Chainball)
         ],
     },
-    templeOfTime: {},
+    templeOfTime: {
+        "Temple of Time Armos Antechamber": [
+            ZoneNeighbor.always("Temple of Time Central Mechanical Platform"),
+        ],
+        "Temple of Time Boss Room": [
+            new ZoneNeighbor("Sacred Grove Temple of Time", fns.canDefeatArmogohma),
+        ],
+        "Temple of Time Central Mechanical Platform": [
+            ZoneNeighbor.always("Temple of Time Connecting Corridors"),
+            new ZoneNeighbor("Temple of Time Armos Antechamber", ({ items }) => items.Spinner),
+            // keys ignored.
+            new ZoneNeighbor("Temple of Time Moving Wall Hallways", ({ items }) => items.Spinner),
+        ],
+        "Temple of Time Connecting Corridors": [
+            ZoneNeighbor.always("Temple of Time Entrance"),
+            new ZoneNeighbor(
+                "Temple of Time Central Mechanical Platform",
+                (store) => fns.hasRangedItem(store) && fns.canDefeatYoungGohma(store) && fns.canDefeatLizalfos(store)
+            ),
+        ],
+        "Temple of Time Crumbling Corridor": [
+            ZoneNeighbor.always("Temple of Time Entrance"),
+            // keys ignored.
+            new ZoneNeighbor("Temple of Time Boss Room", ({ items }) => items.Dominion > 0),
+        ],
+        "Temple of Time Darknut Arena": [
+            new ZoneNeighbor("Temple of Time Upper Spike Trap Corridor", (store) => fns.canDefeatDarknut(store) && store.items.Dominion > 0),
+        ],
+        "Temple of Time Entrance": [
+            ZoneNeighbor.always("Sacred Grove Temple of Time"),
+            // keys ignored.
+            ZoneNeighbor.always("Temple of Time Connecting Corridors"),
+            // keys ignored (which happens to make the Open DoT setting useless).
+            new ZoneNeighbor(
+                "Temple of Time Crumbling Corridor",
+                (store) => store.items.Dominion > 0
+                    && store.items.Bow > 0
+                    && store.items.Spinner
+                    && fns.canDefeatLizalfos(store)
+                    && fns.canDefeatDinalfos(store)
+                    && fns.canDefeatDarknut(store)
+            ),
+        ],
+        "Temple of Time Floor Switch Puzzle Room": [
+            ZoneNeighbor.always("Temple of Time Scales of Time")
+        ],
+        "Temple of Time Moving Wall Hallways": [
+            ZoneNeighbor.always("Temple of Time Central Mechanical Platform"),
+            new ZoneNeighbor("Temple of Time Scales of Time", (store) => store.items.Bow > 0 && fns.canDefeatLizalfos(store) && fns.canDefeatDinalfos(store))
+        ],
+        "Temple of Time Scales of Time": [
+            ZoneNeighbor.always("Temple of Time Moving Wall Hallways"),
+            new ZoneNeighbor("Temple of Time Floor Switch Puzzle Room", ({ items }) => items.Clawshot > 0 && items.Spinner),
+            ZoneNeighbor.always("Temple of Time Upper Spike Trap Corridor"),
+        ],
+        "Temple of Time Upper Spike Trap Corridor": [
+            ZoneNeighbor.always("Temple of Time Upper Spike Trap Corridor"),
+            // keys ignored.
+            new ZoneNeighbor(
+                "Temple of Time Darknut Arena",
+                (store) => fns.canDefeatLizalfos(store)
+                    && fns.canDefeatBabyGohma(store)
+                    && fns.canDefeatYoungGohma(store)
+                    && fns.canDefeatArmos(store)
+            )
+        ],
+    },
     cityInTheSky: {},
     palaceOfTwilight: {},
     hyruleCastle: {},
