@@ -37,7 +37,36 @@ export type ArbitersGroundsCheckName =
     | "Arbiters Grounds West Stalfos Northeast Chest"
     | "Arbiters Grounds West Stalfos West Chest";
 
-export type CitSCheckName = never;
+export type CitSCheckName =
+    | "City in The Sky Aeralfos Chest"
+    | "City in The Sky Argorok Heart Container"
+    | "City in The Sky Baba Tower Alcove Chest"
+    | "City in The Sky Baba Tower Narrow Ledge Chest"
+    | "City in The Sky Baba Tower Top Small Chest"
+    | "City in The Sky Big Key Chest"
+    | "City in The Sky Central Outside Ledge Chest"
+    | "City in The Sky Central Outside Poe Island Chest"
+    | "City in The Sky Chest Behind North Fan"
+    | "City in The Sky Chest Below Big Key Chest"
+    | "City in The Sky Dungeon Reward"
+    | "City in The Sky East First Wing Chest After Fans"
+    | "City in The Sky East Tile Worm Small Chest"
+    | "City in The Sky East Wing After Dinalfos Alcove Chest"
+    | "City in The Sky East Wing After Dinalfos Ledge Chest"
+    | "City in The Sky East Wing Lower Level Chest"
+    | "City in The Sky Garden Island Poe"
+    | "City in The Sky Poe Above Central Fan"
+    | "City in The Sky Underwater East Chest"
+    | "City in The Sky Underwater West Chest"
+    | "City in The Sky West Garden Corner Chest"
+    | "City in The Sky West Garden Ledge Chest"
+    | "City in The Sky West Garden Lone Island Chest"
+    | "City in The Sky West Garden Lower Chest"
+    | "City in The Sky West Wing Baba Balcony Chest"
+    | "City in The Sky West Wing First Chest"
+    | "City in The Sky West Wing Narrow Ledge Chest"
+    | "City in The Sky West Wing Tile Worm Chest";
+
 
 export type ForestTempleCheckName =
     | "Forest Temple Big Baba Key"
@@ -163,7 +192,7 @@ export type ToTCheckName =
     | "Temple of Time Poe Above Scales"
     | "Temple of Time Poe Behind Gate"
     | "Temple of Time Scales Gohma Chest"
-    | "Temple of Time Scales Upper Chest"; 
+    | "Temple of Time Scales Upper Chest";
 
 type OverworldCheckName = EldinCheckName | FaronCheckName | GerudoCheckName | LanayruCheckName | OrdonaCheckName | SnowpeakCheckName;
 

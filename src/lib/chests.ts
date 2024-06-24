@@ -243,7 +243,21 @@ export const groups: Group[] = [
             ...zoneChecks["Temple of Time Crumbling Corridor"],
             ...zoneChecks["Temple of Time Boss Room"],
         ]
-    }
+    },
+    {
+        name: "City In The Sky",
+        x: "calc(38.0% - 12px)",
+        y: "calc(50.56% - 12px)",
+        checks: [
+            ...zoneChecks["City in The Sky Entrance"],
+            ...zoneChecks["City in The Sky Lobby"],
+            ...zoneChecks["City in The Sky East Wing"],
+            ...zoneChecks["City in The Sky West Wing"],
+            ...zoneChecks["City in The Sky Central Tower Second Floor"],
+            ...zoneChecks["City in The Sky North Wing"],
+            ...zoneChecks["City in The Sky Boss Room"],
+        ]
+    },
 ];
 
 export interface OverworldCheck {
@@ -1028,11 +1042,6 @@ export const overworld: OverworldCheck[] = [
 ];
 
 // define grouped chests
-//     {
-//         name: "City In The Sky",
-//         x: "38.0%",
-//         y: "50.56%",
-//     },
 //     {
 //         name: "Palace of Twilight",
 //         x: "15.0%",

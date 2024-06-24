@@ -27,6 +27,7 @@ export interface RandomizerSettings {
         lakebedEntrance: boolean,
         arbitersEntrance: boolean,
         snowpeakEntrance: boolean,
+        cityEntrance: boolean,
     };
     itemPool: {
         npcGifts: boolean,
@@ -49,6 +50,7 @@ export const defaultRandomizerSettings: RandomizerSettings = {
         lakebedEntrance: false,
         arbitersEntrance: false,
         snowpeakEntrance: false,
+        cityEntrance: false,
     },
     itemPool: {
         npcGifts: false,

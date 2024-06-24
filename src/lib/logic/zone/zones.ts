@@ -250,7 +250,7 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
                 (store) => store.items.ZoraArmor &&
                     ((store.items.IronBoots && fns.canUseWaterBombs(store)) || store.settings.skip.lakebedEntrance)
             ),
-            new ZoneNeighbor("City in The Sky Entrance", fns.never),
+            new ZoneNeighbor("City in The Sky Entrance", ({ items, settings }) => items.Clawshot > 0 && (items.Skybook >= 7 || settings.skip.cityEntrance)),
             ZoneNeighbor.always("Lake Hylia Bridge"),
             new ZoneNeighbor("Zoras Domain", (store) => store.items.Crystal),
         ],
@@ -678,7 +678,45 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
             )
         ],
     },
-    cityInTheSky: {},
+    cityInTheSky: {
+        "City in The Sky Boss Room": [
+            new ZoneNeighbor("City in The Sky Entrance", fns.canDefeatArgorok)
+        ],
+        "City in The Sky Central Tower Second Floor": [
+            new ZoneNeighbor("City in The Sky West Wing", ({ items }) => items.Clawshot >= 2),
+            ZoneNeighbor.always("City in The Sky Lobby")
+        ],
+        "City in The Sky East Wing": [
+            ZoneNeighbor.always("City in The Sky Lobby")
+        ],
+        "City in The Sky Entrance": [
+            new ZoneNeighbor("Lake Hylia", ({ items }) => items.Clawshot > 0),
+            new ZoneNeighbor("City in The Sky Lobby", ({ items }) => items.Clawshot > 0),
+        ],
+        "City in The Sky Lobby": [
+            ZoneNeighbor.always("City in The Sky Entrance"),
+            // key ignored.
+            new ZoneNeighbor("City in The Sky East Wing", ({ items }) => items.Spinner),
+            new ZoneNeighbor("City in The Sky West Wing", ({ items }) => items.Clawshot >= 2),
+            new ZoneNeighbor(
+                "City in The Sky North Wing",
+                (store) => store.items.Clawshot >= 2
+                    && fns.canDefeatBabaSerpent(store)
+                    && fns.canDefeatKargarok(store)
+                    && store.items.Crystal
+                    && store.items.IronBoots
+            ),
+        ],
+        "City in The Sky North Wing": [
+            ZoneNeighbor.always("City in The Sky Lobby"),
+            // key ignored.
+            new ZoneNeighbor("City in The Sky Boss Room", (store) => store.items.Clawshot >= 2 && fns.canDefeatAeralfos(store)),
+        ],
+        "City in The Sky West Wing": [
+            new ZoneNeighbor("City in The Sky Lobby", ({ items }) => items.Clawshot >= 2),
+            new ZoneNeighbor("City in The Sky Central Tower Second Floor", ({ items }) => items.Clawshot >= 2),
+        ],
+    },
     palaceOfTwilight: {},
     hyruleCastle: {},
 };

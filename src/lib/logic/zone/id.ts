@@ -10,7 +10,14 @@ export type ArbitersGroundsZoneId =
     | "Arbiters Grounds Lobby"
     | "Arbiters Grounds West Wing";
 
-export type CitSZoneId = never;
+export type CitSZoneId =
+    | "City in The Sky Boss Room"
+    | "City in The Sky Central Tower Second Floor"
+    | "City in The Sky East Wing"
+    | "City in The Sky Entrance"
+    | "City in The Sky Lobby"
+    | "City in The Sky North Wing"
+    | "City in The Sky West Wing";
 
 export type ForestTempleZoneId =
     | "Forest Temple Boss Room"
