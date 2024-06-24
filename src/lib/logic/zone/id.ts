@@ -30,7 +30,8 @@ export type GoronMinesZoneId =
     | "Goron Mines North Wing"
     | "Goron Mines Upper East Wing";
 
-type HyruleCastleZoneId = never;
+export type HyruleCastleZoneId = never;
+
 export type LakebedTempleZoneId =
     | "Lakebed Temple Boss Room"
     | "Lakebed Temple Central Room"
@@ -39,7 +40,7 @@ export type LakebedTempleZoneId =
     | "Lakebed Temple Entrance"
     | "Lakebed Temple West Wing";
 
-type PoTZoneId = never;
+export type PoTZoneId = never;
 
 export type SnowpeakRuinsZoneId =
     | "Snowpeak Ruins Boss Room"
@@ -56,7 +57,7 @@ export type SnowpeakRuinsZoneId =
     | "Snowpeak Ruins Wooden Beam Room"
     | "Snowpeak Ruins Yeto and Yeta";
 
-type ToTZoneId = never;
+export type ToTZoneId = never;
 
 // Overworld
 

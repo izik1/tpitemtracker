@@ -1,26 +1,14 @@
 
 import type { LogicStore } from './index';
-import type { ArbitersGroundsCheckName, CheckName, EldinCheckName, FaronCheckName, ForestTempleCheckName, GerudoCheckName, GoronMinesCheckName, LakebedTempleCheckName, LanayruCheckName, OrdonaCheckName, SnowpeakCheckName, SnowpeakRuinsCheckName } from './check-name';
+import type { Regions as AnyRegions } from "./region";
+import type { CheckName } from './check-name';
 import * as fns from './logic-functions';
 
 export type CheckKind = "standard" | "poe" | "bug";
 
 export type Accessable = (store: LogicStore) => boolean;
 
-interface Regions<V> {
-    readonly ordon: Record<OrdonaCheckName, V>,
-    readonly faron: Record<FaronCheckName, V>,
-    readonly eldin: Record<EldinCheckName, V>,
-    readonly lanayru: Record<LanayruCheckName, V>,
-    readonly gerudo: Record<GerudoCheckName, V>,
-    readonly snowpeak: Record<SnowpeakCheckName, V>,
-
-    readonly forestTemple: Record<ForestTempleCheckName, V>,
-    readonly goronMines: Record<GoronMinesCheckName, V>,
-    readonly lakebedTemple: Record<LakebedTempleCheckName, V>,
-    readonly arbitersGrounds: Record<ArbitersGroundsCheckName, V>;
-    readonly snowpeakRuins: Record<SnowpeakRuinsCheckName, V>;
-}
+interface Regions<V> extends AnyRegions<"checks", V> { }
 
 const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
     ordon: {
@@ -628,6 +616,10 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
         "Snowpeak Ruins Wooden Beam Chandelier Chest": fns.never,
         "Snowpeak Ruins Wooden Beam Northwest Chest": fns.never,
     },
+    templeOfTime: {},
+    cityInTheSky: {},
+    palaceOfTwilight: {},
+    hyruleCastle: {},
 };
 
 const checkKindsRegions: Regions<CheckKind> = {
@@ -1035,25 +1027,16 @@ const checkKindsRegions: Regions<CheckKind> = {
         "Snowpeak Ruins Wooden Beam Central Chest": "standard",
         "Snowpeak Ruins Wooden Beam Chandelier Chest": "standard",
         "Snowpeak Ruins Wooden Beam Northwest Chest": "standard",
-    }
+    },
+    templeOfTime: {},
+    cityInTheSky: {},
+    palaceOfTwilight: {},
+    hyruleCastle: {},
 };
 
-export const checkKinds: Record<CheckName, CheckKind> = {
-    ...checkKindsRegions.ordon,
-    ...checkKindsRegions.faron,
-    ...checkKindsRegions.eldin,
-    ...checkKindsRegions.lanayru,
-    ...checkKindsRegions.gerudo,
-    ...checkKindsRegions.snowpeak,
+export const checkKinds: Record<CheckName, CheckKind> = Object.assign({}, ...Object.values(checkKindsRegions));
 
-    ...checkKindsRegions.forestTemple,
-    ...checkKindsRegions.goronMines,
-    ...checkKindsRegions.lakebedTemple,
-    ...checkKindsRegions.arbitersGrounds,
-    ...checkKindsRegions.snowpeakRuins
-};
-
-export const checkNames: CheckName[] = <CheckName[]> Object.keys(checkKinds);
+export const checkNames: CheckName[] = Object.keys(checkKinds) as CheckName[];
 
 function* swap<T1, T2>(v: IterableIterator<[T1, T2]>) {
     for (const [t1, t2] of v) {
@@ -1075,16 +1058,4 @@ function makeCheckAccessibility(record: Record<CheckName, Accessable>) {
         .map(([, v]) => v);
 }
 
-export const checkAccessibilityGlitchless = makeCheckAccessibility({
-    ...checkAccessibilityGlitchlessRegions.ordon,
-    ...checkAccessibilityGlitchlessRegions.faron,
-    ...checkAccessibilityGlitchlessRegions.eldin,
-    ...checkAccessibilityGlitchlessRegions.lanayru,
-    ...checkAccessibilityGlitchlessRegions.gerudo,
-    ...checkAccessibilityGlitchlessRegions.snowpeak,
-
-    ...checkAccessibilityGlitchlessRegions.forestTemple,
-    ...checkAccessibilityGlitchlessRegions.goronMines,
-    ...checkAccessibilityGlitchlessRegions.lakebedTemple,
-    ...checkAccessibilityGlitchlessRegions.arbitersGrounds,
-});
+export const checkAccessibilityGlitchless = makeCheckAccessibility(Object.assign({}, ...Object.values(checkAccessibilityGlitchlessRegions)));

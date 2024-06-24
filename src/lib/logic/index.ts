@@ -1,9 +1,9 @@
-import { type ZoneId } from "./zone/id";
-import { type LogicValue, type RandomizerSettings } from "../settings";
+import type { ZoneId } from "./zone/id";
+import type { LogicValue, RandomizerSettings } from "../settings";
 import { zoneNeighborsGlitchless, type ZoneNeighbors, } from "./zone/zones";
 import { checkIds, type Accessable, checkAccessibilityGlitchless, checkNames } from "./checks";
 import { baseItems } from '$lib/items';
-import { zoneData } from './zone/checks';
+import zoneChecks from './zone/checks';
 
 export { checkIds, checkKinds, checkNames } from "./checks";
 export { zoneNeighborsGlitchless as zonesGlitchless, type ZoneNeighbors } from "./zone/zones";
@@ -13,7 +13,7 @@ export type LogicStore = { settings: Readonly<RandomizerSettings>, reachableZone
 function makeChecksToZones(): { [x: number]: ZoneId; } {
     const output: { [x: number]: ZoneId; } = {};
 
-    for (const [zone, checks] of Object.entries(zoneData)) {
+    for (const [zone, checks] of Object.entries(zoneChecks)) {
         for (const check of checks) {
             output[checkIds[check]] = zone as ZoneId;
         }

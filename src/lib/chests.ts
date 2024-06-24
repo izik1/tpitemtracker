@@ -1,5 +1,5 @@
 import { type CheckName } from "./logic/check-name";
-import { zoneData } from "./logic/zone/checks";
+import zoneChecks from "./logic/zone/checks";
 
 export type CheckStatus = "opened" | "available" | "unavailable" | "possible";
 
@@ -78,13 +78,13 @@ export const groups: Group[] = [
         x: "calc(47.58% - 12px)",
         y: "calc(66.2% - 12px)",
         checks: [
-            ...zoneData["Forest Temple Entrance"],
-            ...zoneData["Forest Temple Lobby"],
-            ...zoneData["Forest Temple East Wing"],
-            ...zoneData["Forest Temple West Wing"],
-            ...zoneData["Ook"],
-            ...zoneData["Forest Temple North Wing"],
-            ...zoneData["Forest Temple Boss Room"],
+            ...zoneChecks["Forest Temple Entrance"],
+            ...zoneChecks["Forest Temple Lobby"],
+            ...zoneChecks["Forest Temple East Wing"],
+            ...zoneChecks["Forest Temple West Wing"],
+            ...zoneChecks["Ook"],
+            ...zoneChecks["Forest Temple North Wing"],
+            ...zoneChecks["Forest Temple Boss Room"],
         ]
     },
     {
@@ -92,7 +92,7 @@ export const groups: Group[] = [
         x: "calc(65.91% - 12px)",
         y: "calc(57.31% - 12px)",
         checks: [
-            ...zoneData["Eldin Long Cave"],
+            ...zoneChecks["Eldin Long Cave"],
         ]
     },
     {
@@ -100,7 +100,7 @@ export const groups: Group[] = [
         x: "calc(80.41% - 12px)",
         y: "calc(53.36% - 12px)",
         checks: [
-            ...zoneData["Kakariko Village"],
+            ...zoneChecks["Kakariko Village"],
         ]
     },
     {
@@ -108,13 +108,13 @@ export const groups: Group[] = [
         x: "calc(85.91% - 12px)",
         y: "calc(38.16% - 12px)",
         checks: [
-            ...zoneData["Goron Mines Entrance"],
-            ...zoneData["Goron Mines Magnet Room"],
-            ...zoneData["Goron Mines Lower West Wing"],
-            ...zoneData["Goron Mines Crystal Switch Room"],
-            ...zoneData["Goron Mines North Wing"],
-            ...zoneData["Goron Mines Upper East Wing"],
-            ...zoneData["Goron Mines Boss Room"],
+            ...zoneChecks["Goron Mines Entrance"],
+            ...zoneChecks["Goron Mines Magnet Room"],
+            ...zoneChecks["Goron Mines Lower West Wing"],
+            ...zoneChecks["Goron Mines Crystal Switch Room"],
+            ...zoneChecks["Goron Mines North Wing"],
+            ...zoneChecks["Goron Mines Upper East Wing"],
+            ...zoneChecks["Goron Mines Boss Room"],
         ]
     },
     // this one is positioned correctly without the `calc`
@@ -123,7 +123,7 @@ export const groups: Group[] = [
         x: "79.7%",
         y: "26.8%",
         checks: [
-            ...zoneData["Goron Stockcave"],
+            ...zoneChecks["Goron Stockcave"],
         ]
     },
     {
@@ -131,14 +131,14 @@ export const groups: Group[] = [
         x: "calc(72% - 12px)",
         y: "calc(23.8% - 12px)",
         checks: [
-            ...zoneData["Hidden Village"],
+            ...zoneChecks["Hidden Village"],
         ]
     },
     {
         name: "Castle Town",
         x: "calc(53.75% - 12px)",
         y: "calc(41.2% - 12px)",
-        checks: zoneData["Castle Town"],
+        checks: zoneChecks["Castle Town"],
     },
     {
         name: "Lanayru Spring",
@@ -170,38 +170,38 @@ export const groups: Group[] = [
         name: "Lake Hylia Long Cave",
         x: "calc(40.75% - 12px)",
         y: "calc(55.68% - 12px)",
-        checks: zoneData["Lake Hylia Long Cave"]
+        checks: zoneChecks["Lake Hylia Long Cave"]
     },
     {
         name: "Lakebed Temple",
         x: "calc(40.33% - 12px)",
         y: "calc(47.76% - 12px)",
         checks: [
-            ...zoneData["Lakebed Temple Entrance"],
-            ...zoneData["Lakebed Temple Central Room"],
-            ...zoneData["Lakebed Temple East Wing First Floor"],
-            ...zoneData["Lakebed Temple East Wing Second Floor"],
-            ...zoneData["Lakebed Temple West Wing"],
-            ...zoneData["Lakebed Temple Boss Room"],
+            ...zoneChecks["Lakebed Temple Entrance"],
+            ...zoneChecks["Lakebed Temple Central Room"],
+            ...zoneChecks["Lakebed Temple East Wing First Floor"],
+            ...zoneChecks["Lakebed Temple East Wing Second Floor"],
+            ...zoneChecks["Lakebed Temple West Wing"],
+            ...zoneChecks["Lakebed Temple Boss Room"],
         ]
     },
     {
         name: "Bublin Camp",
         x: "calc(14.98% - 12px)",
         y: "calc(44.96% - 12px)",
-        checks: zoneData["Bulblin Camp"],
+        checks: zoneChecks["Bulblin Camp"],
     },
     {
         name: "Arbiter's Grounds",
         x: "calc(15.2% - 12px)",
         y: "calc(41.44% - 12px)",
         checks: [
-            ...zoneData["Arbiters Grounds Entrance"],
-            ...zoneData["Arbiters Grounds Lobby"],
-            ...zoneData["Arbiters Grounds East Wing"],
-            ...zoneData["Arbiters Grounds West Wing"],
-            ...zoneData["Arbiters Grounds After Poe Gate"],
-            ...zoneData["Arbiters Grounds Boss Room"],
+            ...zoneChecks["Arbiters Grounds Entrance"],
+            ...zoneChecks["Arbiters Grounds Lobby"],
+            ...zoneChecks["Arbiters Grounds East Wing"],
+            ...zoneChecks["Arbiters Grounds West Wing"],
+            ...zoneChecks["Arbiters Grounds After Poe Gate"],
+            ...zoneChecks["Arbiters Grounds Boss Room"],
         ]
     },
     {
@@ -211,19 +211,19 @@ export const groups: Group[] = [
         checks: [
             // fixme: re-order these based on vanilla order.
             // vanilla order is just a little unclear looking at the requirements.
-            ...zoneData["Snowpeak Ruins Entrance"],
-            ...zoneData["Snowpeak Ruins Yeto and Yeta"],
-            ...zoneData["Snowpeak Ruins East Courtyard"],
-            ...zoneData["Snowpeak Ruins Caged Freezard Room"],
-            ...zoneData["Snowpeak Ruins West Courtyard"],
-            ...zoneData["Snowpeak Ruins Northeast Chilfos Room First Floor"],
-            ...zoneData["Snowpeak Ruins Wooden Beam Room"],
-            ...zoneData["Snowpeak Ruins Second Floor Mini Freezard Room"],
-            ...zoneData["Snowpeak Ruins West Cannon Room"],
-            ...zoneData["Snowpeak Ruins Darkhammer Room"],
-            ...zoneData["Snowpeak Ruins Northeast Chilfos Room Second Floor"],
-            ...zoneData["Snowpeak Ruins Chapel"],
-            ...zoneData["Snowpeak Ruins Boss Room"],
+            ...zoneChecks["Snowpeak Ruins Entrance"],
+            ...zoneChecks["Snowpeak Ruins Yeto and Yeta"],
+            ...zoneChecks["Snowpeak Ruins East Courtyard"],
+            ...zoneChecks["Snowpeak Ruins Caged Freezard Room"],
+            ...zoneChecks["Snowpeak Ruins West Courtyard"],
+            ...zoneChecks["Snowpeak Ruins Northeast Chilfos Room First Floor"],
+            ...zoneChecks["Snowpeak Ruins Wooden Beam Room"],
+            ...zoneChecks["Snowpeak Ruins Second Floor Mini Freezard Room"],
+            ...zoneChecks["Snowpeak Ruins West Cannon Room"],
+            ...zoneChecks["Snowpeak Ruins Darkhammer Room"],
+            ...zoneChecks["Snowpeak Ruins Northeast Chilfos Room Second Floor"],
+            ...zoneChecks["Snowpeak Ruins Chapel"],
+            ...zoneChecks["Snowpeak Ruins Boss Room"],
         ]
     },
 ];

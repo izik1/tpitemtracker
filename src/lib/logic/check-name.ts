@@ -37,7 +37,7 @@ export type ArbitersGroundsCheckName =
     | "Arbiters Grounds West Stalfos Northeast Chest"
     | "Arbiters Grounds West Stalfos West Chest";
 
-type CitSCheckName = never;
+export type CitSCheckName = never;
 
 export type ForestTempleCheckName =
     | "Forest Temple Big Baba Key"
@@ -83,7 +83,7 @@ export type GoronMinesCheckName =
     | "Goron Mines Outside Clawshot Chest"
     | "Goron Mines Outside Underwater Chest";
 
-type HyruleCastleCheckName = never;
+export type HyruleCastleCheckName = never;
 
 export type LakebedTempleCheckName =
     | "Lakebed Temple Before Deku Toad Alcove Chest"
@@ -115,7 +115,7 @@ export type LakebedTempleCheckName =
     | "Lakebed Temple West Water Supply Chest"
     | "Lakebed Temple West Water Supply Small Chest";
 
-type PoTCheckName = never;
+export type PoTCheckName = never;
 
 export type SnowpeakRuinsCheckName =
     | "Snowpeak Ruins Ball and Chain"
@@ -143,7 +143,7 @@ export type SnowpeakRuinsCheckName =
     | "Snowpeak Ruins Wooden Beam Chandelier Chest"
     | "Snowpeak Ruins Wooden Beam Northwest Chest";
 
-type ToTCheckName = never;
+export type ToTCheckName = never;
 
 type OverworldCheckName = EldinCheckName | FaronCheckName | GerudoCheckName | LanayruCheckName | OrdonaCheckName | SnowpeakCheckName;
 
