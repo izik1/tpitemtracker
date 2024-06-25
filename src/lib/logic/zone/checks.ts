@@ -667,7 +667,37 @@ const regions: Regions = {
             "City in The Sky Garden Island Poe"
         ],
     },
-    palaceOfTwilight: {},
+    palaceOfTwilight: {
+        "Palace of Twilight Entrance": [
+            "Palace of Twilight Collect Both Sols",
+        ],
+        "Palace of Twilight West Wing": [
+            "Palace of Twilight West Wing First Room Central Chest",
+            "Palace of Twilight West Wing Chest Behind Wall of Darkness",
+            "Palace of Twilight West Wing Second Room Central Chest",
+            "Palace of Twilight West Wing Second Room Lower South Chest",
+            "Palace of Twilight West Wing Second Room Southeast Chest"
+        ],
+        "Palace of Twilight East Wing": [
+            "Palace of Twilight East Wing First Room North Small Chest",
+            "Palace of Twilight East Wing First Room Zant Head Chest",
+            "Palace of Twilight East Wing First Room East Alcove",
+            "Palace of Twilight East Wing First Room West Alcove",
+            "Palace of Twilight East Wing Second Room Northeast Chest",
+            "Palace of Twilight East Wing Second Room Northwest Chest",
+            "Palace of Twilight East Wing Second Room Southwest Chest",
+            "Palace of Twilight East Wing Second Room Southeast Chest"
+        ],
+        "Palace of Twilight North Tower": [
+            "Palace of Twilight Central First Room Chest",
+            "Palace of Twilight Big Key Chest",
+            "Palace of Twilight Central Outdoor Chest",
+            "Palace of Twilight Central Tower Chest",
+        ],
+        "Palace of Twilight Boss Room": [
+            "Palace of Twilight Zant Heart Container",
+        ]
+    },
     hyruleCastle: {},
 };
 

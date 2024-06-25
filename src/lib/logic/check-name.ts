@@ -144,7 +144,26 @@ export type LakebedTempleCheckName =
     | "Lakebed Temple West Water Supply Chest"
     | "Lakebed Temple West Water Supply Small Chest";
 
-export type PoTCheckName = never;
+export type PoTCheckName =
+    | "Palace of Twilight Big Key Chest"
+    | "Palace of Twilight Central First Room Chest"
+    | "Palace of Twilight Central Outdoor Chest"
+    | "Palace of Twilight Central Tower Chest"
+    | "Palace of Twilight Collect Both Sols"
+    | "Palace of Twilight East Wing First Room East Alcove"
+    | "Palace of Twilight East Wing First Room North Small Chest"
+    | "Palace of Twilight East Wing First Room West Alcove"
+    | "Palace of Twilight East Wing First Room Zant Head Chest"
+    | "Palace of Twilight East Wing Second Room Northeast Chest"
+    | "Palace of Twilight East Wing Second Room Northwest Chest"
+    | "Palace of Twilight East Wing Second Room Southeast Chest"
+    | "Palace of Twilight East Wing Second Room Southwest Chest"
+    | "Palace of Twilight West Wing Chest Behind Wall of Darkness"
+    | "Palace of Twilight West Wing First Room Central Chest"
+    | "Palace of Twilight West Wing Second Room Central Chest"
+    | "Palace of Twilight West Wing Second Room Lower South Chest"
+    | "Palace of Twilight West Wing Second Room Southeast Chest"
+    | "Palace of Twilight Zant Heart Container";
 
 export type SnowpeakRuinsCheckName =
     | "Snowpeak Ruins Ball and Chain"

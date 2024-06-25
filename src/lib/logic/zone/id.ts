@@ -47,7 +47,13 @@ export type LakebedTempleZoneId =
     | "Lakebed Temple Entrance"
     | "Lakebed Temple West Wing";
 
-export type PoTZoneId = never;
+export type PoTZoneId =
+    | "Palace of Twilight Boss Room"
+    | "Palace of Twilight East Wing"
+    | "Palace of Twilight Entrance"
+    | "Palace of Twilight North Tower"
+    | "Palace of Twilight West Wing";
+
 
 export type SnowpeakRuinsZoneId =
     | "Snowpeak Ruins Boss Room"

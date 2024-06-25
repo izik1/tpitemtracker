@@ -717,7 +717,37 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
             new ZoneNeighbor("City in The Sky Central Tower Second Floor", ({ items }) => items.Clawshot >= 2),
         ],
     },
-    palaceOfTwilight: {},
+    palaceOfTwilight: {
+        "Palace of Twilight Entrance": [
+            ZoneNeighbor.always("Mirror Chamber"),
+            ZoneNeighbor.always("Palace of Twilight West Wing"),
+            // key setting ignored.
+            new ZoneNeighbor("Palace of Twilight East Wing", (store) => fns.canDefeatPhantomZant(store) && store.items.Clawshot > 0),
+            // key setting ignored.
+            new ZoneNeighbor(
+                "Palace of Twilight North Tower",
+                (store) => store.items.Sword >= 4
+                    && fns.canDefeatPhantomZant(store)
+                    && store.items.Clawshot > 0
+                    && fns.canDefeatZantHead(store)
+                    && fns.canDefeatShadowBeast(store)
+            ),
+        ],
+        "Palace of Twilight West Wing": [
+            ZoneNeighbor.always("Palace of Twilight Entrance"),
+        ],
+        "Palace of Twilight East Wing": [
+            ZoneNeighbor.always("Palace of Twilight Entrance"),
+        ],
+        "Palace of Twilight North Tower": [
+            ZoneNeighbor.always("Palace of Twilight Entrance"),
+            // key setting ignored.
+            new ZoneNeighbor("Palace of Twilight Boss Room", (store) => fns.canDefeatZantHead(store) && store.items.Sword >= 4)
+        ],
+        "Palace of Twilight Boss Room": [
+            new ZoneNeighbor("Palace of Twilight Entrance", fns.canDefeatZant),
+        ]
+    },
     hyruleCastle: {},
 };
 
