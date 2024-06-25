@@ -748,7 +748,90 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
             new ZoneNeighbor("Palace of Twilight Entrance", fns.canDefeatZant),
         ]
     },
-    hyruleCastle: {},
+    hyruleCastle: {
+        "Ganondorf Castle": [
+            ZoneNeighbor.always("Hyrule Castle Tower Climb")
+        ],
+        "Hyrule Castle Entrance": [
+            ZoneNeighbor.always("Castle Town"),
+            // key setting ignored.
+            ZoneNeighbor.always("Hyrule Castle Main Hall"),
+            new ZoneNeighbor("Hyrule Castle Outside East Wing", fns.canDefeatBokoblinRed),
+            new ZoneNeighbor("Hyrule Castle Outside West Wing", fns.canDefeatBokoblinRed),
+        ],
+        "Hyrule Castle Graveyard": [
+            new ZoneNeighbor("Hyrule Castle Outside East Wing", ({ items }) => items.Crystal),
+        ],
+        "Hyrule Castle Inside East Wing": [
+            ZoneNeighbor.always("Hyrule Castle Main Hall"),
+            new ZoneNeighbor("Hyrule Castle Third Floor Balcony", (store) => store.items.Lantern && fns.canDefeatDinalfos(store)),
+        ],
+        "Hyrule Castle Inside West Wing": [
+            ZoneNeighbor.always("Hyrule Castle Main Hall"),
+            new ZoneNeighbor(
+                "Hyrule Castle Third Floor Balcony",
+                (store) => fns.canKnockDownHCPainting(store)
+                    && fns.canDefeatLizalfos(store)
+                    && fns.canDefeatDarknut(store)
+            )
+        ],
+        "Hyrule Castle Main Hall": [
+            ZoneNeighbor.always("Hyrule Castle Entrance"),
+            new ZoneNeighbor(
+                "Hyrule Castle Inside East Wing",
+                (store) => fns.canDefeatBokoblin(store)
+                    && fns.canDefeatLizalfos(store)
+                    && store.items.Clawshot >= 2
+                    && fns.canDefeatDarknut(store)
+                    && store.items.Boomerang
+            ),
+            new ZoneNeighbor(
+                "Hyrule Castle Inside West Wing",
+                (store) => fns.canDefeatBokoblin(store)
+                    && fns.canDefeatLizalfos(store)
+                    && store.items.Clawshot >= 2
+                    && fns.canDefeatDarknut(store)
+                    && store.items.Boomerang
+            ),
+        ],
+        "Hyrule Castle Outside East Wing": [
+            ZoneNeighbor.always("Hyrule Castle Main Hall"),
+            new ZoneNeighbor("Hyrule Castle Graveyard", ({ items }) => items.Crystal),
+        ],
+        "Hyrule Castle Outside West Wing": [
+            ZoneNeighbor.always("Hyrule Castle Main Hall"),
+        ],
+        "Hyrule Castle Third Floor Balcony": [
+            new ZoneNeighbor(
+                "Hyrule Castle Inside West Wing",
+                (store) => fns.canDefeatDarknut(store) && fns.canDefeatLizalfos(store) && fns.canKnockDownHCPainting(store)
+            ),
+            new ZoneNeighbor("Hyrule Castle Inside East Wing", (store) => store.items.Lantern && fns.canDefeatDinalfos(store)),
+            // key settings ignored.
+
+            ZoneNeighbor.always("Hyrule Castle Tower Climb"),
+        ],
+        "Hyrule Castle Tower Climb": [
+            ZoneNeighbor.always("Hyrule Castle Third Floor Balcony"),
+            // key settings ignored.
+            new ZoneNeighbor(
+                "Hyrule Castle Treasure Room",
+                (store) => store.items.Spinner && store.items.Clawshot >= 2 && fns.canDefeatDarknut(store) && fns.canDefeatLizalfos(store)
+            ),
+            // key settings ignored.
+            new ZoneNeighbor(
+                "Ganondorf Castle",
+                (store) => store.items.Spinner
+                    && store.items.Clawshot >= 2
+                    && fns.canDefeatDarknut(store)
+                    && fns.canDefeatLizalfos(store)
+                    && fns.canDefeatGanondorf(store)
+            )
+        ],
+        "Hyrule Castle Treasure Room": [
+            ZoneNeighbor.always("Hyrule Castle Tower Climb"),
+        ],
+    },
 };
 
 export type ZoneNeighbors<T extends ZoneId = ZoneId> = Record<T, ZoneNeighbor[]>;

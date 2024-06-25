@@ -258,6 +258,37 @@ export const groups: Group[] = [
             ...zoneChecks["City in The Sky Boss Room"],
         ]
     },
+    {
+        name: "Palace of Twilight",
+        x: "calc(15.0% - 12px)",
+        y: "calc(37.44% - 12px)",
+        checks: [
+            ...zoneChecks["Palace of Twilight Entrance"],
+            ...zoneChecks["Palace of Twilight West Wing"],
+            ...zoneChecks["Palace of Twilight East Wing"],
+            ...zoneChecks["Palace of Twilight North Tower"],
+            ...zoneChecks["Palace of Twilight Boss Room"],
+        ],
+    },
+    {
+        name: "Hyrule Castle",
+        x: "calc(53.78% - 12px)",
+        y: "calc(36.56% - 12px)",
+        checks: [
+            ...zoneChecks["Hyrule Castle Entrance"],
+            ...zoneChecks["Hyrule Castle Outside East Wing"],
+            ...zoneChecks["Hyrule Castle Outside West Wing"],
+            ...zoneChecks["Hyrule Castle Graveyard"],
+            ...zoneChecks["Hyrule Castle Main Hall"],
+            ...zoneChecks["Hyrule Castle Inside East Wing"],
+            ...zoneChecks["Hyrule Castle Inside West Wing"],
+            ...zoneChecks["Hyrule Castle Third Floor Balcony"],
+            ...zoneChecks["Hyrule Castle Tower Climb"],
+            ...zoneChecks["Hyrule Castle Treasure Room"],
+            ...zoneChecks["Ganondorf Castle"],
+        ],
+    },
+
 ];
 
 export interface OverworldCheck {
@@ -1042,17 +1073,6 @@ export const overworld: OverworldCheck[] = [
 ];
 
 // define grouped chests
-//     {
-//         name: "Palace of Twilight",
-//         x: "15.0%",
-//         y: "37.44%",
-//     },
-//     {
-//         name: "Hyrule Castle",
-//         x: "53.78%",
-//         y: "36.56%",
-//     },
-// ];
 
 /* overworld */
 
@@ -1194,244 +1214,3 @@ export const overworld: OverworldCheck[] = [
 //         },
 //     },
 // ]
-/*
-//Shops
-var randomizedShops = 
-[
-    // Ordon
-    {
-        name: "Milk - 10 Rupees",
-        x: "55.5%",
-        y: "85.76%",
-        isAvailable: function () {
-            if ((canDoDamage() || SkipIntro) || (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Bee Larva - 10 Rupees",
-        x: "56.5%",
-        y: "85.76%",
-        isAvailable: function () {
-            if ((canDoDamage() || SkipIntro) || (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Lantern Oil - 20 Rupees",
-        x: "55.5%",
-        y: "86.76%",
-        isAvailable: function () {
-            if ((canDoDamage() || SkipIntro) && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Malo Mark - Kak
-    {
-        name: "Red Potion - 30 Rupees",
-        x: "80.25%",
-        y: "54.28%",
-        isAvailable: function () {
-            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Wooden Shield - 50 Rupees",
-        x: "81.25%",
-        y: "54.28%",
-        isAvailable: function () {
-            if (canAccessKakVillage())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Death Mountain
-    {
-        name: "Lantern Oil - 20 Rupees",
-        x: "85.33%",
-        y: "37.60%",
-        isAvailable: function () {
-            if (canAccessDeathMountain() && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Wooden Shield - 50 Rupees",
-        x: "86.33%",
-        y: "37.60%",
-        isAvailable: function () {
-            if (canAccessDeathMountain())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Milk - 20 Rupees",
-        x: "85.33%",
-        y: "38.60%",
-        isAvailable: function () {
-            if (canAccessDeathMountain() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Goron at Kak Night
-    {
-        name: "Lantern Oil - 20 Rupees",
-        x: "80.25%",
-        y: "51.68%",
-        isAvailable: function () {
-            if (canAccessKakVillage() && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Red Potion - 30 Rupees",
-        x: "81.25%",
-        y: "51.68%",
-        isAvailable: function () {
-            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Blue Potion - 100 Rupees",
-        x: "80.25%",
-        y: "52.68%",
-        isAvailable: function () {
-            if (canAccessKakVillage() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Malo Mart -Castle Town
-    {
-        name: "Blue Potion - 50 Rupees",
-        x: "55.33%",
-        y: "40.88%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Red Potion - 15 Rupees",
-        x: "56.33%",
-        y: "40.88%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Magic Armor - 598 Rupees",
-        x: "55.33%",
-        y: "41.88%",
-        isAvailable: function () {
-            if (canAccessCastleTown())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    // Goron Castle Town Shop
-    {
-        name: "Hylian Shield - 210 Rupees",
-        x: "51.66%",
-        y: "40.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown())
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Red Potion - 40 Rupees",
-        x: "52.66%",
-        y: "40.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Lantern Oil - 30 Rupees",
-        x: "51.66%",
-        y: "41.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Arrows - 40 Rupees",
-        x: "52.66%",
-        y: "41.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && items.Bow)
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //Goron Hot Springwater
-    {
-        name: "Hot Springwater - 20 Rupees",
-        x: "54.33%",
-        y: "42.48%",
-        isAvailable: function () {
-            if (canAccessCastleTown() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-
-    //CiTS Shop
-    {
-        name: "Red Potion - 30 Rupees",
-        x: "38.42%",
-        y: "50.00%",
-        isAvailable: function () {
-            if (canAccessCiTS() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Blue Potion - 100 Rupees",
-        x: "37.42%",
-        y: "51.00%",
-        isAvailable: function () {
-            if (canAccessCiTS() && (items.Bottle || NoBottleReq))
-                return "available";
-            return "bugunavailable";
-        },
-    },
-    {
-        name: "Lantern Oil - 20 Rupees",
-        x: "38.42%",
-        y: "51.00%",
-        isAvailable: function () {
-            if (canAccessCiTS() && (items.Lantern || (items.Bottle || NoBottleReq)))
-                return "available";
-            return "bugunavailable";
-        },
-    }
-]
-*/

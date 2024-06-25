@@ -112,7 +112,35 @@ export type GoronMinesCheckName =
     | "Goron Mines Outside Clawshot Chest"
     | "Goron Mines Outside Underwater Chest";
 
-export type HyruleCastleCheckName = never;
+export type HyruleCastleCheckName =
+    | "Hyrule Castle Big Key Chest"
+    | "Hyrule Castle East Wing Balcony Chest"
+    | "Hyrule Castle East Wing Boomerang Puzzle Chest"
+    | "Hyrule Castle Graveyard Grave Switch Room Back Left Chest"
+    | "Hyrule Castle Graveyard Grave Switch Room Front Left Chest"
+    | "Hyrule Castle Graveyard Grave Switch Room Right Chest"
+    | "Hyrule Castle Graveyard Owl Statue Chest"
+    | "Hyrule Castle King Bulblin Key"
+    | "Hyrule Castle Lantern Staircase Chest"
+    | "Hyrule Castle Main Hall Northeast Chest"
+    | "Hyrule Castle Main Hall Northwest Chest"
+    | "Hyrule Castle Main Hall Southwest Chest"
+    | "Hyrule Castle Southeast Balcony Tower Chest"
+    | "Hyrule Castle Treasure Room Eighth Small Chest"
+    | "Hyrule Castle Treasure Room Fifth Chest"
+    | "Hyrule Castle Treasure Room Fifth Small Chest"
+    | "Hyrule Castle Treasure Room First Chest"
+    | "Hyrule Castle Treasure Room First Small Chest"
+    | "Hyrule Castle Treasure Room Fourth Chest"
+    | "Hyrule Castle Treasure Room Fourth Small Chest"
+    | "Hyrule Castle Treasure Room Second Chest"
+    | "Hyrule Castle Treasure Room Second Small Chest"
+    | "Hyrule Castle Treasure Room Seventh Small Chest"
+    | "Hyrule Castle Treasure Room Sixth Small Chest"
+    | "Hyrule Castle Treasure Room Third Chest"
+    | "Hyrule Castle Treasure Room Third Small Chest"
+    | "Hyrule Castle West Courtyard Central Small Chest"
+    | "Hyrule Castle West Courtyard North Small Chest";
 
 export type LakebedTempleCheckName =
     | "Lakebed Temple Before Deku Toad Alcove Chest"

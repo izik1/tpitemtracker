@@ -37,7 +37,18 @@ export type GoronMinesZoneId =
     | "Goron Mines North Wing"
     | "Goron Mines Upper East Wing";
 
-export type HyruleCastleZoneId = never;
+export type HyruleCastleZoneId =
+    | "Ganondorf Castle"
+    | "Hyrule Castle Entrance"
+    | "Hyrule Castle Graveyard"
+    | "Hyrule Castle Inside East Wing"
+    | "Hyrule Castle Inside West Wing"
+    | "Hyrule Castle Main Hall"
+    | "Hyrule Castle Outside East Wing"
+    | "Hyrule Castle Outside West Wing"
+    | "Hyrule Castle Third Floor Balcony"
+    | "Hyrule Castle Tower Climb"
+    | "Hyrule Castle Treasure Room";
 
 export type LakebedTempleZoneId =
     | "Lakebed Temple Boss Room"
@@ -53,7 +64,6 @@ export type PoTZoneId =
     | "Palace of Twilight Entrance"
     | "Palace of Twilight North Tower"
     | "Palace of Twilight West Wing";
-
 
 export type SnowpeakRuinsZoneId =
     | "Snowpeak Ruins Boss Room"
