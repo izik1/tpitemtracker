@@ -2,7 +2,7 @@ import { browser } from "$app/environment";
 import { Set } from "svelte/reactivity";
 
 export interface LocalStore<T> {
-    readonly value: T;
+    value: T;
 }
 
 const localStore = <T,>(key: string, initValue: T, parse: (x: string) => T = JSON.parse, stringify: (x: T) => string = JSON.stringify): LocalStore<T> => {
@@ -21,7 +21,7 @@ const localStore = <T,>(key: string, initValue: T, parse: (x: string) => T = JSO
         const storedValueStr = localStorage.getItem(key);
 
         if (storedValueStr != null) {
-            value = JSON.parse(storedValueStr);
+            value = parse(storedValueStr);
         }
     });
 
@@ -29,7 +29,7 @@ const localStore = <T,>(key: string, initValue: T, parse: (x: string) => T = JSO
         if ([null, undefined].includes(value)) {
             localStorage.removeItem(key);
         } else {
-            localStorage.setItem(key, JSON.stringify(value));
+            localStorage.setItem(key, stringify(value));
         }
     });
 
@@ -39,7 +39,7 @@ const localStore = <T,>(key: string, initValue: T, parse: (x: string) => T = JSO
             return;
         }
 
-        const localValue: T = JSON.parse(storedValueStr);
+        const localValue: T = parse(storedValueStr);
         if ($state.is(value, localValue)) {
             value = localValue;
         }
@@ -49,6 +49,9 @@ const localStore = <T,>(key: string, initValue: T, parse: (x: string) => T = JSO
         get value() {
             return value;
         },
+        set value(x) {
+            value = x;
+        }
     };
 };
 

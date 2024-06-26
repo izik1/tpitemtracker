@@ -126,11 +126,10 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
         "Kakariko Gorge Owl Statue Sky Character": (store) => store.items.Dominion >= 2,
         "Kakariko Gorge Poe": (store) => store.items.Crystal && fns.canCompleteMDH(store),
         "Kakariko Gorge Spire Heart Piece": (store) => store.items.Clawshot > 0 || store.items.Boomerang,
-        "Kakariko Graveyard Golden Wolf": fns.never,
-        // todo: snowpeak.
-        // (store) => store.items.Crystal
-        //     && store.logic.reachableZones.has("Snowpeak Climb")
-        //     && (store.items.Rod >= 2 || store.settings.skip.snowpeakEntrance)
+        "Kakariko Graveyard Golden Wolf":
+            (store) => store.items.Crystal
+                && store.reachableZones.has("Snowpeak Climb")
+                && (store.items.Rod >= 2 || store.settings.skip.snowpeakEntrance),
         "Kakariko Graveyard Grave Poe": (store) => store.items.Crystal,
         "Kakariko Graveyard Lantern Chest": (store) => store.items.Lantern,
         "Kakariko Graveyard Male Ant": fns.always,
@@ -310,8 +309,7 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
     },
     gerudo: {
         "Bulblin Camp First Chest Under Tower At Entrance": fns.always,
-        // fixme: CampKey
-        "Bulblin Camp Poe": ({ items, settings }) => items.Crystal && (/* camp small key || */ settings.smallKeys === "keysy" || settings.skip.arbitersEntrance),
+        "Bulblin Camp Poe": ({ items, settings }) => items.Crystal && (items.BulblinCampKey || settings.smallKeys === "keysy" || settings.skip.arbitersEntrance),
         "Bulblin Camp Roasted Boar": (store) => fns.hasDamagingItem(store, false),
         "Bulblin Camp Small Chest in Back of Camp": fns.always,
         "Bulblin Guard Key": fns.canDefeatBulblin,
@@ -591,133 +589,201 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
             && fns.canDefeatGhoulRat(store),
     },
     snowpeakRuins: {
-        "Snowpeak Ruins Ball and Chain": fns.never,
-        "Snowpeak Ruins Blizzeta Heart Container": fns.never,
-        "Snowpeak Ruins Broken Floor Chest": fns.never,
-        "Snowpeak Ruins Chapel Chest": fns.never,
-        "Snowpeak Ruins Chest After Darkhammer": fns.never,
-        "Snowpeak Ruins Courtyard Central Chest": fns.never,
-        "Snowpeak Ruins Dungeon Reward": fns.never,
-        "Snowpeak Ruins East Courtyard Buried Chest": fns.never,
-        "Snowpeak Ruins East Courtyard Chest": fns.never,
-        "Snowpeak Ruins Ice Room Poe": fns.never,
-        "Snowpeak Ruins Lobby Armor Poe": fns.never,
-        "Snowpeak Ruins Lobby Chandelier Chest": fns.never,
-        "Snowpeak Ruins Lobby East Armor Chest": fns.never,
-        "Snowpeak Ruins Lobby Poe": fns.never,
-        "Snowpeak Ruins Lobby West Armor Chest": fns.never,
-        "Snowpeak Ruins Mansion Map": fns.never,
-        "Snowpeak Ruins Northeast Chandelier Chest": fns.never,
-        "Snowpeak Ruins Ordon Pumpkin Chest": fns.never,
-        "Snowpeak Ruins West Cannon Room Central Chest": fns.never,
-        "Snowpeak Ruins West Cannon Room Corner Chest": fns.never,
-        "Snowpeak Ruins West Courtyard Buried Chest": fns.never,
-        "Snowpeak Ruins Wooden Beam Central Chest": fns.never,
-        "Snowpeak Ruins Wooden Beam Chandelier Chest": fns.never,
-        "Snowpeak Ruins Wooden Beam Northwest Chest": fns.never,
+        "Snowpeak Ruins Ball and Chain": fns.canDefeatDarkhammer,
+        "Snowpeak Ruins Blizzeta Heart Container": fns.canDefeatBlizzeta,
+        "Snowpeak Ruins Broken Floor Chest": ({ items }) => items.Chainball,
+        "Snowpeak Ruins Chapel Chest": fns.canDefeatChilfos,
+        "Snowpeak Ruins Chest After Darkhammer": (store) => store.items.Chainball && fns.canDefeatDarkhammer(store),
+        "Snowpeak Ruins Courtyard Central Chest": (store) => store.items.Chainball || fns.hasBombs(store),
+        "Snowpeak Ruins Dungeon Reward": fns.canDefeatBlizzeta,
+        "Snowpeak Ruins East Courtyard Buried Chest": ({ items }) => items.Crystal,
+        "Snowpeak Ruins East Courtyard Chest": fns.always,
+        "Snowpeak Ruins Ice Room Poe": ({ items }) => items.Crystal,
+        "Snowpeak Ruins Lobby Armor Poe": ({ items }) => items.Crystal && items.Chainball,
+        "Snowpeak Ruins Lobby Chandelier Chest": ({ items }) => items.Chainball,
+        "Snowpeak Ruins Lobby East Armor Chest": ({ items }) => items.Chainball,
+        "Snowpeak Ruins Lobby Poe": ({ items }) => items.Crystal,
+        "Snowpeak Ruins Lobby West Armor Chest": ({ items }) => items.Chainball,
+        "Snowpeak Ruins Mansion Map": fns.always,
+        "Snowpeak Ruins Northeast Chandelier Chest": (store) => fns.canDefeatChilfos(store) && store.items.Chainball,
+        "Snowpeak Ruins Ordon Pumpkin Chest": fns.canDefeatChilfos,
+        "Snowpeak Ruins West Cannon Room Central Chest": ({ items }) => items.Chainball,
+        "Snowpeak Ruins West Cannon Room Corner Chest": fns.canSmash,
+        "Snowpeak Ruins West Courtyard Buried Chest": ({ items }) => items.Crystal,
+        "Snowpeak Ruins Wooden Beam Central Chest": fns.canDefeatIceKeese,
+        "Snowpeak Ruins Wooden Beam Chandelier Chest": ({ items }) => items.Chainball,
+        "Snowpeak Ruins Wooden Beam Northwest Chest": fns.canDefeatIceKeese,
     },
     templeOfTime: {
-        "Temple of Time Armogohma Heart Container": fns.never,
-        "Temple of Time Armos Antechamber East Chest": fns.never,
-        "Temple of Time Armos Antechamber North Chest": fns.never,
-        "Temple of Time Armos Antechamber Statue Chest": fns.never,
-        "Temple of Time Big Key Chest": fns.never,
-        "Temple of Time Chest Before Darknut": fns.never,
-        "Temple of Time Darknut Chest": fns.never,
-        "Temple of Time Dungeon Reward": fns.never,
-        "Temple of Time First Staircase Armos Chest": fns.never,
-        "Temple of Time First Staircase Gohma Gate Chest": fns.never,
-        "Temple of Time First Staircase Window Chest": fns.never,
-        "Temple of Time Floor Switch Puzzle Room Upper Chest": fns.never,
-        "Temple of Time Gilloutine Chest": fns.never,
-        "Temple of Time Lobby Lantern Chest": fns.never,
-        "Temple of Time Moving Wall Beamos Room Chest": fns.never,
-        "Temple of Time Moving Wall Dinalfos Room Chest": fns.never,
-        "Temple of Time Poe Above Scales": fns.never,
-        "Temple of Time Poe Behind Gate": fns.never,
-        "Temple of Time Scales Gohma Chest": fns.never,
-        "Temple of Time Scales Upper Chest": fns.never,
+        "Temple of Time Armogohma Heart Container": fns.canDefeatArmogohma,
+        "Temple of Time Armos Antechamber East Chest": fns.canDefeatArmos,
+        "Temple of Time Armos Antechamber North Chest": fns.always,
+        "Temple of Time Armos Antechamber Statue Chest": ({ items }) => items.Dominion > 0,
+        "Temple of Time Big Key Chest": (store) => fns.canDefeatHelmasaur(store) && store.items.Clawshot > 0,
+        "Temple of Time Chest Before Darknut": (store) => fns.canDefeatArmos(store)
+            && fns.canDefeatBabyGohma(store)
+            && fns.canDefeatYoungGohma(store),
+        "Temple of Time Darknut Chest": fns.canDefeatDarknut,
+        "Temple of Time Dungeon Reward": fns.canDefeatArmogohma,
+        "Temple of Time First Staircase Armos Chest": (store) => fns.canDefeatArmos(store) && fns.hasRangedItem(store),
+        "Temple of Time First Staircase Gohma Gate Chest": fns.canDefeatYoungGohma,
+        "Temple of Time First Staircase Window Chest": fns.hasRangedItem,
+        "Temple of Time Floor Switch Puzzle Room Upper Chest": ({ items }) => items.Clawshot > 0,
+        "Temple of Time Gilloutine Chest": fns.always,
+        "Temple of Time Lobby Lantern Chest": ({ items }) => items.Lantern,
+        "Temple of Time Moving Wall Beamos Room Chest": ({ items }) => items.Bow > 0,
+        "Temple of Time Moving Wall Dinalfos Room Chest": (store) => fns.canDefeatDinalfos(store)
+            && store.items.Dominion > 0
+            && store.items.Bow > 0,
+        "Temple of Time Poe Above Scales": ({ items }) => items.Crystal && items.Clawshot > 0 && items.Spinner,
+        "Temple of Time Poe Behind Gate": ({ items }) => items.Crystal && items.Dominion > 0,
+        "Temple of Time Scales Gohma Chest": (store) => fns.canDefeatYoungGohma(store) && fns.canDefeatBabyGohma(store),
+        "Temple of Time Scales Upper Chest": ({ items }) => items.Clawshot > 0 && items.Spinner,
     },
     cityInTheSky: {
-        "City in The Sky Aeralfos Chest": fns.never,
-        "City in The Sky Argorok Heart Container": fns.never,
-        "City in The Sky Baba Tower Alcove Chest": fns.never,
-        "City in The Sky Baba Tower Narrow Ledge Chest": fns.never,
-        "City in The Sky Baba Tower Top Small Chest": fns.never,
-        "City in The Sky Big Key Chest": fns.never,
-        "City in The Sky Central Outside Ledge Chest": fns.never,
-        "City in The Sky Central Outside Poe Island Chest": fns.never,
-        "City in The Sky Chest Behind North Fan": fns.never,
-        "City in The Sky Chest Below Big Key Chest": fns.never,
-        "City in The Sky Dungeon Reward": fns.never,
-        "City in The Sky East First Wing Chest After Fans": fns.never,
-        "City in The Sky East Tile Worm Small Chest": fns.never,
-        "City in The Sky East Wing After Dinalfos Alcove Chest": fns.never,
-        "City in The Sky East Wing After Dinalfos Ledge Chest": fns.never,
-        "City in The Sky East Wing Lower Level Chest": fns.never,
-        "City in The Sky Garden Island Poe": fns.never,
-        "City in The Sky Poe Above Central Fan": fns.never,
-        "City in The Sky Underwater East Chest": fns.never,
-        "City in The Sky Underwater West Chest": fns.never,
-        "City in The Sky West Garden Corner Chest": fns.never,
-        "City in The Sky West Garden Ledge Chest": fns.never,
-        "City in The Sky West Garden Lone Island Chest": fns.never,
-        "City in The Sky West Garden Lower Chest": fns.never,
-        "City in The Sky West Wing Baba Balcony Chest": fns.never,
-        "City in The Sky West Wing First Chest": fns.never,
-        "City in The Sky West Wing Narrow Ledge Chest": fns.never,
-        "City in The Sky West Wing Tile Worm Chest": fns.never,
+        "City in The Sky Aeralfos Chest": (store) => fns.canDefeatAeralfos(store)
+            && store.items.Clawshot > 0
+            && store.items.IronBoots
+            && fns.canDefeatDinalfos(store)
+            && fns.canDefeatTileWorm(store),
+        "City in The Sky Argorok Heart Container": fns.canDefeatArgorok,
+        "City in The Sky Baba Tower Alcove Chest": (store) => fns.canDefeatBabaSerpent(store)
+            && fns.canDefeatBigBaba(store)
+            && store.items.Clawshot >= 2,
+        "City in The Sky Baba Tower Narrow Ledge Chest": (store) => fns.canDefeatBabaSerpent(store)
+            && fns.canDefeatBigBaba(store)
+            && store.items.Clawshot >= 2,
+        "City in The Sky Baba Tower Top Small Chest": (store) => fns.canDefeatBabaSerpent(store)
+            && fns.canDefeatBigBaba(store)
+            && store.items.Clawshot >= 2,
+        "City in The Sky Big Key Chest": (store) => fns.canDefeatDinalfos(store)
+            && fns.canDefeatWalltula(store) === true
+            && fns.canDefeatKargarok(store)
+            && store.items.Crystal
+            && store.items.Clawshot > 0
+            && store.items.IronBoots,
+        "City in The Sky Central Outside Ledge Chest": (store) => fns.canDefeatDinalfos(store)
+            && fns.canDefeatWalltula(store) === true
+            && fns.canDefeatKargarok(store)
+            && store.items.Crystal,
+        "City in The Sky Central Outside Poe Island Chest": (store) => fns.canDefeatDinalfos(store)
+            && fns.canDefeatWalltula(store) === true
+            && fns.canDefeatKargarok(store)
+            && store.items.Crystal,
+        "City in The Sky Chest Behind North Fan": ({ items }) => items.Clawshot >= 2,
+        "City in The Sky Chest Below Big Key Chest": fns.canDefeatHelmasaur,
+        "City in The Sky Dungeon Reward": fns.canDefeatArgorok,
+        "City in The Sky East First Wing Chest After Fans": ({ items }) => items.Clawshot > 0,
+        "City in The Sky East Tile Worm Small Chest": ({ items }) => items.Clawshot > 0,
+        "City in The Sky East Wing After Dinalfos Alcove Chest": (store) => store.items.Clawshot > 0
+            && fns.canDefeatTileWorm(store)
+            && fns.canDefeatDinalfos(store),
+        "City in The Sky East Wing After Dinalfos Ledge Chest": (store) => store.items.Clawshot > 0
+            && fns.canDefeatTileWorm(store)
+            && fns.canDefeatDinalfos(store),
+        "City in The Sky East Wing Lower Level Chest": (store) => store.items.Clawshot >= 2
+            && fns.canDefeatTileWorm(store)
+            && fns.canDefeatDinalfos(store),
+        "City in The Sky Garden Island Poe": ({ items }) => items.Crystal && items.Clawshot >= 2,
+        "City in The Sky Poe Above Central Fan": (store) => store.items.Crystal && fns.canDefeatWalltula(store) === true,
+        "City in The Sky Underwater East Chest": ({ items }) => items.IronBoots,
+        "City in The Sky Underwater West Chest": ({ items }) => items.IronBoots,
+        "City in The Sky West Garden Corner Chest": ({ items }) => items.Clawshot >= 2,
+        "City in The Sky West Garden Ledge Chest": ({ items }) => items.Clawshot >= 2,
+        "City in The Sky West Garden Lone Island Chest": ({ items }) => items.Clawshot >= 2,
+        "City in The Sky West Garden Lower Chest": ({ items }) => items.Clawshot >= 2,
+        "City in The Sky West Wing Baba Balcony Chest": ({ items }) => items.Clawshot >= 2,
+        "City in The Sky West Wing First Chest": fns.always,
+        "City in The Sky West Wing Narrow Ledge Chest": ({ items }) => items.Clawshot >= 2,
+        "City in The Sky West Wing Tile Worm Chest": ({ items }) => items.Clawshot >= 2,
     },
     palaceOfTwilight: {
-        "Palace of Twilight Big Key Chest": fns.never,
-        "Palace of Twilight Central First Room Chest": fns.never,
-        "Palace of Twilight Central Outdoor Chest": fns.never,
-        "Palace of Twilight Central Tower Chest": fns.never,
-        "Palace of Twilight Collect Both Sols": fns.never,
-        "Palace of Twilight East Wing First Room East Alcove": fns.never,
-        "Palace of Twilight East Wing First Room North Small Chest": fns.never,
-        "Palace of Twilight East Wing First Room West Alcove": fns.never,
-        "Palace of Twilight East Wing First Room Zant Head Chest": fns.never,
-        "Palace of Twilight East Wing Second Room Northeast Chest": fns.never,
-        "Palace of Twilight East Wing Second Room Northwest Chest": fns.never,
-        "Palace of Twilight East Wing Second Room Southeast Chest": fns.never,
-        "Palace of Twilight East Wing Second Room Southwest Chest": fns.never,
-        "Palace of Twilight West Wing Chest Behind Wall of Darkness": fns.never,
-        "Palace of Twilight West Wing First Room Central Chest": fns.never,
-        "Palace of Twilight West Wing Second Room Central Chest": fns.never,
-        "Palace of Twilight West Wing Second Room Lower South Chest": fns.never,
-        "Palace of Twilight West Wing Second Room Southeast Chest": fns.never,
-        "Palace of Twilight Zant Heart Container": fns.never,
+        "Palace of Twilight Big Key Chest": (store) => store.items.Sword >= 4
+            && store.items.Clawshot >= 2
+            && fns.canDefeatZantHead(store),
+        "Palace of Twilight Central First Room Chest": (store) => store.items.Sword >= 4
+            && fns.canDefeatZantHead(store),
+        "Palace of Twilight Central Outdoor Chest": (store) => store.items.Sword >= 4
+            && fns.canDefeatZantHead(store),
+        "Palace of Twilight Central Tower Chest": (store) => store.items.Sword >= 4
+            && store.items.Sword > 0
+            && fns.canDefeatZantHead(store),
+        "Palace of Twilight Collect Both Sols": (store) => fns.canDefeatPhantomZant(store)
+            && store.items.Clawshot > 0
+            && fns.canDefeatZantHead(store)
+            && fns.canDefeatShadowBeast(store),
+        "Palace of Twilight East Wing First Room East Alcove": (store) => store.items.Sword >= 4
+            || (fns.canDefeatPhantomZant(store) && store.items.Clawshot > 0 && fns.canDefeatZantHead(store)),
+        "Palace of Twilight East Wing First Room North Small Chest": ({ items }) => items.Clawshot > 0,
+        "Palace of Twilight East Wing First Room West Alcove": (store) => store.items.Sword >= 4
+            || (fns.canDefeatPhantomZant(store) && store.items.Clawshot > 0 && fns.canDefeatZantHead(store)),
+        "Palace of Twilight East Wing First Room Zant Head Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot > 0,
+        "Palace of Twilight East Wing Second Room Northeast Chest": (store) => store.items.Clawshot >= 2
+            && fns.canDefeatZantHead(store)
+            && fns.canDefeatShadowBeast(store),
+        "Palace of Twilight East Wing Second Room Northwest Chest": (store) => store.items.Clawshot > 0
+            && fns.canDefeatZantHead(store)
+            && fns.canDefeatShadowBeast(store),
+        "Palace of Twilight East Wing Second Room Southeast Chest": (store) => store.items.Clawshot >= 2
+            && fns.canDefeatZantHead(store)
+            && fns.canDefeatShadowBeast(store),
+        "Palace of Twilight East Wing Second Room Southwest Chest": (store) => store.items.Clawshot >= 2
+            && fns.canDefeatZantHead(store)
+            && fns.canDefeatShadowBeast(store),
+        "Palace of Twilight West Wing Chest Behind Wall of Darkness": ({ items }) => items.Sword >= 4 && items.Clawshot > 0,
+        "Palace of Twilight West Wing First Room Central Chest": fns.canDefeatZantHead,
+        "Palace of Twilight West Wing Second Room Central Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot > 0,
+        "Palace of Twilight West Wing Second Room Lower South Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot > 0,
+        "Palace of Twilight West Wing Second Room Southeast Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot > 0,
+        "Palace of Twilight Zant Heart Container": fns.canDefeatZant,
     },
     hyruleCastle: {
-        "Hyrule Castle Big Key Chest": fns.never,
-        "Hyrule Castle East Wing Balcony Chest": fns.never,
-        "Hyrule Castle East Wing Boomerang Puzzle Chest": fns.never,
-        "Hyrule Castle Graveyard Grave Switch Room Back Left Chest": fns.never,
-        "Hyrule Castle Graveyard Grave Switch Room Front Left Chest": fns.never,
-        "Hyrule Castle Graveyard Grave Switch Room Right Chest": fns.never,
-        "Hyrule Castle Graveyard Owl Statue Chest": fns.never,
-        "Hyrule Castle King Bulblin Key": fns.never,
-        "Hyrule Castle Lantern Staircase Chest": fns.never,
-        "Hyrule Castle Main Hall Northeast Chest": fns.never,
-        "Hyrule Castle Main Hall Northwest Chest": fns.never,
-        "Hyrule Castle Main Hall Southwest Chest": fns.never,
-        "Hyrule Castle Southeast Balcony Tower Chest": fns.never,
-        "Hyrule Castle Treasure Room Eighth Small Chest": fns.never,
-        "Hyrule Castle Treasure Room Fifth Chest": fns.never,
-        "Hyrule Castle Treasure Room Fifth Small Chest": fns.never,
-        "Hyrule Castle Treasure Room First Chest": fns.never,
-        "Hyrule Castle Treasure Room First Small Chest": fns.never,
-        "Hyrule Castle Treasure Room Fourth Chest": fns.never,
-        "Hyrule Castle Treasure Room Fourth Small Chest": fns.never,
-        "Hyrule Castle Treasure Room Second Chest": fns.never,
-        "Hyrule Castle Treasure Room Second Small Chest": fns.never,
-        "Hyrule Castle Treasure Room Seventh Small Chest": fns.never,
-        "Hyrule Castle Treasure Room Sixth Small Chest": fns.never,
-        "Hyrule Castle Treasure Room Third Chest": fns.never,
-        "Hyrule Castle Treasure Room Third Small Chest": fns.never,
-        "Hyrule Castle West Courtyard Central Small Chest": fns.never,
-        "Hyrule Castle West Courtyard North Small Chest": fns.never,
+        "Hyrule Castle Big Key Chest": fns.always,
+        "Hyrule Castle East Wing Balcony Chest": ({ items }) => items.Boomerang,
+        "Hyrule Castle East Wing Boomerang Puzzle Chest": ({ items }) => items.Boomerang,
+        "Hyrule Castle Graveyard Grave Switch Room Back Left Chest": fns.canSmash,
+        "Hyrule Castle Graveyard Grave Switch Room Front Left Chest": fns.canSmash,
+        "Hyrule Castle Graveyard Grave Switch Room Right Chest": fns.canSmash,
+        "Hyrule Castle Graveyard Owl Statue Chest": (store) => store.items.Lantern
+            && store.items.Dominion >= 2
+            && fns.canSmash(store),
+        "Hyrule Castle King Bulblin Key": fns.canDefeatKingBulblinCastle,
+        "Hyrule Castle Lantern Staircase Chest": (store) => fns.canDefeatDarknut(store)
+            && store.items.Boomerang
+            && fns.canDefeatBokoblin(store)
+            && fns.canDefeatLizalfos(store)
+            && store.items.Clawshot >= 2,
+        "Hyrule Castle Main Hall Northeast Chest": (store) => fns.canDefeatBokoblin(store)
+            && fns.canDefeatLizalfos(store)
+            && store.items.Clawshot > 0,
+        "Hyrule Castle Main Hall Northwest Chest": (store) => store.items.Boomerang
+            && store.items.Lantern
+            && store.items.Clawshot >= 2
+            && fns.canKnockDownHCPainting(store)
+            && fns.canDefeatLizalfos(store)
+            && fns.canDefeatDarknut(store),
+        "Hyrule Castle Main Hall Southwest Chest": (store) => store.items.Boomerang
+            && store.items.Lantern
+            && store.items.Clawshot >= 2
+            && fns.canKnockDownHCPainting(store)
+            && fns.canDefeatLizalfos(store)
+            && fns.canDefeatDarknut(store),
+        "Hyrule Castle Southeast Balcony Tower Chest": fns.canDefeatAeralfos,
+        "Hyrule Castle Treasure Room Eighth Small Chest": fns.always,
+        "Hyrule Castle Treasure Room Fifth Chest": fns.always,
+        "Hyrule Castle Treasure Room Fifth Small Chest": fns.always,
+        "Hyrule Castle Treasure Room First Chest": fns.always,
+        "Hyrule Castle Treasure Room First Small Chest": fns.always,
+        "Hyrule Castle Treasure Room Fourth Chest": fns.always,
+        "Hyrule Castle Treasure Room Fourth Small Chest": fns.always,
+        "Hyrule Castle Treasure Room Second Chest": fns.always,
+        "Hyrule Castle Treasure Room Second Small Chest": fns.always,
+        "Hyrule Castle Treasure Room Seventh Small Chest": fns.always,
+        "Hyrule Castle Treasure Room Sixth Small Chest": fns.always,
+        "Hyrule Castle Treasure Room Third Chest": fns.always,
+        "Hyrule Castle Treasure Room Third Small Chest": fns.always,
+        "Hyrule Castle West Courtyard Central Small Chest": fns.canDefeatBokoblin,
+        "Hyrule Castle West Courtyard North Small Chest": fns.canDefeatBokoblin,
     },
 };
 
@@ -1157,7 +1223,7 @@ const checkKindsRegions: Regions<CheckKind> = {
         "City in The Sky Baba Tower Top Small Chest": "standard",
         "City in The Sky Big Key Chest": "standard",
         "City in The Sky Central Outside Ledge Chest": "standard",
-        "City in The Sky Central Outside Poe Island Chest": "standard",
+        "City in The Sky Central Outside Poe Island Chest": "poe",
         "City in The Sky Chest Behind North Fan": "standard",
         "City in The Sky Chest Below Big Key Chest": "standard",
         "City in The Sky Dungeon Reward": "standard",
@@ -1167,7 +1233,7 @@ const checkKindsRegions: Regions<CheckKind> = {
         "City in The Sky East Wing After Dinalfos Ledge Chest": "standard",
         "City in The Sky East Wing Lower Level Chest": "standard",
         "City in The Sky Garden Island Poe": "poe",
-        "City in The Sky Poe Above Central Fan": "standard",
+        "City in The Sky Poe Above Central Fan": "poe",
         "City in The Sky Underwater East Chest": "standard",
         "City in The Sky Underwater West Chest": "standard",
         "City in The Sky West Garden Corner Chest": "standard",

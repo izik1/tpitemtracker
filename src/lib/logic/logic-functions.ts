@@ -1,4 +1,5 @@
 import type { ItemId } from "$lib/items";
+import type { CastleEntranceLogic } from "$lib/settings";
 import type { LogicStore } from "./index";
 import type { ZoneId } from "./zone/id";
 // fixme: remove tri-state logic again, just, do it carefully.
@@ -1082,6 +1083,16 @@ export function canSkipKeyToDekuToad(store: LogicStore) {
         || canDoJSMoonBoots(store)
         || canDoLJA(store)
         || (hasBombs(store) && (hasHeavyMod(store) || store.items.Skills >= 6));
+}
+
+export function canEnterEndgameDungeon(logic: CastleEntranceLogic, store: LogicStore, vanilla: (store: LogicStore) => boolean): boolean {
+    switch (logic) {
+        case "open": return true;
+        case "fused-shadows": return store.items.Shadow >= 3;
+        case "mirror-shards": return store.items.Shard >= 3;
+        case "all-dungeons": return canCompleteAllDungeons(store);
+        case "vanilla": return vanilla(store);
+    }
 }
 
 const itemWheelItems: ItemId[] = [

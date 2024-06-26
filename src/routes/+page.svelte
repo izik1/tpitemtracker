@@ -2,13 +2,16 @@
     import MapPane from "../components/map-pane/MapPane.svelte";
     import ItemPane from "../components/item-pane/ItemPane.svelte";
     import SettingsPane from "../components/settings-pane/SettingsPane.svelte";
-    import localStore from "$lib/local-store.svelte";
+    import localStore, { setStore } from "$lib/local-store.svelte";
     import { setContext } from "svelte";
     import { baseItems } from "$lib/items";
     import { makeRandomizerSettings } from "$lib/settings";
+    import { Set } from "svelte/reactivity";
+    import type { CheckName } from "$lib/logic/check-name";
 
-    setContext("items", localStore("items", baseItems));
+    setContext("items", localStore("items", Object.assign({}, baseItems)));
     setContext("randomizerSettings", makeRandomizerSettings());
+    setContext("openedChecks", setStore<CheckName>("openedChecks", new Set()));
 </script>
 
 <svelte:head>

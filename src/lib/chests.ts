@@ -840,10 +840,12 @@ export const overworld: OverworldCheck[] = [
         x: "calc(65.8% - 8px)",
         y: "calc(9.5% - 8px)",
     },
-    // missing from old tracker, have to position.
-    // {
-    //     name: "Zoras Domain Underwater Goron",
-    // },
+    // correctly positioned without `calc`.
+    {
+        name: "Zoras Domain Underwater Goron",
+        x: "54.1%",
+        y: "6.3%",
+    },
     {
         name: "Plumm Fruit Balloon Minigame",
         x: "calc(65.8% - 8px)",
@@ -1077,17 +1079,6 @@ export const overworld: OverworldCheck[] = [
 /* overworld */
 
 // //Overworld Chests
-//     {
-//         name: "Shield Attack",
-//         x: "54.5%",
-//         y: "81.24%",
-//         isAvailable: function () {
-//             if (canAccessDeathMountain() && items.Crystal) {
-//                 return "available";
-//             }
-//             return "unavailable"
-//         },
-//     },
 //     {
 //         name: "Great Spin",
 //         x: "53.85%",

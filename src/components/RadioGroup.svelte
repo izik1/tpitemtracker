@@ -2,35 +2,34 @@
     interface Props {
         title: string;
         groupName: string;
-        items: { value: string; label: string}[];
+        items: { value: string; label: string }[];
         group: string | undefined;
     }
 
-    let { title, groupName, items, group = $bindable(items?.[0].value) }: Props = $props();
+    let {
+        title,
+        groupName,
+        items,
+        group = $bindable(items?.[0].value),
+    }: Props = $props();
 </script>
 
-<fieldset>
+<fieldset role="radiogroup">
     <legend>{title}</legend>
-    <ul>
-        {#each items as item}
-            {@const id = `rg-${groupName}-${item.value}`}
-            <li>
-                <input
-                    {id}
-                    type="radio"
-                    name={groupName}
-                    value={item.value}
-                    bind:group
-                />
-                <label for={id}>{item.label}</label>
-            </li>
-        {/each}
-    </ul>
-</fieldset>
 
-<style>
-    ul {
-        padding-left: 0px;
-        list-style-type: none;
-    }
-</style>
+    {#each items as item}
+        {@const id = `rg-${groupName}-${item.value}`}
+        <!-- https://www.w3.org/WAI/tutorials/forms/grouping/ -->
+        <!-- WAI is content wrapping these in divs -->
+        <div>
+            <input
+                {id}
+                type="radio"
+                name={groupName}
+                value={item.value}
+                bind:group
+            />
+            <label for={id}>{item.label}</label>
+        </div>
+    {/each}
+</fieldset>

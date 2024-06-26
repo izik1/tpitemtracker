@@ -184,7 +184,12 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
             ZoneNeighbor.always("Outside Castle Town West"),
             ZoneNeighbor.always("Eldin Field"),
             ZoneNeighbor.always("Outside Castle Town South"),
-            new ZoneNeighbor("Hyrule Castle Entrance", fns.never),
+            new ZoneNeighbor(
+                "Hyrule Castle Entrance",
+                (store) =>
+                    fns.canCompleteMDH(store)
+                    && fns.canEnterEndgameDungeon(store.settings.castleLogic, store, fns.canCompletePalaceofTwilight)
+            ),
         ],
         "Lake Hylia Bridge Bubble Grotto": [ZoneNeighbor.always("Lake Hylia Bridge")],
         "Lake Hylia Bridge": [
@@ -273,8 +278,7 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
             new ZoneNeighbor(
                 "Outside Arbiters Grounds",
                 (store) => store.settings.skip.arbitersEntrance || (
-                    // fixme: Camp Key
-                    fns.canDefeatKingBulbinDesert(store) && (store.settings.smallKeys === "keysy")
+                    fns.canDefeatKingBulbinDesert(store) && (store.items.BulblinCampKey || store.settings.smallKeys === "keysy")
                 )
             ),
         ],
@@ -284,7 +288,11 @@ const regionsGlitchless: Regions<"zones", ZoneNeighbor[]> = {
         ],
         "Mirror Chamber": [
             ZoneNeighbor.always("Arbiters Grounds Boss Room"),
-            new ZoneNeighbor("Palace of Twilight Entrance", fns.never),
+            new ZoneNeighbor(
+                "Palace of Twilight Entrance",
+                (store) => fns.canDefeatShadowBeast(store)
+                    && fns.canEnterEndgameDungeon(store.settings.palaceLogic, store, fns.canCompleteCityInTheSky)
+            ),
         ],
         "Cave of Ordeals Floors 01-11": [
             new ZoneNeighbor("Gerudo Desert", ({ items }) => items.Clawshot > 0),
@@ -853,6 +861,20 @@ export function calculateReachableZones(searchZones: ZoneNeighbors, settings: Ra
             stack.push("Kakariko Gorge");
             stack.push("Kakariko Village");
             stack.push("Death Mountain Volcano");
+        }
+
+        if (settings.skip.lanayruTwilight) {
+            stack.push("Lake Hylia");
+            stack.push("Outside Castle Town West");
+            stack.push("Zoras Domain");
+        }
+
+        if (settings.skip.snowpeakEntrance) {
+            stack.push("Snowpeak Summit");
+        }
+
+        if (settings.totLogic !== "closed") {
+            stack.push("Sacred Grove Master Sword");
         }
     }
 

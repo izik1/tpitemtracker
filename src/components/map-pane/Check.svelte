@@ -24,6 +24,7 @@
 
 <button
     style="left: {check.x}; top: {check.y};"
+    role="switch"
     data-status={checkStatus(
         completableChecks.value,
         openedChecks.value,
@@ -31,7 +32,7 @@
     )}
     class="chest {kind}"
     onclick={() => toggleCheck(openedChecks.value, check.name)}
-    aria-pressed={openedChecks.value.has(check.name)}
+    aria-checked={openedChecks.value.has(check.name)}
     aria-labelledby="ow-tt-{index}"
 >
     <Tooltip id="ow-tt-{index}">{check.name}</Tooltip>

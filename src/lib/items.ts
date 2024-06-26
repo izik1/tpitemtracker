@@ -38,11 +38,11 @@ export const baseItems = {
     Wooden_Statue: false,
     Ilias_Charm: false,
     Horse_Call: false,
-    YouthScent: false,
-    IliaScent: false,
-    PoeScent: false,
-    ReekfishScent: false,
-    MedicineScent: false,
+    // YouthScent: false,
+    // IliaScent: false,
+    // PoeScent: false,
+    // ReekfishScent: false,
+    // MedicineScent: false,
     Crystal: false,
     ZoraArmor: false,
     MagicArmor: false,
@@ -50,6 +50,7 @@ export const baseItems = {
 
     NorthFaronWoodsGateKey: false,
     GateKeys: false,
+    BulblinCampKey: false,
 
     Boss1: false,
     Boss2: false,
@@ -77,8 +78,8 @@ export const itemsMax: typeof itemsMin = {
     Shield: 2,
     Soul: 60,
     Wallet: 3,
-    Shadow: 4,
-    Shard: 4,
+    Shadow: 3,
+    Shard: 3,
     Dominion: 2,
     Skybook: 7,
     Vessel: 3,
@@ -145,14 +146,12 @@ export const defaultItemGrid: LayoutItem[][] = [
     ],
     [
         "WBombs",
-        "YouthScent",
-        "IliaScent",
-        "PoeScent",
-        "ReekfishScent",
-        "MedicineScent"
+        "Vessel",
+        "GateKeys",
+        "BulblinCampKey",
+        null,
     ],
     [
-        "Vessel",
         "Boss1",
         "Boss2",
         "Boss3",
@@ -165,6 +164,5 @@ export const defaultItemGrid: LayoutItem[][] = [
         "Boss8",
         "Shadow",
         "Shard",
-        null,
     ]
 ];

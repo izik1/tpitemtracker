@@ -10,6 +10,9 @@ type FaronWoodsLogic = "open" | "closed";
 // and only for the unique overworld keys. (otherwise we just assume the key is accessable, we don't track that.
 type KeyLogic = "keysy" | "vanilla";
 type GoronMinesEntranceLogic = "closed" | "no-wrestling" | "open";
+type ToTEntranceLogic = "closed" | "open-grove" | "open";
+export type PalaceEntranceLogic = "open" | "fused-shadows" | "mirror-shards" | "vanilla";
+export type CastleEntranceLogic = PalaceEntranceLogic | "all-dungeons";
 
 export const graphicalSettings = writable({
     taloMap: false,
@@ -37,6 +40,9 @@ export interface RandomizerSettings {
     smallKeys: KeyLogic,
     goronMinesLogic: GoronMinesEntranceLogic,
     increaseWalletCapacity: boolean,
+    totLogic: ToTEntranceLogic,
+    palaceLogic: PalaceEntranceLogic,
+    castleLogic: CastleEntranceLogic,
 }
 
 export const defaultRandomizerSettings: RandomizerSettings = {
@@ -59,7 +65,10 @@ export const defaultRandomizerSettings: RandomizerSettings = {
     openMap: false,
     smallKeys: "vanilla" as KeyLogic,
     goronMinesLogic: "closed" as GoronMinesEntranceLogic,
+    totLogic: "closed",
     increaseWalletCapacity: false,
+    palaceLogic: "vanilla",
+    castleLogic: "vanilla",
 };
 
 export const makeRandomizerSettings = () => {
@@ -104,5 +113,5 @@ export const makeRandomizerSettings = () => {
         return <RandomizerSettings> parseRecursive(raw, defaultRandomizerSettings);
     };
 
-    return localStore("randomizerSettings", defaultRandomizerSettings, parse);
+    return localStore("randomizerSettings", Object.assign({}, defaultRandomizerSettings), parse);
 };

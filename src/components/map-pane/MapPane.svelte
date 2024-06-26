@@ -5,9 +5,7 @@
     import CheckStatus from "./CheckStatus.svelte";
     import type { CheckKind } from "$lib/logic/checks";
     import { getContext, setContext } from "svelte";
-    import { setStore, type LocalStore } from "$lib/local-store.svelte";
-    import { Set } from "svelte/reactivity";
-    import { type CheckName } from "$lib/logic/check-name";
+    import { type LocalStore } from "$lib/local-store.svelte";
     import { logic, makeCompletableChecks } from "$lib/logic";
     import { calculateReachableZones } from "$lib/logic/zone/zones";
     import type { RandomizerSettings } from "$lib/settings";
@@ -33,7 +31,6 @@
         }),
     );
 
-    setContext("openedChecks", setStore<CheckName>("openedChecks", new Set()));
     setContext("completableChecks", {
         get value() {
             return completableChecks;
@@ -51,7 +48,7 @@
         src="$lib/assets/map.webp?q=75"
     />
 
-    <ActiveGroup groupId={activeGroup}/>
+    <ActiveGroup groupId={activeGroup} />
     <CheckStatus />
     <MapOverlay {activeMap} bind:activeGroup />
 
