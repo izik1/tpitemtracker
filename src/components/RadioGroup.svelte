@@ -10,7 +10,7 @@
         title,
         groupName,
         items,
-        group = $bindable(items?.[0].value),
+        group = $bindable(),
     }: Props = $props();
 </script>
 

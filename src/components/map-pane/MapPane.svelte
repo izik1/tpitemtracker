@@ -68,7 +68,9 @@
 </div>
 
 <style>
-    .scale {
+    picture,
+    source,
+    img {
         object-fit: cover;
         width: 100%;
         height: 100%;
@@ -80,8 +82,9 @@
         background-repeat: no-repeat;
         background-size: 100% 100%; */
         /* ideally this would be some relative sizing, but that gets very tricky with layout. */
-        width: calc(900px * 0.9);
-        height: calc(950px * 0.9);
+        /* 810, 855 */
+        width: 810px;
+        height: 855px;
         contain: strict;
     }
 
