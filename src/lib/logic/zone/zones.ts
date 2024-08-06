@@ -1,15 +1,18 @@
 import type { ZoneId } from "./id";
 import * as fns from "../logic-functions";
-import type { LogicStore } from "../index";
+import type { Logic, LogicStore } from "../index";
 import type { RandomizerSettings } from "$lib/settings";
 import type { baseItems } from "$lib/items";
 import type { Regions } from "../region";
+
+
+type Accessability = (store: LogicStore) => boolean | null;
 
 export class ZoneNeighbor {
     #name;
     readonly accessable;
 
-    constructor(name: ZoneId, accessable: (store: LogicStore) => boolean | null) {
+    constructor(name: ZoneId, accessable: Accessability) {
         this.#name = name;
         this.accessable = accessable;
     }
@@ -878,15 +881,15 @@ export function calculateReachableZones(searchZones: ZoneNeighbors, settings: Ra
         }
     }
 
-    const fakeStore: LogicStore = {
+    const fakeStore: LogicStore = Object.seal({
         settings,
         items,
         reachableZones: new Set()
-    };
+    });
 
-    let retry: Map<ZoneId, ZoneNeighbor[]> = new Map();
+    let retry: Map<ZoneId, Accessability[]> = new Map();
 
-    while (true) {
+    while (stack.length > 0) {
         while (stack.length > 0) {
             const zone = stack.pop();
             // we want to check now instead of when iterating the neighbors because the first item could be the goal,
@@ -896,46 +899,42 @@ export function calculateReachableZones(searchZones: ZoneNeighbors, settings: Ra
                 break;
             }
 
-            retry.delete(zone);
-
             if (fakeStore.reachableZones.has(zone)) {
                 continue;
             }
 
+            retry.delete(zone);
+
             fakeStore.reachableZones.add(zone);
 
-            for (const neighbor of searchZones[zone]) {
+            const neighbors = searchZones[zone];
+
+            for (let i = 0; i < neighbors.length; i++) {
+                const neighbor = neighbors[i];
                 let accessable = neighbor.accessable(fakeStore);
-                if (accessable === null) {
+
+                if (accessable) {
+                    stack.push(neighbor.name);
+                    continue;
+                }
+
+                if (accessable === null && !fakeStore.reachableZones.has(neighbor.name)) {
                     let entry = retry.get(neighbor.name);
                     if (entry === undefined) {
                         entry = [];
                         retry.set(neighbor.name, entry);
                     }
 
-                    entry.push(neighbor);
+                    entry.push(neighbor.accessable);
                 }
 
-                if (accessable) {
-                    stack.push(neighbor.name);
-                }
             }
         };
 
-        let cont = false;
         for (const [zone, entry] of retry) {
-            for (const neighbor of entry) {
-                if (neighbor.accessable(fakeStore)) {
-                    cont = true;
-                    stack.push(zone);
-                    // make sure we only do each zone once.
-                    break;
-                }
+            if (entry.some(accessable => accessable(fakeStore))) {
+                stack.push(zone);
             }
-        }
-
-        if (!cont) {
-            break;
         }
     }
 

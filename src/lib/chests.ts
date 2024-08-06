@@ -577,7 +577,7 @@ export const overworld: OverworldCheck[] = [
     },
     {
         name: "Sacred Grove Temple of Time Owl Statue Poe",
-        x: "calc(43.78% - 8px)",
+        x: "calc(45.08% - 8px)",
         y: "calc(68.88% - 8px)",
     },
     {

@@ -50,9 +50,9 @@ export class Logic {
     }
 }
 
-export const logic: { [Property in LogicValue]: Logic; } = {
+export const logic: Readonly<Record<LogicValue, Logic>> = Object.freeze({
     glitchless: new Logic("glitchless")
-};
+});
 
 export const makeCompletableChecks = ($store: LogicStore) => {
     const checkAccessibility = logic[$store.settings.logic].checkAccessibility;

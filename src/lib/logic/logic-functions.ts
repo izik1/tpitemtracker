@@ -924,19 +924,19 @@ export function canCompleteArbitersGrounds(store: LogicStore) {
 }
 
 export function canCompleteSnowpeakRuins(store: LogicStore) {
-    return store.items.Boss4;
-}
-
-export function canCompleteTempleofTime(store: LogicStore) {
     return store.items.Boss5;
 }
 
-export function canCompleteCityInTheSky(store: LogicStore) {
+export function canCompleteTempleofTime(store: LogicStore) {
     return store.items.Boss6;
 }
 
-export function canCompletePalaceofTwilight(store: LogicStore) {
+export function canCompleteCityInTheSky(store: LogicStore) {
     return store.items.Boss7;
+}
+
+export function canCompletePalaceofTwilight(store: LogicStore) {
+    return store.items.Boss8;
 }
 
 export function canCompleteAllDungeons(store: LogicStore) {
