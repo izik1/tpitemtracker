@@ -1089,7 +1089,7 @@ export function canEnterEndgameDungeon(logic: CastleEntranceLogic, store: LogicS
     switch (logic) {
         case "open": return true;
         case "fused-shadows": return store.items.Shadow >= 3;
-        case "mirror-shards": return store.items.Shard >= 3;
+        case "mirror-shards": return store.items.Shard >= 4;
         case "all-dungeons": return canCompleteAllDungeons(store);
         case "vanilla": return vanilla(store);
     }

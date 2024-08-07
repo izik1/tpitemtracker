@@ -227,6 +227,16 @@ export const groups: Group[] = [
         ]
     },
     {
+        name: "Sacred Grove Master Sword Area",
+        x: "42.6%",
+        y: "64.6%",
+        checks: [
+            "Sacred Grove Master Sword Poe",
+            "Sacred Grove Pedestal Master Sword",
+            "Sacred Grove Pedestal Shadow Crystal",
+        ]
+    },
+    {
         name: "Temple of Time",
         x: "calc(43.83% - 12px)",
         y: "calc(63.36% - 12px)",
@@ -559,11 +569,6 @@ export const overworld: OverworldCheck[] = [
         name: "Sacred Grove Male Snail",
         x: "calc(44.08% - 8px)",
         y: "calc(69.6% - 8px)",
-    },
-    {
-        name: "Sacred Grove Master Sword Poe",
-        x: "calc(44.20% - 8px)",
-        y: "calc(65.68% - 8px)",
     },
     {
         name: "Sacred Grove Past Owl Statue Chest",

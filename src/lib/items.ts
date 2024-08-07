@@ -79,7 +79,7 @@ export const itemsMax: typeof itemsMin = {
     Soul: 60,
     Wallet: 3,
     Shadow: 3,
-    Shard: 3,
+    Shard: 4,
     Dominion: 2,
     Skybook: 7,
     Vessel: 3,

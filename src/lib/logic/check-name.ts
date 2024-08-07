@@ -14,6 +14,7 @@ type DungeonCheckName =
 export type ArbitersGroundsCheckName =
     | "Arbiters Grounds Big Key Chest"
     | "Arbiters Grounds Death Sword Chest"
+    | "Arbiters Grounds Dungeon Reward"
     | "Arbiters Grounds East Lower Turnable Redead Chest"
     | "Arbiters Grounds East Turning Room Poe"
     | "Arbiters Grounds East Upper Turnable Chest"
@@ -292,8 +293,8 @@ export type EldinCheckName =
     | "Kakariko Village Female Ant"
     | "Kakariko Village Malo Mart Hawkeye"
     | "Kakariko Village Malo Mart Hylian Shield"
-    // | "Kakariko Village Malo Mart Red Potion"
-    // | "Kakariko Village Malo Mart Wooden Shield"
+    | "Kakariko Village Malo Mart Red Potion"
+    | "Kakariko Village Malo Mart Wooden Shield"
     | "Kakariko Village Watchtower Poe"
     | "Kakariko Watchtower Alcove Chest"
     | "Kakariko Watchtower Chest"
@@ -330,6 +331,8 @@ export type FaronCheckName =
     | "Sacred Grove Male Snail"
     | "Sacred Grove Master Sword Poe"
     | "Sacred Grove Past Owl Statue Chest"
+    | "Sacred Grove Pedestal Master Sword"
+    | "Sacred Grove Pedestal Shadow Crystal"
     | "Sacred Grove Spinner Chest"
     | "Sacred Grove Temple of Time Owl Statue Poe"
     | "South Faron Cave Chest";

@@ -80,6 +80,8 @@ const regions: Regions = {
             "Sacred Grove Spinner Chest",
             "Sacred Grove Male Snail",
             "Sacred Grove Master Sword Poe",
+            "Sacred Grove Pedestal Master Sword",
+            "Sacred Grove Pedestal Shadow Crystal",
         ],
 
         "Sacred Grove Temple of Time": [
@@ -162,7 +164,9 @@ const regions: Regions = {
             "Kakariko Village Watchtower Poe",
             "Kakariko Graveyard Golden Wolf",
             "Kakariko Village Malo Mart Hylian Shield",
-            "Kakariko Village Malo Mart Hawkeye"
+            "Kakariko Village Malo Mart Hawkeye",
+            "Kakariko Village Malo Mart Red Potion",
+            "Kakariko Village Malo Mart Wooden Shield",
         ],
     },
     lanayru: {
@@ -540,7 +544,8 @@ const regions: Regions = {
             "Arbiters Grounds Spinner Room Lower North Chest",
         ],
         "Arbiters Grounds Boss Room": [
-            "Arbiters Grounds Stallord Heart Container"
+            "Arbiters Grounds Stallord Heart Container",
+            "Arbiters Grounds Dungeon Reward",
         ]
     },
     snowpeakRuins: {

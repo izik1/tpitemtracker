@@ -30,7 +30,7 @@
 
 <footer>
     <p>
-        Twilight Princess Tracker v2.0, originally by Lunar Soap, Updated by
+        Twilight Princess Tracker v2.0+1.2, originally by Lunar Soap, Updated by
         Feli Heli, and rewritten by orangesnowfox.
     </p>
     <p>

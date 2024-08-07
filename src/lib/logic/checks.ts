@@ -65,6 +65,8 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
         "Sacred Grove Male Snail": (store) => store.items.Clawshot > 0 || store.items.Boomerang,
         "Sacred Grove Master Sword Poe": (store) => store.items.Crystal,
         "Sacred Grove Past Owl Statue Chest": (store) => store.items.Rod >= 1,
+        "Sacred Grove Pedestal Master Sword": fns.always,
+        "Sacred Grove Pedestal Shadow Crystal": fns.always,
         "Sacred Grove Spinner Chest": (store) => store.items.Spinner,
         "Sacred Grove Temple of Time Owl Statue Poe": (store) => store.items.Crystal && store.items.Rod >= 1,
     },
@@ -142,8 +144,8 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
         "Kakariko Village Female Ant": fns.always,
         "Kakariko Village Malo Mart Hawkeye": (store) => store.items.Bow > 0 && fns.canCompleteGoronMines(store),
         "Kakariko Village Malo Mart Hylian Shield": fns.always,
-        // "Kakariko Village Malo Mart Red Potion": ),
-        // "Kakariko Village Malo Mart Wooden Shield":),
+        "Kakariko Village Malo Mart Red Potion": fns.always,
+        "Kakariko Village Malo Mart Wooden Shield": fns.always,
         "Kakariko Village Watchtower Poe": (store) => store.items.Crystal,
         "Kakariko Watchtower Alcove Chest": fns.canSmash,
         "Kakariko Watchtower Chest": fns.always,
@@ -207,8 +209,8 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
         "Iza Raging Rapids Minigame":
             (store) => store.items.Bow > 0 && store.reachableZones.has("Zoras Domain") && fns.canDefeatShadowBeast(store),
 
-        "Jovani 20 Poe Soul Reward": (store) => store.items.Soul >= 20 && store.items.Crystal && fns.canCompleteMDH(store),
-        "Jovani 60 Poe Soul Reward": (store) => store.items.Soul >= 60 && store.items.Crystal && fns.canCompleteMDH(store),
+        "Jovani 20 Poe Soul Reward": (store) => store.items.Soul >= 20 && store.items.Crystal,
+        "Jovani 60 Poe Soul Reward": (store) => store.items.Soul >= 60 && store.items.Crystal,
         "Jovani House Poe": ({ items }) => items.Crystal,
         "Lake Hylia Alcove Poe": ({ items }) => items.Crystal,
 
@@ -534,6 +536,7 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
             && store.items.Clawshot > 0
             && fns.canDefeatBubble(store)
             && fns.canDefeatStalfos(store),
+        "Arbiters Grounds Dungeon Reward": fns.canDefeatStallord,
         "Arbiters Grounds East Lower Turnable Redead Chest": ({ items }) => items.Crystal,
         "Arbiters Grounds East Turning Room Poe": ({ items }) => items.Crystal && items.Clawshot > 0,
         "Arbiters Grounds East Upper Turnable Chest": fns.always,
@@ -703,20 +706,19 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
             && fns.canDefeatZantHead(store),
         "Palace of Twilight Central First Room Chest": (store) => store.items.Sword >= 4
             && fns.canDefeatZantHead(store),
-        "Palace of Twilight Central Outdoor Chest": (store) => store.items.Sword >= 4
-            && fns.canDefeatZantHead(store),
+        "Palace of Twilight Central Outdoor Chest": (store) => fns.canDefeatZantHead(store),
         "Palace of Twilight Central Tower Chest": (store) => store.items.Sword >= 4
-            && store.items.Sword > 0
+            && store.items.Clawshot > 0
             && fns.canDefeatZantHead(store),
         "Palace of Twilight Collect Both Sols": (store) => fns.canDefeatPhantomZant(store)
             && store.items.Clawshot > 0
             && fns.canDefeatZantHead(store)
             && fns.canDefeatShadowBeast(store),
         "Palace of Twilight East Wing First Room East Alcove": (store) => store.items.Sword >= 4
-            || (fns.canDefeatPhantomZant(store) && store.items.Clawshot > 0 && fns.canDefeatZantHead(store)),
+            || (fns.canDefeatPhantomZant(store) && store.items.Clawshot > 0 && fns.canDefeatZantHead(store) && fns.canDefeatShadowBeast(store)),
         "Palace of Twilight East Wing First Room North Small Chest": ({ items }) => items.Clawshot > 0,
         "Palace of Twilight East Wing First Room West Alcove": (store) => store.items.Sword >= 4
-            || (fns.canDefeatPhantomZant(store) && store.items.Clawshot > 0 && fns.canDefeatZantHead(store)),
+            || (fns.canDefeatPhantomZant(store) && store.items.Clawshot > 0 && fns.canDefeatZantHead(store) && fns.canDefeatShadowBeast(store)),
         "Palace of Twilight East Wing First Room Zant Head Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot > 0,
         "Palace of Twilight East Wing Second Room Northeast Chest": (store) => store.items.Clawshot >= 2
             && fns.canDefeatZantHead(store)
@@ -734,7 +736,7 @@ const checkAccessibilityGlitchlessRegions: Regions<Accessable> = {
         "Palace of Twilight West Wing First Room Central Chest": fns.canDefeatZantHead,
         "Palace of Twilight West Wing Second Room Central Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot > 0,
         "Palace of Twilight West Wing Second Room Lower South Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot > 0,
-        "Palace of Twilight West Wing Second Room Southeast Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot > 0,
+        "Palace of Twilight West Wing Second Room Southeast Chest": (store) => fns.canDefeatZantHead(store) && store.items.Clawshot >= 2,
         "Palace of Twilight Zant Heart Container": fns.canDefeatZant,
     },
     hyruleCastle: {
@@ -830,6 +832,8 @@ const checkKindsRegions: Regions<CheckKind> = {
         "Sacred Grove Male Snail": "bug",
         "Sacred Grove Master Sword Poe": "poe",
         "Sacred Grove Past Owl Statue Chest": "standard",
+        "Sacred Grove Pedestal Master Sword": "standard",
+        "Sacred Grove Pedestal Shadow Crystal": "standard",
         "Sacred Grove Spinner Chest": "standard",
         "Sacred Grove Temple of Time Owl Statue Poe": "poe",
     },
@@ -882,8 +886,8 @@ const checkKindsRegions: Regions<CheckKind> = {
         "Kakariko Village Female Ant": "bug",
         "Kakariko Village Malo Mart Hawkeye": "standard",
         "Kakariko Village Malo Mart Hylian Shield": "standard",
-        // "Kakariko Village Malo Mart Red Potion": "standard",
-        // "Kakariko Village Malo Mart Wooden Shield": "standard",
+        "Kakariko Village Malo Mart Red Potion": "standard",
+        "Kakariko Village Malo Mart Wooden Shield": "standard",
         "Kakariko Village Watchtower Poe": "poe",
         "Kakariko Watchtower Alcove Chest": "standard",
         "Kakariko Watchtower Chest": "standard",
@@ -1144,6 +1148,7 @@ const checkKindsRegions: Regions<CheckKind> = {
     arbitersGrounds: {
         "Arbiters Grounds Big Key Chest": "standard",
         "Arbiters Grounds Death Sword Chest": "standard",
+        "Arbiters Grounds Dungeon Reward": "standard",
         "Arbiters Grounds East Lower Turnable Redead Chest": "standard",
         "Arbiters Grounds East Turning Room Poe": "poe",
         "Arbiters Grounds East Upper Turnable Chest": "standard",
