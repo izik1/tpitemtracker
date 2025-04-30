@@ -4,11 +4,11 @@
 
     import type { LocalStore } from "$lib/local-store.svelte";
     import type { CheckName } from "$lib/logic/check-name";
-    import { Set } from "svelte/reactivity";
+    import { SvelteSet } from "svelte/reactivity";
     import { getContext } from "svelte";
 
-    const openedChecks: LocalStore<Set<CheckName>> = getContext("openedChecks");
-    const completableChecks: { readonly value: Set<CheckName> } =
+    const openedChecks: LocalStore<SvelteSet<CheckName>> = getContext("openedChecks");
+    const completableChecks: { readonly value: SvelteSet<CheckName> } =
         getContext("completableChecks");
 
     const { groupId }: { groupId: number | null } = $props();

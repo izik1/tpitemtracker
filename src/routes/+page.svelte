@@ -6,12 +6,15 @@
     import { setContext } from "svelte";
     import { baseItems } from "$lib/items";
     import { makeRandomizerSettings } from "$lib/settings";
-    import { Set } from "svelte/reactivity";
+    import { SvelteSet } from "svelte/reactivity";
     import type { CheckName } from "$lib/logic/check-name";
 
     setContext("items", localStore("items", Object.assign({}, baseItems)));
     setContext("randomizerSettings", makeRandomizerSettings());
-    setContext("openedChecks", setStore<CheckName>("openedChecks", new Set()));
+    setContext(
+        "openedChecks",
+        setStore<CheckName>("openedChecks", new SvelteSet()),
+    );
 </script>
 
 <svelte:head>

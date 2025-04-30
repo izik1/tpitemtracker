@@ -2,7 +2,7 @@
 
 import type { CheckName } from "./logic/check-name";
 import { checkStatus } from "./chests";
-import { Set as ReactiveSet } from "svelte/reactivity";
+import { SvelteSet } from "svelte/reactivity";
 
 export type Image = {
     sources: {
@@ -23,7 +23,7 @@ export const itemImages = import.meta.glob<Image>('$lib/assets/Items/*.webp', {
     eager: true
 });
 
-export const toggleCheck = (set: ReactiveSet<CheckName>, c: CheckName) => {
+export const toggleCheck = (set: SvelteSet<CheckName>, c: CheckName) => {
     if (!set.delete(c)) {
         set.add(c);
     }

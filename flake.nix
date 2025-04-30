@@ -12,7 +12,7 @@
       in
       {
         devShell = with pkgs; mkShell {
-          buildInputs = [ nodePackages.pnpm static-web-server ];
+          buildInputs = [ nodePackages.pnpm static-web-server nodejs ];
         };
       }
     );

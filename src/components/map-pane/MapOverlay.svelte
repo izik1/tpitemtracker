@@ -8,11 +8,12 @@
     import type { CheckKind } from "$lib/logic/checks";
     import Tooltip from "./Tooltip.svelte";
     import type { LocalStore } from "$lib/local-store.svelte";
-    import type { Set } from "svelte/reactivity";
+    import type { SvelteSet } from "svelte/reactivity";
     import { getContext } from "svelte";
 
-    const openedChecks: LocalStore<Set<CheckName>> = getContext("openedChecks");
-    const completableChecks: { readonly value: Set<CheckName> } =
+    const openedChecks: LocalStore<SvelteSet<CheckName>> =
+        getContext("openedChecks");
+    const completableChecks: { readonly value: SvelteSet<CheckName> } =
         getContext("completableChecks");
 
     let {

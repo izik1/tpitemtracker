@@ -4,10 +4,10 @@
     import { getContext } from "svelte";
     import type { CheckName } from "$lib/logic/check-name";
     import type { LocalStore } from "$lib/local-store.svelte";
-    import type { Set } from "svelte/reactivity";
+    import type { SvelteSet } from "svelte/reactivity";
 
     const openedChecks: LocalStore<Set<CheckName>> = getContext("openedChecks");
-    const completableChecks: { readonly value: Set<CheckName> } =
+    const completableChecks: { readonly value: SvelteSet<CheckName> } =
         getContext("completableChecks");
 
     const totalChecks = checkNames.length;

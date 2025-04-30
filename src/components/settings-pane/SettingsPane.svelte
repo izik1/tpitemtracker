@@ -4,7 +4,7 @@
     import Select from "../Select.svelte";
     import type { LocalStore } from "$lib/local-store.svelte";
     import { getContext } from "svelte";
-    import type { Set } from "svelte/reactivity";
+    import type { SvelteSet } from "svelte/reactivity";
     import type { CheckName } from "$lib/logic/check-name";
     import { baseItems } from "$lib/items";
     import Checkbox from "../Checkbox.svelte";
@@ -12,7 +12,8 @@
     const randomizerSettings: LocalStore<RandomizerSettings> =
         getContext("randomizerSettings");
 
-    const openedChecks: LocalStore<Set<CheckName>> = getContext("openedChecks");
+    const openedChecks: LocalStore<SvelteSet<CheckName>> =
+        getContext("openedChecks");
     const items: LocalStore<typeof baseItems> = getContext("items");
 
     const clearTrackers = () => {
@@ -85,7 +86,7 @@
                 title="Temple of Time Access"
                 bind:value={randomizerSettings.value.totLogic}
                 options={[
-                    { label: "Vanilla", value: "vanilla" },
+                    { label: "Vanilla", value: "closed" },
                     { label: "Open Grove", value: "open-grove" },
                     { label: "Open", value: "open" },
                 ]}
